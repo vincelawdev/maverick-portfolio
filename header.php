@@ -39,21 +39,7 @@ if(!is_page() || is_page("blog"))
 ?>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-fix-menu-blog.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-organic-tabs.js"></script>
-<script type="text/javascript">
-//WAIT FOR PAGE TO LOAD
-$(document).ready(function()
-{	
-	$("#post_tabs").organicTabs(
-	{
-		"speed": 200
-	});
-	
-	$("#comment_tabs").organicTabs(
-	{
-		"speed": 200
-	});
-});
-</script>
+<script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-organic-tabs-initialise.js"></script>
 <?php
 }
 ?>

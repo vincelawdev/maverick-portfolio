@@ -1,0 +1,16 @@
+/* CSS FOR INTERNET EXPLORER 7 - 8 */
+
+#sidebar .sidebar_box > ul li a
+{
+	padding: 7px 0px 7px 19px;
+}
+
+#footer_row1 #footer_column2 ul li
+{
+	margin: 0px 20px 10px 0px;
+}
+
+#footer_row1 #footer_column3 ul li
+{
+	margin: 0px 13px 10px 0px;
+}

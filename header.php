@@ -28,7 +28,7 @@ if(is_front_page())
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("stylesheet_url"); ?>" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/superfish.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/prettify.css" />
-<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/ie7-8.css" /><![endif]-->
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/ie.css" /><![endif]-->
 <link rel="alternate" type="application/rss+xml" title="<?php bloginfo("name"); ?> RSS Feed" href="<?php bloginfo("rss2_url"); ?>" />
 <link rel="pingback" href="<?php bloginfo("pingback_url"); ?>" />
 <?php wp_head(); ?>
@@ -38,10 +38,26 @@ if(!is_page() || is_page("blog"))
 {
 ?>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-fix-menu-blog.js"></script>
-<script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-tabs.js"></script>
+<script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-organic-tabs.js"></script>
+<script type="text/javascript">
+//WAIT FOR PAGE TO LOAD
+$(document).ready(function()
+{	
+	$("#post_tabs").organicTabs(
+	{
+		"speed": 200
+	});
+	
+	$("#comment_tabs").organicTabs(
+	{
+		"speed": 200
+	});
+});
+</script>
 <?php
 }
 ?>
+<script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-fix-height.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-preload.php"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-hover-intent.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-superfish.js"></script>
@@ -96,7 +112,7 @@ if(is_front_page())
 			
 			<!-- PINTEREST BUTTON - START -->
 			<div class="social_pinterest">
-				<a href="http://pinterest.com/pin/create/button/?url=<?php bloginfo("url"); ?>" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+				<a href="http://pinterest.com/pin/create/button/?url=<?php bloginfo("url"); ?>" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" alt="Pin It" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 			</div>
 			<!-- PINTEREST BUTTON - END -->	
 			

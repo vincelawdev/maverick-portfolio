@@ -380,7 +380,8 @@ body
 	text-decoration: none;
 }
 
-#content a.post_title_link:active, #content a.post_title_link:hover
+#content a.post_title_link:hover,
+#content a.post_title_link:active
 {
 	color: #ebc308;
 	text-decoration: underline;
@@ -438,7 +439,8 @@ body
 	-webkit-font-smoothing: antialiased;
 }
 
-#content ol li ol, #content ol li ul, #content ul li ul, #content ul li ol
+#content ol li ol, #content ol li ul,
+#content ul li ul, #content ul li ol
 {
 	margin: 0px;
 	padding: 0px;
@@ -561,9 +563,6 @@ body
 }
 
 /* SIDEBAR */
-
-
-
 #sidebar
 {
 	width: 300px;
@@ -576,7 +575,7 @@ body
 {
 	width: 260px;
 	margin: 0px 0px 15px 0px;
-	padding: 0px 20px 0px 20px;
+	padding: 13px 20px 15px 20px;
 	-webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.55);
 	-moz-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.55);
 	box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.55);
@@ -584,9 +583,9 @@ body
 	overflow: hidden;
 }
 
-#sidebar .sidebar_box h4
+#sidebar h4
 {
-	margin: 13px 0px 0px 0px;
+	margin: 0px;
 	padding: 0px;
 	font-family: "CodeProDemoRegular", Georgia;
 	font-size: 18px;
@@ -596,175 +595,220 @@ body
 	border-bottom: 2px solid #cccccc;
 }
 
-#sidebar p
+#sidebar h4.tabs
 {
-	margin: 0px 20px 13px 20px;
+	margin: 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 12px;
-	font-weight: normal;
-	line-height: 16px;
-	color: #333333;
+	border-bottom: none;
+	float: left;
+}
+
+#sidebar .social_buttons
+{
+	margin: 10px 0px 5px 0px;
+	padding: 0px 2px 0px 2px;
 	overflow: hidden;
 }
 
-#sidebar ul.categories
+#sidebar ul.social_buttons_list
 {
-	margin: 0px 0px 14px 0px;
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	background-color: #F39;
+}
+
+#sidebar ul.social_buttons_list li
+{
+	margin: 0px 8px 0px 0px;
+	padding: 0px;
+	float: left;
+}
+
+#sidebar ul.social_buttons_list li:last-child
+{
+	margin: 0px;
+}
+
+#sidebar ul.social_buttons_list li img
+{
+	width: 25px;
+	height: 25px;
+	margin: 0px;
+	padding: 0px;
+}
+
+#sidebar .facebook_like_box
+{
+	width: 260px;
+	margin: 0px;
+	padding: 0px;	
+}
+
+#sidebar ul.sidebar
+{
+	margin: 0px;
 	padding: 0px;
 	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 14px;
 	font-weight: normal;
-	color: #333333;
+	color: #CCCCCC;
 	list-style: none;
 }
 
-#sidebar ul.categories li
+#sidebar ul.sidebar li
 {
 	margin: 0px;
-	padding: 8px 0px 8px 0px;
-	border-bottom: 1px solid #efefef;	
-}
-
-#sidebar ul.categories li.current-cat, #sidebar ul.categories li.current_page_item, #sidebar ul.categories li:hover
-{
-
-}
-
-#sidebar ul.categories li a
-{
-	margin: 0px 0px 0px 20px;
 	padding: 0px;
+	border-bottom: 1px dotted #cccccc;
+	background-image: url("images/arrow-sidebar-off.png");
+	background-repeat: no-repeat;
+	background-position: 3px 10px;
+}
+
+#sidebar ul.sidebar li a
+{
+	margin: 0px;
+	padding: 6px 0px 6px 19px;
+	color: #CCCCCC;
+	text-decoration: none;
+	display: block;
+}
+
+#sidebar ul.sidebar li a:hover,
+#sidebar ul.sidebar li a:active,
+#sidebar ul.sidebar li.current-cat a,
+#sidebar ul.sidebar li.current_page_item a,
+#sidebar ul.sidebar li:hover a
+{
+	color: #333333;
+}
+
+#sidebar ul.sidebar li.current-cat,
+#sidebar ul.sidebar li.current_page_item,
+#sidebar ul.sidebar li:hover
+{
+	background-image: url("images/arrow-sidebar-on.png");
+	background-color: #d8d8d8;
+}
+
+#sidebar ol.sidebar
+{
+	margin: 0px;
+	padding: 0px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	font-weight: normal;
+	color: #CCCCCC;
+	list-style-position: inside;
+}
+
+#sidebar ol.sidebar li
+{
+	margin: 0px;
+	padding: 6px 0px 6px 2px;
+	border-bottom: 1px dotted #cccccc;
+}
+
+#sidebar ol.sidebar li a
+{
+	margin: 0px;
+	padding: 6px 0px 6px 0px;
+	color: #CCCCCC;
+	text-decoration: none;
+}
+
+#sidebar ol.sidebar li a:hover,
+#sidebar ol.sidebar li a:active,
+#sidebar ol.sidebar li:hover a
+{
+	color: #333333;
+}
+
+#sidebar ol.sidebar li:hover
+{
+	color: #333333;
+	background-color: #d8d8d8;
+}
+
+#sidebar p
+{
+	margin: 0px 0px 13px 0px;
+	padding: 0px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	font-weight: normal;
+	color: #CCCCCC;
 }
 
 #sidebar form
 {
-	margin: 0px 0px 13px 0px;
-	padding: 0px;
-}
-
-#sidebar form input[type=text]
-{
-	width: 237px;
-}
-
-#sidebar form input[type=image]
-{
-	margin: 0px 0px 0px 20px;
+	margin: 0px;
 	padding: 0px;
 }
 
 #sidebar form select
 {
-	margin: 5px 0px 0px 0px;
+	margin: 10px 0px 0px 0px;
 	padding: 0px;
 	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 10px;
+	font-size: 14px;
 	font-weight: normal;
 	color: #333333;
 	background-color: #FFFFFF;
 }
 
-#sidebar .fb-like-box
+#sidebar .tab_box
 {
-	margin: -11px 0px 0px 20px;
-	padding: 0px;
+	display: block;
+	border-bottom: 2px solid #cccccc;
+	overflow: hidden;
 }
 
-/* TABS */
-#sidebar ul.post_tabs, #sidebar ul.comment_tabs
+#sidebar ul.nav
 {
-	width: 259px;
-	margin: 0px 0px 0px 20px;
+	margin: 0px 0px 0px 0px;
 	padding: 0px;
 	list-style: none;
+	overflow: hidden;
+	float: right;
 }
 
-#sidebar ul.post_tabs li, #sidebar ul.comment_tabs li
+#sidebar ul.nav li
 {
-	position: relative;
-	margin: 0px 3px -1px 0px;
+	margin: 0px 2px 0px 0px;
 	padding: 0px;
-	border-top: 1px solid #efefef;
-	border-left: 1px solid #efefef;
-	border-right: 1px solid #efefef;
-	-moz-border-radius-topleft: 5px;
-	-khtml-border-radius-topleft: 5px;
-	-webkit-border-top-left-radius: 5px;
-	-moz-border-radius-topright: 5px;
-	-khtml-border-radius-topright: 5px;
-	-webkit-border-top-right-radius: 5px;
-	overflow: hidden;
 	float: left;
 }
 
-#sidebar ul.post_tabs li a, #sidebar ul.comment_tabs li a
+#sidebar ul.nav li:last-child,
+#sidebar ul.nav li.last
 {
 	margin: 0px;
-	padding: 6px 5px 6px 5px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+#sidebar ul.nav li a
+{
+	margin: 0px;
+	padding: 4px 5px 4px 5px;
+	font-family: "CodeProDemoRegular", Georgia;
 	font-size: 10px;
 	font-weight: normal;
-	text-decoration: none;
 	color: #333333;
-	display: block;
+	text-decoration: none;
+	-webkit-font-smoothing: antialiased;
+	background-color: #d8d8d8;
+	float: left;
 }
 
-#sidebar ul.post_tabs li a, #sidebar ul.comment_tabs li a
+#sidebar ul.nav li a:hover,
+#sidebar ul.nav li a:focus,
+#sidebar ul.nav li a.current
 {
-	margin: 0px 0px 1px 0px;
-	background-color: #f6f5f5;
-}
-
-#sidebar ul.post_tabs li a:hover, #sidebar ul.comment_tabs li a:hover,
-#sidebar ul.post_tabs li.active a, #sidebar ul.comment_tabs li.active a,
-#sidebar ul.post_tabs li.active, #sidebar ul.comment_tabs li.active
-{
-	background-color: #FFFFFF;
-}
-
-#sidebar .tab_container
-{
-	width: 259px;
-	margin: 0px 0px 0px 20px;
-	padding: 0px;
-	background-color: #FFFFFF;
-	border-top: 1px solid #efefef;
-	clear: both;
-}
-
-#sidebar .tab_container .tab_content
-{
-	margin: 0px 0px 14px 0px;
-	padding: 8px 0px 2px 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 12px;
-	font-weight: normal;
-	border-left: 1px solid #efefef;
-	border-right: 1px solid #efefef;
-	border-bottom: 1px solid #efefef;
-}
-
-#sidebar .tab_container .tab_content ul
-{
-	margin: 0px 0px 0px 10px;
-	padding: 0px;
-	list-style: square;
-	list-style-type: circle;
-	list-style-position: inside;
-}
-
-#sidebar .tab_container .tab_content ol
-{
-	margin: 0px 0px 0px 10px;
-	padding: 0px;
-	list-style-position: inside;
-}
-
-#sidebar .tab_container .tab_content ul li, #sidebar .tab_container .tab_content ol li
-{
-	margin: 0px 0px 5px 0px;
-	padding: 0px;
+	padding: 4px 5px 5px 5px;
+	color: #FFFFFF;
+	background-color: #CCCCCC;
+	text-decoration: none;
 }
 
 /* HOME PAGE */
@@ -1058,7 +1102,7 @@ input[type=submit]#contact_button
 
 #footer_row1 #footer_column2 ul li
 {
-	margin: 0px 20px 0px 0px;
+	margin: 0px 20px 6px 0px;
 	padding: 0px;
 	float: left;
 }
@@ -1090,7 +1134,7 @@ input[type=submit]#contact_button
 
 #footer_row1 #footer_column3 ul li
 {
-	margin: 0px 13px 0px 0px;
+	margin: 0px 13px 5px 0px;
 	padding: 0px;
 	float: left;
 }
@@ -1397,7 +1441,6 @@ div.testimonial_box div.right_quote
 	color: #333333;
 	-webkit-font-smoothing: antialiased;
 }
-
 
 /* WP-PAGENAVI PLUGIN PAGING NAVIGATION LINKS */
 .wp-pagenavi

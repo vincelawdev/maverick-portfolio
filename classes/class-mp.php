@@ -22,7 +22,7 @@ class mp_options
 		register_nav_menu("menu_footer", "Footer Menu");
 		
 		#ENABLE SIDEBAR WIDGETS
-		register_sidebar(array("before_widget" => "","after_widget" => "", "before_title" => "<h4>", "after_title" => "</h4>",));
+		register_sidebar(array("before_widget" => '<div class="sidebar_box">',"after_widget" => "</div>", "before_title" => "<h4>", "after_title" => "</h4>",));
 		
 		#INITIALISE JQUERY LIBRARY
 		add_action("init", array("mp_options", "jquery_initialise"));
@@ -412,6 +412,7 @@ class mp_options
 	#THIS FUNCTION DISPLAYS THE LIST OF AUTHORS
 	function mp_display_author_list($select_id, $selected_author, $default_author = 1)
 	{
+		#RETRIEVE THE DATABASE
 		global $wpdb;
 		
 		#INITIALISE AUTHORS
@@ -943,6 +944,247 @@ class mp_options
 			
 			#CLOSE UNORDERED LIST
 			echo "</ul>";
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE SOCIAL MEDIA BUTTONS IN THE SIDEBAR
+	function display_social_buttons()
+	{
+		#INITIALISE AUTHOR ID
+		$author_id = mp_options::get_author_id();
+		
+		#INITIALISE SOCIAL MEDIA PROFILES
+		$facebook = get_user_meta($author_id, "facebook", true);
+		$twitter = get_user_meta($author_id, "twitter", true);
+		$google_plus = get_user_meta($author_id, "google_plus", true);
+		$pinterest = get_user_meta($author_id, "pinterest", true);
+		$linkedin = get_user_meta($author_id, "linkedin", true);
+		$github = get_user_meta($author_id, "github", true);
+		$dribbble = get_user_meta($author_id, "dribbble", true);
+		$instagram = get_user_meta($author_id, "instagram", true);
+		
+		#OPEN SOCIAL BOX & UNORDERED LIST
+		echo '<div class="social_buttons"><ul class="social_buttons_list">';
+		
+		#DISPLAY FACEBOOK BUTTON
+		if(!empty($facebook))
+		{
+			echo '<li><a href="' . $facebook . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-facebook.png" alt="Facebook" title="Facebook" /></a></li>';
+		}
+		
+		#DISPLAY TWITTER BUTTON
+		if(!empty($twitter))
+		{
+			echo '<li><a href="' . $twitter . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-twitter.png" alt="Twitter" title="Twitter" /></a></li>';
+		}
+		
+		#DISPLAY GOOGLE+ BUTTON
+		if(!empty($google_plus))
+		{
+			echo '<li><a href="' . $google_plus . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-google.png" alt="Google+" title="Google+" /></a></li>';
+		}
+		
+		#DISPLAY PINTEREST BUTTON
+		if(!empty($pinterest))
+		{
+			echo '<li><a href="' . $pinterest . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-pinterest.png" alt="Pinterest" title="Pinterest" /></a></li>';
+		}
+		
+		#DISPLAY LINKEDIN BUTTON
+		if(!empty($linkedin))
+		{
+			echo '<li><a href="' . $linkedin . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-linkedin.png" alt="LinkedIn" title="LinkedIn" /></a></li>';
+		}
+		
+		#DISPLAY GITHUB BUTTON
+		if(!empty($github))
+		{
+			echo '<li><a href="' . $github . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-github.png" alt="GitHub" title="GitHub" /></a></li>';
+		}
+		
+		#DISPLAY DRIBBBLE BUTTON
+		if(!empty($github))
+		{
+			echo '<li><a href="' . $dribbble . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-dribbble.png" alt="Dribbble" title="Dribbble" /></a></li>';
+		}
+		
+		#DISPLAY INSTAGRAM BUTTON
+		if(!empty($instagram))
+		{
+			echo '<li><a href="' . $instagram . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-instagram.png" alt="Instagram" title="Instagram" /></a></li>';
+		}
+		
+		#CLOSE SOCIAL BOX & UNORDERED LIST
+		echo "</ul></div>";
+	}
+	
+	#THIS FUNCTION DISPLAYS THE FACEBOOK LIKE BOX IN THE SIDEBAR
+	function display_facebook_like_box()
+	{
+		#INITIALISE FACEBOOK LIKE BOX CODE
+		$facebook_code = get_option("mp_facebook_like_box");
+		
+		#DISPLAY FACEBOOK LIKE BOX
+		if(!empty($facebook_code))
+		{
+			echo '<div class="facebook_like_box">' . $facebook_code . '</div>';
+		}
+	}
+	
+	#THIS FCUNTION DISPLAYS THE RECENT POSTS
+	function display_recent_posts($number_of_posts = 5)
+	{
+		#RETRIEVE THE DATABASE
+		global $wpdb;
+
+		#RETREIVE POSTS
+		$posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC LIMIT $number_of_posts");
+		
+		#POSTS EXIST
+		if(!empty($posts))
+		{
+			#OPEN UNORDERED LIST
+			echo '<ul id="recent_posts" class="sidebar">';
+			
+			#DISPLAY POSTS
+			foreach($posts as $post)
+			{
+				echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $post->post_title . '</a></li>';
+			}
+			
+			#CLOSE UNORDERED LIST
+			echo "</ul>\n";
+		}
+	}
+	
+	#THIS FCUNTION DISPLAYS THE MOST COMMENTED POSTS
+	function display_most_commented_posts($number_of_posts = 5)
+	{
+		#RETRIEVE THE DATABASE
+		global $wpdb;
+
+		#RETREIVE POSTS
+		$posts = $wpdb->get_results("SELECT ID, post_title, comment_count FROM $wpdb->posts WHERE comment_count > 0 AND post_status = 'publish' AND post_type = 'post' ORDER BY comment_count DESC LIMIT $number_of_posts");
+		
+		#POSTS EXIST
+		if(!empty($posts))
+		{
+			#OPEN UNORDERED LIST
+			echo '<ul id="most_comments" class="sidebar hide">';
+			
+			#DISPLAY POSTS
+			foreach($posts as $post)
+			{
+				echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $post->post_title . ' (' . $post->comment_count . ')</a></li>';
+			}
+			
+			#CLOSE UNORDERED LIST
+			echo "</ul>\n";
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE RECENT COMMENTS
+	function display_recent_comments($number_of_comments = 5)
+	{
+		#RETRIEVE THE DATABASE
+		global $wpdb;
+		
+		#INITIALISE SQL QUERY
+		$sql = "SELECT DISTINCT ID, post_title, post_password, comment_ID, comment_post_ID, comment_author, comment_author_email, comment_date_gmt, comment_approved, comment_type,comment_author_url, SUBSTRING(comment_content, 1, 65) AS com_excerpt
+		FROM $wpdb->comments
+		LEFT OUTER JOIN $wpdb->posts ON ($wpdb->comments.comment_post_ID = $wpdb->posts.ID)
+		WHERE comment_approved = '1'
+		AND comment_type = ''
+		ORDER BY comment_date_gmt DESC
+		LIMIT $number_of_comments";
+ 
+		#RETREIVE COMMENTS
+		$comments = $wpdb->get_results($sql);
+		
+		#COMMENTS EXIST
+		if(!empty($comments))
+		{
+			#OPEN UNORDERED LIST
+			echo '<ul id="recent_comments" class="sidebar">';
+			
+			#DISPLAY COMMENTS
+			foreach($comments as $comment)
+			{
+				echo '<li><a href="' . get_permalink($comment->ID) . '#comment-' . $comment->comment_ID . '" title="' . $comment->post_title . '">' . strip_tags($comment->comment_author) . ': ' . strip_tags($comment->com_excerpt) . '… ' . get_the_time("j F Y", $comment->comment_ID) . '</a></li>';
+
+			}
+			
+			#CLOSE UNORDERED LIST
+			echo "</ul>\n";
+		}		
+	}
+	
+	#THIS FUNCTION DISPLAYS THE TOP COMMENTERS
+	function display_top_commenters($number_of_commenters = 10)
+	{
+		#RETRIEVE THE DATABASE
+		global $wpdb;
+		
+		#INITIALISE SQL QUERY
+		$sql = "SELECT comment_author, comment_author_url, comment_author_email, comment_post_ID, COUNT(comment_ID) AS total_comments
+		FROM $wpdb->comments
+		WHERE comment_approved = '1'
+		AND comment_type = ''
+		AND comment_author != ''
+		GROUP BY comment_author
+		ORDER BY total_comments DESC
+		LIMIT $number_of_commenters";
+	
+		#RETREIVE COMMENTERS
+		$commenters = $wpdb->get_results($sql);
+		
+		#COMMENTERS EXIST
+		if(!empty($commenters))
+		{
+			#OPEN ORDERED LIST
+			echo '<ol id="top_commenters" class="sidebar hide">';
+			
+			#DISPLAY COMMENTERS
+			foreach($commenters as $commenter)
+			{
+				#INITIALISE LIST ITEM
+				$html .= '<li>';
+				
+				#RETRIEVE COMMENTER DISPLAY NAME & URL
+				$commenter_data = $wpdb->get_row("SELECT display_name, user_url FROM $wpdb->users WHERE display_name = '$commenter->comment_author'");
+				
+				#COMMENTER URL IN USER DATA DOES NOT EXIST
+				if(empty($commenter_data->user_url))
+				{
+					#COMMENTER URL DOES NOT EXIST
+					if(empty($commenter->comment_author_url))
+					{
+						$html .= '<a href="#">' . $commenter->comment_author;
+					}
+					#COMMENTER URL EXISTS
+					else
+					{
+						$html .= '<a title="Visit ' . $commenter->comment_author . '\'s site" href="' . $commenter->comment_author_url . '" rel="nofollow">' . $commenter->comment_author;
+					}
+				}
+				#COMMENTER URL IN USER DATA EXISTS
+				else
+				{
+					$html .= '<a title="Visit ' . $commenter->comment_author . '\'s site" href="' . $commenter_data->user_url . '" rel="nofollow">' . $commenter->comment_author;
+				}
+				
+				#APPEND COMMENTER'S NUMBER OF COMMENTS	
+				$html .= ' (' . $commenter->total_comments . ')';
+				
+				#CLOSE LIST ITEM
+				$html .= '</a></li>';
+				
+				#DISPLAY LIST ITEM
+				echo $html;
+			}			
+			
+			#CLOSE ORDERED LIST
+			echo "</ol>\n";
 		}
 	}
 	

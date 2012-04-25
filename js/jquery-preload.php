@@ -38,11 +38,15 @@ $(document).ready(function()
 	preload3 = new Image();
 	preload4 = new Image();
 	preload5 = new Image();
+	preload6 = new Image();
+	preload7 = new Image();
 	preload1.src = "<?php bloginfo("template_directory"); ?>/images/arrow-menu-down-on.png";
 	preload2.src = "<?php bloginfo("template_directory"); ?>/images/arrow-menu-right-on.png";
 	preload3.src = "<?php bloginfo("template_directory"); ?>/images/button-search-on.png";
 	preload4.src = "<?php bloginfo("template_directory"); ?>/images/menu-home-on.png";
 	preload5.src = "<?php bloginfo("template_directory"); ?>/images/menu-home-off.png";
+	preload6.src = "<?php bloginfo("template_directory"); ?>/images/arrow-sidebar-on.png";
+	preload7.src = "<?php bloginfo("template_directory"); ?>/images/arrow-sidebar-off.png";
 });
 <?php
 #SEND THE OUTPUT BUFFER AND TURN OFF OUTPUT BUFFERING 

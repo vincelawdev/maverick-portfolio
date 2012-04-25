@@ -99,7 +99,7 @@ if(comments_open())
 				<!-- COMMENT AVATAR, AUTHOR & DATE - END -->				
 			
 				<!-- COMMENT TEXT - START -->
-				<div class="<?php echo $comment_class; ?>"><a name="comment<?php comment_ID(); ?>"></a><?php comment_text(); ?></div>
+				<div class="<?php echo $comment_class; ?>"><a name="comment-<?php comment_ID(); ?>"></a><?php comment_text(); ?></div>
 				<!-- COMMENT TEXT - END -->
 				
 			</div>

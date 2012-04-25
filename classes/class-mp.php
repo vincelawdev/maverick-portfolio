@@ -1,0 +1,965 @@
+<?php
+#THIS CLASS INITIALISES THE THEME OPTIONS
+class mp_options
+{
+	#THIS CONSTRUCTOR FUNCTION INITIALISES THE THEME OPTIONS
+	function __construct()
+	{	
+		#REMOVE UNNECESSARY META DATA FROM WORDPRESS HEAD
+		remove_action("wp_head", "wp_generator");
+		remove_action("wp_head", "start_post_rel_link");
+		remove_action("wp_head", "index_rel_link");
+		remove_action("wp_head", "adjacent_posts_rel_link");
+		remove_action("wp_head", "adjacent_posts_rel_link_wp_head");
+		remove_action("wp_head", "parent_post_rel_link");
+		remove_action("wp_head", "parent_post_rel_link_wp_head");
+		
+		#ENABLE POST THUMBNAILS
+		add_theme_support("post-thumbnails");
+		
+		#INITIALISE MENUS
+		register_nav_menu("menu_top", "Top Menu");
+		register_nav_menu("menu_footer", "Footer Menu");
+		
+		#ENABLE SIDEBAR WIDGETS
+		register_sidebar(array("before_widget" => "","after_widget" => "", "before_title" => "<h4>", "after_title" => "</h4>",));
+		
+		#INITIALISE JQUERY LIBRARY
+		add_action("init", array("mp_options", "jquery_initialise"));
+		
+		#INITIALISE THEME OPTIONS
+		add_action("admin_menu", array("mp_options", "mp_admin_menu"));
+		add_action("admin_init", array("mp_options", "mp_theme_settings"));
+		
+		#INITIALISE THEME ADMIN JAVASCRIPT & CSS
+		add_action("admin_head", array("mp_options", "admin_head"));
+		
+		#INITIALISE SLIDE CUSTOM POST TYPES
+		add_action("init", array("mp_options", "custom_posts_slides"));
+		add_filter("manage_edit-slide_columns", array("mp_options", "slide_edit_columns"));
+		add_action("manage_slide_posts_custom_column",  array("mp_options", "slide_custom_columns"));
+		
+		#INITIALISE SLIDE META BOXES
+		add_action("admin_init", array("mp_options", "meta_boxes_slide"));
+		
+		#INITIALISE TINYMCE EDITOR FOR USER BIOGRAPHY IN WORDPRESS 3.3 +
+		if(function_exists("wp_editor") && current_user_can("edit_posts"))
+		{
+			#REPLACE BIOGRAPHY FIELD WITH TINYMCE EDITOR
+			add_action("show_user_profile", array("mp_options", "tinymce_biography"));
+			add_action("edit_user_profile", array("mp_options", "tinymce_biography"));
+			
+			#REMOVE TEXTAREA FILTERS FROM BIOGRAPHY FIELD
+			remove_all_filters("pre_user_description");
+			
+			#ADD CONTENT FILTERS TO THE BIOGRAPHY FIELD
+			add_filter("get_the_author_description", "wptexturize");
+			add_filter("get_the_author_description", "convert_chars");
+			add_filter("get_the_author_description", "wpautop");
+		}
+		
+		#INITIALISE USER CONTACT INFO FIELDS
+		add_filter("user_contactmethods", array("mp_options", "contact_info"));
+		
+		#INITIALISE SHORTCODES
+		add_shortcode("testimonial", array("mp_options", "testimonial_shortcode"));
+		
+		#INITIALISE THICKBOX
+		wp_enqueue_script("thickbox", true);
+		wp_enqueue_style("thickbox");
+		
+		#INITIALISE TRACKING CODE IN FOOTER
+		add_action("wp_footer", array("mp_options", "mp_tracking"));
+		
+		#INITIALISE AUTHOR ID
+		$this->mp_author_id = 1;
+	}
+	
+	#THIS FUNCTION ADDS THE THEME OPTIONS MENU ITEM TO THE APPEARANCE MENU
+	function mp_admin_menu()
+	{
+		add_theme_page("Options", "Options", "administrator", "mp_options", array("mp_options", "mp_options_page"));
+	}
+	
+	#THIS FUNCTION REGISTERS THE THEME OPTION SETTINGS
+	function mp_theme_settings()
+	{
+		register_setting("mp_settings_author", "mp_author");
+		register_setting("mp_settings_facebook", "mp_facebook_like_box");
+		register_setting("mp_settings_tracking", "mp_tracking");
+	}
+	
+	#THIS FUNCTION RESETS THE THEME OPTION SETTINGS
+	function mp_reset_options($option)
+	{
+		#RESET OPTIONS
+		switch($option)
+		{
+			#AUTHOR
+			case "author":
+			
+				update_option("mp_author", 1);
+				break;
+				
+			#FACEBOOK
+			case "facebook":
+			
+				update_option("mp_facebook_like_box", "");
+				break;
+				
+			#TRACKING
+			case "tracking":
+			
+				update_option("mp_tracking", "");
+				break;
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE THEME'S OPTIONS PAGE
+	function mp_options_page()
+	{
+		#INITIALISE SUB PAGE
+		$sub_page = $_REQUEST["sub_page"];
+		
+		#SET DEFAULT SUB PAGE TO AUTHOR
+		if(empty($sub_page))
+		{
+			$sub_page = "author";
+		}
+		
+		?>
+		<div id="mp-options" class="wrap">
+			
+			<div class="icon32" id="icon-tools"><br /></div>
+			
+			<h2>Options</h2>
+			
+			<ul style="display: block">
+				<li style="display: inline"><?php if($sub_page == "author" || empty($sub_page)) { echo "<strong>Author</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=author">Author</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == "facebook") { echo "<strong>Facebook</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=facebook">Facebook</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == "tracking") { echo "<strong>Tracking</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=tracking">Tracking</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == "reset") { echo "<strong>Reset</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=reset">Reset</a><?php } ?></li>
+				<li style="display: inline"><a href="http://www.employvince.com/contact/" target="_blank">Support</a></li>			
+			</ul>
+			
+		</div>
+		<?php
+		#DISPLAY SUB PAGES
+		switch($sub_page)
+		{
+			#AUTHOR
+			case "author":
+				
+				#DISPLAY UPDATE MESSAGE
+				if(isset($_GET["settings-updated"]) && ($_GET["settings-updated"] == true))
+				{
+				?>
+				<div class="updated fade"><p><strong><?php _e("Your Author options have been saved."); ?></strong></p></div>
+				<?php
+				}
+				?>
+				
+				<form method="post" action="options.php">
+				<?php
+				settings_fields("mp_settings_author");
+				
+				#DISPLAY AUTHORS
+				mp_options::mp_option_field("Author", "", true, true, "Author", "author", "mp_author", "mp_author", "Select the author you with to display in the sidebar and footer", 1, true);
+				?>
+			
+				</form>
+			
+				<?php
+				break;
+				
+			#FACEBOOK
+			case "facebook":
+				
+				#DISPLAY UPDATE MESSAGE
+				if(isset($_GET["settings-updated"]) && ($_GET["settings-updated"] == true))
+				{
+				?>
+				<div class="updated fade"><p><strong><?php _e("Your Facebook options have been saved."); ?></strong></p></div>
+				<?php
+				}
+				?>
+				
+				<form method="post" action="options.php">
+				<?php
+				settings_fields("mp_settings_facebook");
+				
+				#INITIALISE FACEBOOK DESCRIPTION
+				$tracking_description = '<p>Generate a <a href="https://developers.facebook.com/docs/reference/plugins/like-box/" target="_blank">Facebook Like Box</a> Iframe social plugin code from Facebook. For best results, please enter  260 for the Width, select the Dark colour scheme, uncheck "Show header" and enter #333333 for the Border Color.</p>';
+				
+				#DISPLAY FACEBOOK
+				mp_options::mp_option_field("Facebook Like Box", $tracking_description, true, true, "Facebook Like Box Code", "textarea", "mp_facebook_like_box", "mp_facebook_like_box", "Enter the Facebook Like Box Iframe social plugin code of your Facebook Page. The Facebook Like Box will appear in the sidebar", "", true);
+				?>
+			
+				</form>
+			
+				<?php
+				break;
+		
+			#TRACKING
+			case "tracking":
+				
+				#DISPLAY UPDATE MESSAGE
+				if(isset($_GET["settings-updated"]) && ($_GET["settings-updated"] == true))
+				{
+				?>
+				<div class="updated fade"><p><strong><?php _e("Your Tracking options have been saved."); ?></strong></p></div>
+				<?php
+				}
+				?>
+				
+				<form method="post" action="options.php">
+				<?php
+				settings_fields("mp_settings_tracking");
+				
+				#INITIALISE TRACKING DESCRIPTION
+				$tracking_description = '<p>To use <a href="http://www.google.com/analytics/" target="_blank">Google Analytics</a>, your web site must be registered with your <a href="http://www.google.com/analytics/" target="_blank">Google Analytics</a> account.</p>';
+				
+				#DISPLAY TRACKING
+				mp_options::mp_option_field("Google Analytics Or Other Tracking Services", $tracking_description, true, true, "Tracking Code", "textarea", "mp_tracking", "mp_tracking", "Enter the tracking code of your tracking service. The tracking code will appear just before the &lt;/body&gt; tag of your web site", "", true);
+				?>
+			
+				</form>
+			
+				<?php
+				break;
+				
+			#RESET
+				case "reset":
+					
+					#AUTHOR RESET SECURITY CHECK PASSED
+					if(!empty($_POST["author_reset"]) && check_admin_referer("author_reset_check"))
+					{
+						#RESET AUTHOR OPTIONS
+						mp_options::mp_reset_options("author");
+						
+						#DISPLAY RESET MESSAGE
+						?>
+						<div class="updated fade"><p><strong><?php _e("Your Author options have been reset."); ?></strong></p></div>
+						<?php
+					}
+					#FACEBOOK RESET SECURITY CHECK PASSED
+					if(!empty($_POST["facebook_reset"]) && check_admin_referer("facebook_reset_check"))
+					{
+						#RESET FACEBOOK OPTIONS
+						mp_options::mp_reset_options("facebook");
+						
+						#DISPLAY RESET MESSAGE
+						?>
+						<div class="updated fade"><p><strong><?php _e("Your Facebook options have been reset."); ?></strong></p></div>
+						<?php
+					}
+					#TRACKING RESET SECURITY CHECK PASSED
+					if(!empty($_POST["tracking_reset"]) && check_admin_referer("tracking_reset_check"))
+					{
+						#RESET TRACKING OPTIONS
+						mp_options::mp_reset_options("tracking");
+						
+						#DISPLAY RESET MESSAGE
+						?>
+						<div class="updated fade"><p><strong><?php _e("Your Tracking options have been reset."); ?></strong></p></div>
+						<?php
+					}
+					?>
+					
+					<h3 class="title">Author</h3>
+					
+					<form name="author_reset_form" method="post">
+					<?php wp_nonce_field("author_reset_check"); ?>
+					
+					<input type="submit" name="author_reset" class="button-primary" value="<?php _e("Reset Options") ?>" onclick="javascript:check = confirm('<?php _e('Reset all Author options to default settings?', 'author_reset'); ?>'); if(check == false) { return false; }" />
+					
+					</form>
+					
+					<h3 class="title">Facebook</h3>
+					
+					<form name="facebook_reset_form" method="post">
+					<?php wp_nonce_field("facebook_reset_check"); ?>
+					
+					<input type="submit" name="facebook_reset" class="button-primary" value="<?php _e("Reset Options") ?>" onclick="javascript:check = confirm('<?php _e('Reset all Facebook options to default settings?', 'facebook_reset'); ?>'); if(check == false) { return false; }" />
+					
+					</form>
+					
+					<h3 class="title">Tracking</h3>
+					
+					<form name="tracking_reset_form" method="post">
+					<?php wp_nonce_field("tracking_reset_check"); ?>
+					
+					<input type="submit" name="tracking_reset" class="button-primary" value="<?php _e("Reset Options") ?>" onclick="javascript:check = confirm('<?php _e('Reset all Tracking options to default settings?', 'tracking_reset'); ?>'); if(check == false) { return false; }" />
+					
+					</form>					
+					
+					<?php	
+					break;
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE THEME'S OPTIONS PAGE FIELDS
+	function mp_option_field($h3_title = "", $below_h3_title = "", $open_table = false, $close_table = false, $column_name, $input_type, $input_id, $input_option, $input_description, $input_default, $save_button = false, $min_width = "", $max_width = "")
+	{	
+		#INITIALISE OPTION
+		$mp_option = get_option("$input_option");
+		
+		#DISPLAY HEADER
+		if(!empty($h3_title))
+		{
+			echo '<h3 class="title">' . $h3_title . '</h3>' . "\n";
+		}
+		
+		#DISPLAY CODE AFTER HEADER
+		if(!empty($below_h3_title))
+		{
+			echo $below_h3_title . "\n";
+		}
+		
+		#OPEN TABLE
+		if($open_table)
+		{
+			echo '<table class="form-table">' . "\n";
+		}
+		
+		#OPEN TABLE ROW
+		echo '<tr valign="top">' . "\n";
+		
+		#DISPLAY 1ST COLUMN WITH COLUMN NAME
+		echo "\t" . '<th scope="row">' . $column_name . '</th>' . "\n";
+		
+		#OPEN 2ND COLUMN
+		echo "\t" . '<td>';
+		
+		#DISPLAY INPUT TYPE
+		switch($input_type)
+		{		
+			#TEXT BOX
+			case "text":
+			
+				mp_options::mp_display_text($input_id, $mp_option);
+				break;
+				
+			#TEXTAREA:
+			case "textarea":
+				
+				mp_options::mp_display_textarea($input_id, $mp_option);
+				break;
+				
+			#AUTHOR SELECT LIST:
+			case "author":
+				
+				mp_options::mp_display_author_list($input_id, $mp_option, $input_default);
+				break;				
+		}
+		
+		#CLOSE 2ND COLUMN WITH INPUT DESCRIPTION & DEFAULT VALUES OF MINIMUM & MAXIMUM WIDTH
+		if($input_type == "width" && !empty($min_width) && !empty($max_width))
+		{
+			echo '<br /><span class="description">' . $input_description . '. Default: ' . $input_default . ', Minimum: ' . $min_width . 'px, Maximum: ' . $max_width . 'px.</span></td>' . "\n";
+		}
+		#CLOSE 2ND COLUMN WITH INPUT DESCRIPTION & DEFAULT VALUE
+		else
+		{
+			#DEFAULT VALUE EXISTS
+			if(!empty($input_default))
+			{
+				echo '<br /><span class="description">' . $input_description . '. Default: ' . $input_default . '.</span></td>' . "\n";
+			}
+			#DEFAULT VALUE DOES NOT EXIST
+			else
+			{
+				echo '<br /><span class="description">' . $input_description . '.</span></td>' . "\n";
+			}
+		}
+		
+		#CLOSE TABLE ROW
+		echo '</tr>' . "\n";
+		
+		#CLOSE TABLE
+		if($close_table)
+		{
+			echo '</table>' . "\n";
+		}
+		
+		#DISPLAY SAVE CHANGES BUTTON
+		if($save_button)
+		{
+			echo '<p class="submit"><input type="submit" class="button-primary" value="Save Changes" /></p>' . "\n";
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS A TEXT FIELD
+	function mp_display_text($text_id, $entered_text)
+	{
+		#INITIALISE TEXT FIELD HTML
+		$text_box = "<input name=\"$text_id\" id=\"$text_id\" type=\"text\" value=\"$entered_text\" class=\"regular-text\" />";
+		
+		#DISPLAY TEXT FIELD
+		echo $text_box;
+	}
+	
+	#THIS FUNCTION DISPLAYS A TEXTAREA
+	function mp_display_textarea($text_id, $entered_text)
+	{
+		#INITIALISE TEXTAREA
+		$textarea = "<textarea name=\"$text_id\" id=\"$text_id\" rows=\"10\" cols=\"50\" class=\"large-text code\">$entered_text</textarea>";
+		
+		#DISPLAY TEXTAREA
+		echo $textarea;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE LIST OF AUTHORS
+	function mp_display_author_list($select_id, $selected_author, $default_author = 1)
+	{
+		global $wpdb;
+		
+		#INITIALISE AUTHORS
+		$authors = $wpdb->get_results("SELECT ID, display_name from $wpdb->users ORDER BY ID");
+		
+		#SELECT DEFAULT AUTHOR IF NO AUTHOR WAS SELECTED
+		if(empty($selected_author) && !empty($default_author))
+		{
+			$selected_author = $default_author;
+		}
+		
+		#INITIALISE SELECT LIST HTML
+		$select_list = "<select name=\"$select_id\" id=\"$select_id\" class=\"postform\">\n";
+		
+		#APPEND AUTHORS
+		foreach($authors as $author)
+		{
+			#SELECTED AUTHOR
+			if($selected_author == $author->ID)
+			{
+				$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $author->ID . "\">" . $author->display_name . "</option>\n";
+			}
+			#UNSELECTED AUTHOR
+			else
+			{
+				$select_list .= "<option class=\"level-0\" value=\"" . $author->ID . "\">" . $author->display_name . "</option>\n";
+			}		
+		}
+		
+		#CLOSE SELECT LIST HTML
+		$select_list .= "</select>";
+		
+		#DISPLAY SELECT LIST
+		echo $select_list;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE TRACKING CODE JUST BEFORE THE </BODY> TAG
+	function mp_tracking()
+	{
+		#INITIALISE TRACKING SETTINGS
+		$mp_tracking = get_option("mp_tracking");
+		
+		#TRACKING SETTINGS EXIST
+		if(!empty($mp_tracking))
+		{
+			echo $mp_tracking . "\n\n";
+		}
+	}
+	
+	#THIS FUNCTION INCLUDES THE JQUERY LIBRARY INTO NON-ADMIN WORDPRESS PAGES
+	function jquery_initialise()
+	{
+		#PAGE IS NON-ADMIN
+		if(!is_admin())
+		{
+			#DEREGISTER DEFAULT JQUERY INCLUDES
+			wp_deregister_script("jquery");	
+	
+			#LOAD THE GOOGLE API JQUERY INCLUDES
+			wp_register_script("jquery", "http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js", false, "1.7.2", false);
+	
+			#REGISTER CUSTOM JQUERY INCLUDES
+			wp_enqueue_script("jquery");
+		}
+	}
+	
+	#THIS FUNCTION INCLUDES THE JAVASCRIPT & CSS FILES OF THE THEME OPTIONS
+	function admin_head()
+	{
+		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo("template_url") . '/css/admin.css" type="text/css" />' . "\n";
+		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-metadata.js"></script>' . "\n";
+		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-validate.js"></script>' . "\n";
+		
+		#LOAD JAVASCRIPT FOR TINYMCE EDITOR FOR USER BIOGRAPHY IN WORDPRESS 3.3 +
+		if(function_exists("wp_editor"))
+		{
+			echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-tinymce-biography.js"></script>' . "\n";
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE SLIDES
+	function display_slides()
+	{
+		#RETRIEVE THE POST
+		global $post;
+	
+		#INITIALISE SLIDE ARGUMENTS
+		$args = array
+		(
+			"post_type" => "slide",
+			"post_status" => "publish",
+			"posts_per_page" => 5
+		);
+		
+		#RETRIEVE SLIDES
+		$slides = new WP_Query($args);
+		
+		#SLIDES EXISTS
+		if($slides->have_posts())
+		{
+			#OPEN SLIDE LIST
+			echo '<ul id="slider">';
+			
+			#DISPLAY SLIDES
+			while($slides->have_posts())
+			{
+				#RETRIEVE THE SLIDE CONTENT
+				$slides->the_post();
+			
+				#RETRIEVE THE SLIDE VARIABLES
+				$slide_image = get_post_meta($post->ID, "slide_image", true);
+				$slide_url = get_post_meta($post->ID, "slide_url", true);
+				$slide_title = get_the_title($post->ID);   
+				
+				#OPEN SLIDE LIST ITEM
+				echo '<li>';
+				
+				#DISPLAY IMAGE WITH LINK
+				echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '"  class="left" /></a>';
+					
+				#DISPLAY CAPTION
+				echo '<div class="caption-bottom"><h2>' . $slide_title . "</h2>";
+				the_content();
+				echo "</div>";
+				
+				#CLOSE SLIDE LIST ITEM
+				echo '</li>';
+			}
+			
+			#CLOSE SLIDE LIST
+			echo '</ul>';
+		}
+	}
+	
+	#THIS FUNCTION CREATES THE SLIDE CUSTOM POST TYPE
+	function custom_posts_slides()
+	{
+		#INITIALISE SLIDE CUSTOM POST TYPE LABELS
+		$labels = array
+		(
+			"name" => _x("Slides", "post type general name"),
+			"singular_name" => _x("Slide", "post type singular name"),
+			"add_new" => _x("Add Slide", "nail-care"),
+			"add_new_item" => __("Add New Slide"),
+			"edit_item" => __("Edit Slide"),
+			"new_item" => __("New Slide"),
+			"all_items" => __("All Slides"),
+			"view_item" => __("View Slide"),
+			"search_items" => __("Search Slides"),
+			"not_found" =>  __("No Slides found"),
+			"not_found_in_trash" => __("No Slides found in Trash"), 
+			"parent_item_colon" => "",
+			"menu_name" => "Slides"
+		);
+		
+		#INITIALISE SLIDE CUSTOM POST TYPE ARGUMENTS
+		$args = array
+		(
+			"labels" => $labels,
+			"description" => "Slide",
+			"public" => true,
+			"publicly_queryable" => true,
+			"exclude_from_search" => false,
+			"show_ui" => true, 
+			"show_in_menu" => true,
+			"menu_position" => 4,
+			"menu_icon" => null,
+			"capability_type" => "post",
+			"hierarchical" => false,
+			"supports" => array("title", "editor", "revisions", "custom-fields"),
+			"has_archive" => false,
+			"rewrite" => array("slug" => "slide", "with_front" => false),
+			"query_var" => true,
+			"can_export" => true,
+			"show_in_nav_menus" => true
+		);
+		
+		#REGISTER SLIDE CUSTOM POST TYPE
+		register_post_type("slide", $args);
+	}
+	
+	#THIS FUNCTION DISPLAYS THE SLIDE COLUMN VALUES
+	function slide_custom_columns($column)
+	{
+		#RETRIEVE THE POST & DATABASE
+		global $wpdb;
+		global $post;
+		
+		#DISPLAY PRODUCT COLUMN VALUES
+		switch($column)
+		{			
+			#SLIDE IMAGE
+			case "image":
+				
+				$slide_image = get_post_meta($post->ID, "slide_image", true);
+				echo '<a href="' . $slide_image . '" target="_blank">' . $slide_image . '</a>';
+				break;
+				
+			#SLIDE URL
+			case "url":
+			
+				$slide_url = get_post_meta($post->ID, "slide_url", true);
+				echo '<a href="' . $slide_url . '" target="_blank">' . $slide_url . '</a>';
+				break;
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE SLIDE COLUMNS
+	function slide_edit_columns($columns)
+	{
+		#INITIALISE SLIDE COLUMNS
+		$columns = 
+		array
+		(
+			"cb" => "<input type=\"checkbox\" />",
+			"title" => "Title",
+			"image" => "Image",
+			"url" => "URL",
+			"date" => "Date",
+			"author" => "Author"
+		);
+		
+		return $columns;
+	}
+	
+	#THIS FUNCTION CREATES THE SLIDE BOX
+	function meta_boxes_slide()
+	{
+		#ADD SLIDE BOX TO SLIDE CUSTOM POSTS
+		add_meta_box("slide_box", "Slide Information", array("mp_options", "meta_boxes_slide_form"), "slide", "normal", "high");
+	 
+		#SAVE SLIDE BOX FORM CONTENTS
+		add_action("save_post", array("mp_options", "meta_boxes_slide_form_save"));
+	}
+	
+	#THIS FUNCTION CREATES THE SLIDE BOX FORM
+	function meta_boxes_slide_form()
+	{
+		#RETRIEVE THE POST
+		global $post;
+	
+		#INITIALISE SLIDE ERROR BOX ID
+		$slide_error_box = "slide_errors" . $post->ID;
+	
+		#INITIALISE SLIDE OPTIONS
+		$slide_image = get_post_meta($post->ID, "slide_image", true);
+		$slide_url = get_post_meta($post->ID, "slide_url", true);
+		
+		#DISPLAY SLIDE NONCE FIELD
+		echo '<input name="slide_nonce" id="slide_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
+				
+		#DISPLAY SLIDE IMAGE FIELD
+		echo '<p><strong>Slide Image:</strong><br /><input name="slide_image" id="slide_image" type="text" size="80" value="' . urldecode($slide_image) . '" /></p><p>Enter the URL of the slide image.</p>';
+		
+		#DISPLAY SLIDE URL FIELD
+		echo '<p><strong>Slide URL:</strong><br /><input name="slide_url" id="slide_url" type="text" size="80" value="' . urldecode($slide_url) . '" /></p><p>Enter the URL of the slide.</p>';
+		?>
+		<script type="text/javascript">
+		jQuery(document).ready(function()
+		{
+			jQuery("div.wrap").after('<div id="<?php echo $slide_error_box; ?>" class="mp_errors error"></div>');
+			
+			jQuery("form#post").validate(
+			{
+				//VALIDATION CONTAINER & ERROR MESSAGES
+				errorLabelContainer: jQuery("#<?php echo $slide_error_box; ?>"),
+				errorElement: "p",
+				errorClass: "mp_error_field",
+				
+				//VALIDATION RULES
+				rules:
+				{
+					slide_image:
+					{
+						required: true,
+						url: true
+					},
+					slide_url:
+					{
+						required: true,
+						url: true
+					}
+				},
+				//VALIDATION MESSAGES
+				messages:
+				{
+					slide_image:
+					{
+						required: "Please enter a Slide Image.",
+						url: "Please enter a valid Slide Image."
+					},
+					slide_url:
+					{
+						required: "Please enter a Slide URL.",
+						url: "Please enter a valid Slide URL."
+					}
+				}
+			});
+			
+			jQuery("#publish").click(function()
+			{
+				form_check = jQuery("#post").valid();
+				
+				if(!form_check)
+				{
+					return false;
+				}
+			});
+		});
+		</script>
+		<?php
+	}
+	
+	#THIS FUNCTION SAVES THE SLIDE BOX FORM CONTENTS
+	function meta_boxes_slide_form_save($post_id) 
+	{
+		#SAVE SLIDE BOX FORM CONTENTS
+		mp_options::meta_boxes_save($post_id, "slide_nonce", "slide_image", "post");
+		mp_options::meta_boxes_save($post_id, "slide_nonce", "slide_url", "post");
+		
+		#RETURN POST ID
+		return $post_id;
+	}
+	
+	#THIS FUNCTION SAVES THE META BOX FORM CONTENTS
+	function meta_boxes_save($post_id, $nonce, $field_name, $type, $url_encode = false)
+	{		
+		#FORMATTING FORM DID NOT SUBMIT FROM THE RIGHT PLACE
+		if(!wp_verify_nonce($_POST["$nonce"], __FILE__))
+		{
+			return $post_id;
+		}
+		
+		#DETERMINE USER'S PERMISSIONS TO EDIT PAGE/POST
+		switch($type)
+		{
+			#PAGES
+			case "page":
+			
+				#USER HAS NO PERMISSION TO EDIT PAGE
+				if($_POST["post_type"] == "page" && !current_user_can("edit_pages", $post_id)) 
+				{
+					return $post_id;
+				}
+				
+			#POSTS
+			case "post":
+			
+				#USER HAS NO PERMISSION TO EDIT POST
+				if($_POST["post_type"] == "post" && !current_user_can("edit_posts", $post_id)) 
+				{
+					return $post_id;
+				}
+		}
+		
+		#INITIALISE CURRENT FIELD
+		$current_field = get_post_meta($post_id, $field_name, true);
+		
+		#INITIALISE NEW FIELD
+		$new_field = $_POST["$field_name"];
+		
+		#URL ENCODE NEW FIELD
+		if($url_encode)
+		{
+			$new_field = urlencode($new_field);
+		}
+		
+		#CURRENT FIELD EXISTS
+		if($current_field) 
+		{
+			#DELETE EXISTING FORMATTING
+			if(empty($new_field))
+			{
+				delete_post_meta($post_id, $field_name);
+			}
+			#UPDATE EXISTING FORMATTING
+			else
+			{
+				update_post_meta($post_id, $field_name, $new_field);
+			}
+		}
+		#NEW FIELD EXISTS
+		elseif(!empty($new_field))
+		{
+			add_post_meta($post_id, $field_name, $new_field, true);
+		}
+	}
+	
+	#THIS FUNCTION REPLACES THE "BIOGRAPHICAL INFO" FIELD IN THE USER PROFILE WITH A TINYMCE EDITOR
+	function tinymce_biography($user)
+	{
+		?>
+		<table class="form-table">
+		<tr>
+			<th><label for="description"><?php _e("Biographical Info"); ?></label></th>
+			<td><?php wp_editor(get_user_meta($user->ID, "description", true), "description", array("textarea_rows" => 15)); ?><p class="description"><?php _e("Share a little biographical information to fill out your profile. This may be shown publicly."); ?></p></td>
+		</tr>
+		</table>
+		<?php
+	}
+	
+	#THIS FUNCTION UPDATES THE USER PROFILE CONTACT INFO FIELDS
+	function contact_info($contact_fields)
+	{
+		#DELETE AIM, YIM & JABBER FIELDS
+		unset($contact_fields["aim"]);
+		unset($contact_fields["jabber"]);
+		unset($contact_fields["yim"]);
+		
+		#ADD FACEBOOK, TWITTER, GOOGLE+, PINTEREST, LINKEDIN, GITHUB, DRIBBLE, INSTAGRAM, INSTAGRAM RSS FEED
+		$contact_fields["facebook"] = "Facebook";
+		$contact_fields["twitter"] = "Twitter";
+		$contact_fields["google_plus"] = "Google+";
+		$contact_fields["pinterest"] = "Pinterest";
+		$contact_fields["linkedin"] = "LinkedIn";
+		$contact_fields["github"] = "Github";
+		$contact_fields["dribbble"] = "Dribbble";
+		$contact_fields["dribbble_rss"] = "Dribbble RSS Feed";
+		$contact_fields["instagram"] = "Instagram";
+		$contact_fields["instagram_rss"] = "Instagram RSS Feed";
+		
+		return $contact_fields;
+	}
+	
+	#THIS FUNCTION ADDS CONTENT TO A TESTIMONIAL BOX
+	function testimonial_shortcode($parameters, $content = null)
+	{
+		#ADD CONTENT TO TESTIMONIAL BOX
+		$content = '<div class="testimonial_box"><div class="testimonial">' . wpautop($content) . '</div><div class="right_quote"></div></div>';
+		
+		#RETURN CONTENT
+		return do_shortcode($content);
+	}
+	
+	#THIS FUNCTION DISPLAYS THE INSTAGRAM THUMBNAILS
+	function display_instagram_thumbnails()
+	{	
+		#INITIALISE INSTAGRAM RSS FEED
+		$instagram_rss = get_user_meta(mp_options::get_author_id(), "instagram_rss", true);
+		
+		#INSTAGRAM RSS FEED EXISTS
+		if(!empty($instagram_rss))
+		{
+			#INCLUDE SIMPLEPIE RSS PARSER
+			include_once(ABSPATH.WPINC . "/class-simplepie.php");
+			
+			#INITIALISE SIMPLEPIE OBJECT
+			$feed = new SimplePie();
+			 
+			#INITIALISE SIMPLEPIE FEED
+			$feed->set_feed_url($instagram_rss);
+				
+			#INITIALISE SIMPLEPIE CACHE LOCATION
+			$feed->set_cache_location(dirname(dirname(__FILE__)) . "/cache");
+			 
+			#RUN SIMPLEPIE FEED
+			$feed->init();
+			
+			#INITIALISE INSTAGRAM THUMBNAIL COUNTER
+			$instagram_thumbnail_counter = 1;
+			
+			#OPEN UNORDERED LIST
+			echo "<ul>";
+			
+			#DISPLAY INSTAGRAM THUMBNAILS
+			foreach($feed->get_items(0, 12) as $item)
+			{
+				#FORMAT INSTAGRAM THUMBNAIL WITH THUMBNAIL IMAGE & IMAGE TITLE IN ALT/TITLE ATTRIBUTE
+				$instagram_thumbnail = str_replace("_7.jpg", "_5.jpg", $item->get_description());
+				$instagram_thumbnail = str_replace('" />', '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '" />', $instagram_thumbnail);
+				
+				#DISPLAY INSTAGRAM THUMBNAIL
+				echo '<li class="instagram' . $instagram_thumbnail_counter . '"><a href="' . $item->get_permalink() . '" target="_blank">' . $instagram_thumbnail . '</a></li>' . "\n";
+				
+				#INCREMENT INSTAGRAM THUMBNAIL COUNTER
+				$instagram_thumbnail_counter ++;
+			}
+			
+			#CLOSE UNORDERED LIST
+			echo "</ul>";
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE DRIBBBLE THUMBNAILS
+	function display_dribbble_thumbnails()
+	{
+		#INITIALISE DRIBBBLE RSS FEED
+		$dribbble_rss = get_user_meta(mp_options::get_author_id(), "dribbble_rss", true);
+		
+		#DRIBBBLE RSS FEED EXISTS
+		if(!empty($dribbble_rss))
+		{
+			#INCLUDE SIMPLEPIE RSS PARSER
+			include_once(ABSPATH.WPINC . "/class-simplepie.php");
+			
+			#INITIALISE SIMPLEPIE OBJECT
+			$feed = new SimplePie();
+			 
+			#INITIALISE SIMPLEPIE FEED
+			$feed->set_feed_url($dribbble_rss);
+			
+			#INITIALISE SIMPLEPIE CACHE LOCATION
+			$feed->set_cache_location(dirname(dirname(__FILE__)) . "/cache");
+			 
+			#RUN SIMPLEPIE FEED
+			$feed->init();
+			
+			#INITIALISE DRIBBBLE THUMBNAIL COUNTER
+			$dribbble_thumbnail_counter = 1;
+			
+			#OPEN UNORDERED LIST
+			echo "<ul>";
+			
+			#DISPLAY DRIBBBLE THUMBNAILS
+			foreach($feed->get_items(0, 4) as $item)
+			{
+				#FORMAT DRIBBBLE THUMBNAIL WITHOUT HYPERLINK & IMAGE TITLE IN ALT/TITLE ATTRIBUTE
+				if(preg_match('#<img alt="(.+?)" height="300" src="(.+?)" width="400" />#i', $item->get_description(), $dribbble_thumbnail_url))
+				{
+					$dribbble_thumbnail = '<img src="' . $dribbble_thumbnail_url[2] . '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '" />';
+				}
+				
+				#DISPLAY DRIBBBLE THUMBNAIL
+				echo '<li class="dribbble' . $dribbble_thumbnail_counter . '"><a href="' . $item->get_permalink() . '" target="_blank">' . $dribbble_thumbnail . '</a></li>' . "\n";
+				
+				#INCREMENT DRIBBBLE THUMBNAIL COUNTER
+				$dribbble_thumbnail_counter ++;
+			}
+			
+			#CLOSE UNORDERED LIST
+			echo "</ul>";
+		}
+	}
+	
+	#THIS FUNCTION RETURNS THE AUTHOR ID
+	function get_author_id()
+	{
+		#INITIALISE AUTHOR ID
+		$mp_author = get_option("mp_author");
+			
+		#SET DEFAULT AUTHOR ID
+		if(empty($mp_author))
+		{
+			$mp_author = 1;
+		}
+		
+		#RETURN AUTHOR ID
+		return $mp_author;
+	}
+}
+?>

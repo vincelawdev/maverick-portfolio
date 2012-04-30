@@ -1064,7 +1064,7 @@ class mp_options
 		global $wpdb;
 
 		#RETREIVE POSTS
-		$posts = $wpdb->get_results("SELECT ID, post_title, comment_count FROM $wpdb->posts WHERE comment_count > 0 AND post_status = 'publish' AND post_type = 'post' ORDER BY comment_count DESC LIMIT $number_of_posts");
+		$posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE comment_count > 0 AND post_status = 'publish' AND post_type = 'post' ORDER BY comment_count DESC LIMIT $number_of_posts");
 		
 		#POSTS EXIST
 		if(!empty($posts))
@@ -1075,7 +1075,7 @@ class mp_options
 			#DISPLAY POSTS
 			foreach($posts as $post)
 			{
-				echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $post->post_title . ' (' . $post->comment_count . ')</a></li>';
+				echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $post->post_title . ' (' . mp_options::get_comment_type_count($post->ID, "comment") . ')</a></li>';
 			}
 			
 			#CLOSE UNORDERED LIST

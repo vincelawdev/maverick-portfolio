@@ -1,8 +1,12 @@
 /* CSS FOR INTERNET EXPLORER 7 - 8 */
-
-#sidebar .sidebar_box > ul li a
+#sidebar ul.sidebar li a
 {
 	padding: 7px 0px 7px 19px;
+}
+
+#sidebar ol.sidebar li a
+{
+	padding: 7px 0px 7px 0px;
 }
 
 #footer_row1 #footer_column2 ul li

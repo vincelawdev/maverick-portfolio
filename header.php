@@ -31,9 +31,16 @@ if(is_front_page())
 <!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/ie.css" /><![endif]-->
 <link rel="alternate" type="application/rss+xml" title="<?php bloginfo("name"); ?> RSS Feed" href="<?php bloginfo("rss2_url"); ?>" />
 <link rel="pingback" href="<?php bloginfo("pingback_url"); ?>" />
+<?php
+#LOAD THREADED COMMENTS
+if(is_single())
+{
+	wp_enqueue_script("comment-reply");
+}
+?>
 <?php wp_head(); ?>
 <?php
-#DISPLAY MENU FIX FOR BLOG & TABS
+#LOAD MENU FIX FOR BLOG & ORGANIC TABS
 if(!is_page() || is_page("blog"))
 {
 ?>
@@ -52,7 +59,7 @@ if(!is_page() || is_page("blog"))
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-view-source.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/prettify/prettify.js"></script>
 <?php
-#LOAD ANYTHING SLIDER JAVASCRIPT
+#LOAD ANYTHING SLIDER
 if(is_front_page())
 {
 ?>
@@ -90,20 +97,20 @@ if(is_front_page())
 		<div id="header_social">
 		
 			<!-- ADDTHIS BUTTON - START -->
-			<div class="social_addthis">
+			<div class="social_addthis_right">
 				<div class="addthis_toolbox addthis_default_style" addthis:title="<?php bloginfo("name"); ?>" addthis:url="<?php bloginfo("url"); ?>"><a class="addthis_counter addthis_pill_style"></a></div>
 				<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4dbe7917029ad5b1"></script>
 			</div>
 			<!-- ADDTHIS BUTTON - END -->
 			
 			<!-- PINTEREST BUTTON - START -->
-			<div class="social_pinterest">
+			<div class="social_pinterest_right">
 				<a href="http://pinterest.com/pin/create/button/?url=<?php bloginfo("url"); ?>" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" alt="Pin It" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 			</div>
 			<!-- PINTEREST BUTTON - END -->	
 			
 			<!-- GOOGLE + BUTTON - START -->
-			<div class="social_google">				
+			<div class="social_google_right">				
 				<div class="g-plusone" data-size="medium" data-href="<?php bloginfo("url"); ?>"></div>
 				<script type="text/javascript">
 				  (function() {
@@ -116,12 +123,12 @@ if(is_front_page())
 			<!-- GOOGLE + BUTTON - END -->
 			
 			<!-- TWITTER BUTTON - START -->
-			<div class="social_twitter"><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="<?php bloginfo("url"); ?>">Tweet</a>
+			<div class="social_twitter_right"><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="<?php bloginfo("url"); ?>">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></div>
 			<!-- TWITTER BUTTON - END -->
 			
 			<!-- FACEBOOK BUTTON - START -->
-			<div class="social_facebook"><iframe src="//www.facebook.com/plugins/like.php?href=<?php bloginfo("url"); ?>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=355386687829880" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe></div>
+			<div class="social_facebook_right"><iframe src="//www.facebook.com/plugins/like.php?href=<?php bloginfo("url"); ?>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=355386687829880" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe></div>
 			<!-- FACEBOOK BUTTON - END -->
 	
 		</div>

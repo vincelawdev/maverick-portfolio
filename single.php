@@ -15,14 +15,18 @@ get_header();
 				the_post();
 				?>
 				<h1 class="post_title"><?php the_title(); ?></h1>
-				<p class="post_info">Posted on <?php the_date(); ?> by <?php the_author(); ?> in <?php the_category(", ");?> | <a href="#comments"><?php comments_number(__("0 Comments"), __("1 Comment"), __("% Comments")); ?></a></p>
-				<div class="addthis_toolbox addthis_default_style" addthis:url="<?php the_permalink(); ?>" addthis:title="<?php the_title(); ?>">
-					<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-					<a class="addthis_button_tweet"></a>
-					<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-					<a class="addthis_counter addthis_pill_style"></a>
-				</div>		
-				<?php the_content(); ?>
+				<p class="post_info">Posted on <?php the_date(); ?> by <?php the_author(); ?> in <?php the_category(", ");?> | <a href="#comments"><?php mp_options::display_comment_counter(get_the_ID(), "comment", "0 Comments", "1 Comment", "Comments"); ?></a></p>
+				<?php include(TEMPLATEPATH . "/includes/inc-blog-social.php"); ?>
+				<?php
+				#DISPLAY POST THUMBNAIL
+				if(has_post_thumbnail())
+				{
+					the_post_thumbnail("medium");
+				}
+				
+				#DISPLAY POST
+				the_content();
+				?>
 									
 				<!-- SIMILAR POSTS - START -->
 				<?php
@@ -30,7 +34,7 @@ get_header();
 				if(function_exists("similar_posts"))
 				{
 				?>
-				<h3 class="comment_title">Similar Posts</h3>
+				<h3 class="sub_heading">Similar Posts</h3>
 				<?php similar_posts(); ?>
 				<?php
 				}

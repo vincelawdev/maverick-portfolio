@@ -1203,5 +1203,124 @@ class mp_options
 		#RETURN AUTHOR ID
 		return $mp_author;
 	}
+	
+	#THIS FUNCTION RETURNS THE COMMENT TYPE COUNT
+	#ACCEPTS: 'comment', 'trackback', 'pingback' for $comment_type
+	function get_comment_type_count($post_id, $comment_type)
+	{
+		#RETRIEVE THE DATABASE
+		global $wpdb;
+		
+		#INITIALISE SQL QUERY
+		switch($comment_type)
+		{
+			#COMMENTS
+			case "comment":
+				$sql = "SELECT COUNT(comment_id) FROM $wpdb->comments WHERE comment_type = '" . $comment_type . "' OR comment_type = '' and comment_approved = 1 and comment_post_id = $post_id";
+				break;
+			
+			#PINGBACKS & TRACKBACKS
+			case "pingback":
+			case "trackback":
+				$sql = "SELECT COUNT(comment_id) FROM $wpdb->comments WHERE comment_type = '" . $comment_type . "' and comment_approved = 1 and comment_post_id = $post_id";
+				break;			
+		}
+		
+		#INITIALISE COMMENT TYPE COUNT
+		$comment_type_count = $wpdb->get_var($sql);
+	
+		#RETURN COMMENT TYPE COUNT
+		return $comment_type_count;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE COMMENT TYPE COUNT LABELS
+	#REPLACES THE comments_number() FUNCTION
+	#display_comment_counter(139, "comment", "0 Comments", "1 Comments", "Comments")
+	function display_comment_counter($post_id, $comment_type, $label_zero, $label_single, $label_multiple)
+	{
+		#INITIALISE COMMENT TYPE COUNT
+		$comment_type_count = mp_options::get_comment_type_count($post_id, $comment_type);
+		
+		#DISPLAY ZERO COMMENTS
+		if($comment_type_count == 0)
+		{
+			echo $label_zero;
+			return;
+		}
+		#DISPLAY 1 COMMENT
+		elseif($comment_type_count == 1)
+		{
+			echo $label_single;
+			return;
+		}
+		#DISPLAY MULTIPLE COMMENTS
+		elseif($comment_type_count > 1)
+		{
+			echo "$comment_type_count $label_multiple";
+			return;
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS COMMENTS
+	function display_comment_list($comment, $args, $depth)
+	{
+		#RETRIEVE THE COMMENT
+   		$GLOBALS["comment"] = $comment;
+		
+		#DISPLAY APPROVED COMMENT
+      	if($comment->comment_approved)
+		{
+			#INITIALISE GRAVATAR DEFAULT AVATAR & AVATAR HASH			
+			$gravatar_default = urlencode(get_bloginfo("template_directory") . "/images/icon-avatar.png");
+			$gravatar_hash = md5(strtolower(trim(get_comment_author_email())));
+			?>			
+			<!-- COMMENT <?php comment_ID(); ?> - START -->
+			<li id="comment<?php comment_ID(); ?>" <?php comment_class(); ?>>
+				
+				<!-- COMMENT AVATAR, AUTHOR & DATE - START -->
+				<a name="comment-<?php comment_ID(); ?>"></a>
+				<div class="comment_header">
+					<div class="comment_avatar"><a href="<?php comment_author_url(); ?>" rel="nofollow"><img src="http://www.gravatar.com/avatar/<?php echo $gravatar_hash; ?>?s=80&r=g&d=<?php echo $gravatar_default; ?>" alt="<?php comment_author(); ?>" title="<?php comment_author(); ?>" /></a></div>
+					<div class="comment_author_date">
+						<p class="comment_author"><a href="<?php comment_author_url(); ?>" rel="nofollow"><?php comment_author(); ?></a></p>
+						<p class="comment_date"><?php comment_date(); ?> <?php comment_time() ?></p>
+					</div>
+				</div>
+				<!-- COMMENT AVATAR, AUTHOR & DATE - END -->				
+			
+				<!-- COMMENT TEXT - START -->
+				<div class="comment_text">
+					<?php
+					#DISPLAY COMMENT TEXT
+					comment_text();
+					
+					#DISPLAY COMMENT REPLY LINK
+					if($args["max_depth"] != $depth)
+					{
+						echo "<p>" . get_comment_reply_link(array_merge($args, array("depth" => $depth, "max_depth" => $args["max_depth"]))) . "</p>";
+					}
+					?>
+				</div>
+				<!-- COMMENT TEXT - END -->
+				
+			
+			<!-- COMMENT <?php comment_ID(); ?> - END -->
+			
+		<?php
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS TRACKBACKS & PINGBACKS
+	function display_ping_list($comment)
+	{
+		#RETRIEVE THE COMMENT
+   		$GLOBALS["comment"] = $comment;
+		
+		#DISPLAY APPROVED COMMENT
+      	if($comment->comment_approved)
+		{
+			echo "<li>" . get_comment_author_link() . " - " . get_comment_date() . " " . get_comment_time();
+		}
+	}
 }
 ?>

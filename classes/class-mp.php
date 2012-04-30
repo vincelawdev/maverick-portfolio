@@ -1126,12 +1126,12 @@ class mp_options
 		global $wpdb;
 		
 		#INITIALISE SQL QUERY
-		$sql = "SELECT comment_author, comment_author_url, comment_author_email, comment_post_ID, COUNT(comment_ID) AS total_comments
+		$sql = "SELECT user_id, comment_author, comment_author_url, comment_author_email, comment_post_ID, COUNT(comment_ID) AS total_comments
 		FROM $wpdb->comments
 		WHERE comment_approved = '1'
 		AND comment_type = ''
 		AND comment_author != ''
-		GROUP BY comment_author
+		GROUP BY user_id
 		ORDER BY total_comments DESC
 		LIMIT $number_of_commenters";
 	
@@ -1140,9 +1140,9 @@ class mp_options
 		
 		#COMMENTERS EXIST
 		if(!empty($commenters))
-		{
+		{					
 			#OPEN ORDERED LIST
-			echo '<ol id="top_commenters" class="sidebar hide">';
+			$html = '<ol id="top_commenters" class="sidebar hide">';
 			
 			#DISPLAY COMMENTERS
 			foreach($commenters as $commenter)
@@ -1150,16 +1150,39 @@ class mp_options
 				#INITIALISE LIST ITEM
 				$html .= '<li>';
 				
-				#RETRIEVE COMMENTER DISPLAY NAME & URL
-				$commenter_data = $wpdb->get_row("SELECT display_name, user_url FROM $wpdb->users WHERE display_name = '$commenter->comment_author'");
-				
-				#COMMENTER URL IN USER DATA DOES NOT EXIST
-				if(empty($commenter_data->user_url))
+				#COMMENTER IS A REGISTERED USER
+				if($commenter->user_id > 0)
+				{
+					#RETRIEVE COMMENTER DISPLAY NAME & URL
+					$commenter_data = $wpdb->get_row("SELECT user_url FROM $wpdb->users WHERE ID = '$commenter->user_id'");
+					
+					#COMMENTER URL IN USER DATA DOES NOT EXIST
+					if(empty($commenter_data->user_url))
+					{
+						#COMMENTER URL DOES NOT EXIST
+						if(empty($commenter->comment_author_url))
+						{
+							$html .= '<a href="#AA">' . $commenter->comment_author;
+						}
+						#COMMENTER URL EXISTS
+						else
+						{
+							$html .= '<a title="Visit ' . $commenter->comment_author . '\'s site" href="' . $commenter->comment_author_url . '" rel="nofollow">' . $commenter->comment_author;
+						}
+					}
+					#COMMENTER URL IN USER DATA EXISTS
+					else
+					{
+						$html .= '<a title="Visit ' . $commenter->comment_author . '\'s site" href="' . $commenter_data->user_url . '" rel="nofollow">' . $commenter->comment_author;
+					}
+				}				
+				#COMMENTER IS NOT A REGISTERED USER
+				elseif($commenter->user_id == 0)
 				{
 					#COMMENTER URL DOES NOT EXIST
 					if(empty($commenter->comment_author_url))
 					{
-						$html .= '<a href="#">' . $commenter->comment_author;
+						$html .= '<a href="#BB">' . $commenter->comment_author;
 					}
 					#COMMENTER URL EXISTS
 					else
@@ -1167,24 +1190,19 @@ class mp_options
 						$html .= '<a title="Visit ' . $commenter->comment_author . '\'s site" href="' . $commenter->comment_author_url . '" rel="nofollow">' . $commenter->comment_author;
 					}
 				}
-				#COMMENTER URL IN USER DATA EXISTS
-				else
-				{
-					$html .= '<a title="Visit ' . $commenter->comment_author . '\'s site" href="' . $commenter_data->user_url . '" rel="nofollow">' . $commenter->comment_author;
-				}
 				
 				#APPEND COMMENTER'S NUMBER OF COMMENTS	
 				$html .= ' (' . $commenter->total_comments . ')';
 				
 				#CLOSE LIST ITEM
 				$html .= '</a></li>';
-				
-				#DISPLAY LIST ITEM
-				echo $html;
 			}			
 			
 			#CLOSE ORDERED LIST
-			echo "</ol>\n";
+			$html .= "</ol>\n";
+			
+			#DISPLAY ORDERED LIST
+			echo $html;
 		}
 	}
 	

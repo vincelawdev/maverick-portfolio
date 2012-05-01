@@ -484,6 +484,9 @@ class mp_options
 	function admin_head()
 	{
 		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo("template_url") . '/css/admin.php" type="text/css" />' . "\n";
+		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo("template_url") . '/css/colorbox.php" type="text/css" />' . "\n";
+		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-colorbox-min.js"></script>' . "\n";
+		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-colorbox-admin-initialise.js"></script>' . "\n";
 		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-metadata.js"></script>' . "\n";
 		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-validate.js"></script>' . "\n";
 		
@@ -859,13 +862,14 @@ class mp_options
 			#TESTIMONIAL PHOTO
 			case "photo":
 				
-				#INITIALISE TESTIMONIAL PHOTO
+				#INITIALISE TESTIMONIAL NAME & PHOTO
+				$testimonial_name = get_post_meta($post->ID, "testimonial_name", true);
 				$testimonial_photo = get_post_meta($post->ID, "testimonial_photo", true);
 				
 				#DISPLAY TESTIMONIAL PHOTO ICON
 				if(!empty($testimonial_photo))
 				{
-					echo '<a href="' . $testimonial_photo . '" title="" class="colorbox"><img src="' . get_bloginfo("template_url") . '/images/icon-picture.png" /></a>';
+					echo '<a href="' . $testimonial_photo . '" title="' . $testimonial_name . '" class="colorbox"><img src="' . get_bloginfo("template_url") . '/images/icon-picture.png" /></a>';
 				}
 				
 				break;
@@ -1151,7 +1155,7 @@ class mp_options
 				$instagram_thumbnail = str_replace('" />', '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '" />', $instagram_thumbnail);
 				
 				#DISPLAY INSTAGRAM THUMBNAIL
-				echo '<li class="instagram' . $instagram_thumbnail_counter . '"><a href="' . $item->get_permalink() . '" target="_blank">' . $instagram_thumbnail . '</a></li>' . "\n";
+				echo '<li class="instagram' . $instagram_thumbnail_counter . '"><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" class="instagram_iframe">' . $instagram_thumbnail . '</a></li>' . "\n";
 				
 				#INCREMENT INSTAGRAM THUMBNAIL COUNTER
 				$instagram_thumbnail_counter ++;
@@ -1202,7 +1206,7 @@ class mp_options
 				}
 				
 				#DISPLAY DRIBBBLE THUMBNAIL
-				echo '<li class="dribbble' . $dribbble_thumbnail_counter . '"><a href="' . $item->get_permalink() . '" target="_blank">' . $dribbble_thumbnail . '</a></li>' . "\n";
+				echo '<li class="dribbble' . $dribbble_thumbnail_counter . '"><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" class="dribbble_iframe">' . $dribbble_thumbnail . '</a></li>' . "\n";
 				
 				#INCREMENT DRIBBBLE THUMBNAIL COUNTER
 				$dribbble_thumbnail_counter ++;

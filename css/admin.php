@@ -58,7 +58,7 @@ input.mp_error_field
 
 #icon-edit.icon32-posts-slide
 {
-	background-image: url(<?php bloginfo("template_url") ?>/images/icon-cp-slide.png);
+	background-image: url("<?php bloginfo("template_url") ?>/images/icon-cp-slide.png");
 	background-repeat: no-repeat;
 	background-position: top left;
 }
@@ -79,7 +79,7 @@ input.mp_error_field
 
 #icon-edit.icon32-posts-testimonial
 {
-	background-image: url(<?php bloginfo("template_url") ?>/images/icon-cp-testimonial.png);
+	background-image: url("<?php bloginfo("template_url") ?>/images/icon-cp-testimonial.png");
 	background-repeat: no-repeat;
 	background-position: top left;
 }

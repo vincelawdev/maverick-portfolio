@@ -955,7 +955,6 @@ body
 	margin: 0px;
 	padding: 0px;
 	list-style: none;
-	background-color: #F39;
 }
 
 #sidebar ul.social_buttons_list li
@@ -1624,7 +1623,6 @@ a img
 	margin: 0px;
 	padding: 0px;
 	overflow: hidden;
-	background-color: #CC9999;
 }
 
 .wp-caption.alignnone p.wp-caption-text, .wp-caption.alignleft p.wp-caption-text, .wp-caption.alignright p.wp-caption-text, .wp-caption.aligncenter p.wp-caption-text

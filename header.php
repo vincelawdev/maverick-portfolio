@@ -34,6 +34,7 @@ if(is_front_page())
 <link rel="shortcut icon" href="/favicon.ico" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("stylesheet_url"); ?>" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/superfish.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/colorbox.php" />
 <!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/ie.css" /><![endif]-->
 <link rel="alternate" type="application/rss+xml" title="<?php bloginfo("name"); ?> RSS Feed" href="<?php bloginfo("rss2_url"); ?>" />
 <link rel="pingback" href="<?php bloginfo("pingback_url"); ?>" />
@@ -62,6 +63,8 @@ if(!is_page() || is_page("blog"))
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-superfish.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-supersubs.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-superfish-initialise.php"></script>
+<script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-colorbox-min.js"></script>
+<script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-colorbox-initialise.js"></script>
 <?php
 #LOAD ANYTHING SLIDER
 if(is_front_page())

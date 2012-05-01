@@ -31,6 +31,24 @@ if(comments_open())
 		<!-- COMMENTS - END -->
 	<?php
 	}
+	
+	#DISPLAY WP-COMMENTNAVI PAGING NAVIGATION LINKS
+	if(function_exists("wp_commentnavi"))
+	{
+		wp_commentnavi();
+	} 
+	#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
+	else
+	{
+		#COMMENT PAGING ENABLED
+		if(get_comment_pages_count() > 1 && get_option("page_comments"))
+		{
+		?>
+			<p class="left"><?php previous_comments_link("&laquo; Older Comments"); ?></p>
+			<p class="right"><?php next_comments_link("Newer Comments &raquo;"); ?></p>
+		<?php
+		}
+	}
 }
 
 #TRACKBACKS ENABLED
@@ -66,7 +84,7 @@ if(comments_open())
 	<!-- COMMENT FORM - START -->
 	<div id="respond">
 	
-		<h3 class="sub_heading"><?php comment_form_title("Post a Comment", "Post a Reply to %s"); ?> / <?php cancel_comment_reply_link("Cancel Reply"); ?></h3>
+		<h3 class="sub_heading"><?php comment_form_title("Post a Comment", "Post a Reply to %s / "); cancel_comment_reply_link("Cancel Reply"); ?></h3>
 		
 		<form action="<?php echo get_settings("siteurl"); ?>/wp-comments-post.php" method="post" id="comment_form">
 			<?php comment_id_fields(); ?>

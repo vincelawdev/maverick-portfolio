@@ -53,8 +53,10 @@ a:4:{s:5:"child";a:1:{s:0:"";a:1:{s:3:"rss";a:1:{i:0;a:6:{s:4:"data";s:4:"
       
       
       
-    ";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:1:{s:0:"";a:6:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:13:"Incoming call";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:434:"
+    ";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:1:{s:0:"";a:6:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:13:"Incoming call";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:511:"
         <a href="http://dribbble.com/shots/537964-Incoming-call"><img alt="Incoming call" height="300" src="http://dribbble.com/system/users/21845/screenshots/537964/incoming-call.jpg?1335782553" width="400" /></a><p>Not sure why, but it looks nicer at <a href="http://dribbble.com/shots/537964-Incoming-Call/attachments/39017">full view</a>.</p>
+
+<p>Anyway, it's to go with this: http://dribbble.com/shots/537954-Skype</p>
 
 <p>--</p>
 
@@ -66,10 +68,14 @@ a:4:{s:5:"child";a:1:{s:0:"";a:1:{s:3:"rss";a:1:{i:0;a:6:{s:4:"data";s:4:"
       
       
       
-    ";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:1:{s:0:"";a:6:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:12:"Video Player";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:339:"
+    ";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:1:{s:0:"";a:6:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:12:"Video Player";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:419:"
         <a href="http://dribbble.com/shots/537958-Video-Player"><img alt="Video Player" height="300" src="http://dribbble.com/system/users/21845/screenshots/537958/movie-player.jpg?1335782316" width="400" /></a><p>This is scaled for dribbble.</p>
 
 <p>All the controls you see, including the bottom bar only appear once hovered.</p>
+
+<p>--</p>
+
+<p>Follow me on <a href="http://twitter.com/darylbro">bebo</a>.</p>
       ";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:6:"author";a:1:{i:0;a:5:{s:4:"data";s:10:"Daryl Ginn";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Mon, 30 Apr 2012 06:37:20 -0400";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:45:"http://dribbble.com/shots/537958-Video-Player";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:45:"http://dribbble.com/shots/537958-Video-Player";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:2;a:6:{s:4:"data";s:47:"
       
       
@@ -77,10 +83,13 @@ a:4:{s:5:"child";a:1:{s:0:"";a:1:{s:3:"rss";a:1:{i:0;a:6:{s:4:"data";s:4:"
       
       
       
-    ";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:1:{s:0:"";a:6:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:5:"Skype";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:440:"
-        <a href="http://dribbble.com/shots/537954-Skype"><img alt="Skype" height="300" src="http://dribbble.com/system/users/21845/screenshots/537954/skype-shot.jpg?1335782135" width="400" /></a><p><strong><a href="http://dribbble.com/shots/537954-Skype-Shot/attachments/39013">Full view</a></strong>.</p>
+    ";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";s:5:"child";a:1:{s:0:"";a:6:{s:5:"title";a:1:{i:0;a:5:{s:4:"data";s:5:"Skype";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:11:"description";a:1:{i:0;a:5:{s:4:"data";s:547:"
+        <a href="http://dribbble.com/shots/537954-Skype"><img alt="Skype" height="300" src="http://dribbble.com/system/users/21845/screenshots/537954/skype-shot.jpg?1335782135" width="400" /></a><p> 
+<br /><strong><a href="http://dribbble.com/shots/537954-Skype-Shot/attachments/39013">Full view</a></strong>.</p>
 
 <p>I took a look at my old Skype design the other day, I didn't really like it. So I did a new one based off of that one.</p>
+
+<p>Follow me on <a href="http://twitter.com/darylbro">twitter</a> for updates on the weather.</p>
       ";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:6:"author";a:1:{i:0;a:5:{s:4:"data";s:10:"Daryl Ginn";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Mon, 30 Apr 2012 06:31:39 -0400";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:38:"http://dribbble.com/shots/537954-Skype";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:38:"http://dribbble.com/shots/537954-Skype";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}i:3;a:6:{s:4:"data";s:47:"
       
       
@@ -512,4 +521,4 @@ I got bored last nite around 11pm and thought I'd re-do the Facebook homepage.</
 <p>It's now Lunch time the next day I got carried away and stayed up all night doing this lol. It was really fun.</p>
 
 <p>Anyway, quite a bit of the architecture is the same just done my way. Added a few features here and there which I think would be better for usability.</p>
-      ";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:6:"author";a:1:{i:0;a:5:{s:4:"data";s:10:"Daryl Ginn";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Fri, 08 Apr 2011 07:43:08 -0400";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:50:"http://dribbble.com/shots/145584-Facebook-Redesign";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:50:"http://dribbble.com/shots/145584-Facebook-Redesign";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}}}}}}}}}}}}s:4:"type";i:128;s:7:"headers";a:12:{s:6:"server";s:12:"nginx/0.7.62";s:4:"date";s:29:"Mon, 30 Apr 2012 11:30:40 GMT";s:12:"content-type";s:34:"application/rss+xml; charset=utf-8";s:10:"connection";s:10:"keep-alive";s:12:"x-powered-by";s:44:"Phusion Passenger (mod_rails/mod_rack) 3.0.9";s:4:"etag";s:32:"fa6c979df0f1f0beebd0bfb429f13486";s:9:"x-runtime";s:3:"177";s:13:"cache-control";s:35:"private, max-age=0, must-revalidate";s:6:"status";s:3:"200";s:4:"vary";s:15:"Accept-Encoding";s:16:"content-encoding";s:4:"gzip";s:14:"content-length";s:4:"5517";}s:5:"build";s:14:"20090627192103";}
+      ";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:6:"author";a:1:{i:0;a:5:{s:4:"data";s:10:"Daryl Ginn";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:7:"pubDate";a:1:{i:0;a:5:{s:4:"data";s:31:"Fri, 08 Apr 2011 07:43:08 -0400";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"link";a:1:{i:0;a:5:{s:4:"data";s:50:"http://dribbble.com/shots/145584-Facebook-Redesign";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}s:4:"guid";a:1:{i:0;a:5:{s:4:"data";s:50:"http://dribbble.com/shots/145584-Facebook-Redesign";s:7:"attribs";a:0:{}s:8:"xml_base";s:0:"";s:17:"xml_base_explicit";b:0;s:8:"xml_lang";s:0:"";}}}}}}}}}}}}}}}}s:4:"type";i:128;s:7:"headers";a:12:{s:6:"server";s:12:"nginx/0.7.62";s:4:"date";s:29:"Mon, 30 Apr 2012 12:31:21 GMT";s:12:"content-type";s:34:"application/rss+xml; charset=utf-8";s:10:"connection";s:10:"keep-alive";s:12:"x-powered-by";s:44:"Phusion Passenger (mod_rails/mod_rack) 3.0.9";s:4:"etag";s:32:"26078b0f9b58f54664a335bd4045bf93";s:9:"x-runtime";s:3:"111";s:13:"cache-control";s:35:"private, max-age=0, must-revalidate";s:6:"status";s:3:"200";s:4:"vary";s:15:"Accept-Encoding";s:16:"content-encoding";s:4:"gzip";s:14:"content-length";s:4:"5551";}s:5:"build";s:14:"20090627192103";}

@@ -897,6 +897,11 @@ body
 	overflow: hidden;
 }
 
+#content ul.comments li .comment_text p.reply a:link
+{
+	text-decoration: none;
+}
+
 /* SIDEBAR */
 #sidebar
 {
@@ -1705,6 +1710,10 @@ div.testimonial_box div.right_quote
 {
 	margin: 0px;
 	padding: 0px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 15px;
+	font-style: normal;
+	color: #333333;
 }
 
 .wp-pagenavi a, .wp-pagenavi span

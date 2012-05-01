@@ -1,0 +1,22 @@
+/* WP-COMMENTNAVI PLUGIN PAGING NAVIGATION LINKS */
+.wp-commentnavi
+{
+	margin: 0px 0px 10px 0px;
+	padding: 0px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 15px;
+	font-style: normal;
+	color: #333333;
+}
+
+.wp-commentnavi a, .wp-commentnavi span
+{
+	margin: 0px 5px 0px 0px;
+	padding: 0px;
+	text-decoration: none;
+}
+
+.wp-commentnavi span.current
+{
+	font-weight: bold;
+}

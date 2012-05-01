@@ -65,3 +65,7 @@ $mp_options = new mp_options();
 </body>
 
 </html>
+<?php
+#SEND THE OUTPUT BUFFER AND TURN OFF OUTPUT BUFFERING 
+ob_end_flush();
+?>

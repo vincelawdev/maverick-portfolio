@@ -1315,7 +1315,7 @@ class mp_options
 					#DISPLAY COMMENT REPLY LINK
 					if($args["max_depth"] != $depth)
 					{
-						echo "<p>" . get_comment_reply_link(array_merge($args, array("depth" => $depth, "max_depth" => $args["max_depth"]))) . "</p>";
+						echo '<p class="reply">' . get_comment_reply_link(array_merge($args, array("depth" => $depth, "max_depth" => $args["max_depth"]))) . "</p>";
 					}
 					?>
 				</div>

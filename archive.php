@@ -1,8 +1,4 @@
-<?php
-
-
-get_header();
-?>
+<?php get_header(); ?>
 
 		<!-- ARCHIVES - START -->
 		<?php

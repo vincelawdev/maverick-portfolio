@@ -12,7 +12,7 @@ get_header();
 		#INITIALISE BLOG POST ARGUMENTS
 		$args = array
 		(
-			"posts_per_page" => 10,
+			"posts_per_page" => get_option("posts_per_page"),
 			"post_type"  => "post",
 			"post_status" => "publish",
 			"paged" => $page,

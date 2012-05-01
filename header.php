@@ -34,7 +34,6 @@ if(is_front_page())
 <link rel="shortcut icon" href="/favicon.ico" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("stylesheet_url"); ?>" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/superfish.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/prettify.css" />
 <!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/ie.css" /><![endif]-->
 <link rel="alternate" type="application/rss+xml" title="<?php bloginfo("name"); ?> RSS Feed" href="<?php bloginfo("rss2_url"); ?>" />
 <link rel="pingback" href="<?php bloginfo("pingback_url"); ?>" />
@@ -63,8 +62,6 @@ if(!is_page() || is_page("blog"))
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-superfish.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-supersubs.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-superfish-initialise.php"></script>
-<script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-view-source.js"></script>
-<script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/prettify/prettify.js"></script>
 <?php
 #LOAD ANYTHING SLIDER
 if(is_front_page())
@@ -72,6 +69,7 @@ if(is_front_page())
 ?>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-anythingslider-min.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-anythingslider-fx-min.js"></script>
+<script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-anythingslider-video-min.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-easing1.2.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-anythingslider-home.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/anythingslider.css" />

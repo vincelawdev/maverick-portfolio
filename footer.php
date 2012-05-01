@@ -58,10 +58,6 @@ $mp_options = new mp_options();
 
 <?php wp_footer(); ?>
 
-<!-- SOURCE CODE - START -->
-<div id="source-code"><a href="#" id="x"><img src="<?php bloginfo("template_directory"); ?>/images/button-close.png" alt="Close" /></a></div>
-<!-- SOURCE CODE - END -->
-
 </body>
 
 </html>

@@ -95,7 +95,7 @@
 		<!-- POST TABS TITLES - END -->
 		 
 		<!-- RECENT POSTS - START -->
-		<?php if(function_exists("recent_posts")) { recent_posts(); } else { mp_options::display_recent_posts(5); } ?>
+		<?php if(function_exists("recent_posts")) { recent_posts(); } else { mp_options::display_recent_posts(); } ?>
 		<!-- RECENT POSTS - END -->
 		 
 		<!-- POPULAR POSTS - START -->
@@ -103,7 +103,7 @@
 		<!-- POPULAR POSTS - END -->
 		 
 		<!-- MOST COMMENTED POSTS - START -->
-		<?php mp_options::display_most_commented_posts(5); ?>
+		<?php mp_options::display_most_commented_posts(); ?>
 		<!-- MOST COMMENTED POSTS - END -->
 
 	</div>
@@ -123,11 +123,11 @@
 		<!-- COMMENT TABS TITLES - END -->
 	
 		<!-- RECENT COMMENTS - START -->
-		<?php if(function_exists("recent_comments")) { recent_comments(); } else { mp_options::display_recent_comments(5); } ?>
+		<?php if(function_exists("recent_comments")) { recent_comments(); } else { mp_options::display_recent_comments(); } ?>
 		<!-- RECENT COMMENTS - END -->
 		
 		<!-- TOP COMMENTERS - START -->
-		<?php mp_options::display_top_commenters(10); ?>
+		<?php mp_options::display_top_commenters(); ?>
 		<!-- TOP COMMENTERS - END -->
 	
 	</div>

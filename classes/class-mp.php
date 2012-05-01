@@ -54,8 +54,8 @@ class mp_options
 		if(function_exists("wp_editor") && current_user_can("edit_posts"))
 		{
 			#REPLACE BIOGRAPHY FIELD WITH TINYMCE EDITOR
-			add_action("show_user_profile", array("mp_options", "tinymce_biography"));
-			add_action("edit_user_profile", array("mp_options", "tinymce_biography"));
+			add_action("show_user_profile", array("mp_options", "mp_tinymce_biography"));
+			add_action("edit_user_profile", array("mp_options", "mp_tinymce_biography"));
 			
 			#REMOVE TEXTAREA FILTERS FROM BIOGRAPHY FIELD
 			remove_all_filters("pre_user_description");
@@ -67,7 +67,7 @@ class mp_options
 		}
 		
 		#INITIALISE USER CONTACT INFO FIELDS
-		add_filter("user_contactmethods", array("mp_options", "contact_info"));
+		add_filter("user_contactmethods", array("mp_options", "mp_contact_info"));
 		
 		#INITIALISE SHORTCODES
 		add_shortcode("testimonial", array("mp_options", "testimonial_shortcode"));
@@ -86,7 +86,11 @@ class mp_options
 	function mp_theme_settings()
 	{
 		register_setting("mp_settings_author", "mp_author");
-		register_setting("mp_settings_facebook", "mp_facebook_like_box");
+		register_setting("mp_settings_sidebar", "mp_facebook_like_box");
+		register_setting("mp_settings_sidebar", "mp_posts_recent_number");
+		register_setting("mp_settings_sidebar", "mp_posts_comments_number");
+		register_setting("mp_settings_sidebar", "mp_comments_recent_number");
+		register_setting("mp_settings_sidebar", "mp_comments_commenters_number");
 		register_setting("mp_settings_tracking", "mp_tracking");
 	}
 	
@@ -100,18 +104,25 @@ class mp_options
 			case "author":
 			
 				update_option("mp_author", 1);
+				
 				break;
 				
-			#FACEBOOK
-			case "facebook":
+			#SIDEBAR
+			case "sidebar":
 			
 				update_option("mp_facebook_like_box", "");
+				update_option("mp_posts_recent_number", 5);
+				update_option("mp_posts_comments_number", 5);
+				update_option("mp_comments_recent_number", 5);
+				update_option("mp_comments_commenters_number", 5);
+				
 				break;
 				
 			#TRACKING
 			case "tracking":
 			
 				update_option("mp_tracking", "");
+				
 				break;
 		}
 	}
@@ -137,7 +148,7 @@ class mp_options
 			
 			<ul style="display: block">
 				<li style="display: inline"><?php if($sub_page == "author" || empty($sub_page)) { echo "<strong>Author</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=author">Author</a><?php } ?></li>
-				<li style="display: inline"><?php if($sub_page == "facebook") { echo "<strong>Facebook</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=facebook">Facebook</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == "sidebar") { echo "<strong>Sidebar</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=sidebar">Sidebar</a><?php } ?></li>
 				<li style="display: inline"><?php if($sub_page == "tracking") { echo "<strong>Tracking</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=tracking">Tracking</a><?php } ?></li>
 				<li style="display: inline"><?php if($sub_page == "reset") { echo "<strong>Reset</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=reset">Reset</a><?php } ?></li>
 				<li style="display: inline"><a href="http://www.employvince.com/contact/" target="_blank">Support</a></li>			
@@ -165,7 +176,7 @@ class mp_options
 				settings_fields("mp_settings_author");
 				
 				#DISPLAY AUTHORS
-				mp_options::mp_option_field("Author", "", true, true, "Author", "author", "mp_author", "mp_author", "Select the author you with to display in the sidebar and footer", "", true);
+				mp_options::mp_option_field("Author", "", true, true, "Author", "author", "mp_author", "mp_author", "Select the author you wish to display in the sidebar and footer", "", true);
 				?>
 			
 				</form>
@@ -173,27 +184,39 @@ class mp_options
 				<?php
 				break;
 				
-			#FACEBOOK
-			case "facebook":
+			#SIDEBAR
+			case "sidebar":
 				
 				#DISPLAY UPDATE MESSAGE
 				if(isset($_GET["settings-updated"]) && ($_GET["settings-updated"] == true))
 				{
 				?>
-				<div class="updated fade"><p><strong><?php _e("Your Facebook options have been saved."); ?></strong></p></div>
+				<div class="updated fade"><p><strong><?php _e("Your Sidebar options have been saved."); ?></strong></p></div>
 				<?php
 				}
 				?>
 				
 				<form method="post" action="options.php">
 				<?php
-				settings_fields("mp_settings_facebook");
+				settings_fields("mp_settings_sidebar");
 				
-				#INITIALISE FACEBOOK DESCRIPTION
-				$tracking_description = '<p>Generate a <a href="https://developers.facebook.com/docs/reference/plugins/like-box/" target="_blank">Facebook Like Box</a> Iframe social plugin code from Facebook. For best results, please enter  260 for the Width, select the Dark colour scheme, uncheck "Show header" and enter #333333 for the Border Color.</p>';
+				#INITIALISE FACEBOOK LIKE BOX DESCRIPTION
+				$facebook_description = '<p>Generate a <a href="https://developers.facebook.com/docs/reference/plugins/like-box/" target="_blank">Facebook Like Box</a> Iframe social plugin code from Facebook. For best results, please enter 260 for the Width, select the Dark colour scheme, uncheck "Show header" and enter #333333 for the Border Color.</p>';
 				
-				#DISPLAY FACEBOOK
-				mp_options::mp_option_field("Facebook Like Box", $tracking_description, true, true, "Facebook Like Box Code", "textarea", "mp_facebook_like_box", "mp_facebook_like_box", "Enter the Facebook Like Box Iframe social plugin code of your Facebook Page. The Facebook Like Box will appear in the sidebar", "", true);
+				#DISPLAY FACEBOOK LIKE BOX
+				mp_options::mp_option_field("Facebook Like Box", $facebook_description, true, true, "Facebook Like Box Code", "textarea", "mp_facebook_like_box", "mp_facebook_like_box", "Enter the Facebook Like Box Iframe social plugin code of your Facebook Page", "", true);
+				
+				#DISPLAY RECENT POSTS SELECT LIST
+				mp_options::mp_option_field("Posts", "", true, false, "Recent Posts", "sidebar_lists", "mp_posts_recent_number", "mp_posts_recent_number", "Select the number of posts to display in the Recent Posts list", 5, false, 20);
+				
+				#DISPLAY MOST COMMENTS SELECT LIST
+				mp_options::mp_option_field("", "", false, true, "Most Comments", "sidebar_lists", "mp_posts_comments_number", "mp_posts_comments_number", "Select the number of posts to display in the Most Comments list", 5, true, 20);
+				
+				#DISPLAY RECENT COMMENTS SELECT LIST
+				mp_options::mp_option_field("Comments", "", true, false, "Recent Comments", "sidebar_lists", "mp_comments_recent_number", "mp_comments_recent_number", "Select the number of comments to display in the Recent Comments list", 5, false, 20);
+				
+				#DISPLAY TOP COMMENTERS SELECT LIST
+				mp_options::mp_option_field("", "", false, true, "Top Commenters", "sidebar_lists", "mp_comments_commenters_number", "mp_comments_commenters_number", "Select the number of commenters to display in the Top Commenters list", 5, true, 20);
 				?>
 			
 				</form>
@@ -243,15 +266,15 @@ class mp_options
 						<div class="updated fade"><p><strong><?php _e("Your Author options have been reset."); ?></strong></p></div>
 						<?php
 					}
-					#FACEBOOK RESET SECURITY CHECK PASSED
-					if(!empty($_POST["facebook_reset"]) && check_admin_referer("facebook_reset_check"))
+					#SIDEBAR RESET SECURITY CHECK PASSED
+					if(!empty($_POST["sidebar_reset"]) && check_admin_referer("sidebar_reset_check"))
 					{
-						#RESET FACEBOOK OPTIONS
-						mp_options::mp_reset_options("facebook");
+						#RESET SIDEBAR OPTIONS
+						mp_options::mp_reset_options("sidebar");
 						
 						#DISPLAY RESET MESSAGE
 						?>
-						<div class="updated fade"><p><strong><?php _e("Your Facebook options have been reset."); ?></strong></p></div>
+						<div class="updated fade"><p><strong><?php _e("Your Sidebar options have been reset."); ?></strong></p></div>
 						<?php
 					}
 					#TRACKING RESET SECURITY CHECK PASSED
@@ -276,12 +299,12 @@ class mp_options
 					
 					</form>
 					
-					<h3 class="title">Facebook</h3>
+					<h3 class="title">Sidebar</h3>
 					
-					<form name="facebook_reset_form" method="post">
-					<?php wp_nonce_field("facebook_reset_check"); ?>
+					<form name="sidebar_reset_form" method="post">
+					<?php wp_nonce_field("sidebar_reset_check"); ?>
 					
-					<input type="submit" name="facebook_reset" class="button-primary" value="<?php _e("Reset Options") ?>" onclick="javascript:check = confirm('<?php _e('Reset all Facebook options to default settings?', 'facebook_reset'); ?>'); if(check == false) { return false; }" />
+					<input type="submit" name="sidebar_reset" class="button-primary" value="<?php _e("Reset Options") ?>" onclick="javascript:check = confirm('<?php _e('Reset all Sidebar options to default settings?', 'sidebar_reset'); ?>'); if(check == false) { return false; }" />
 					
 					</form>
 					
@@ -351,7 +374,13 @@ class mp_options
 			case "author":
 				
 				mp_options::mp_display_author_list($input_id, $mp_option, $input_default);
-				break;				
+				break;		
+			
+			#SIDEBAR LIST ITEMS
+			case "sidebar_lists":
+			
+				mp_options::mp_display_sidebar_list($input_id, $mp_option, $input_default, $min_width);
+				break;
 		}
 		
 		#CLOSE 2ND COLUMN WITH INPUT DESCRIPTION & DEFAULT VALUES OF MINIMUM & MAXIMUM WIDTH
@@ -441,6 +470,41 @@ class mp_options
 			{
 				$select_list .= "<option class=\"level-0\" value=\"" . $author->ID . "\">" . $author->display_name . "</option>\n";
 			}		
+		}
+		
+		#CLOSE SELECT LIST HTML
+		$select_list .= "</select>";
+		
+		#DISPLAY SELECT LIST
+		echo $select_list;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE NUMBER OF LIST ITEMS OF SIDEBAR LISTS
+	function mp_display_sidebar_list($select_id, $selected_number_of_items, $default_number_of_items = 5, $number_of_items)
+	{
+		#SELECT DEFAULT NUMBER OF ITEMS IF NO NUMBER OF ITEMS WAS SELECTED
+		if(empty($selected_number_of_items) && !empty($default_number_of_items))
+		{
+			$selected_number_of_items = $default_number_of_items;
+		}
+	
+		#INITIALISE SELECT LIST HTML
+		$select_list = "<select name=\"$select_id\" id=\"$select_id\" class=\"postform\">\n";
+		
+		#APPEND LIST ITEMS
+		for($item_counter = 1; $item_counter <= $number_of_items; $item_counter ++)
+		{
+			#SELECTED LIST ITEM
+			if($selected_number_of_items == $item_counter)
+			{
+	
+				$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"$item_counter\">" . $item_counter . "</option>\n";
+			}
+			#UNSELECTED LIST ITEM
+			else
+			{
+				$select_list .= "<option class=\"level-0\" value=\"$item_counter\">" . $item_counter . "</option>\n";
+			}
 		}
 		
 		#CLOSE SELECT LIST HTML
@@ -1072,7 +1136,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION REPLACES THE "BIOGRAPHICAL INFO" FIELD IN THE USER PROFILE WITH A TINYMCE EDITOR
-	function tinymce_biography($user)
+	function mp_tinymce_biography($user)
 	{
 		?>
 		<table class="form-table">
@@ -1085,7 +1149,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION UPDATES THE USER PROFILE CONTACT INFO FIELDS
-	function contact_info($contact_fields)
+	function mp_contact_info($contact_fields)
 	{
 		#DELETE AIM, YIM & JABBER FIELDS
 		unset($contact_fields["aim"]);
@@ -1302,10 +1366,19 @@ class mp_options
 	}
 	
 	#THIS FCUNTION DISPLAYS THE RECENT POSTS
-	function display_recent_posts($number_of_posts = 5)
+	function display_recent_posts()
 	{
 		#RETRIEVE THE DATABASE
 		global $wpdb;
+		
+		#INITIALISE NUMBER OF POSTS
+		$number_of_posts = get_option("mp_posts_recent_number");
+		
+		#INITIALISE DEFAULT NUMBER OF POSTS
+		if(empty($number_of_posts))
+		{
+			$number_of_posts = 5;
+		}
 
 		#RETREIVE POSTS
 		$posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC LIMIT $number_of_posts");
@@ -1328,10 +1401,19 @@ class mp_options
 	}
 	
 	#THIS FCUNTION DISPLAYS THE MOST COMMENTED POSTS
-	function display_most_commented_posts($number_of_posts = 5)
+	function display_most_commented_posts()
 	{
 		#RETRIEVE THE DATABASE
 		global $wpdb;
+		
+		#INITIALISE NUMBER OF POSTS
+		$number_of_posts = get_option("mp_posts_comments_number");
+		
+		#INITIALISE DEFAULT NUMBER OF POSTS
+		if(empty($number_of_posts))
+		{
+			$number_of_posts = 5;
+		}
 
 		#RETREIVE POSTS
 		$posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE comment_count > 0 AND post_status = 'publish' AND post_type = 'post' ORDER BY comment_count DESC LIMIT $number_of_posts");
@@ -1358,6 +1440,15 @@ class mp_options
 	{
 		#RETRIEVE THE DATABASE
 		global $wpdb;
+		
+		#INITIALISE NUMBER OF COMMENTS
+		$number_of_comments = get_option("mp_comments_recent_number");
+		
+		#INITIALISE DEFAULT NUMBER OF COMMENTS
+		if(empty($number_of_comments))
+		{
+			$number_of_comments = 5;
+		}
 		
 		#INITIALISE SQL QUERY
 		$sql = "SELECT DISTINCT ID, post_title, post_password, comment_ID, comment_post_ID, comment_author, comment_author_email, comment_date_gmt, comment_approved, comment_type,comment_author_url, SUBSTRING(comment_content, 1, 65) AS com_excerpt
@@ -1390,10 +1481,19 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE TOP COMMENTERS
-	function display_top_commenters($number_of_commenters = 10)
+	function display_top_commenters()
 	{
 		#RETRIEVE THE DATABASE
 		global $wpdb;
+		
+		#INITIALISE NUMBER OF COMMENTERS
+		$number_of_commenters = get_option("mp_comments_commenters_number");
+		
+		#INITIALISE DEFAULT NUMBER OF COMMENTERS
+		if(empty($number_of_commenters))
+		{
+			$number_of_commenters = 5;
+		}
 		
 		#INITIALISE SQL QUERY
 		$sql = "SELECT user_id, comment_author, comment_author_url, comment_author_email, comment_post_ID, COUNT(comment_ID) AS total_comments

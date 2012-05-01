@@ -42,6 +42,14 @@ class mp_options
 		#INITIALISE SLIDE META BOXES
 		add_action("admin_init", array("mp_options", "meta_boxes_slide"));
 		
+		#INITIALISE TESTIMONIAL CUSTOM POST TYPES
+		add_action("init", array("mp_options", "custom_posts_testimonials"));
+		add_filter("manage_edit-testimonial_columns", array("mp_options", "testimonial_edit_columns"));
+		add_action("manage_testimonial_posts_custom_column",  array("mp_options", "testimonial_custom_columns"));
+		
+		#INITIALISE TESTIMONIAL META BOXES
+		add_action("admin_init", array("mp_options", "meta_boxes_testimonial"));
+		
 		#INITIALISE TINYMCE EDITOR FOR USER BIOGRAPHY IN WORDPRESS 3.3 +
 		if(function_exists("wp_editor") && current_user_can("edit_posts"))
 		{
@@ -64,15 +72,8 @@ class mp_options
 		#INITIALISE SHORTCODES
 		add_shortcode("testimonial", array("mp_options", "testimonial_shortcode"));
 		
-		#INITIALISE THICKBOX
-		wp_enqueue_script("thickbox", true);
-		wp_enqueue_style("thickbox");
-		
 		#INITIALISE TRACKING CODE IN FOOTER
 		add_action("wp_footer", array("mp_options", "mp_tracking"));
-		
-		#INITIALISE AUTHOR ID
-		$this->mp_author_id = 1;
 	}
 	
 	#THIS FUNCTION ADDS THE THEME OPTIONS MENU ITEM TO THE APPEARANCE MENU
@@ -164,7 +165,7 @@ class mp_options
 				settings_fields("mp_settings_author");
 				
 				#DISPLAY AUTHORS
-				mp_options::mp_option_field("Author", "", true, true, "Author", "author", "mp_author", "mp_author", "Select the author you with to display in the sidebar and footer", 1, true);
+				mp_options::mp_option_field("Author", "", true, true, "Author", "author", "mp_author", "mp_author", "Select the author you with to display in the sidebar and footer", "", true);
 				?>
 			
 				</form>
@@ -300,7 +301,7 @@ class mp_options
 	
 	#THIS FUNCTION DISPLAYS THE THEME'S OPTIONS PAGE FIELDS
 	function mp_option_field($h3_title = "", $below_h3_title = "", $open_table = false, $close_table = false, $column_name, $input_type, $input_id, $input_option, $input_description, $input_default, $save_button = false, $min_width = "", $max_width = "")
-	{	
+	{
 		#INITIALISE OPTION
 		$mp_option = get_option("$input_option");
 		
@@ -482,7 +483,7 @@ class mp_options
 	#THIS FUNCTION INCLUDES THE JAVASCRIPT & CSS FILES OF THE THEME OPTIONS
 	function admin_head()
 	{
-		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo("template_url") . '/css/admin.css" type="text/css" />' . "\n";
+		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo("template_url") . '/css/admin.php" type="text/css" />' . "\n";
 		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-metadata.js"></script>' . "\n";
 		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-validate.js"></script>' . "\n";
 		
@@ -555,7 +556,7 @@ class mp_options
 		(
 			"name" => _x("Slides", "post type general name"),
 			"singular_name" => _x("Slide", "post type singular name"),
-			"add_new" => _x("Add Slide", "nail-care"),
+			"add_new" => _x("Add Slide", "slide"),
 			"add_new_item" => __("Add New Slide"),
 			"edit_item" => __("Edit Slide"),
 			"new_item" => __("New Slide"),
@@ -594,32 +595,6 @@ class mp_options
 		register_post_type("slide", $args);
 	}
 	
-	#THIS FUNCTION DISPLAYS THE SLIDE COLUMN VALUES
-	function slide_custom_columns($column)
-	{
-		#RETRIEVE THE POST & DATABASE
-		global $wpdb;
-		global $post;
-		
-		#DISPLAY PRODUCT COLUMN VALUES
-		switch($column)
-		{			
-			#SLIDE IMAGE
-			case "image":
-				
-				$slide_image = get_post_meta($post->ID, "slide_image", true);
-				echo '<a href="' . $slide_image . '" target="_blank">' . $slide_image . '</a>';
-				break;
-				
-			#SLIDE URL
-			case "url":
-			
-				$slide_url = get_post_meta($post->ID, "slide_url", true);
-				echo '<a href="' . $slide_url . '" target="_blank">' . $slide_url . '</a>';
-				break;
-		}
-	}
-	
 	#THIS FUNCTION DISPLAYS THE SLIDE COLUMNS
 	function slide_edit_columns($columns)
 	{
@@ -636,6 +611,46 @@ class mp_options
 		);
 		
 		return $columns;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE SLIDE COLUMN VALUES
+	function slide_custom_columns($column)
+	{
+		#RETRIEVE THE POST & DATABASE
+		global $wpdb;
+		global $post;
+		
+		#DISPLAY SLIDE COLUMN VALUES
+		switch($column)
+		{			
+			#SLIDE IMAGE
+			case "image":
+			
+				#INITIALISE SLIDE IMAGE
+				$slide_image = get_post_meta($post->ID, "slide_image", true);
+				
+				#DISPLAY SLIDE IMAGE ICON
+				if(!empty($slide_image))
+				{
+					echo '<a href="' . $slide_image . '" title="" class="colorbox"><img src="' . get_bloginfo("template_url") . '/images/icon-picture.png" /></a>';
+				}
+				
+				break;
+				
+			#SLIDE URL
+			case "url":
+				
+				#INITIALISE SLIDE URL
+				$slide_url = get_post_meta($post->ID, "slide_url", true);
+				
+				#DISPLAY SLIDE URL ICON
+				if(!empty($slide_url))
+				{
+					echo '<a href="' . $slide_url . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-url.png" /></a>';
+				}
+				
+				break;
+		}
 	}
 	
 	#THIS FUNCTION CREATES THE SLIDE BOX
@@ -732,6 +747,257 @@ class mp_options
 		#SAVE SLIDE BOX FORM CONTENTS
 		mp_options::meta_boxes_save($post_id, "slide_nonce", "slide_image", "post");
 		mp_options::meta_boxes_save($post_id, "slide_nonce", "slide_url", "post");
+		
+		#RETURN POST ID
+		return $post_id;
+	}
+	
+	#THIS FUNCTION CREATES THE TESTIMONIALS CUSTOM POST TYPE
+	function custom_posts_testimonials()
+	{
+		#INITIALISE TESTIMONIAL CUSTOM POST TYPE LABELS
+		$labels = array
+		(
+			"name" => _x("Testimonials", "post type general name"),
+			"singular_name" => _x("Testimonial", "post type singular name"),
+			"add_new" => _x("Add Testimonial", "testimonial"),
+			"add_new_item" => __("Add New Testimonial"),
+			"edit_item" => __("Edit Testimonial"),
+			"new_item" => __("New Testimonial"),
+			"all_items" => __("All Testimonials"),
+			"view_item" => __("View Testimonial"),
+			"search_items" => __("Search Testimonials"),
+			"not_found" =>  __("No Testimonials found"),
+			"not_found_in_trash" => __("No Testimonials found in Trash"), 
+			"parent_item_colon" => "",
+			"menu_name" => "Testimonials"
+		);
+		
+		#INITIALISE TESTIMONIAL CUSTOM POST TYPE ARGUMENTS
+		$args = array
+		(
+			"labels" => $labels,
+			"description" => "Testimonial",
+			"public" => true,
+			"publicly_queryable" => true,
+			"exclude_from_search" => false,
+			"show_ui" => true, 
+			"show_in_menu" => true,
+			"menu_position" => 5,
+			"menu_icon" => null,
+			"capability_type" => "post",
+			"hierarchical" => false,
+			"supports" => array("title", "editor", "revisions", "custom-fields"),
+			"has_archive" => false,
+			"rewrite" => array("slug" => "testimonial", "with_front" => false),
+			"query_var" => true,
+			"can_export" => true,
+			"show_in_nav_menus" => true
+		);
+		
+		#REGISTER TESTIMONIAL CUSTOM POST TYPE
+		register_post_type("testimonial", $args);
+	}
+	
+	#THIS FUNCTION DISPLAYS THE TESTIMONIAL COLUMNS
+	function testimonial_edit_columns($columns)
+	{
+		#INITIALISE TESTIMONIAL COLUMNS
+		$columns = 
+		array
+		(
+			"cb" => "<input type=\"checkbox\" />",
+			"title" => "Title",
+			"name" => "Name",
+			"location" => "Location",
+			"photo" => "Photo",
+			"url" => "URL",
+			"date" => "Date"
+		);
+		
+		return $columns;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE TESTIMONIAL COLUMN VALUES
+	function testimonial_custom_columns($column)
+	{
+		#RETRIEVE THE POST & DATABASE
+		global $wpdb;
+		global $post;
+		
+		#DISPLAY TESTIMONIAL VALUES
+		switch($column)
+		{
+			#TESTIMONIAL NAME
+			case "name":
+				
+				#INITIALISE TESTIMONIAL NAME
+				$testimonial_name = get_post_meta($post->ID, "testimonial_name", true);
+				
+				#DISPLAY TESTIMONIAL NAME
+				if(!empty($testimonial_name))
+				{
+					echo $testimonial_name;
+				}
+				
+				break;
+				
+			#TESTIMONIAL LOCATION
+			case "location":
+				
+				#INITIALISE TESTIMONIAL LOCATION
+				$testimonial_location = get_post_meta($post->ID, "testimonial_location", true);
+				
+				#DISPLAY TESTIMONIAL LOCATION
+				if(!empty($testimonial_location))
+				{
+					echo $testimonial_location;
+				}
+				
+				break;
+				
+			#TESTIMONIAL PHOTO
+			case "photo":
+				
+				#INITIALISE TESTIMONIAL PHOTO
+				$testimonial_photo = get_post_meta($post->ID, "testimonial_photo", true);
+				
+				#DISPLAY TESTIMONIAL PHOTO ICON
+				if(!empty($testimonial_photo))
+				{
+					echo '<a href="' . $testimonial_photo . '" title="" class="colorbox"><img src="' . get_bloginfo("template_url") . '/images/icon-picture.png" /></a>';
+				}
+				
+				break;
+				
+			#TESTIMONIAL URL
+			case "url":
+			
+				#INITIALISE TESTIMONIAL URL
+				$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);
+				
+				#DISPLAY TESTIMONIAL URL ICON
+				if(!empty($testimonial_url))
+				{
+					echo '<a href="' . $testimonial_url . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-url.png" /></a>';
+				}
+				
+				break;
+		}
+	}
+	
+	#THIS FUNCTION CREATES THE TESTIMONIAL BOX
+	function meta_boxes_testimonial()
+	{
+		#ADD TESTIMONIAL BOX TO TESTIMONIAL CUSTOM POSTS
+		add_meta_box("testimonial_box", "Testimonial Information", array("mp_options", "meta_boxes_testimonial_form"), "testimonial", "normal", "high");
+	 
+		#SAVE TESTIMONIAL BOX FORM CONTENTS
+		add_action("save_post", array("mp_options", "meta_boxes_testimonial_form_save"));
+	}
+	
+	#THIS FUNCTION CREATES THE TESTIMONIAL BOX FORM
+	function meta_boxes_testimonial_form()
+	{
+		#RETRIEVE THE POST
+		global $post;
+	
+		#INITIALISE TESTIMONIAL ERROR BOX ID
+		$testimonial_error_box = "testimonial_errors" . $post->ID;
+	
+		#INITIALISE TESTIMONIAL OPTIONS
+		$testimonial_name = get_post_meta($post->ID, "testimonial_name", true);
+		$testimonial_location = get_post_meta($post->ID, "testimonial_location", true);
+		$testimonial_photo = get_post_meta($post->ID, "testimonial_photo", true);
+		$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);
+		$testimonial_project = get_post_meta($post->ID, "testimonial_project", true);
+		
+		#DISPLAY TESTIMONIAL NONCE FIELD
+		echo '<input name="testimonial_nonce" id="testimonial_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
+				
+		#DISPLAY TESTIMONIAL FIELDS
+		echo '<p><strong>Name:</strong><br /><input name="testimonial_name" id="testimonial_name" type="text" size="80" value="' . $testimonial_name . '" /></p><p>Enter the name of the person who wrote the testimonial.</p>';
+		echo '<p><strong>Location:</strong><br /><input name="testimonial_location" id="testimonial_location" type="text" size="80" value="' . $testimonial_location . '" /></p><p>Enter the location of the person who wrote the testimonial.</p>';
+		echo '<p><strong>Photo:</strong><br /><input name="testimonial_photo" id="testimonial_photo" type="text" size="80" value="' . urldecode($testimonial_photo) . '" /></p><p>Enter the photo URL of the person who wrote the testimonial.</p>';
+		echo '<p><strong>URL:</strong><br /><input name="testimonial_url" id="testimonial_url" type="text" size="80" value="' . urldecode($testimonial_url) . '" /></p><p>Enter the URL of the person who wrote the testimonial.</p>';
+		?>
+		<script type="text/javascript">
+		jQuery(document).ready(function()
+		{
+			jQuery("div.wrap").after('<div id="<?php echo $testimonial_error_box; ?>" class="mp_errors error"></div>');
+			
+			jQuery("form#post").validate(
+			{
+				//VALIDATION CONTAINER & ERROR MESSAGES
+				errorLabelContainer: jQuery("#<?php echo $testimonial_error_box; ?>"),
+				errorElement: "p",
+				errorClass: "mp_error_field",
+				
+				//VALIDATION RULES
+				rules:
+				{
+					testimonial_name:
+					{
+						required: true
+					},
+					testimonial_location:
+					{
+						required: true
+					},
+					testimonial_photo:
+					{
+						url: true
+					},
+					testimonial_url:
+					{
+						url: true
+					}
+				},
+				//VALIDATION MESSAGES
+				messages:
+				{
+					testimonial_name:
+					{
+						required: "Please enter a Name."
+					},
+					testimonial_location:
+					{
+						required: "Please enter a Location."
+					},
+					testimonial_photo:
+					{
+						url: "Please enter a valid Photo URL."
+					},
+					testimonial_url:
+					{
+						url: "Please enter a valid URL."
+					}
+				}
+			});
+			
+			jQuery("#publish").click(function()
+			{
+				form_check = jQuery("#post").valid();
+				
+				if(!form_check)
+				{
+					return false;
+				}
+			});
+		});
+		</script>
+		<?php
+	}
+	
+	#THIS FUNCTION SAVES THE TESTIMONIAL BOX FORM CONTENTS
+	function meta_boxes_testimonial_form_save($post_id) 
+	{		
+		#SAVE TESTIMONIAL BOX FORM CONTENTS
+		mp_options::meta_boxes_save($post_id, "testimonial_nonce", "testimonial_name", "post");
+		mp_options::meta_boxes_save($post_id, "testimonial_nonce", "testimonial_location", "post");
+		mp_options::meta_boxes_save($post_id, "testimonial_nonce", "testimonial_photo", "post");
+		mp_options::meta_boxes_save($post_id, "testimonial_nonce", "testimonial_url", "post");
+		//mp_options::meta_boxes_save($post_id, "testimonial_nonce", "testimonial_project", "post");
 		
 		#RETURN POST ID
 		return $post_id;

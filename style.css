@@ -1,7 +1,7 @@
 /*
 Theme Name: Maverick Portfolio for Web Designers & Developers
 Theme URI: http://www.EmployVince.com
-Description: Theme for EmployVince.com
+Description: WordPress Portfolio Theme for Web Designers & Developers
 Version: 1.0
 Author: Vince Law
 Author URI: http://www.EmployVince.com
@@ -1724,49 +1724,6 @@ div.testimonial_box div.right_quote
 .wp-pagenavi span.current
 {
 	font-weight: bold;
-}
-
-/* SOURCE CODE */
-#source-code
-{
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	width: 100%;
-	height: 100%;
-	background: rgba(255,255,255,0.8);
-	display: none;
-}
-
-#source-code:target
-{
-	display: block;
-}
-
-#source-code pre
-{
-	width: 80%;
-	height: 80%;
-	margin: 50px auto;
-	padding: 20px;
-	font: 14px/1.6 Monaco, Courier, MonoSpace;
-	color: white;
-	background: rgba(0,0,0,0.8);	
-	overflow: auto;
-}
-
-#source-code pre a, #source-code pre a span
-{
-	text-decoration: none;
-	color: #00ccff;
-}
-
-#x
-{
-	position: absolute;
-	top: 30px;
-	left: 10%;
-	margin: 10px 0px 0px -30px;
 }
 
 /* FONTS */

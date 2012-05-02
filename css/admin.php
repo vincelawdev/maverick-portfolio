@@ -63,6 +63,27 @@ input.mp_error_field
 	background-position: top left;
 }
 
+/* PORTFOLIO CUSTOM POST TYPE ICONS */
+#adminmenu #menu-posts-portfolio .wp-menu-image
+{
+	background-image: url("<?php bloginfo("template_url") ?>/images/menu-cp-portfolio-off.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#adminmenu #menu-posts-portfolio:hover .wp-menu-image,
+#adminmenu #menu-posts-portfolio.wp-has-current-submenu .wp-menu-image
+{
+	background-image: url("<?php bloginfo("template_url") ?>/images/menu-cp-portfolio-on.png");
+}
+
+#icon-edit.icon32-posts-portfolio
+{
+	background-image: url("<?php bloginfo("template_url") ?>/images/icon-cp-portfolio.png");
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+
 /* TESTIMONIAL CUSTOM POST TYPE ICONS */
 #adminmenu #menu-posts-testimonial .wp-menu-image
 {

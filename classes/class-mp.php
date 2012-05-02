@@ -34,20 +34,26 @@ class mp_options
 		#INITIALISE THEME ADMIN JAVASCRIPT & CSS
 		add_action("admin_head", array("mp_options", "admin_head"));
 		
-		#INITIALISE SLIDE CUSTOM POST TYPES
+		#INITIALISE SLIDE CUSTOM POST TYPE
 		add_action("init", array("mp_options", "custom_posts_slides"));
 		add_filter("manage_edit-slide_columns", array("mp_options", "slide_edit_columns"));
 		add_action("manage_slide_posts_custom_column",  array("mp_options", "slide_custom_columns"));
 		
-		#INITIALISE SLIDE META BOXES
+		#INITIALISE SLIDE META BOX
 		add_action("admin_init", array("mp_options", "meta_boxes_slide"));
 		
-		#INITIALISE TESTIMONIAL CUSTOM POST TYPES
+		#INITIALISE PORTFOLIO CUSTOM POST TYPE & TAXONOMIES
+		add_action("init", array("mp_options", "custom_posts_portfolio"));
+		add_action("init", array("mp_options", "custom_taxonomies_portfolio_categories"));
+		add_action("init", array("mp_options", "custom_taxonomies_portfolio_scope"));
+		add_action("init", array("mp_options", "custom_taxonomies_portfolio_skills"));
+		
+		#INITIALISE TESTIMONIAL CUSTOM POST TYPE
 		add_action("init", array("mp_options", "custom_posts_testimonials"));
 		add_filter("manage_edit-testimonial_columns", array("mp_options", "testimonial_edit_columns"));
 		add_action("manage_testimonial_posts_custom_column",  array("mp_options", "testimonial_custom_columns"));
 		
-		#INITIALISE TESTIMONIAL META BOXES
+		#INITIALISE TESTIMONIAL META BOX
 		add_action("admin_init", array("mp_options", "meta_boxes_testimonial"));
 		
 		#INITIALISE TINYMCE EDITOR FOR USER BIOGRAPHY IN WORDPRESS 3.3 +
@@ -70,7 +76,7 @@ class mp_options
 		add_filter("user_contactmethods", array("mp_options", "mp_contact_info"));
 		
 		#INITIALISE SHORTCODES
-		add_shortcode("testimonial", array("mp_options", "testimonial_shortcode"));
+		add_shortcode("testimonial", array("mp_options", "mp_testimonial_shortcode"));
 		
 		#INITIALISE TRACKING CODE IN FOOTER
 		add_action("wp_footer", array("mp_options", "mp_tracking"));
@@ -374,7 +380,7 @@ class mp_options
 			case "author":
 				
 				mp_options::mp_display_author_list($input_id, $mp_option, $input_default);
-				break;		
+				break;
 			
 			#SIDEBAR LIST ITEMS
 			case "sidebar_lists":
@@ -469,7 +475,7 @@ class mp_options
 			else
 			{
 				$select_list .= "<option class=\"level-0\" value=\"" . $author->ID . "\">" . $author->display_name . "</option>\n";
-			}		
+			}
 		}
 		
 		#CLOSE SELECT LIST HTML
@@ -477,6 +483,58 @@ class mp_options
 		
 		#DISPLAY SELECT LIST
 		echo $select_list;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE LIST OF PROJECTS
+	function mp_display_project_list($select_id, $selected_project)
+	{
+		#RETRIEVE THE POST
+		global $post;
+	
+		#INITIALISE PROJECT ARGUMENTS
+		$args = array
+		(
+			"post_type" => "portfolio",
+			"post_status" => "publish",
+			"posts_per_page" => -1,
+			"orderby" => "title",
+			"order" => "ASC"
+		);
+		
+		#RETRIEVE PROJECTS
+		$projects = new WP_Query($args);
+		
+		#PROJECTS EXISTS
+		if($projects->have_posts())
+		{			
+			#INITIALISE SELECT LIST HTML
+			$select_list = "<select name=\"$select_id\" id=\"$select_id\" class=\"postform\">\n";
+			$select_list .= "<option class=\"level-0\" value=\"\">Select Project</option>\n";
+			
+			#DISPLAY PROJECTS
+			while($projects->have_posts())
+			{
+				#RETRIEVE THE PROJECT CONTENT
+				$projects->the_post();  
+				
+				#SELECTED PROJECT
+				if($selected_project == $post->ID)
+				{
+					$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $post->ID . "\">" . $post->post_title . "</option>\n";
+				}
+				#UNSELECTED PROJECT
+				else
+				{
+					$select_list .= "<option class=\"level-0\" value=\"" . $post->ID . "\">" . $post->post_title . "</option>\n";
+				}
+			}
+			
+			#CLOSE SELECT LIST HTML
+			$select_list .= "</select>";
+			
+			#DISPLAY SELECT LIST
+			echo $select_list;
+		}
 	}
 	
 	#THIS FUNCTION DISPLAYS THE NUMBER OF LIST ITEMS OF SIDEBAR LISTS
@@ -623,7 +681,7 @@ class mp_options
 		(
 			"name" => _x("Slides", "post type general name"),
 			"singular_name" => _x("Slide", "post type singular name"),
-			"add_new" => _x("Add Slide", "slide"),
+			"add_new" => _x("Add New", "slide"),
 			"add_new_item" => __("Add New Slide"),
 			"edit_item" => __("Edit Slide"),
 			"new_item" => __("New Slide"),
@@ -677,6 +735,7 @@ class mp_options
 			"author" => "Author"
 		);
 		
+		#RETURN SLIDE COLUMNS
 		return $columns;
 	}
 	
@@ -819,6 +878,164 @@ class mp_options
 		return $post_id;
 	}
 	
+	#THIS FUNCTION CREATES THE PORTFOLIO CUSTOM POST TYPE
+	function custom_posts_portfolio()
+	{
+		#INITIALISE PORTFOLIO CUSTOM POST TYPE LABELS
+		$labels = array
+		(
+			"name" => _x("Projects", "post type general name"),
+			"singular_name" => _x("Project", "post type singular name"),
+			"add_new" => _x("Add New", "portfolio"),
+			"add_new_item" => __("Add New Project"),
+			"edit_item" => __("Edit Project"),
+			"new_item" => __("New Project"),
+			"all_items" => __("All Projects"),
+			"view_item" => __("View Projects"),
+			"search_items" => __("Search Projects"),
+			"not_found" =>  __("No Projects found"),
+			"not_found_in_trash" => __("No Projects found in Trash"), 
+			"parent_item_colon" => "",
+			"menu_name" => "Portfolio"
+		);
+		
+		#INITIALISE PORTFOLIO CUSTOM POST TYPE ARGUMENTS
+		$args = array
+		(
+			"labels" => $labels,
+			"description" => "Project",
+			"public" => true,
+			"publicly_queryable" => true,
+			"exclude_from_search" => false,
+			"show_ui" => true, 
+			"show_in_menu" => true,
+			"menu_position" => 5,
+			"menu_icon" => null,
+			"capability_type" => "post",
+			"hierarchical" => false,
+			"supports" => array("title", "editor", "revisions", "custom-fields"),
+			"has_archive" => false,
+			"rewrite" => array("slug" => "portfolio", "with_front" => false),
+			"query_var" => true,
+			"can_export" => true,
+			"show_in_nav_menus" => true
+		);
+		
+		#REGISTER PORTFOLIO CUSTOM POST TYPE
+		register_post_type("portfolio", $args);
+	}
+	
+	#THIS FUNCTION CREATES THE PORTFOLIO CATEGORIES CUSTOM TAXONOMY
+	function custom_taxonomies_portfolio_categories()
+	{
+		#INITIALISE PORTFOLIO CATEGORIES CUSTOM TAXONOMY LABELS
+		$labels = array
+		(
+			"name" => _x("Project Categories", "taxonomy general name"),
+			"singular_name" => _x("Project Category", "taxonomy singular name"),
+			"search_items" =>  __("Search Project Categories"),
+			"all_items" => __("All Project Categories"),
+			"parent_item" => __("Parent Project Category"),
+			"parent_item_colon" => __("Parent Project Category:"),
+			"edit_item" => __("Edit Project Category"), 
+			"update_item" => __("Update Project Category"),
+			"add_new_item" => __("Add New Project Category"),
+			"new_item_name" => __("New Project Category"),
+			"menu_name" => __("Project Categories"),
+			"choose_from_most_used" => __("Choose from the most used Project Categories")
+		);
+		
+		#INITIALISE PORTFOLIO CATEGORIES CUSTOM TAXONOMY ARGUMENTS
+		$args = array
+		(
+			"labels" => $labels,	
+			"public" => true,
+			"show_in_nav_menus" => true,
+			"show_ui" => true,
+			"show_tagcloud" => false,
+			"hierarchical" => true,
+			"rewrite" => array("slug" => "portfolio-categories", "with_front" => false),
+			"query_var" => true
+		);
+		
+		#REGISTER PORTFOLIO CATEGORIES CUSTOM TAXONOMY
+		register_taxonomy("portfolio-categories", "portfolio", $args);
+	}
+	
+	#THIS FUNCTION CREATES THE PORTFOLIO SCOPE CUSTOM TAXONOMY
+	function custom_taxonomies_portfolio_scope()
+	{
+		#INITIALISE PORTFOLIO SCOPE CUSTOM TAXONOMY LABELS
+		$labels = array
+		(
+			"name" => _x("Project Scope", "taxonomy general name"),
+			"singular_name" => _x("Project Scope", "taxonomy singular name"),
+			"search_items" =>  __("Search Project Scope"),
+			"all_items" => __("All Project Scope"),
+			"parent_item" => __("Parent Project Scope"),
+			"parent_item_colon" => __("Parent Project Scope:"),
+			"edit_item" => __("Edit Project Scope"), 
+			"update_item" => __("Update Project Scope"),
+			"add_new_item" => __("Add New Project Scope"),
+			"new_item_name" => __("New Project Scope"),
+			"menu_name" => __("Project Scope"),
+			"choose_from_most_used" => __("Choose from the most used Project Scope")
+		);
+		
+		#INITIALISE PORTFOLIO SCOPE CUSTOM TAXONOMY ARGUMENTS
+		$args = array
+		(
+			"labels" => $labels,	
+			"public" => true,
+			"show_in_nav_menus" => true,
+			"show_ui" => true,
+			"show_tagcloud" => false,
+			"hierarchical" => true,
+			"rewrite" => array("slug" => "portfolio-scope", "with_front" => false),
+			"query_var" => true
+		);
+		
+		#REGISTER PORTFOLIO SCOPE CUSTOM TAXONOMY
+		register_taxonomy("portfolio-scope", "portfolio", $args);
+	}
+	
+	#THIS FUNCTION CREATES THE PORTFOLIO SKILLS CUSTOM TAXONOMY
+	function custom_taxonomies_portfolio_skills()
+	{
+		#INITIALISE PORTFOLIO SKILLS CUSTOM TAXONOMY LABELS
+		$labels = array
+		(
+			"name" => _x("Project Skills", "taxonomy general name"),
+			"singular_name" => _x("Project Skill", "taxonomy singular name"),
+			"search_items" =>  __("Search Project Skills"),
+			"all_items" => __("All Project Skills"),
+			"parent_item" => __("Parent Project Skill"),
+			"parent_item_colon" => __("Parent Project Skill:"),
+			"edit_item" => __("Edit Project Skill"), 
+			"update_item" => __("Update Project Skill"),
+			"add_new_item" => __("Add New Project Skill"),
+			"new_item_name" => __("New Project Skill"),
+			"menu_name" => __("Project Skills"),
+			"choose_from_most_used" => __("Choose from the most used Project Skills")
+		);
+		
+		#INITIALISE PORTFOLIO SKILLS CUSTOM TAXONOMY ARGUMENTS
+		$args = array
+		(
+			"labels" => $labels,	
+			"public" => true,
+			"show_in_nav_menus" => true,
+			"show_ui" => true,
+			"show_tagcloud" => false,
+			"hierarchical" => true,
+			"rewrite" => array("slug" => "portfolio-skill", "with_front" => false),
+			"query_var" => true
+		);
+		
+		#REGISTER PORTFOLIO SKILLS CUSTOM TAXONOMY
+		register_taxonomy("portfolio-skill", "portfolio", $args);
+	}
+	
 	#THIS FUNCTION CREATES THE TESTIMONIALS CUSTOM POST TYPE
 	function custom_posts_testimonials()
 	{
@@ -827,7 +1044,7 @@ class mp_options
 		(
 			"name" => _x("Testimonials", "post type general name"),
 			"singular_name" => _x("Testimonial", "post type singular name"),
-			"add_new" => _x("Add Testimonial", "testimonial"),
+			"add_new" => _x("Add New", "testimonial"),
 			"add_new_item" => __("Add New Testimonial"),
 			"edit_item" => __("Edit Testimonial"),
 			"new_item" => __("New Testimonial"),
@@ -850,7 +1067,7 @@ class mp_options
 			"exclude_from_search" => false,
 			"show_ui" => true, 
 			"show_in_menu" => true,
-			"menu_position" => 5,
+			"menu_position" => 6,
 			"menu_icon" => null,
 			"capability_type" => "post",
 			"hierarchical" => false,
@@ -875,6 +1092,7 @@ class mp_options
 		(
 			"cb" => "<input type=\"checkbox\" />",
 			"title" => "Title",
+			"project" => "Project",
 			"name" => "Name",
 			"location" => "Location",
 			"photo" => "Photo",
@@ -882,6 +1100,7 @@ class mp_options
 			"date" => "Date"
 		);
 		
+		#RETURN TESTIMONIAL COLUMNS
 		return $columns;
 	}
 	
@@ -895,6 +1114,21 @@ class mp_options
 		#DISPLAY TESTIMONIAL VALUES
 		switch($column)
 		{
+			#TESTIMONIAL PROJECT
+			case "project":
+			
+				#INITIALISE TESTIMONIAL PROJECT ID
+				$testimonial_project = get_post_meta($post->ID, "testimonial_project", true);
+			
+				#INITIALISE TESTIMONIAL PROJECT TITLE
+				$testimonial_project_title = get_the_title($testimonial_project);
+				
+				#DISPLAY TESTIMONIAL PROJECT TITLE
+				if(!empty($testimonial_project_title))
+				{
+					echo $testimonial_project_title;
+				}
+			
 			#TESTIMONIAL NAME
 			case "name":
 				
@@ -974,16 +1208,17 @@ class mp_options
 		$testimonial_error_box = "testimonial_errors" . $post->ID;
 	
 		#INITIALISE TESTIMONIAL OPTIONS
+		$testimonial_project = get_post_meta($post->ID, "testimonial_project", true);
 		$testimonial_name = get_post_meta($post->ID, "testimonial_name", true);
 		$testimonial_location = get_post_meta($post->ID, "testimonial_location", true);
 		$testimonial_photo = get_post_meta($post->ID, "testimonial_photo", true);
-		$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);
-		$testimonial_project = get_post_meta($post->ID, "testimonial_project", true);
+		$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);		
 		
 		#DISPLAY TESTIMONIAL NONCE FIELD
 		echo '<input name="testimonial_nonce" id="testimonial_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
 				
 		#DISPLAY TESTIMONIAL FIELDS
+		echo '<p><strong>Project:</strong><br />'; mp_options::mp_display_project_list("testimonial_project", $testimonial_project); echo '</p><p>Select the project of the testimonial.</p>';
 		echo '<p><strong>Name:</strong><br /><input name="testimonial_name" id="testimonial_name" type="text" size="80" value="' . $testimonial_name . '" /></p><p>Enter the name of the person who wrote the testimonial.</p>';
 		echo '<p><strong>Location:</strong><br /><input name="testimonial_location" id="testimonial_location" type="text" size="80" value="' . $testimonial_location . '" /></p><p>Enter the location of the person who wrote the testimonial.</p>';
 		echo '<p><strong>Photo:</strong><br /><input name="testimonial_photo" id="testimonial_photo" type="text" size="80" value="' . urldecode($testimonial_photo) . '" /></p><p>Enter the photo URL of the person who wrote the testimonial.</p>';
@@ -1061,11 +1296,11 @@ class mp_options
 	function meta_boxes_testimonial_form_save($post_id) 
 	{		
 		#SAVE TESTIMONIAL BOX FORM CONTENTS
+		mp_options::meta_boxes_save($post_id, "testimonial_nonce", "testimonial_project", "post");
 		mp_options::meta_boxes_save($post_id, "testimonial_nonce", "testimonial_name", "post");
 		mp_options::meta_boxes_save($post_id, "testimonial_nonce", "testimonial_location", "post");
 		mp_options::meta_boxes_save($post_id, "testimonial_nonce", "testimonial_photo", "post");
 		mp_options::meta_boxes_save($post_id, "testimonial_nonce", "testimonial_url", "post");
-		//mp_options::meta_boxes_save($post_id, "testimonial_nonce", "testimonial_project", "post");
 		
 		#RETURN POST ID
 		return $post_id;
@@ -1172,7 +1407,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION ADDS CONTENT TO A TESTIMONIAL BOX
-	function testimonial_shortcode($parameters, $content = null)
+	function mp_testimonial_shortcode($parameters, $content = null)
 	{
 		#ADD CONTENT TO TESTIMONIAL BOX
 		$content = '<div class="testimonial_box"><div class="testimonial">' . wpautop($content) . '</div><div class="right_quote"></div></div>';
@@ -1436,7 +1671,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE RECENT COMMENTS
-	function display_recent_comments($number_of_comments = 5)
+	function display_recent_comments()
 	{
 		#RETRIEVE THE DATABASE
 		global $wpdb;

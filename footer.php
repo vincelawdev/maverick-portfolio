@@ -1,8 +1,3 @@
-<?php
-#INITIALISE CLASS OBJECT
-$mp_options = new mp_options();
-?>
-
 <!-- FOOTER - ROW 1 - START -->
 <div id="footer_row1">
 
@@ -12,8 +7,8 @@ $mp_options = new mp_options();
 		<!-- ABOUT - START -->
 		<div id="footer_column1">
 		
-			<h5>About <?php the_author_meta("first_name", $mp_author); ?></h5>			
-			<?php echo wpautop(get_the_author_meta("user_description", $mp_author)); ?>
+			<h5>About <?php the_author_meta("first_name", mp_options::get_author_id()); ?></h5>			
+			<?php echo wpautop(get_the_author_meta("user_description", mp_options::get_author_id())); ?>
 			
 		</div>
 		<!-- ABOUT - END -->

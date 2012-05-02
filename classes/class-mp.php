@@ -48,6 +48,9 @@ class mp_options
 		add_action("init", array("mp_options", "custom_taxonomies_portfolio_scope"));
 		add_action("init", array("mp_options", "custom_taxonomies_portfolio_skills"));
 		
+		#INITIALISE PORTFOLIO META BOX
+		add_action("admin_init", array("mp_options", "meta_boxes_portfolio"));
+		
 		#INITIALISE TESTIMONIAL CUSTOM POST TYPE
 		add_action("init", array("mp_options", "custom_posts_testimonials"));
 		add_filter("manage_edit-testimonial_columns", array("mp_options", "testimonial_edit_columns"));
@@ -526,6 +529,45 @@ class mp_options
 				else
 				{
 					$select_list .= "<option class=\"level-0\" value=\"" . $post->ID . "\">" . $post->post_title . "</option>\n";
+				}
+			}
+			
+			#CLOSE SELECT LIST HTML
+			$select_list .= "</select>";
+			
+			#DISPLAY SELECT LIST
+			echo $select_list;
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE LIST OF GALLERIES
+	function mp_display_gallery_list($select_id, $selected_gallery)
+	{
+		#NEXTGEN GALLERY PLUGIN IS ACTIVATED
+		if(function_exists("nggShowSlideshow"))
+		{
+			#RETRIEVE THE DATABASE
+			global $wpdb;
+			
+			#RETREIVE ALL NEXTGEN GALLERIES
+			$galleries = $wpdb->get_results("SELECT gid, title FROM $wpdb->prefix" . "ngg_gallery ORDER BY gid ASC");
+		
+			#INITIALISE SELECT LIST HTML
+			$select_list = "<select name=\"$select_id\" id=\"$select_id\" class=\"postform\">\n";
+			$select_list .= "<option class=\"level-0\" value=\"\">Select Project Gallery</option>\n";
+			
+			#DISPLAY OTHER NEXTGEN GALLERY SELECT LIST OPTIONS
+			foreach($galleries as $gallery)
+			{
+				#DISPLAY SELECTED NEXTGEN GALLERY
+				if($selected_gallery == $gallery->gid)
+				{
+					$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $gallery->gid . "\">" . $gallery->title . "</option>\n";
+				}
+				#DISPLAY UNSELECTED NEXTGEN GALLERY
+				else
+				{
+					$select_list .= "<option class=\"level-0\" value=\"" . $gallery->gid . "\">" . $gallery->title . "</option>\n";
 				}
 			}
 			
@@ -1034,6 +1076,98 @@ class mp_options
 		
 		#REGISTER PORTFOLIO SKILLS CUSTOM TAXONOMY
 		register_taxonomy("portfolio-skill", "portfolio", $args);
+	}
+	
+	#THIS FUNCTION CREATES THE PORTFOLIO BOX
+	function meta_boxes_portfolio()
+	{
+		#ADD PORTFOLIO BOX TO PORTFOLIO CUSTOM POSTS
+		add_meta_box("portfolio_box", "Project Information", array("mp_options", "meta_boxes_portfolio_form"), "portfolio", "normal", "high");
+	 
+		#SAVE PORTFOLIO BOX FORM CONTENTS
+		add_action("save_post", array("mp_options", "meta_boxes_portfolio_form_save"));
+	}
+	
+	#THIS FUNCTION CREATES THE PORTFOLIO BOX FORM
+	function meta_boxes_portfolio_form()
+	{
+		#RETRIEVE THE POST
+		global $post;
+	
+		#INITIALISE PORTFOLIO ERROR BOX ID
+		$portfolio_error_box = "portfolio_errors" . $post->ID;
+	
+		#INITIALISE PORTFOLIO OPTIONS
+		$portfolio_client_name = get_post_meta($post->ID, "portfolio_client_name", true);
+		$portfolio_client_location = get_post_meta($post->ID, "portfolio_client_location", true);
+		$portfolio_project_url = get_post_meta($post->ID, "portfolio_project_url", true);
+		$portfolio_project_gallery = get_post_meta($post->ID, "portfolio_project_gallery", true);
+		
+		#DISPLAY PORTFOLIO NONCE FIELD
+		echo '<input name="portfolio_nonce" id="portfolio_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
+				
+		#DISPLAY TESTIMONIAL FIELDS
+		echo '<p><strong>Client Name:</strong><br /><input name="portfolio_client_name" id="portfolio_client_name" type="text" size="80" value="' . $portfolio_client_name . '" /></p><p>Enter the name of the client.</p>';
+		echo '<p><strong>Client Location:</strong><br /><input name="portfolio_client_location" id="portfolio_client_location" type="text" size="80" value="' . $portfolio_client_location . '" /></p><p>Enter the location of the client.</p>';
+		echo '<p><strong>Project URL:</strong><br /><input name="portfolio_project_url" id="portfolio_project_url" type="text" size="80" value="' . urldecode($portfolio_project_url) . '" /></p><p>Enter the URL of the project.</p>';
+		echo '<p><strong>Project Gallery:</strong><br />'; mp_options::mp_display_gallery_list("portfolio_project_gallery", $portfolio_project_gallery); echo '</p><p>Select the gallery of the project.</p>';		
+		
+		?>
+		<script type="text/javascript">
+		jQuery(document).ready(function()
+		{
+			jQuery("div.wrap").after('<div id="<?php echo $portfolio_error_box; ?>" class="mp_errors error"></div>');
+			
+			jQuery("form#post").validate(
+			{
+				//VALIDATION CONTAINER & ERROR MESSAGES
+				errorLabelContainer: jQuery("#<?php echo $portfolio_error_box; ?>"),
+				errorElement: "p",
+				errorClass: "mp_error_field",
+				
+				//VALIDATION RULES
+				rules:
+				{
+					portfolio_project_url:
+					{
+						url: true
+					}
+				},
+				//VALIDATION MESSAGES
+				messages:
+				{
+					portfolio_project_url:
+					{
+						url: "Please enter a valid URL."
+					}
+				}
+			});
+			
+			jQuery("#publish").click(function()
+			{
+				form_check = jQuery("#post").valid();
+				
+				if(!form_check)
+				{
+					return false;
+				}
+			});
+		});
+		</script>
+		<?php
+	}
+	
+	#THIS FUNCTION SAVES THE PORTFOLIO BOX FORM CONTENTS
+	function meta_boxes_portfolio_form_save($post_id) 
+	{		
+		#SAVE PORTFOLIO BOX FORM CONTENTS
+		mp_options::meta_boxes_save($post_id, "portfolio_nonce", "portfolio_client_name", "post");
+		mp_options::meta_boxes_save($post_id, "portfolio_nonce", "portfolio_client_location", "post");
+		mp_options::meta_boxes_save($post_id, "portfolio_nonce", "portfolio_project_url", "post");
+		mp_options::meta_boxes_save($post_id, "portfolio_nonce", "portfolio_project_gallery", "post");
+		
+		#RETURN POST ID
+		return $post_id;
 	}
 	
 	#THIS FUNCTION CREATES THE TESTIMONIALS CUSTOM POST TYPE

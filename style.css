@@ -675,6 +675,9 @@ body
 	text-decoration: underline;
 }
 
+/* PORTFOLIO */
+
+
 /* TRACKBACKS & PINGBACKS */
 #content ol.pings
 {
@@ -1247,7 +1250,8 @@ body
 	overflow: hidden;
 }
 
-#footer_row1 #footer_column1, #footer_row1 #footer_column2
+#footer_row1 #footer_column1,
+#footer_row1 #footer_column2
 {
 	width: 320px;
 	margin: 0px 20px 0px 0px;
@@ -1311,7 +1315,7 @@ body
 	float: left;
 }
 
-#footer_row1 #footer_column2 ul li:last-child, #footer_row1 #footer_column2 ul li.dribbble2, #footer_row1 #footer_column2 ul li.dribbble4
+#footer_row1 #footer_column2 ul li:nth-child(even)
 {
 	margin: 0px;
 	padding: 0px;
@@ -1343,7 +1347,7 @@ body
 	float: left;
 }
 
-#footer_row1 #footer_column3 ul li:last-child, #footer_row1 #footer_column3 ul li.instagram4, #footer_row1 #footer_column3 ul li.instagram8
+#footer_row1 #footer_column3 ul li:nth-child(4n+0)
 {
 	margin: 0px;
 	padding: 0px;
@@ -1447,7 +1451,8 @@ body
 	float: right;
 }
 
-#footer_row1 .footer_wrapper, #footer_row2 .footer_wrapper
+#footer_row1 .footer_wrapper,
+#footer_row2 .footer_wrapper
 {
 	width: 1000px;
 	margin: 0px auto 0px auto;

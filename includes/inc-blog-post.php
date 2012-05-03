@@ -6,7 +6,7 @@
 #DISPLAY POST THUMBNAIL
 if(has_post_thumbnail())
 {
-	echo '<a href="' . get_permalink() . '" title="' . get_the_title() . '" class="post_thumbnail">' . get_the_post_thumbnail($blog_posts->ID, "thumbnail") . '</a>';
+	echo '<a href="' . get_permalink() . '" title="' . get_the_title() . '" class="post_thumbnail">' . get_the_post_thumbnail($post->ID, "thumbnail") . '</a>';
 }
 
 #DISPLAY POST EXCERPT

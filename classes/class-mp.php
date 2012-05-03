@@ -1788,9 +1788,6 @@ class mp_options
 			#RUN SIMPLEPIE FEED
 			$feed->init();
 			
-			#INITIALISE INSTAGRAM THUMBNAIL COUNTER
-			$instagram_thumbnail_counter = 1;
-			
 			#OPEN UNORDERED LIST
 			echo "<ul>";
 			
@@ -1802,10 +1799,7 @@ class mp_options
 				$instagram_thumbnail = str_replace('" />', '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '" />', $instagram_thumbnail);
 				
 				#DISPLAY INSTAGRAM THUMBNAIL
-				echo '<li class="instagram' . $instagram_thumbnail_counter . '"><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" class="instagram_iframe">' . $instagram_thumbnail . '</a></li>' . "\n";
-				
-				#INCREMENT INSTAGRAM THUMBNAIL COUNTER
-				$instagram_thumbnail_counter ++;
+				echo '<li><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" class="instagram_iframe">' . $instagram_thumbnail . '</a></li>' . "\n";
 			}
 			
 			#CLOSE UNORDERED LIST
@@ -1837,9 +1831,6 @@ class mp_options
 			#RUN SIMPLEPIE FEED
 			$feed->init();
 			
-			#INITIALISE DRIBBBLE THUMBNAIL COUNTER
-			$dribbble_thumbnail_counter = 1;
-			
 			#OPEN UNORDERED LIST
 			echo "<ul>";
 			
@@ -1853,10 +1844,7 @@ class mp_options
 				}
 				
 				#DISPLAY DRIBBBLE THUMBNAIL
-				echo '<li class="dribbble' . $dribbble_thumbnail_counter . '"><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" class="dribbble_iframe">' . $dribbble_thumbnail . '</a></li>' . "\n";
-				
-				#INCREMENT DRIBBBLE THUMBNAIL COUNTER
-				$dribbble_thumbnail_counter ++;
+				echo '<li><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" class="dribbble_iframe">' . $dribbble_thumbnail . '</a></li>' . "\n";
 			}
 			
 			#CLOSE UNORDERED LIST

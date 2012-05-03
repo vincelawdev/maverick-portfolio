@@ -118,7 +118,7 @@ body
 	font-weight: normal;
 	color: #CCCCCC;
 	-webkit-font-smoothing: antialiased;
-	list-style: none;
+	list-style-type: none;
 	float: left;
 }
 
@@ -408,7 +408,7 @@ body
 	font-weight: normal;
 	color: #333333;
 	-webkit-font-smoothing: antialiased;
-	border-bottom: 1px dotted #cccccc;
+	border-bottom: 2px solid #cccccc;
 	display: block;
 }
 
@@ -676,7 +676,28 @@ body
 }
 
 /* PORTFOLIO */
+#content ul#projects
+{
+	margin: 10px 0px 0px 0px;
+	padding: 0px;
+	list-style-type: none;
+}
 
+#content ul#projects li
+{
+	width: 298px;
+	height: 257px;
+	margin: 0px 20px 15px 0px;
+	padding: 10px;
+	background-color: #f6f6f6;
+	border: 1px solid #cccccc;
+	float: left;
+}
+
+#content ul#projects li:nth-child(even)
+{
+	margin: 0px 0px 15px 0px;
+}
 
 /* TRACKBACKS & PINGBACKS */
 #content ol.pings
@@ -700,7 +721,7 @@ body
 {
 	margin: 0px;
 	padding: 0px;
-	list-style: none;
+	list-style-type: none;
 	list-style-position: inside;
 }
 
@@ -721,7 +742,7 @@ body
 {
 	margin: 0px;
 	padding: 0px;
-	list-style: none;
+	list-style-type: none;
 	list-style-position: inside;
 	background-image: url("images/arrow-comments.png");
 	background-repeat: no-repeat;
@@ -957,7 +978,7 @@ body
 {
 	margin: 0px;
 	padding: 0px;
-	list-style: none;
+	list-style-type: none;
 }
 
 #sidebar ul.social_buttons_list li
@@ -995,12 +1016,12 @@ body
 	font-size: 14px;
 	font-weight: normal;
 	color: #CCCCCC;
-	list-style: none;
+	list-style-type: none;
 }
 
 #sidebar ul.sidebar li
 {
-	margin: 0px;
+	margin: 1px 0px 1px 0px;
 	padding: 0px;
 	border-bottom: 1px dotted #cccccc;
 	background-image: url("images/arrow-sidebar-off.png");
@@ -1021,24 +1042,24 @@ body
 #sidebar ul.sidebar li a:active,
 #sidebar ul.sidebar li.current-cat a,
 #sidebar ul.sidebar li.current_page_item a,
-#sidebar ul.sidebar li:hover a
+#sidebar ul.sidebar li:hover a,
+#sidebar ul.sidebar li.current a
 {
 	color: #333333;
 }
 
 #sidebar ul.sidebar li.current-cat,
 #sidebar ul.sidebar li.current_page_item,
-#sidebar ul.sidebar li:hover
+#sidebar ul.sidebar li:hover,
+#sidebar ul.sidebar li.current
 {
 	background-image: url("images/arrow-sidebar-on.png");
 	background-color: #d8d8d8;
-	opacity: 0.8;
-	filter: alpha(opacity=80);
 }
 
 #sidebar ol.sidebar
 {
-	margin: 0px;
+	margin: 1px 0px 1px 0px;
 	padding: 0px;
 	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 14px;
@@ -1113,7 +1134,7 @@ body
 {
 	margin: 0px 0px 0px 0px;
 	padding: 0px;
-	list-style: none;
+	list-style-type: none;
 	overflow: hidden;
 	float: right;
 }
@@ -1178,7 +1199,7 @@ body
 	height: 355px;
 	margin: 0px;
 	padding: 0px;
-	list-style: none;
+	list-style-type: none;
 	overflow: hidden;
 }
 
@@ -1305,7 +1326,7 @@ body
 {
 	margin: 0px;
 	padding: 0px;
-	list-style: none;
+	list-style-type: none;
 }
 
 #footer_row1 #footer_column2 ul li
@@ -1337,7 +1358,7 @@ body
 {
 	margin: 0px;
 	padding: 0px;
-	list-style: none;
+	list-style-type: none;
 }
 
 #footer_row1 #footer_column3 ul li
@@ -1407,7 +1428,7 @@ body
 	font-size: 13px;
 	font-weight: normal;
 	color: #AAAAAA;
-	list-style: none;
+	list-style-type: none;
 	-webkit-font-smoothing: antialiased;
 	float: left;
 }
@@ -1717,6 +1738,7 @@ div.testimonial_box div.right_quote
 	font-size: 15px;
 	font-style: normal;
 	color: #333333;
+	clear: both;
 }
 
 .wp-pagenavi a, .wp-pagenavi span

@@ -16,7 +16,7 @@ get_header();
 				?>
 				<h1 class="post_title"><?php the_title(); ?></h1>
 				<p class="post_info">Posted on <?php the_date(); ?> by <?php the_author(); ?> in <?php the_category(", ");?> | <a href="#comments"><?php mp_options::display_comment_counter(get_the_ID(), "comment", "0 Comments", "1 Comment", "Comments"); ?></a></p>
-				<?php include(TEMPLATEPATH . "/includes/inc-blog-social.php"); ?>
+				<?php include(TEMPLATEPATH . "/includes/inc-blog-post-social.php"); ?>
 				<?php
 				#DISPLAY POST THUMBNAIL
 				if(has_post_thumbnail())

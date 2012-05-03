@@ -3,7 +3,7 @@
 
 	<?php	
 	#DISPLAY SUB PAGES
-	if(is_page())
+	if(is_page() && !is_page_template("portfolio.php"))
 	{	
 		#SUB PAGES EXIST
 		if(wp_list_pages("child_of=".$post->ID."&echo=0"))
@@ -49,8 +49,8 @@
 			}
 		}
 	}
-	#DISPLAY CATEGORIES, SOCIAL, POSTS, COMMENTS & ARCHIVES
-	if(!is_page() || is_page("blog"))
+	#DISPLAY BLOG CATEGORIES
+	if((!is_page() || is_page("blog")) && !is_tax())
 	{
 	?>
 	<!-- CATEGORIES - START -->
@@ -62,7 +62,21 @@
 	</div>
 	<!-- CATEGORIES - END -->
 	<?php
-	}	
+	}
+	#DISPLAY PORTFOLIO CATEGORIES
+	if(is_page_template("portfolio.php") || is_tax("portfolio-categories"))
+	{
+	?>
+	<!-- CATEGORIES - START -->
+	<div class="sidebar_box">
+	
+		<h4>Categories</h4>	
+		<ul class="sidebar"><?php mp_options::mp_display_portfolio_categories(get_query_var("term")); ?></ul>
+		
+	</div>
+	<!-- CATEGORIES - END -->
+	<?php
+	}
 	?>
 	
 	<!-- SOCIAL - START -->
@@ -76,8 +90,8 @@
 	<!-- SOCIAL - END -->
 	
 	<?php
-	#DISPLAY CATEGORIES, SOCIAL, POSTS, COMMENTS & ARCHIVES
-	if(!is_page() || is_page("blog"))
+	#DISPLAY BLOG POSTS, COMMENTS & ARCHIVES
+	if((!is_page() || is_page("blog")) && !is_tax())
 	{
 	?>
 	<!-- POST TABS - START -->

@@ -48,7 +48,7 @@ if(is_single())
 <?php wp_head(); ?>
 <?php
 #LOAD MENU FIX FOR BLOG & ORGANIC TABS
-if(!is_page() || is_page("blog"))
+if((!is_page() || is_page("blog")) && !is_tax())
 {
 ?>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-fix-menu-blog.js"></script>

@@ -1385,6 +1385,8 @@ class mp_options
 		}
 	}
 	
+	
+	
 	#THIS FUNCTION CREATES THE TESTIMONIALS CUSTOM POST TYPE
 	function custom_posts_testimonials()
 	{
@@ -1852,6 +1854,42 @@ class mp_options
 		}
 	}
 	
+	#THIS FUNCTION DISPLAYS THE CATEGORIES & SHOPPING OPTIONS IN THE SIDEBAR
+	function mp_display_portfolio_categories($current_category)
+	{
+		#CUSTOM TAXONOMY SORT PLUGIN ACTIVATED
+		if(class_exists("CustomTaxonomySort"))
+		{
+			#INITIALISE CATEGORIES WITH CUSTOM SORT ORDER
+			$categories = get_terms("portfolio-categories", "orderby=custom_sort&order=ASC&hide_empty=0");
+		}
+		#CUSTOM TAXONOMY SORT PLUGIN DEACTIVATED
+		else
+		{
+			#INITIALISE CATEGORIES WITH NAME SORT ORDER
+			$categories = get_terms("portfolio-categories", "orderby=name&hide_empty=0");
+		}
+		
+		#CATEGORIES EXIST
+		if(count($categories) > 0)
+		{			
+			#DISPLAY CATEGORY LINKS
+			foreach($categories as $category)
+			{
+				#DISPLAY SELECTED SUB CATEGORY LINKS
+				if($category->slug == $current_category)
+				{
+					echo '<li class="current"><a href="' . get_term_link($category->slug, "portfolio-categories") . '">' . $category->name . "</a></li>";
+				}
+				#DISPLAY UNSELECTED SUB CATEGORY LINKS
+				else
+				{
+					echo '<li><a href="' . get_term_link($category->slug, "portfolio-categories") . '">' . $category->name . "</a></li>";
+				}
+			}
+		}
+	}
+	
 	#THIS FUNCTION DISPLAYS THE SOCIAL MEDIA BUTTONS IN THE SIDEBAR
 	function display_social_buttons()
 	{
@@ -1936,7 +1974,7 @@ class mp_options
 		}
 	}
 	
-	#THIS FCUNTION DISPLAYS THE RECENT POSTS
+	#THIS FUNCTION DISPLAYS THE RECENT POSTS
 	function display_recent_posts()
 	{
 		#RETRIEVE THE DATABASE
@@ -1971,7 +2009,7 @@ class mp_options
 		}
 	}
 	
-	#THIS FCUNTION DISPLAYS THE MOST COMMENTED POSTS
+	#THIS FUNCTION DISPLAYS THE MOST COMMENTED POSTS
 	function display_most_commented_posts()
 	{
 		#RETRIEVE THE DATABASE

@@ -47,6 +47,8 @@ class mp_options
 		add_action("init", array("mp_options", "custom_taxonomies_portfolio_categories"));
 		add_action("init", array("mp_options", "custom_taxonomies_portfolio_scope"));
 		add_action("init", array("mp_options", "custom_taxonomies_portfolio_skills"));
+		add_filter("manage_edit-portfolio_columns", array("mp_options", "portfolio_edit_columns"));
+		add_action("manage_portfolio_posts_custom_column",  array("mp_options", "portfolio_custom_columns"));
 		
 		#INITIALISE PORTFOLIO META BOX
 		add_action("admin_init", array("mp_options", "meta_boxes_portfolio"));
@@ -672,7 +674,9 @@ class mp_options
 		(
 			"post_type" => "slide",
 			"post_status" => "publish",
-			"posts_per_page" => 5
+			"posts_per_page" => 5,
+			"order" => "DESC",
+			"orderby" => "date"
 		);
 		
 		#RETRIEVE SLIDES
@@ -693,7 +697,7 @@ class mp_options
 				#RETRIEVE THE SLIDE VARIABLES
 				$slide_image = get_post_meta($post->ID, "slide_image", true);
 				$slide_url = get_post_meta($post->ID, "slide_url", true);
-				$slide_title = get_the_title($post->ID);   
+				$slide_title = get_the_title($post->ID);
 				
 				#OPEN SLIDE LIST ITEM
 				echo '<li>';
@@ -750,7 +754,7 @@ class mp_options
 			"menu_icon" => null,
 			"capability_type" => "post",
 			"hierarchical" => false,
-			"supports" => array("title", "editor", "revisions", "custom-fields"),
+			"supports" => array("title", "editor", "revisions"),
 			"has_archive" => false,
 			"rewrite" => array("slug" => "slide", "with_front" => false),
 			"query_var" => true,
@@ -784,8 +788,7 @@ class mp_options
 	#THIS FUNCTION DISPLAYS THE SLIDE COLUMN VALUES
 	function slide_custom_columns($column)
 	{
-		#RETRIEVE THE POST & DATABASE
-		global $wpdb;
+		#RETRIEVE THE POST
 		global $post;
 		
 		#DISPLAY SLIDE COLUMN VALUES
@@ -955,7 +958,7 @@ class mp_options
 			"menu_icon" => null,
 			"capability_type" => "post",
 			"hierarchical" => false,
-			"supports" => array("title", "editor", "revisions", "custom-fields"),
+			"supports" => array("title", "editor", "revisions", "thumbnail"),
 			"has_archive" => false,
 			"rewrite" => array("slug" => "portfolio", "with_front" => false),
 			"query_var" => true,
@@ -1078,6 +1081,130 @@ class mp_options
 		register_taxonomy("portfolio-skill", "portfolio", $args);
 	}
 	
+	#THIS FUNCTION DISPLAYS THE PORTFOLIO COLUMNS
+	function portfolio_edit_columns($columns)
+	{
+		#INITIALISE PORTFOLIO COLUMNS
+		$columns = 
+		array
+		(
+			"cb" => "<input type=\"checkbox\" />",
+			"title" => "Title",
+			"project_category" => "Category",
+			"project_scope" => "Scope",
+			"project_skills" => "Skills",
+			"project_thumbnail" => "Thumbnail",
+			"project_gallery" => "Gallery",			
+			"project_url" => "URL",
+			"client_name" => "Client Name",
+			"client_location" => "Client Location",			
+			"date" => "Date"
+		);
+		
+		#RETURN TESTIMONIAL COLUMNS
+		return $columns;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE PORTFOLIO COLUMN VALUES
+	function portfolio_custom_columns($column)
+	{
+		#RETRIEVE THE POST
+		global $post;
+		
+		#DISPLAY PORTFOLIO VALUES
+		switch($column)
+		{
+			#PROJECT CATEGORY
+			case "project_category":
+			
+				echo get_the_term_list($post->ID, "portfolio-categories", "", ", ");
+				break;
+				
+			#PROJECT SCOPE
+			case "project_scope":
+			
+				echo get_the_term_list($post->ID, "portfolio-scope", "", ", ");
+				break;
+				
+			#PROJECT SKILLS
+			case "project_skills":
+			
+				echo get_the_term_list($post->ID, "portfolio-skill", "", ", ");
+				break;
+			
+			#PROJECT THUMBNAIL
+			case "project_thumbnail":
+				
+				#PRODUCT THUMBNAIL EXISTS
+				if(has_post_thumbnail($post->ID))
+				{
+					#INITIALISE PROJECT THUMBNAIL ARRAY
+					$project_thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "thumbnail");
+					
+					#DISPLAY PROJECT THUMBNAIL
+					echo '<img src="' . $project_thumbnail[0] . '" width="123" height="78" alt="" />';
+				}
+				
+				break;
+				
+			#PROJECT GALLERY
+			case "project_gallery":
+				
+				#INITIALISE PROJECT GALLERY
+				$portfolio_project_gallery = get_post_meta($post->ID, "portfolio_project_gallery", true);
+				
+				#DISPLAY PROJECT GALLERY ICON
+				if(!empty($portfolio_project_gallery))
+				{
+					echo '<a href="admin.php?page=nggallery-manage-gallery&mode=edit&gid=' . $portfolio_project_gallery . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-gallery.png" /></a>';
+				}
+				
+				break;
+			
+			#PROJECT URL
+			case "project_url":
+			
+				#INITIALISE PROJECT URL
+				$portfolio_project_url = get_post_meta($post->ID, "portfolio_project_url", true);
+				
+				#DISPLAY PROJECT URL ICON
+				if(!empty($portfolio_project_url))
+				{
+					echo '<a href="' . $portfolio_project_url . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-url.png" /></a>';
+				}
+				
+				break;
+			
+			#CLIENT NAME
+			case "client_name":
+				
+				#INITIALISE CLIENT NAME
+				$portfolio_client_name = get_post_meta($post->ID, "portfolio_client_name", true);
+				
+				#DISPLAY CLIENT NAME
+				if(!empty($portfolio_client_name))
+				{
+					echo $portfolio_client_name;
+				}
+				
+				break;
+				
+			#CLIENT LOCATION
+			case "client_location":
+				
+				#INITIALISE CLIENT LOCATION
+				$portfolio_client_location = get_post_meta($post->ID, "portfolio_client_location", true);
+				
+				#DISPLAY CLIENT LOCATION
+				if(!empty($portfolio_client_location))
+				{
+					echo $portfolio_client_location;
+				}
+				
+				break;
+		}
+	}
+	
 	#THIS FUNCTION CREATES THE PORTFOLIO BOX
 	function meta_boxes_portfolio()
 	{
@@ -1170,6 +1297,94 @@ class mp_options
 		return $post_id;
 	}
 	
+	#THIS FUNCTION DISPLAYS THE PROJECTS
+	function display_projects($category, $page)
+	{		
+		#RETRIEVE THE POST
+		global $post;
+		
+		#INITIALISE PROJECT ARGUMENTS OF PORTFOLIO PAGE
+		if(empty($category))
+		{
+			#INITIALISE SLIDE ARGUMENTS
+			$args = array
+			(
+				"post_type" => "portfolio",
+				"post_status" => "publish",
+				"posts_per_page" => 8,
+				"paged" => $page,
+				"order" => "DESC",
+				"orderby" => "date"
+			);
+		}
+		#INITIALISE PROJECT ARGUMENTS OF PORTFOLIO CATEGORIES
+		else
+		{
+			$args = array
+			(
+				"post_type" => "portfolio",
+				"post_status" => "publish",
+				"posts_per_page" => 8,
+				"paged" => $page,
+				"order" => "DESC",
+				"orderby" => "date",
+				"tax_query" =>
+				array
+				(
+					array
+					(
+						"taxonomy" => "portfolio-categories",
+						"field" => "slug",
+						"terms" => $category
+					)
+				)
+			);
+		}	
+		
+		#RETRIEVE PROJECTS
+		$projects = new WP_Query($args);
+		
+		#PROJECTS EXISTS
+		if($projects->have_posts())
+		{
+			#OPEN PROJECT LIST
+			echo '<ul id="projects">';
+			
+			#DISPLAY PROJECTS
+			while($projects->have_posts())
+			{
+				#RETRIEVE THE PROJECT CONTENT
+				$projects->the_post();
+				
+				#OPEN PROJECT LIST ITEM
+				echo '<li>';
+				
+				#DISPLAY 
+				echo '<a href="' . get_permalink($post->ID) . '">' . $post->post_title . '</a>';
+				
+				#CLOSE PROJECT LIST ITEM
+				echo '</li>';
+			}
+			
+			#CLOSE PROJECT LIST
+			echo '</ul>';
+			
+			#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
+			if(function_exists("wp_pagenavi"))
+			{
+				wp_pagenavi(array("query" =>$projects));
+			}
+			#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
+			else
+			{
+			?>
+				<p class="left"><?php next_posts_link("&laquo; Previous Entries"); ?></p>
+				<p class="right"><?php previous_posts_link("Next Entries &raquo;"); ?></p>
+			<?php
+			}
+		}
+	}
+	
 	#THIS FUNCTION CREATES THE TESTIMONIALS CUSTOM POST TYPE
 	function custom_posts_testimonials()
 	{
@@ -1205,7 +1420,7 @@ class mp_options
 			"menu_icon" => null,
 			"capability_type" => "post",
 			"hierarchical" => false,
-			"supports" => array("title", "editor", "revisions", "custom-fields"),
+			"supports" => array("title", "editor", "revisions"),
 			"has_archive" => false,
 			"rewrite" => array("slug" => "testimonial", "with_front" => false),
 			"query_var" => true,
@@ -1241,8 +1456,7 @@ class mp_options
 	#THIS FUNCTION DISPLAYS THE TESTIMONIAL COLUMN VALUES
 	function testimonial_custom_columns($column)
 	{
-		#RETRIEVE THE POST & DATABASE
-		global $wpdb;
+		#RETRIEVE THE POST
 		global $post;
 		
 		#DISPLAY TESTIMONIAL VALUES
@@ -2077,6 +2291,61 @@ class mp_options
       	if($comment->comment_approved)
 		{
 			echo "<li>" . get_comment_author_link() . " - " . get_comment_date() . " " . get_comment_time();
+		}
+	}
+
+	#THIS FUNCTION DISPLAYS THE BLOG POSTS
+	function display_blog_posts($page)
+	{		
+		#RETRIEVE THE POST
+		global $post;
+		
+		#INITIALISE BLOG POST ARGUMENTS
+		$args = array
+		(
+			"posts_per_page" => get_option("posts_per_page"),
+			"post_type"  => "post",
+			"post_status" => "publish",
+			"paged" => $page,
+			"order" => "DESC",
+			"orderby" => "date"
+		);
+		
+		#RETRIEVE BLOG POSTS
+		$blog_posts = new WP_Query($args);
+		
+		#BLOG POSTS EXISTS
+		if($blog_posts->have_posts())
+		{			
+			#DISPLAY BLOG POSTS
+			while($blog_posts->have_posts())
+			{
+				$blog_posts->the_post();
+				
+				#INCLUDE BLOG POST TEMPLATE
+				include(TEMPLATEPATH . "/includes/inc-blog-post.php");
+			}
+
+			#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
+			if(function_exists("wp_pagenavi"))
+			{
+				wp_pagenavi(array("query" =>$blog_posts));
+			}
+			#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
+			else
+			{
+			?>
+				<p class="left"><?php next_posts_link("&laquo; Previous Entries"); ?></p>
+				<p class="right"><?php previous_posts_link("Next Entries &raquo;"); ?></p>
+			<?php
+			}
+		}
+		#NO BLOG POSTS EXIST
+		else
+		{
+		?>		
+		<p>Sorry, no posts matched your criteria.</p>
+		<?php
 		}
 	}
 }

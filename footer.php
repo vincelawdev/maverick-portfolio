@@ -7,8 +7,8 @@
 		<!-- ABOUT - START -->
 		<div id="footer_column1">
 		
-			<h5>About <?php the_author_meta("first_name", mp_options::get_author_id()); ?></h5>			
-			<?php echo wpautop(get_the_author_meta("user_description", mp_options::get_author_id())); ?>
+			<h5>About <?php the_author_meta("first_name", mp_options::mp_get_author_id()); ?></h5>			
+			<?php echo wpautop(get_the_author_meta("user_description", mp_options::mp_get_author_id())); ?>
 			
 		</div>
 		<!-- ABOUT - END -->
@@ -17,7 +17,7 @@
 		<div id="footer_column2">
 		
 			<h5>Dribbble</h5>
-			<?php mp_options::display_dribbble_thumbnails(); ?>
+			<?php mp_options::mp_display_dribbble_thumbnails(); ?>
 			
 		</div>
 		<!-- DRIBBBLE - END -->
@@ -26,7 +26,7 @@
 		<div id="footer_column3">
 		
 			<h5>Instagram</h5>
-			<?php mp_options::display_instagram_thumbnails(); ?>
+			<?php mp_options::mp_display_instagram_thumbnails(); ?>
 			
 		</div>
 		<!-- INSTAGRAM - END -->

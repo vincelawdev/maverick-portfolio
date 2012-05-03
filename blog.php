@@ -5,7 +5,7 @@ get_header();
 ?>
 
 		<!-- BLOG POSTS - START -->
-		<?php mp_options::display_blog_posts(get_query_var("paged")); ?>
+		<?php mp_options::mp_display_blog_posts(get_query_var("paged")); ?>
 		<!-- BLOG POSTS - END -->
 	
 	</div>

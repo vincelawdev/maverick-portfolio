@@ -82,9 +82,9 @@
 	<!-- SOCIAL - START -->
 	<div class="sidebar_box">
 	
-		<h4>Connect With <?php the_author_meta("first_name", mp_options::get_author_id()); ?></h4>
-		<?php mp_options::display_social_buttons(); ?>
-		<?php mp_options::display_facebook_like_box(); ?>
+		<h4>Connect With <?php the_author_meta("first_name", mp_options::mp_get_author_id()); ?></h4>
+		<?php mp_options::mp_display_social_buttons(); ?>
+		<?php mp_options::mp_display_facebook_like_box(); ?>
 		
 	</div>
 	<!-- SOCIAL - END -->
@@ -109,7 +109,7 @@
 		<!-- POST TABS TITLES - END -->
 		 
 		<!-- RECENT POSTS - START -->
-		<?php if(function_exists("recent_posts")) { recent_posts(); } else { mp_options::display_recent_posts(); } ?>
+		<?php if(function_exists("recent_posts")) { recent_posts(); } else { mp_options::mp_display_recent_posts(); } ?>
 		<!-- RECENT POSTS - END -->
 		 
 		<!-- POPULAR POSTS - START -->
@@ -117,7 +117,7 @@
 		<!-- POPULAR POSTS - END -->
 		 
 		<!-- MOST COMMENTED POSTS - START -->
-		<?php mp_options::display_most_commented_posts(); ?>
+		<?php mp_options::mp_display_most_commented_posts(); ?>
 		<!-- MOST COMMENTED POSTS - END -->
 
 	</div>
@@ -137,11 +137,11 @@
 		<!-- COMMENT TABS TITLES - END -->
 	
 		<!-- RECENT COMMENTS - START -->
-		<?php if(function_exists("recent_comments")) { recent_comments(); } else { mp_options::display_recent_comments(); } ?>
+		<?php if(function_exists("recent_comments")) { recent_comments(); } else { mp_options::mp_display_recent_comments(); } ?>
 		<!-- RECENT COMMENTS - END -->
 		
 		<!-- TOP COMMENTERS - START -->
-		<?php mp_options::display_top_commenters(); ?>
+		<?php mp_options::mp_display_top_commenters(); ?>
 		<!-- TOP COMMENTERS - END -->
 	
 	</div>

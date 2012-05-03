@@ -88,9 +88,9 @@ $(document).ready(function()
 	//INITIALISE SUPERFISH MENUS
 	$("ul.sf-menu").supersubs(
 	{ 
-		minWidth: 8,
+		minWidth: 15,
 		maxWidth: 100,
-		extraWidth: 2
+		extraWidth: 1
 	}).superfish();
 });
 <?php

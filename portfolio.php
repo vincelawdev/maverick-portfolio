@@ -15,7 +15,7 @@ get_header();
 				the_post();
 				?>		
 				<h1 class="page_title"><?php the_title(); ?></h1>
-				<?php mp_options::display_projects("", get_query_var("paged")); ?>
+				<?php mp_options::mp_display_projects("", get_query_var("paged")); ?>
 			<?php
 			}
 		}

@@ -2,7 +2,7 @@
 <div id="sidebar">
 
 	<?php	
-	#DISPLAY SUB PAGES
+	#DISPLAY SUB PAGES ON PAGE EXCEPT FOR THE PORTFOLIO PAGE
 	if(is_page() && !is_page_template("portfolio.php"))
 	{	
 		#SUB PAGES EXIST

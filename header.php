@@ -56,6 +56,13 @@ if((!is_page() || is_page("blog")) && !is_tax())
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-organic-tabs-initialise.js"></script>
 <?php
 }
+#LOAD MENU FIX FOR PORTFOLIO
+if(is_page_template("portfolio.php") || is_tax("portfolio-categories"))
+{
+?>
+<script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-fix-menu-portfolio.js"></script>
+<?php	
+}
 ?>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-fix-height.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-preload.php"></script>

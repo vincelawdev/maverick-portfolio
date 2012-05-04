@@ -9,7 +9,7 @@ get_header();
 		#PORTFOLIO CATEGORY EXISTS
 		if(have_posts())
 		{
-			#DISPLAY CATEGORY PORTFOLIO
+			#DISPLAY PORTFOLIO CATEGORY
 			while(have_posts())
 			{
 				the_post();

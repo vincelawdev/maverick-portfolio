@@ -1541,11 +1541,13 @@ class mp_options
 				#INITIALISE TESTIMONIAL PROJECT TITLE
 				$testimonial_project_title = get_the_title($testimonial_project);
 				
-				#DISPLAY TESTIMONIAL PROJECT TITLE
+				#DISPLAY TESTIMONIAL PROJECT TITLE WITH LINK
 				if(!empty($testimonial_project_title))
 				{
-					echo $testimonial_project_title;
+					echo '<a href="post.php?post=' . $testimonial_project . '&action=edit">' . $testimonial_project_title . '</a>';
 				}
+				
+				break;
 			
 			#TESTIMONIAL NAME
 			case "name":

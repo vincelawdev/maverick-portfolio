@@ -63,6 +63,15 @@ if(is_page_template("portfolio.php") || is_tax("portfolio-categories"))
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-fix-menu-portfolio.js"></script>
 <?php	
 }
+#LOAD GALLERIFIC
+if(is_page_template("single-portfolio.php"))
+{
+?>
+<script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-galleriffic.js"></script>
+<script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-history.js"></script>
+<script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-opacityrollover.js"></script>
+<?php
+}
 ?>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-fix-height.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-preload.php"></script>

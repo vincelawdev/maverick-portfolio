@@ -1387,11 +1387,8 @@ class mp_options
 				#DISPLAY PROJECT TITLE
 				echo '<h2><a href="' . get_permalink() . '">' . $project_title . "</a></h2>";
 				
-				#DISPLAY PROJECT CATEGORY
-				if(empty($category))
-				{
-					echo '<p class="categories">' . get_the_term_list($post->ID, "portfolio-categories", "", ", ") . "</p>";
-				}
+				#DISPLAY PROJECT CATEGORIES
+				echo '<p class="categories">' . get_the_term_list($post->ID, "portfolio-categories", "", ", ") . "</p>";
 				
 				#DISPLAY EXCERPT VIA THE ADVANCED EXCERPT PLUGIN
 				if(function_exists("the_advanced_excerpt"))
@@ -2313,23 +2310,26 @@ class mp_options
 		if($comment_type_count == 0)
 		{
 			echo $label_zero;
+			
 			return;
 		}
 		#DISPLAY 1 COMMENT
 		elseif($comment_type_count == 1)
 		{
 			echo $label_single;
+			
 			return;
 		}
 		#DISPLAY MULTIPLE COMMENTS
 		elseif($comment_type_count > 1)
 		{
 			echo "$comment_type_count $label_multiple";
+			
 			return;
 		}
 	}
 	
-	#THIS FUNCTION DISPLAYS COMMENTS
+	#THIS FUNCTION DISPLAYS THE COMMENTS
 	function mp_display_comment_list($comment, $args, $depth)
 	{
 		#RETRIEVE THE COMMENT
@@ -2378,7 +2378,7 @@ class mp_options
 		}
 	}
 	
-	#THIS FUNCTION DISPLAYS TRACKBACKS & PINGBACKS
+	#THIS FUNCTION DISPLAYS THE TRACKBACKS & PINGBACKS
 	function mp_display_ping_list($comment)
 	{
 		#RETRIEVE THE COMMENT
@@ -2388,6 +2388,38 @@ class mp_options
       	if($comment->comment_approved)
 		{
 			echo "<li>" . get_comment_author_link() . " - " . get_comment_date() . " " . get_comment_time();
+		}
+	}
+
+	#THIS FUNCTION DISPLAYS THE SEARCH RESULTS TITLE
+	function mp_display_search_results_title()
+	{
+		#RETRIEVE THE QUERY
+		global $wp_query;
+		
+		#INITIALISE NUMBER OF SEARCH RESULTS
+		$search_results = sizeof($wp_query->posts);
+		
+		#NO SEARCH RESULTS
+		if($search_results == 0)
+		{
+			echo "No Search Results";
+			
+			return;
+		}
+		#1 SEARCH RESULT
+		elseif($search_results == 1)
+		{
+			echo "1 Search Result";
+			
+			return;
+		}
+		#MORE THAN 1 SEARCH RESULT
+		elseif($search_results > 1)
+		{
+			echo "$search_results Search Results";
+			
+			return;
 		}
 	}
 
@@ -2476,6 +2508,29 @@ class mp_options
 			#DISPLAY TRUNCATED CONTENT
 			echo $content_excerpt;
 		}
+	}
+
+	#THIS FUNCTION RETURNS THE PAGINATION PAGE
+	function mp_get_page()
+	{
+		#INITIALISE PAGE VIA PAGED VARIABLE
+		if(get_query_var("paged"))
+		{
+			$page = get_query_var("paged");
+		}
+		#INITIALISE PAGE VIA PAGE VARIABLE
+		elseif(get_query_var("page"))
+		{
+			$page = get_query_var("page");
+		}
+		#INITIALISE DEFAULT PAGE
+		else
+		{
+			$page = 1;
+		}
+		
+		#RETURN PAGE
+		return $page;	
 	}
 }
 ?>

@@ -5,8 +5,8 @@
 		#RETRIEVE BLOG POSTS
 		if(!is_search())
 		{
-			#RETRIEVE PAGE
-			$page = (get_query_var("paged")) ? get_query_var("paged") : 1;
+			#INITIALISE PAGE
+			$page = mp_options::mp_get_page();
 			
 			#RETRIEVE POSTS
 			query_posts("paged=$page");
@@ -17,7 +17,7 @@
 			#RETRIEVE SEARCH TERM
 			$search_term = trim($_REQUEST["s"]);
 			?>
-			<h1 class="post_title_underline">Search Results for &quot;<?php echo $search_term; ?>&quot;</h1>
+			<h1 class="post_title_underline"><?php mp_options::mp_display_search_results_title(); ?> for &quot;<?php echo $search_term; ?>&quot;</h1>
 			<?php
 		}
 		
@@ -39,9 +39,16 @@
 		#NO POSTS EXIST
 		else
 		{
-		?>		
-		<p>Sorry, no posts matched your criteria.</p>
-		<?php
+			#NO BLOG POSTS
+			if(!is_search())
+			{
+				echo "<p>Sorry, no posts matched your criteria.</p>";
+			}
+			#NO SEARCH RESULTS
+			else
+			{
+				echo "<p>Sorry, no results matched your search criteria.</p>";
+			}
 		}
 		?>
 		<!-- INDEX - END -->

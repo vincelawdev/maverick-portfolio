@@ -15,7 +15,7 @@ get_header();
 				the_post();
 				?>
 				<h1 class="post_title"><?php the_title(); ?></h1>
-				<p class="post_info">Posted on <?php the_date(); ?> by <?php the_author(); ?> in <?php the_category(", ");?> | <a href="#comments"><?php mp_options::mp_display_comment_counter(get_the_ID(), "comment", "0 Comments", "1 Comment", "Comments"); ?></a></p>
+				<p class="post_info">Posted on <?php the_date(); ?> <?php the_time(); ?> by <?php the_author(); ?> in <?php the_category(", ");?> | <a href="#comments"><?php mp_options::mp_display_comment_counter(get_the_ID(), "comment", "0 Comments", "1 Comment", "Comments"); ?></a></p>
 				<?php include(TEMPLATEPATH . "/includes/inc-blog-post-social.php"); ?>
 				<?php
 				#DISPLAY POST THUMBNAIL

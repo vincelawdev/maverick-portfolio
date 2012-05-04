@@ -32,7 +32,7 @@ class mp_options
 		add_action("admin_init", array("mp_options", "mp_theme_settings"));
 		
 		#INITIALISE THEME ADMIN JAVASCRIPT & CSS
-		add_action("mp_admin_head", array("mp_options", "mp_admin_head"));
+		add_action("admin_head", array("mp_options", "mp_admin_head"));
 		
 		#INITIALISE SLIDE CUSTOM POST TYPE
 		add_action("init", array("mp_options", "mp_custom_posts_slides"));
@@ -1356,18 +1356,60 @@ class mp_options
 				#RETRIEVE THE PROJECT CONTENT
 				$projects->the_post();
 				
-				#OPEN PROJECT LIST ITEM
-				echo '<li>';
+				#INITIALISE PROJECT TITLE
+				$project_title = $post->post_title;
 				
-				#DISPLAY 
-				echo '<a href="' . get_permalink($post->ID) . '">' . $post->post_title . '</a>';
+				#OPEN PROJECT LIST ITEM
+				echo "<li>";
+				
+				#OPEN PROJECT LINK
+				echo '<a href="' . get_permalink() . '">';
+				
+				#PROJECT THUMBNAIL EXISTS
+				if(has_post_thumbnail())
+				{
+					#INITIALISE PROJECT THUMBNAIL FILE
+					$project_thumbnail_file = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "full");
+					
+					#DISPLAY PROJECT THUMBNAIL
+					echo '<img src="' . $project_thumbnail_file[0] . '" alt="' . $project_title . '" title="' . $project_title . '" class="project_thumbnail" />';
+				}
+				#PROJECT THUMBNAIL DOES NOT EXIST
+				else
+				{
+					#DISPLAY DEFAULT PROJECT THUMBNAIL
+					echo '<img src="' . get_bloginfo("template_url") . '/images/portfolio-thumbnail-default.png" alt="' . $project_title . '" title="' . $project_title . '" class="project_thumbnail" />';
+				}
+				
+				#CLOSE PROJECT LINK
+				echo "</a>";
+				
+				#DISPLAY PROJECT TITLE
+				echo '<h2><a href="' . get_permalink() . '">' . $project_title . "</a></h2>";
+				
+				#DISPLAY PROJECT CATEGORY
+				if(empty($category))
+				{
+					echo '<p class="categories">' . get_the_term_list($post->ID, "portfolio-categories", "", ", ") . "</p>";
+				}
+				
+				#DISPLAY EXCERPT VIA THE ADVANCED EXCERPT PLUGIN
+				if(function_exists("the_advanced_excerpt"))
+				{
+					the_advanced_excerpt("length=20");
+				}
+				#DISPLAY EXCERPT VIA THE CLASS FUNCTION
+				else
+				{
+					mp_options::mp_display_project_excerpt(20);
+				}
 				
 				#CLOSE PROJECT LIST ITEM
-				echo '</li>';
+				echo "</li>";				
 			}
 			
 			#CLOSE PROJECT LIST
-			echo '</ul>';
+			echo "</ul>";
 			
 			#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
 			if(function_exists("wp_pagenavi"))
@@ -1383,7 +1425,38 @@ class mp_options
 			<?php
 			}
 		}
-	}	
+	}
+	
+	#THIS FUNCTION DISPLAYS THE PROJECT EXCERPT WITH A MAXIMUM NUMBER OF WORDS
+	function mp_display_project_excerpt($max_words)
+	{
+		#INITIALISE CONTENT
+		$content = get_the_content();
+		
+		#INITIALISE CONTENT WORD COUNT
+		$content_word_count = str_word_count($content);
+		
+		#CONTENT CONTAINS LESS WORDS THAN MAXIMUM NUMBER OF WORDS
+		if($content_word_count < $max_words)
+		{
+			echo $content;
+		}
+		#CONTENT CONTAINS MORE WORDS THAN MAXIMUM NUMBER OF WORDS
+		else
+		{
+			#REMOVE TAGS FROM CONTENT
+			$content = trim(strip_tags($content));
+			
+			#TRUNCATE CONTENT INTO THE MAXIMUM NUMBER OF WORDS
+			preg_match("/(\S+\s*){0,$max_words}/", $content, $excerpt);
+			
+			#INITIALISE TRUNCATED CONTENT
+			$content_excerpt = trim($excerpt[0]) . '... <a href="' . get_permalink() . '" title="' . get_the_title() . '">Read the rest</a>';
+			
+			#DISPLAY TRUNCATED CONTENT
+			echo wpautop($content_excerpt);
+		}
+	}
 	
 	#THIS FUNCTION CREATES THE TESTIMONIALS CUSTOM POST TYPE
 	function mp_custom_posts_testimonials()
@@ -2370,6 +2443,38 @@ class mp_options
 		?>		
 		<p>Sorry, no posts matched your criteria.</p>
 		<?php
+		}
+	}
+
+	#THIS FUNCTION DISPLAYS THE BLOG POST WITH A MAXIMUM NUMBER OF WORDS
+	function mp_display_blog_post_excerpt($max_words)
+	{
+		#INITIALISE CONTENT
+		$content = get_the_content();
+		
+		#DISPLAY SHORTCODE IN CONTENT
+		$content = do_shortcode($content);
+		$content = apply_filters("the_content", $content);
+		
+		#INITIALISE CONTENT WORD COUNT
+		$content_word_count = str_word_count($content);
+		
+		#CONTENT CONTAINS LESS WORDS THAN MAXIMUM NUMBER OF WORDS
+		if($content_word_count < $max_words)
+		{
+			echo $content;
+		}
+		#CONTENT CONTAINS MORE WORDS THAN MAXIMUM NUMBER OF WORDS
+		else
+		{
+			#TRUNCATE CONTENT INTO THE MAXIMUM NUMBER OF WORDS
+			preg_match("/(\S+\s*){0,$max_words}/", $content, $excerpt);
+			
+			#INITIALISE TRUNCATED CONTENT
+			$content_excerpt = trim($excerpt[0]) . '... <a href="' . get_permalink() . '" title="' . get_the_title() . '">Read the rest</a>';
+			
+			#DISPLAY TRUNCATED CONTENT
+			echo $content_excerpt;
 		}
 	}
 }

@@ -492,12 +492,14 @@ body
 {
 	margin: 0px 0px 6px 0px;
 	padding: 0px;
-	border-bottom: 1px solid #efefef;	
+	border-bottom: 1px solid #efefef;
+	overflow: hidden;
+	clear: both;	
 }
 
 #content .post_line img.wp-post-image
 {
-	margin: 3px 10px 10px 0px;
+	margin: 10px 10px 10px 0px;
 	padding: 0px;
 	border: 2px solid #d2d2d2;
 	float: left;
@@ -583,13 +585,15 @@ body
 	list-style-type: decimal;
 }
 
-#content ul li ol li, #content ul li ul li
+#content ul li ol li,
+#content ul li ul li
 {
 	margin: 0px 0px 0px 20px;
 	padding: 10px 0px 0px 0px;
 }
 
-#content ul li:last-child, #content ol li:last-child
+#content ul li:last-child,
+#content ol li:last-child
 {
 	padding-bottom: 0px;
 }
@@ -602,7 +606,8 @@ body
 	float: left;
 }
 
-#content img.wp-post-image:active, #content img.wp-post-image:hover
+#content img.wp-post-image:active,
+#content img.wp-post-image:hover
 {
 	border: 2px solid #ebc308;
 }
@@ -619,7 +624,8 @@ body
 	text-decoration: underline;
 }
 
-#content a:active, #content a:hover
+#content a:active,
+#content a:hover
 {
 	color: #ebc308;
 	text-decoration: underline;
@@ -686,17 +692,79 @@ body
 #content ul#projects li
 {
 	width: 298px;
-	height: 257px;
+	height: 278px;
 	margin: 0px 20px 15px 0px;
-	padding: 10px;
+	padding: 10px 10px 10px 10px;
 	background-color: #f6f6f6;
 	border: 1px solid #cccccc;
 	float: left;
+	overflow: hidden;
 }
 
 #content ul#projects li:nth-child(even)
 {
 	margin: 0px 0px 15px 0px;
+}
+
+#content ul#projects li img.project_thumbnail
+{
+	width: 298px;
+	height: 180px;
+	margin: 0px;
+	padding: 0px;
+}
+
+#content ul#projects li h2
+{
+	margin: 2px 0px 0px 0px;
+	padding: 0px;
+	font-family: "ExpresswayRegular", Georgia;
+	font-size: 16px;
+	font-weight: normal;
+	color: #333333;
+	-webkit-font-smoothing: antialiased;
+}
+
+#content ul#projects li h2 a:link,
+#content ul#projects li h2 a:visited
+{
+	color: #333333;
+	text-decoration: none;
+}
+
+#content ul#projects li h2 a:active,
+#content ul#projects li h2 a:hover
+{
+	color: #ebc308;
+	text-decoration: none;
+}
+
+#content ul#projects li p.categories
+{
+	margin: 3px 0px 0px 0px;
+	padding: 0px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 12px;
+	font-weight: normal;
+	color: #333333;
+	-webkit-font-smoothing: antialiased;
+}
+
+#content ul#projects li p.categories a:link
+{
+	font-style: italic;
+	text-decoration: none;
+}
+
+#content ul#projects li p
+{
+	margin: 8px 0px 0px 0px;
+	padding: 0px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	font-weight: normal;
+	color: #333333;
+	-webkit-font-smoothing: antialiased;
 }
 
 /* TRACKBACKS & PINGBACKS */

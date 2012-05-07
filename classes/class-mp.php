@@ -42,16 +42,16 @@ class mp_options
 		#INITIALISE SLIDE META BOX
 		add_action("admin_init", array("mp_options", "mp_meta_boxes_slide"));
 		
-		#INITIALISE PORTFOLIO CUSTOM POST TYPE & TAXONOMIES
-		add_action("init", array("mp_options", "mp_custom_posts_portfolio"));
-		add_action("init", array("mp_options", "mp_custom_taxonomies_portfolio_categories"));
-		add_action("init", array("mp_options", "mp_custom_taxonomies_portfolio_scope"));
-		add_action("init", array("mp_options", "mp_custom_taxonomies_portfolio_skills"));
-		add_filter("manage_edit-portfolio_columns", array("mp_options", "mp_portfolio_edit_columns"));
-		add_action("manage_portfolio_posts_custom_column",  array("mp_options", "mp_portfolio_custom_columns"));
+		#INITIALISE PROJECT CUSTOM POST TYPE & TAXONOMIES
+		add_action("init", array("mp_options", "mp_custom_posts_project"));
+		add_action("init", array("mp_options", "mp_custom_taxonomies_project_categories"));
+		add_action("init", array("mp_options", "mp_custom_taxonomies_project_scope"));
+		add_action("init", array("mp_options", "mp_custom_taxonomies_project_skills"));
+		add_filter("manage_edit-project_columns", array("mp_options", "mp_project_edit_columns"));
+		add_action("manage_project_posts_custom_column",  array("mp_options", "mp_project_custom_columns"));
 		
-		#INITIALISE PORTFOLIO META BOX
-		add_action("admin_init", array("mp_options", "mp_meta_boxes_portfolio"));
+		#INITIALISE PROJECT META BOX
+		add_action("admin_init", array("mp_options", "mp_meta_boxes_project"));
 		
 		#INITIALISE TESTIMONIAL CUSTOM POST TYPE
 		add_action("init", array("mp_options", "mp_custom_posts_testimonials"));
@@ -499,7 +499,7 @@ class mp_options
 		#INITIALISE PROJECT ARGUMENTS
 		$args = array
 		(
-			"post_type" => "portfolio",
+			"post_type" => "project",
 			"post_status" => "publish",
 			"posts_per_page" => -1,
 			"orderby" => "title",
@@ -923,15 +923,15 @@ class mp_options
 		return $post_id;
 	}
 	
-	#THIS FUNCTION CREATES THE PORTFOLIO CUSTOM POST TYPE
-	function mp_custom_posts_portfolio()
+	#THIS FUNCTION CREATES THE PROJECT CUSTOM POST TYPE
+	function mp_custom_posts_project()
 	{
-		#INITIALISE PORTFOLIO CUSTOM POST TYPE LABELS
+		#INITIALISE PROJECT CUSTOM POST TYPE LABELS
 		$labels = array
 		(
 			"name" => _x("Projects", "post type general name"),
 			"singular_name" => _x("Project", "post type singular name"),
-			"add_new" => _x("Add New", "portfolio"),
+			"add_new" => _x("Add New", "project"),
 			"add_new_item" => __("Add New Project"),
 			"edit_item" => __("Edit Project"),
 			"new_item" => __("New Project"),
@@ -944,7 +944,7 @@ class mp_options
 			"menu_name" => "Portfolio"
 		);
 		
-		#INITIALISE PORTFOLIO CUSTOM POST TYPE ARGUMENTS
+		#INITIALISE PROJECT CUSTOM POST TYPE ARGUMENTS
 		$args = array
 		(
 			"labels" => $labels,
@@ -960,20 +960,20 @@ class mp_options
 			"hierarchical" => false,
 			"supports" => array("title", "editor", "revisions", "thumbnail"),
 			"has_archive" => false,
-			"rewrite" => array("slug" => "portfolio", "with_front" => false),
+			"rewrite" => array("slug" => "portfolio/project", "with_front" => false),
 			"query_var" => true,
 			"can_export" => true,
 			"show_in_nav_menus" => true
 		);
 		
-		#REGISTER PORTFOLIO CUSTOM POST TYPE
-		register_post_type("portfolio", $args);
+		#REGISTER PROJECT CUSTOM POST TYPE
+		register_post_type("project", $args);
 	}
 	
-	#THIS FUNCTION CREATES THE PORTFOLIO CATEGORIES CUSTOM TAXONOMY
-	function mp_custom_taxonomies_portfolio_categories()
+	#THIS FUNCTION CREATES THE PROJECT CATEGORIES CUSTOM TAXONOMY
+	function mp_custom_taxonomies_project_categories()
 	{
-		#INITIALISE PORTFOLIO CATEGORIES CUSTOM TAXONOMY LABELS
+		#INITIALISE PROJECT CATEGORIES CUSTOM TAXONOMY LABELS
 		$labels = array
 		(
 			"name" => _x("Project Categories", "taxonomy general name"),
@@ -990,7 +990,7 @@ class mp_options
 			"choose_from_most_used" => __("Choose from the most used Project Categories")
 		);
 		
-		#INITIALISE PORTFOLIO CATEGORIES CUSTOM TAXONOMY ARGUMENTS
+		#INITIALISE PROJECT CATEGORIES CUSTOM TAXONOMY ARGUMENTS
 		$args = array
 		(
 			"labels" => $labels,	
@@ -1003,14 +1003,14 @@ class mp_options
 			"query_var" => true
 		);
 		
-		#REGISTER PORTFOLIO CATEGORIES CUSTOM TAXONOMY
-		register_taxonomy("portfolio-categories", "portfolio", $args);
+		#REGISTER PROJECT CATEGORIES CUSTOM TAXONOMY
+		register_taxonomy("portfolio-categories", "project", $args);
 	}
 	
-	#THIS FUNCTION CREATES THE PORTFOLIO SCOPE CUSTOM TAXONOMY
-	function mp_custom_taxonomies_portfolio_scope()
+	#THIS FUNCTION CREATES THE PROJECT SCOPE CUSTOM TAXONOMY
+	function mp_custom_taxonomies_project_scope()
 	{
-		#INITIALISE PORTFOLIO SCOPE CUSTOM TAXONOMY LABELS
+		#INITIALISE PROJECT SCOPE CUSTOM TAXONOMY LABELS
 		$labels = array
 		(
 			"name" => _x("Project Scope", "taxonomy general name"),
@@ -1027,7 +1027,7 @@ class mp_options
 			"choose_from_most_used" => __("Choose from the most used Project Scope")
 		);
 		
-		#INITIALISE PORTFOLIO SCOPE CUSTOM TAXONOMY ARGUMENTS
+		#INITIALISE PROJECT SCOPE CUSTOM TAXONOMY ARGUMENTS
 		$args = array
 		(
 			"labels" => $labels,	
@@ -1040,14 +1040,14 @@ class mp_options
 			"query_var" => true
 		);
 		
-		#REGISTER PORTFOLIO SCOPE CUSTOM TAXONOMY
-		register_taxonomy("portfolio-scope", "portfolio", $args);
+		#REGISTER PROJECT SCOPE CUSTOM TAXONOMY
+		register_taxonomy("portfolio-scope", "project", $args);
 	}
 	
-	#THIS FUNCTION CREATES THE PORTFOLIO SKILLS CUSTOM TAXONOMY
-	function mp_custom_taxonomies_portfolio_skills()
+	#THIS FUNCTION CREATES THE PROJECT SKILLS CUSTOM TAXONOMY
+	function mp_custom_taxonomies_project_skills()
 	{
-		#INITIALISE PORTFOLIO SKILLS CUSTOM TAXONOMY LABELS
+		#INITIALISE PROJECT SKILLS CUSTOM TAXONOMY LABELS
 		$labels = array
 		(
 			"name" => _x("Project Skills", "taxonomy general name"),
@@ -1064,7 +1064,7 @@ class mp_options
 			"choose_from_most_used" => __("Choose from the most used Project Skills")
 		);
 		
-		#INITIALISE PORTFOLIO SKILLS CUSTOM TAXONOMY ARGUMENTS
+		#INITIALISE PROJECT SKILLS CUSTOM TAXONOMY ARGUMENTS
 		$args = array
 		(
 			"labels" => $labels,	
@@ -1077,14 +1077,14 @@ class mp_options
 			"query_var" => true
 		);
 		
-		#REGISTER PORTFOLIO SKILLS CUSTOM TAXONOMY
-		register_taxonomy("portfolio-skill", "portfolio", $args);
+		#REGISTER PROJECT SKILLS CUSTOM TAXONOMY
+		register_taxonomy("portfolio-skill", "project", $args);
 	}
 	
-	#THIS FUNCTION DISPLAYS THE PORTFOLIO COLUMNS
-	function mp_portfolio_edit_columns($columns)
+	#THIS FUNCTION DISPLAYS THE PROJECT COLUMNS
+	function mp_project_edit_columns($columns)
 	{
-		#INITIALISE PORTFOLIO COLUMNS
+		#INITIALISE PROJECT COLUMNS
 		$columns = 
 		array
 		(
@@ -1105,13 +1105,13 @@ class mp_options
 		return $columns;
 	}
 	
-	#THIS FUNCTION DISPLAYS THE PORTFOLIO COLUMN VALUES
-	function mp_portfolio_custom_columns($column)
+	#THIS FUNCTION DISPLAYS THE PROJECT COLUMN VALUES
+	function mp_project_custom_columns($column)
 	{
 		#RETRIEVE THE POST
 		global $post;
 		
-		#DISPLAY PORTFOLIO VALUES
+		#DISPLAY PROJECT VALUES
 		switch($column)
 		{
 			#PROJECT CATEGORY
@@ -1205,32 +1205,32 @@ class mp_options
 		}
 	}
 	
-	#THIS FUNCTION CREATES THE PORTFOLIO BOX
-	function mp_meta_boxes_portfolio()
+	#THIS FUNCTION CREATES THE PROJECT BOX
+	function mp_meta_boxes_project()
 	{
-		#ADD PORTFOLIO BOX TO PORTFOLIO CUSTOM POSTS
-		add_meta_box("portfolio_box", "Project Information", array("mp_options", "mp_meta_boxes_portfolio_form"), "portfolio", "normal", "high");
+		#ADD PROJECT BOX TO PROJECT CUSTOM POSTS
+		add_meta_box("portfolio_box", "Project Information", array("mp_options", "mp_meta_boxes_portfolio_form"), "project", "normal", "high");
 	 
-		#SAVE PORTFOLIO BOX FORM CONTENTS
+		#SAVE PROJECT BOX FORM CONTENTS
 		add_action("save_post", array("mp_options", "mp_meta_boxes_portfolio_form_save"));
 	}
 	
-	#THIS FUNCTION CREATES THE PORTFOLIO BOX FORM
+	#THIS FUNCTION CREATES THE PROJECT BOX FORM
 	function mp_meta_boxes_portfolio_form()
 	{
 		#RETRIEVE THE POST
 		global $post;
 	
-		#INITIALISE PORTFOLIO ERROR BOX ID
+		#INITIALISE PROJECT ERROR BOX ID
 		$portfolio_error_box = "portfolio_errors" . $post->ID;
 	
-		#INITIALISE PORTFOLIO OPTIONS
+		#INITIALISE PROJECT OPTIONS
 		$portfolio_client_name = get_post_meta($post->ID, "portfolio_client_name", true);
 		$portfolio_client_location = get_post_meta($post->ID, "portfolio_client_location", true);
 		$portfolio_project_url = get_post_meta($post->ID, "portfolio_project_url", true);
 		$portfolio_project_gallery = get_post_meta($post->ID, "portfolio_project_gallery", true);
 		
-		#DISPLAY PORTFOLIO NONCE FIELD
+		#DISPLAY PROJECT NONCE FIELD
 		echo '<input name="portfolio_nonce" id="portfolio_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
 				
 		#DISPLAY TESTIMONIAL FIELDS
@@ -1284,10 +1284,10 @@ class mp_options
 		<?php
 	}
 	
-	#THIS FUNCTION SAVES THE PORTFOLIO BOX FORM CONTENTS
+	#THIS FUNCTION SAVES THE PROJECT BOX FORM CONTENTS
 	function mp_meta_boxes_portfolio_form_save($post_id) 
 	{		
-		#SAVE PORTFOLIO BOX FORM CONTENTS
+		#SAVE PROJECT BOX FORM CONTENTS
 		mp_options::mp_meta_boxes_save($post_id, "portfolio_nonce", "portfolio_client_name", "post");
 		mp_options::mp_meta_boxes_save($post_id, "portfolio_nonce", "portfolio_client_location", "post");
 		mp_options::mp_meta_boxes_save($post_id, "portfolio_nonce", "portfolio_project_url", "post");
@@ -1303,13 +1303,13 @@ class mp_options
 		#RETRIEVE THE POST
 		global $post;
 		
-		#INITIALISE PROJECT ARGUMENTS OF PORTFOLIO PAGE
+		#INITIALISE PROJECT ARGUMENTS OF PROJECT PAGE
 		if(empty($category))
 		{
 			#INITIALISE SLIDE ARGUMENTS
 			$args = array
 			(
-				"post_type" => "portfolio",
+				"post_type" => "project",
 				"post_status" => "publish",
 				"posts_per_page" => 8,
 				"paged" => $page,
@@ -1317,12 +1317,12 @@ class mp_options
 				"orderby" => "date"
 			);
 		}
-		#INITIALISE PROJECT ARGUMENTS OF PORTFOLIO CATEGORIES
+		#INITIALISE PROJECT ARGUMENTS OF PROJECT CATEGORIES
 		else
 		{
 			$args = array
 			(
-				"post_type" => "portfolio",
+				"post_type" => "project",
 				"post_status" => "publish",
 				"posts_per_page" => 8,
 				"paged" => $page,
@@ -1633,7 +1633,7 @@ class mp_options
 			"supports" => array("title", "editor", "revisions"),
 			"has_archive" => false,
 			"rewrite" => array("slug" => "testimonial", "with_front" => false),
-			"query_var" => true,
+			"query_var" => false,
 			"can_export" => true,
 			"show_in_nav_menus" => true
 		);
@@ -2064,7 +2064,7 @@ class mp_options
 		}
 	}
 	
-	#THIS FUNCTION DISPLAYS THE PORTFOLIO CATEGORIES IN THE SIDEBAR
+	#THIS FUNCTION DISPLAYS THE PROJECT CATEGORIES IN THE SIDEBAR
 	function mp_display_portfolio_categories($current_category)
 	{
 		#CUSTOM TAXONOMY SORT PLUGIN ACTIVATED

@@ -50,7 +50,7 @@
 		}
 	}
 	#DISPLAY BLOG CATEGORIES
-	if((!is_page() || is_page("blog")) && !is_tax() && !is_singular("portfolio"))
+	if((!is_page() || is_page("blog")) && !is_tax() && !is_singular("project"))
 	{
 	?>
 	<!-- CATEGORIES - START -->
@@ -64,7 +64,7 @@
 	<?php
 	}
 	#DISPLAY PORTFOLIO CATEGORIES
-	if(is_page_template("portfolio.php") || is_tax("portfolio-categories") || is_singular("portfolio"))
+	if(is_page_template("portfolio.php") || is_tax("portfolio-categories") || is_singular("project"))
 	{
 	?>
 	<!-- CATEGORIES - START -->
@@ -91,7 +91,7 @@
 	
 	<?php
 	#DISPLAY BLOG POSTS, COMMENTS & ARCHIVES
-	if((!is_page() || is_page("blog")) && !is_tax() && !is_singular("portfolio"))
+	if((!is_page() || is_page("blog")) && !is_tax() && !is_singular("project"))
 	{
 	?>
 	<!-- POST TABS - START -->

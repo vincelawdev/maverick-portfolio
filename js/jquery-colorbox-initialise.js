@@ -1,6 +1,6 @@
 //WAIT FOR PAGE TO LOAD
 $(document).ready(function()
-{
+{	
 	//CAPTION IMAGES
 	$("a.colorbox").colorbox({current: "Image {current} of {total}", rel:"colorbox"});
 	

@@ -1455,6 +1455,146 @@ class mp_options
 		}
 	}
 	
+	#THIS FUNCTION DISPLAYS THE PROJECT THUMBNAILS
+	function mp_display_project_thumbnails()
+	{
+		#NEXTGEN GALLERY PLUGIN IS ACTIVATED
+		if(function_exists("nggShowSlideshow"))
+		{
+			#INITIALISE PROJECT GALLERY
+			$portfolio_project_gallery = get_post_meta(get_the_ID(), "portfolio_project_gallery", true);
+			
+			#PROJECT GALLERY EXISTS
+			if(!empty($portfolio_project_gallery))
+			{			
+				#INITIALISE PROJECT GALLERY THUMBNAILS
+				$project_thumbnails = nggdb::get_gallery($portfolio_project_gallery);
+				
+				echo '<!-- PROJECT GALLERY - START -->
+				<div id="project_gallery"></div>
+				<!-- PROJECT GALLERY - END -->' . "\n\n";
+				
+				echo '<!-- PROJECT GALLERY CAPTION - START -->
+				<div id="project_gallery_caption"></div>
+				<!-- PROJECT GALLERY CAPTION - END -->' . "\n\n";
+				
+				echo '<!-- PROJECT GALLERY THUMBNAILS - START -->
+				<div id="project_gallery_thumbnails">' . "\n";
+				
+				#DISPLAY PREVIOUS BUTTON
+				echo '<a class="previous" href="#" title="Previous"><img src="' . get_bloginfo("template_url") . '/images/arrow-slider-left-off.png" alt="Previous" /></a>';
+				
+				#OPEN UNORDERED LIST
+				echo '<ul class="thumbs noscript">';
+			
+				#DISPLAY PROJECT GALLERY THUMBNAILS
+				foreach($project_thumbnails as $project_thumbnail)
+				{
+					echo '<li><a href="' . $project_thumbnail->imageURL . '" class="thumb" title="' . $project_thumbnail->alttext . ': ' . $project_thumbnail->description . '"><img src="' . $project_thumbnail->thumbURL . '" alt="' . $project_thumbnail->alttext . '" /></a><div class="caption"><p>' . $project_thumbnail->alttext . ': ' . $project_thumbnail->description . '</p></div></li>';
+				}
+				
+				#CLOSE UNORDERED LIST
+				echo "</ul>";
+				
+				#DISPLAY NEXT BUTTON
+				echo '<a class="next" href="#" title="Next"><img src="' . get_bloginfo("template_url") . '/images/arrow-slider-right-off.png" alt="Next" /></a>';
+				
+				echo '</div>
+				<!-- PROJECT GALLERY THUMBNAILS - END -->'. "\n";
+			}
+		}
+		#NEXTGEN GALLERY PLUGIN IS NOT ACTIVATED
+		else
+		{
+			return;
+		}		
+	}
+	
+	#THIS FUNCTION DISPLAYS THE PROJECT DETAILS
+	function mp_display_project_details()
+	{
+		#INITIALISE PROJECT DETAILS
+		$portfolio_client_name = get_post_meta(get_the_ID(), "portfolio_client_name", true);
+		$portfolio_client_location = get_post_meta(get_the_ID(), "portfolio_client_location", true);
+		$portfolio_project_url = get_post_meta(get_the_ID(), "portfolio_project_url", true);
+		$portfolio_project_gallery = get_post_meta(get_the_ID(), "portfolio_project_gallery", true);
+		$portfolio_project_scope_terms = get_the_terms(get_the_ID(), "portfolio-scope");
+		$portfolio_project_skill_terms = get_the_terms(get_the_ID(), "portfolio-skill");
+		
+		#OPEN PROJECT DETAILS DIV WITH TOP MARGIN
+		if(!empty($portfolio_project_gallery))
+		{
+			echo '<div id="project_details1">';
+		}
+		#OPEN PROJECT DETAILS DIV WITHOUT TOP MARGIN
+		else
+		{
+			echo '<div id="project_details2">';
+		}
+		
+		#OPEN TABLE
+		echo "<table>";
+		
+		#PROJECT URL EXISTS
+		if(!empty($portfolio_project_url))
+		{
+			#DISPLAY PROJECT URL
+			echo '<tr><td class="column1">URL:</td><td class="column2"><a href="' . $portfolio_project_url . '" rel="nofollow">' . $portfolio_project_url . "</a></td></tr>";
+		}
+		
+		#CLIENT NAME & LOCATION EXISTS
+		if(!empty($portfolio_client_name) && !empty($portfolio_client_location))
+		{
+			#DISPLAY PROJECT URL
+			echo '<tr><td class="column1">Client:</td><td class="column2">' . $portfolio_client_name . ', <em>' . $portfolio_client_location . "</em></td></tr>";
+		}
+		
+		#CLIENT NAME EXISTS ONLY
+		if(!empty($portfolio_client_name) && empty($portfolio_client_location))
+		{
+			#DISPLAY PROJECT URL
+			echo '<tr><td class="column1">Client:</td><td class="column2">' . $portfolio_client_name . "</td></tr>";
+		}
+		
+		#PROJECT SCOPE EXISTS
+		if($portfolio_project_scope_terms && ! is_wp_error($portfolio_project_scope_terms))
+		{
+			#INITIALISE PROJECT SCOPE LIST
+			$portfolio_project_scope_list = array();
+		
+			#APPEND PROJECT SCOPE TO PROJECT SCOPE LIST
+			foreach($portfolio_project_scope_terms as $portfolio_project_scope_term)
+			{
+				$portfolio_project_scope_list[] = $portfolio_project_scope_term->name;
+			}
+			
+			#DISPLAY PROJECT SCOPE LIST
+			echo '<tr><td class="column1">Scope:</td><td class="column2">' . join(", ", $portfolio_project_scope_list) . "</td></tr>";
+		}
+		
+		#PROJECT SKILLS EXISTS
+		if($portfolio_project_skill_terms && ! is_wp_error($portfolio_project_skill_terms))
+		{
+			#INITIALISE PROJECT SKILL LIST
+			$portfolio_project_skill_list = array();
+		
+			#APPEND PROJECT SKILL TO PROJECT SKILL LIST
+			foreach($portfolio_project_skill_terms as $portfolio_project_skill_term)
+			{
+				$portfolio_project_skill_list[] = $portfolio_project_skill_term->name;
+			}
+			
+			#DISPLAY PROJECT SKILL LIST
+			echo '<tr><td class="column1">Skills:</td><td class="column2">' . join(", ", $portfolio_project_skill_list) . "</td></tr>";
+		}
+		
+		#CLOSE TABLE
+		echo "</table>";
+		
+		#CLOSE PROJECT DETAILS DIV
+		echo "</div>";
+	}
+	
 	#THIS FUNCTION CREATES THE TESTIMONIALS CUSTOM POST TYPE
 	function mp_custom_posts_testimonials()
 	{

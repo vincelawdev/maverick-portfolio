@@ -1,15 +1,6 @@
 <?php
 #Template Name: Portfolio Project Template
 
-echo "Portfolio Project Template";
-
-#INITIALISE POST TYPE OBJECT
-$post_type = get_post_type(get_the_ID());
-$post_type_object = get_post_type_object($post_type);
-
-#INITIALISE PRODUCT GALLERY
-//$product_gallery = get_post_meta(get_the_ID(), "product_gallery", true);
-
 get_header();
 ?>
 
@@ -24,6 +15,12 @@ get_header();
 				the_post();
 				?>		
 				<h1 class="page_title"><?php the_title(); ?></h1>
+				
+				<?php mp_options::mp_display_project_thumbnails(); ?>
+				
+				<!-- PROJECT DETAILS - START -->
+				<?php mp_options::mp_display_project_details(); the_content(); ?>
+				<!-- PROJECT DETAILS - END -->
 				
 			<?php
 			}

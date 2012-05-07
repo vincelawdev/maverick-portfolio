@@ -48,7 +48,7 @@ if(is_single())
 <?php wp_head(); ?>
 <?php
 #LOAD MENU FIX FOR BLOG & ORGANIC TABS
-if((!is_page() || is_page("blog")) && !is_tax())
+if((!is_page() || is_page("blog")) && !is_tax() && !is_singular("portfolio"))
 {
 ?>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-fix-menu-blog.js"></script>
@@ -56,18 +56,19 @@ if((!is_page() || is_page("blog")) && !is_tax())
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-organic-tabs-initialise.js"></script>
 <?php
 }
-#LOAD MENU FIX FOR PORTFOLIO
-if(is_page_template("portfolio.php") || is_tax("portfolio-categories"))
+#LOAD MENU FIX FOR PORTFOLIOis_singular("portfolio")
+if(is_page_template("portfolio.php") || is_tax("portfolio-categories") || is_singular("portfolio"))
 {
 ?>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-fix-menu-portfolio.js"></script>
 <?php	
 }
 #LOAD GALLERIFIC
-if(is_page_template("single-portfolio.php"))
+if(is_singular("portfolio"))
 {
 ?>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-galleriffic.js"></script>
+<script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-galleriffic-portfolio.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-history.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-opacityrollover.js"></script>
 <?php

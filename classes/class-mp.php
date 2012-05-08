@@ -1339,7 +1339,7 @@ class mp_options
 					)
 				)
 			);
-		}	
+		}
 		
 		#RETRIEVE PROJECTS
 		$projects = new WP_Query($args);
@@ -2011,7 +2011,7 @@ class mp_options
 				$instagram_thumbnail = str_replace('" />', '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '" />', $instagram_thumbnail);
 				
 				#DISPLAY INSTAGRAM THUMBNAIL
-				echo '<li><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" class="instagram_iframe">' . $instagram_thumbnail . '</a></li>' . "\n";
+				echo '<li><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" class="instagram_iframe"><span class="magnify"></span>' . $instagram_thumbnail . '</a></li>' . "\n";
 			}
 			
 			#CLOSE UNORDERED LIST
@@ -2056,7 +2056,7 @@ class mp_options
 				}
 				
 				#DISPLAY DRIBBBLE THUMBNAIL
-				echo '<li><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" class="dribbble_iframe">' . $dribbble_thumbnail . '</a></li>' . "\n";
+				echo '<li><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" class="dribbble_iframe"><span class="magnify"></span>' . $dribbble_thumbnail . '</a></li>' . "\n";
 			}
 			
 			#CLOSE UNORDERED LIST

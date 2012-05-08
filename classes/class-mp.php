@@ -506,7 +506,7 @@ class mp_options
 			"order" => "ASC"
 		);
 		
-		#RETRIEVE PROJECTS
+		#INITIALISE PROJECTS
 		$projects = new WP_Query($args);
 		
 		#PROJECTS EXISTS
@@ -679,7 +679,7 @@ class mp_options
 			"orderby" => "date"
 		);
 		
-		#RETRIEVE SLIDES
+		#INITIALISE SLIDES
 		$slides = new WP_Query($args);
 		
 		#SLIDES EXISTS
@@ -694,7 +694,7 @@ class mp_options
 				#RETRIEVE THE SLIDE CONTENT
 				$slides->the_post();
 			
-				#RETRIEVE THE SLIDE VARIABLES
+				#INITIALISE THE SLIDE DETAILS
 				$slide_image = get_post_meta($post->ID, "slide_image", true);
 				$slide_url = get_post_meta($post->ID, "slide_url", true);
 				$slide_title = get_the_title($post->ID);
@@ -1341,7 +1341,7 @@ class mp_options
 			);
 		}
 		
-		#RETRIEVE PROJECTS
+		#INITIALISE PROJECTS
 		$projects = new WP_Query($args);
 		
 		#PROJECTS EXISTS
@@ -1595,6 +1595,106 @@ class mp_options
 		echo "</div>";
 	}
 	
+	#THIS FUNCTION DISPLAYS THE PROJECT TESTIMONIALS
+	function mp_display_project_testimonials($page)
+	{
+		#RETRIEVE THE POST
+		global $post;
+		
+		#INITIALISE TESTIMONIAL ARGUMENTS
+		$args = array
+		(
+			"post_type" => "testimonial",
+			"post_status" => "publish",
+			"posts_per_page" => 10,
+			"paged" => $page,
+			"order" => "DESC",
+			"orderby" => "date",
+			"meta_query" =>
+			array
+			(
+				array
+				(
+					"key" => "testimonial_project",
+					"value" => get_the_ID()
+				)
+			)
+		);
+	
+		#INITIALISE TESTIMONIALS
+		$testimonials = new WP_Query($args);
+		
+		#TESTIMONIALS EXISTS
+		if($testimonials->have_posts())
+		{
+			#DISPLAY TESTIMONIAL SUB HEADING
+			echo '<h3 class="sub_heading">Testimonials</h3>';
+			
+			#DISPLAY TESTIMONIAL
+			while($testimonials->have_posts())
+			{
+				#RETRIEVE THE TESTIMONIAL CONTENT
+				$testimonials->the_post();
+				
+				#INITIALISE TESTIMONIAL DETAILS
+				$testimonial_name = get_post_meta($post->ID, "testimonial_name", true);
+				$testimonial_location = get_post_meta($post->ID, "testimonial_location", true);
+				$testimonial_photo = get_post_meta($post->ID, "testimonial_photo", true);
+				$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);	
+				
+				#INITIALISE TESTIMONIAL CONTENT
+				$testimonial_content = get_the_content();
+				
+				#APPEND TESTIMONIAL NAME & LOCATION
+				$testimonial_content .= "<br /><br />- $testimonial_name, $testimonial_location";
+				
+				#APPEND TESTIMONIAL URL
+				if(!empty($testimonial_url))
+				{
+					$testimonial_content .= ", <a href=\"$testimonial_url\" rel=\"nofollow\">$testimonial_url</a>";
+				}
+				
+				#APPEND TESTIMONIAL PHOTO
+				if(!empty($testimonial_photo))
+				{					
+					$testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial_photo" />' . $testimonial_content;
+				}
+				
+				#DISPLAY TESTIMONIAL BOX
+				echo mp_options::mp_testimonial_shortcode("", $testimonial_content);		
+			}
+							
+			#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
+			if(function_exists("wp_pagenavi"))
+			{
+				wp_pagenavi(array("query" =>$testimonials));
+			}
+			#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
+			else
+			{
+			?>
+				<p class="left"><?php next_posts_link("&laquo; Previous Testimonials"); ?></p>
+				<p class="right"><?php previous_posts_link("Next Testimonials &raquo;"); ?></p>
+			<?php
+			}
+		}
+		#TESTIMONIALS DO NOT EXIST
+		else
+		{
+			return;	
+		}
+	}
+	
+	#THIS FUNCTION ADDS CONTENT TO A TESTIMONIAL BOX
+	function mp_testimonial_shortcode($parameters, $content = null)
+	{
+		#ADD CONTENT TO TESTIMONIAL BOX
+		$content = '<div class="testimonial_box"><div class="testimonial">' . wpautop($content) . '</div></div>';
+		
+		#RETURN CONTENT
+		return do_shortcode($content);
+	}
+	
 	#THIS FUNCTION CREATES THE TESTIMONIALS CUSTOM POST TYPE
 	function mp_custom_posts_testimonials()
 	{
@@ -1772,7 +1872,7 @@ class mp_options
 		$testimonial_name = get_post_meta($post->ID, "testimonial_name", true);
 		$testimonial_location = get_post_meta($post->ID, "testimonial_location", true);
 		$testimonial_photo = get_post_meta($post->ID, "testimonial_photo", true);
-		$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);		
+		$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);	
 		
 		#DISPLAY TESTIMONIAL NONCE FIELD
 		echo '<input name="testimonial_nonce" id="testimonial_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
@@ -1806,7 +1906,7 @@ class mp_options
 					testimonial_location:
 					{
 						required: true
-					},
+					}/*,
 					testimonial_photo:
 					{
 						url: true
@@ -1814,7 +1914,7 @@ class mp_options
 					testimonial_url:
 					{
 						url: true
-					}
+					}*/
 				},
 				//VALIDATION MESSAGES
 				messages:
@@ -1826,7 +1926,7 @@ class mp_options
 					testimonial_location:
 					{
 						required: "Please enter a Location."
-					},
+					}/*,
 					testimonial_photo:
 					{
 						url: "Please enter a valid Photo URL."
@@ -1834,7 +1934,7 @@ class mp_options
 					testimonial_url:
 					{
 						url: "Please enter a valid URL."
-					}
+					}*/
 				}
 			});
 			
@@ -1964,16 +2064,6 @@ class mp_options
 		$contact_fields["instagram_rss"] = "Instagram RSS Feed";
 		
 		return $contact_fields;
-	}
-	
-	#THIS FUNCTION ADDS CONTENT TO A TESTIMONIAL BOX
-	function mp_testimonial_shortcode($parameters, $content = null)
-	{
-		#ADD CONTENT TO TESTIMONIAL BOX
-		$content = '<div class="testimonial_box"><div class="testimonial">' . wpautop($content) . '</div><div class="right_quote"></div></div>';
-		
-		#RETURN CONTENT
-		return do_shortcode($content);
 	}
 	
 	#THIS FUNCTION DISPLAYS THE INSTAGRAM THUMBNAILS

@@ -22,6 +22,9 @@ get_header();
 				<?php mp_options::mp_display_project_details(); the_content(); ?>
 				<!-- PROJECT DETAILS - END -->
 				
+				<!-- PROJECT TESTIMONIALS - START -->
+				<?php mp_options::mp_display_project_testimonials(mp_options::mp_get_page()); ?>
+				<!-- PROJECT TESTIMONIALS - END -->
 			<?php
 			}
 		}

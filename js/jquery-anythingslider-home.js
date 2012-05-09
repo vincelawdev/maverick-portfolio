@@ -1,42 +1,41 @@
 //WAIT FOR PAGE TO LOAD
 jQuery(document).ready(function()
 {
-	jQuery("#slider")
-	.anythingSlider(
+	jQuery("#slider").anythingSlider(
 	{
-		theme: "default",
-		expand: false,
-		resizeContents: false,
-		showMultiple: false,
-		easing: "swing",
+		//APPEARANCE 
+		theme               : "default", 		// Theme name 
+		expand              : false,     		// If true, the entire slider will expand to fit the parent element 
+		resizeContents      : true,      		// If true, solitary images/objects in the panel will expand to fit the viewport 
+		showMultiple        : false,     		// Set this value to a number and it will show that many slides at once
+							
+		//NAVIGATION 
+		startPanel          : 1,         		// This sets the initial panel 
+		changeBy            : 1,         		// Amount to go forward or back when changing panels. 
+		hashTags            : true,      		// Should links change the hashtag in the URL? 
+		infiniteSlides      : false,      		// if false, the slider will not wrap & not clone any panels 
+		navigationFormatter : null,      		// Details at the top of the file on this use (advanced use) 
+		navigationSize      : 5,				// Set this to the maximum number of visible navigation tabs; false to disable
+		buildArrows         : false,      		// If true, builds the forwards and backwards buttons 
+  		buildNavigation     : true,     		// If true, builds a list of anchor links to link to each panel 
+  		buildStartStop      : true,      		// If true, builds the start/stop button
 		
-		// Navigation
-		startPanel          : 0,
-		changeBy            : 1,
-		hashTags            : true,
-		infiniteSlides      : true,
-		navigationFormatter : null,
-		navigationSize      : false,
+		//SLIDESHOW 
+		autoPlay            : true,     		// If true, the slideshow will start running; replaces "startStopped" option 
+		autoPlayLocked      : false,     		// If true, user changing slides will not stop the slideshow 
+		autoPlayDelayed     : false,     		// If true, starting a slideshow will delay advancing slides; if false, the slider will immediately advance to the next slide when slideshow starts 
+		pauseOnHover        : true,      		// If true & the slideshow is active, the slideshow will pause on hover 
+		stopAtEnd           : false,     		// If true & the slideshow is active, the slideshow will stop on the last page. This also stops the rewind effect when infiniteSlides is false. 
+		playRtl             : false,     		// If true, the slideshow will move right-to-left 
 		
-		// Slideshow options
-		autoPlay            : true,
-		autoPlayLocked      : false,
-		autoPlayDelayed     : false,
-		pauseOnHover        : true,
-		stopAtEnd           : false,
-		playRtl             : false,
-		buildStartStop		: false,
-		
-		// Times
-		delay               : 5000,
-		resumeDelay         : 5000,
-		animationTime       : 600,
-		delayBeforeAnimate  : 0
-	})
-	
-	.anythingSliderFx(
-	{
-		".panel": ["fade", 300, "easeInCirc"],
-		".caption-bottom" : ["caption-Bottom", "50px"]
-	});
-});	
+		//TIMES
+		delay               : 5000,      		// How long between slideshow transitions in AutoPlay mode (in milliseconds) 
+		resumeDelay         : 5000,     		// Resume slideshow after user interaction, only if autoplayLocked is true (in milliseconds). 
+		animationTime       : 0,       			// How long the slideshow transition takes (in milliseconds) 
+		delayBeforeAnimate  : 500        		// How long to pause slide animation before going to the desired slide (used if you want your "out" FX to show).
+	}).anythingSliderFx(
+    {},
+    {
+		dataAnimate: 'data-animate'
+    });
+});

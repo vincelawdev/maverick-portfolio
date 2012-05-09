@@ -1465,87 +1465,6 @@ body
 
 /* HOME PAGE */
 
-
-/* ANYTHING SLIDER */
-#anything_slider
-{
-	width: 960px;
-	height: 385px;
-	margin: 15px 20px 0px 20px;
-	padding: 0px;
-	padding: 0px;
-	background-image: url("images/bg-slider.jpg");
-	background-repeat: no-repeat;
-	background-position: top left;
-	overflow: hidden;
-}
-
-#slider
-{
-	width: 870px;
-	height: 355px;
-	margin: 0px;
-	padding: 0px;
-	list-style-type: none;
-	overflow: hidden;
-}
-
-#slider img
-{
-	width: 870px;
-	height: 355px;
-	margin: 0px;
-	padding: 0px;
-}
-
-#slider .panel
-{
-	position: relative;
-	width: 870px;
-	height: 355px;
-	margin: 0px;
-	padding: 0px;
-}
-
-#slider div.caption-bottom
-{
-	position: absolute;
-	background: #000000;
-	margin: 0px;
-	padding: 0px;
-	z-index: 10;
-	opacity: .7;
-	filter: alpha(opacity=70);
-}
-
-#slider div.caption-bottom
-{
-	bottom: 0px;
-	left: 0px;	
-	width: 870px;
-	height: 80px;
-}
-
-#slider div.caption-bottom h2
-{
-	margin: 8px 8px 8px 8px;
-	padding: 0px;
-	font-family: "ExpresswayRegular", Georgia;
-	font-size: 18px;
-	font-weight: normal;
-	color: #FFFFFF;
-}
-
-#slider div.caption-bottom p
-{
-	margin: 0px 8px 8px 8px;
-	padding: 0px;
-	font-family: "ExpresswayRegular", Georgia;
-	font-size: 15px;
-	font-weight: normal;
-	color: #FFFFFF;
-}
-
 /* FOOTER */
 #footer_row1
 {
@@ -1996,7 +1915,10 @@ a img
 	overflow: hidden;
 }
 
-.wp-caption.alignnone p.wp-caption-text, .wp-caption.alignleft p.wp-caption-text, .wp-caption.alignright p.wp-caption-text, .wp-caption.aligncenter p.wp-caption-text
+.wp-caption.alignnone p.wp-caption-text,
+.wp-caption.alignleft p.wp-caption-text,
+.wp-caption.alignright p.wp-caption-text,
+.wp-caption.aligncenter p.wp-caption-text
 {
 	margin: 0px;
 	padding: 0px;

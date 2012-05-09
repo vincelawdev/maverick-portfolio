@@ -93,7 +93,7 @@ if(is_front_page())
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-easing1.2.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-anythingslider-home.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/anythingslider.css" />
-<!--[if lte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/anythingslider-ie.css" /><![endif]-->
+<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/animate.css" />
 <?php
 }
 ?>
@@ -192,8 +192,16 @@ if(is_front_page())
 
 	<!-- CONTENT - START -->
 	<div id="content">
-		
+	
+	<?php
+	#DISPLAY BREAD CRUMBS
+	if(!is_front_page())
+	{
+	?>
 	<!-- BREAD CRUMBS - START -->
 	<div id="bread_crumbs"><p><?php if(function_exists("bcn_display")) { bcn_display(); } ?></p></div>
 	<!-- BREAD CRUMBS - END -->
+	<?php
+	}
+	?>
 	

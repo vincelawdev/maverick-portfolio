@@ -655,6 +655,7 @@ class mp_options
 		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-colorbox-admin-initialise.js"></script>' . "\n";
 		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-metadata.js"></script>' . "\n";
 		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-validate.js"></script>' . "\n";
+		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-validate-additional-methods.js"></script>' . "\n";
 		
 		#LOAD JAVASCRIPT FOR TINYMCE EDITOR FOR USER BIOGRAPHY IN WORDPRESS 3.3 +
 		if(function_exists("wp_editor"))
@@ -700,16 +701,11 @@ class mp_options
 				$slide_title = get_the_title($post->ID);
 				
 				#OPEN SLIDE LIST ITEM
-				echo '<li>';
+				echo '<li data-animate="flash, bounce">';
 				
 				#DISPLAY IMAGE WITH LINK
-				echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '"  class="left" /></a>';
-					
-				#DISPLAY CAPTION
-				echo '<div class="caption-bottom"><h2>' . $slide_title . "</h2>";
-				the_content();
-				echo "</div>";
-				
+				echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '" /></a>';
+								
 				#CLOSE SLIDE LIST ITEM
 				echo '</li>';
 			}
@@ -874,12 +870,12 @@ class mp_options
 					slide_image:
 					{
 						required: true,
-						url: true
+						url2: true
 					},
 					slide_url:
 					{
 						required: true,
-						url: true
+						url2: true
 					}
 				},
 				//VALIDATION MESSAGES
@@ -888,12 +884,12 @@ class mp_options
 					slide_image:
 					{
 						required: "Please enter a Slide Image.",
-						url: "Please enter a valid Slide Image."
+						url2: "Please enter a valid Slide Image."
 					},
 					slide_url:
 					{
 						required: "Please enter a Slide URL.",
-						url: "Please enter a valid Slide URL."
+						url2: "Please enter a valid Slide URL."
 					}
 				}
 			});
@@ -1257,7 +1253,7 @@ class mp_options
 				{
 					portfolio_project_url:
 					{
-						url: true
+						url2: true
 					}
 				},
 				//VALIDATION MESSAGES
@@ -1265,7 +1261,7 @@ class mp_options
 				{
 					portfolio_project_url:
 					{
-						url: "Please enter a valid URL."
+						url2: "Please enter a valid URL."
 					}
 				}
 			});
@@ -1952,15 +1948,15 @@ class mp_options
 					testimonial_location:
 					{
 						required: true
-					}/*,
+					},
 					testimonial_photo:
 					{
-						url: true
+						url2: true
 					},
 					testimonial_url:
 					{
-						url: true
-					}*/
+						url2: true
+					}
 				},
 				//VALIDATION MESSAGES
 				messages:
@@ -1972,15 +1968,15 @@ class mp_options
 					testimonial_location:
 					{
 						required: "Please enter a Location."
-					}/*,
+					},
 					testimonial_photo:
 					{
-						url: "Please enter a valid Photo URL."
+						url2: "Please enter a valid Photo URL."
 					},
 					testimonial_url:
 					{
-						url: "Please enter a valid URL."
-					}*/
+						url2: "Please enter a valid URL."
+					}
 				}
 			});
 			

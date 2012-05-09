@@ -5,7 +5,7 @@ get_header();
 ?>
 		
 		<!-- ANYTHING SLIDER - START -->
-		<div id="anything_slider"><?php mp_options::mp_display_slides(); ?></div>
+		<?php mp_options::mp_display_slides(); ?>
 		<!-- ANYTHING SLIDER - END -->
 		
 		<?php
@@ -18,7 +18,7 @@ get_header();
 				the_post();
 			}
 		}
-		?>	
+		?>
 
 	</div>
 	<!-- CONTENT - END -->

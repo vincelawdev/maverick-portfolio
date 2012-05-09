@@ -2071,6 +2071,13 @@ blockquote p
 	-webkit-font-smoothing: antialiased;
 }
 
+#content div.testimonial_box div.testimonial img.testimonial_pdf
+{
+	margin: 0px;
+	padding: 0px;
+	vertical-align: text-bottom;
+}
+
 /* DAGON GATE SITEMAP GENERATOR */
 .ddsg-wrapper h2
 {

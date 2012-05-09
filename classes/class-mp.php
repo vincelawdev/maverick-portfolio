@@ -750,7 +750,7 @@ class mp_options
 			"exclude_from_search" => false,
 			"show_ui" => true, 
 			"show_in_menu" => true,
-			"menu_position" => 4,
+			"menu_position" => 20,
 			"menu_icon" => null,
 			"capability_type" => "post",
 			"hierarchical" => false,
@@ -954,7 +954,7 @@ class mp_options
 			"exclude_from_search" => false,
 			"show_ui" => true, 
 			"show_in_menu" => true,
-			"menu_position" => 5,
+			"menu_position" => 20,
 			"menu_icon" => null,
 			"capability_type" => "post",
 			"hierarchical" => false,
@@ -1306,12 +1306,12 @@ class mp_options
 		#INITIALISE PROJECT ARGUMENTS OF PROJECT PAGE
 		if(empty($category))
 		{
-			#INITIALISE SLIDE ARGUMENTS
+			#INITIALISE PROJECT ARGUMENTS
 			$args = array
 			(
 				"post_type" => "project",
 				"post_status" => "publish",
-				"posts_per_page" => 8,
+				"posts_per_page" => get_option("posts_per_page"),
 				"paged" => $page,
 				"order" => "DESC",
 				"orderby" => "date"
@@ -1320,11 +1320,12 @@ class mp_options
 		#INITIALISE PROJECT ARGUMENTS OF PROJECT CATEGORIES
 		else
 		{
+			#INITIALISE PROJECT ARGUMENTS
 			$args = array
 			(
 				"post_type" => "project",
 				"post_status" => "publish",
-				"posts_per_page" => 8,
+				"posts_per_page" => get_option("posts_per_page"),
 				"paged" => $page,
 				"order" => "DESC",
 				"orderby" => "date",
@@ -1595,31 +1596,49 @@ class mp_options
 		echo "</div>";
 	}
 	
-	#THIS FUNCTION DISPLAYS THE PROJECT TESTIMONIALS
-	function mp_display_project_testimonials($page)
+	#THIS FUNCTION DISPLAYS THE TESTIMONIALS
+	function mp_display_testimonials($scope, $page)
 	{
 		#RETRIEVE THE POST
 		global $post;
 		
-		#INITIALISE TESTIMONIAL ARGUMENTS
-		$args = array
-		(
-			"post_type" => "testimonial",
-			"post_status" => "publish",
-			"posts_per_page" => 10,
-			"paged" => $page,
-			"order" => "DESC",
-			"orderby" => "date",
-			"meta_query" =>
-			array
+		#INITIALISE TESTIMONIAL ARGUMENTS OF PROJECT PAGE
+		if($scope == "project")
+		{
+			#INITIALISE TESTIMONIAL ARGUMENTS
+			$args = array
 			(
+				"post_type" => "testimonial",
+				"post_status" => "publish",
+				"posts_per_page" => get_option("posts_per_page"),
+				"paged" => $page,
+				"order" => "DESC",
+				"orderby" => "date",
+				"meta_query" =>
 				array
 				(
-					"key" => "testimonial_project",
-					"value" => get_the_ID()
+					array
+					(
+						"key" => "testimonial_project",
+						"value" => get_the_ID()
+					)
 				)
-			)
-		);
+			);
+		}
+		#INITIALISE TESTIMONIAL ARGUMENTS OF TESTIMONIALS PAGE
+		elseif($scope == "testimonials")
+		{
+			#INITIALISE TESTIMONIAL ARGUMENTS
+			$args = array
+			(
+				"post_type" => "testimonial",
+				"post_status" => "publish",
+				"posts_per_page" => get_option("posts_per_page"),
+				"paged" => $page,
+				"order" => "DESC",
+				"orderby" => "date"
+			);
+		}		
 	
 		#INITIALISE TESTIMONIALS
 		$testimonials = new WP_Query($args);
@@ -1628,7 +1647,10 @@ class mp_options
 		if($testimonials->have_posts())
 		{
 			#DISPLAY TESTIMONIAL SUB HEADING
-			echo '<h3 class="sub_heading">Testimonials</h3>';
+			if($scope == "project")
+			{
+				echo '<h3 class="sub_heading">Testimonials</h3>';
+			}
 			
 			#DISPLAY TESTIMONIAL
 			while($testimonials->have_posts())
@@ -1640,7 +1662,8 @@ class mp_options
 				$testimonial_name = get_post_meta($post->ID, "testimonial_name", true);
 				$testimonial_location = get_post_meta($post->ID, "testimonial_location", true);
 				$testimonial_photo = get_post_meta($post->ID, "testimonial_photo", true);
-				$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);	
+				$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);
+				$testimonial_pdf = get_post_meta($post->ID, "testimonial_pdf", true);
 				
 				#INITIALISE TESTIMONIAL CONTENT
 				$testimonial_content = get_the_content();
@@ -1651,13 +1674,19 @@ class mp_options
 				#APPEND TESTIMONIAL URL
 				if(!empty($testimonial_url))
 				{
-					$testimonial_content .= ", <a href=\"$testimonial_url\" rel=\"nofollow\">$testimonial_url</a>";
+					$testimonial_content .= ', <a href="' . $testimonial_url . '" rel="nofollow">' . $testimonial_url . '</a>';
 				}
 				
 				#APPEND TESTIMONIAL PHOTO
 				if(!empty($testimonial_photo))
 				{					
 					$testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial_photo" />' . $testimonial_content;
+				}
+				
+				#APPEND TESTIMONIAL PDF
+				if(!empty($testimonial_pdf))
+				{
+					$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial_pdf" />PDF</a>';
 				}
 				
 				#DISPLAY TESTIMONIAL BOX
@@ -1726,7 +1755,7 @@ class mp_options
 			"exclude_from_search" => false,
 			"show_ui" => true, 
 			"show_in_menu" => true,
-			"menu_position" => 6,
+			"menu_position" => 20,
 			"menu_icon" => null,
 			"capability_type" => "post",
 			"hierarchical" => false,
@@ -1756,6 +1785,7 @@ class mp_options
 			"location" => "Location",
 			"photo" => "Photo",
 			"url" => "URL",
+			"pdf" => "PDF",
 			"date" => "Date"
 		);
 		
@@ -1845,6 +1875,20 @@ class mp_options
 				}
 				
 				break;
+				
+			#TESTIMONIAL PDF
+			case "pdf":
+			
+				#INITIALISE TESTIMONIAL PDF
+				$testimonial_pdf = get_post_meta($post->ID, "testimonial_pdf", true);
+				
+				#DISPLAY TESTIMONIAL PDF ICON
+				if(!empty($testimonial_pdf))
+				{
+					echo '<a href="' . $testimonial_pdf . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-pdf.png" /></a>';
+				}
+				
+				break;
 		}
 	}
 	
@@ -1872,7 +1916,8 @@ class mp_options
 		$testimonial_name = get_post_meta($post->ID, "testimonial_name", true);
 		$testimonial_location = get_post_meta($post->ID, "testimonial_location", true);
 		$testimonial_photo = get_post_meta($post->ID, "testimonial_photo", true);
-		$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);	
+		$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);
+		$testimonial_pdf = get_post_meta($post->ID, "testimonial_pdf", true);
 		
 		#DISPLAY TESTIMONIAL NONCE FIELD
 		echo '<input name="testimonial_nonce" id="testimonial_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
@@ -1883,6 +1928,7 @@ class mp_options
 		echo '<p><strong>Location:</strong><br /><input name="testimonial_location" id="testimonial_location" type="text" size="80" value="' . $testimonial_location . '" /></p><p>Enter the location of the person who wrote the testimonial.</p>';
 		echo '<p><strong>Photo:</strong><br /><input name="testimonial_photo" id="testimonial_photo" type="text" size="80" value="' . urldecode($testimonial_photo) . '" /></p><p>Enter the photo URL of the person who wrote the testimonial.</p>';
 		echo '<p><strong>URL:</strong><br /><input name="testimonial_url" id="testimonial_url" type="text" size="80" value="' . urldecode($testimonial_url) . '" /></p><p>Enter the URL of the person who wrote the testimonial.</p>';
+		echo '<p><strong>PDF:</strong><br /><input name="testimonial_pdf" id="testimonial_pdf" type="text" size="80" value="' . urldecode($testimonial_pdf) . '" /></p><p>Enter the URL of the PDF document of the testimonial.</p>';
 		?>
 		<script type="text/javascript">
 		jQuery(document).ready(function()
@@ -1961,6 +2007,7 @@ class mp_options
 		mp_options::mp_meta_boxes_save($post_id, "testimonial_nonce", "testimonial_location", "post");
 		mp_options::mp_meta_boxes_save($post_id, "testimonial_nonce", "testimonial_photo", "post");
 		mp_options::mp_meta_boxes_save($post_id, "testimonial_nonce", "testimonial_url", "post");
+		mp_options::mp_meta_boxes_save($post_id, "testimonial_nonce", "testimonial_pdf", "post");
 		
 		#RETURN POST ID
 		return $post_id;

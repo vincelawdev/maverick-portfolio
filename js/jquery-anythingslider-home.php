@@ -1,3 +1,34 @@
+<?php
+#TURN ON OUTPUT BUFFERING
+if(!ob_start("ob_gzhandler"))
+{
+	ob_start();
+}
+
+#INITIALISE WP-LOAD.PHP FILE PATH
+$wp_include_path = "../wp-load.php";
+
+#SEARCH FOR WP-LOAD.PHP FILE PATH
+for($counter = 0; $counter < 10; $counter ++)
+{
+	#WP-LOAD.PHP FILE DOES NOT EXIST AT THIS PATH
+	if(!file_exists($wp_include_path))
+	{
+		$wp_include_path = "../$wp_include_path";
+	}
+	#WP-LOAD.PHP FILE PATH FOUND
+	else
+	{	
+		break;
+	}
+}
+
+#LOAD WORDPRESS
+require($wp_include_path);
+
+#SET FILE TYPE AS JAVASCRIPT
+header("content-type: application/x-javascript");
+?>
 //WAIT FOR PAGE TO LOAD
 jQuery(document).ready(function()
 {
@@ -29,7 +60,7 @@ jQuery(document).ready(function()
 		playRtl             : false,     		// If true, the slideshow will move right-to-left 
 		
 		//TIMES
-		delay               : 5000,      		// How long between slideshow transitions in AutoPlay mode (in milliseconds) 
+		delay               : 10000,      		// How long between slideshow transitions in AutoPlay mode (in milliseconds) 
 		resumeDelay         : 5000,     		// Resume slideshow after user interaction, only if autoplayLocked is true (in milliseconds). 
 		animationTime       : 0,       			// How long the slideshow transition takes (in milliseconds) 
 		delayBeforeAnimate  : 500        		// How long to pause slide animation before going to the desired slide (used if you want your "out" FX to show).
@@ -39,3 +70,7 @@ jQuery(document).ready(function()
 		dataAnimate: 'data-animate'
     });
 });
+<?php
+#SEND THE OUTPUT BUFFER AND TURN OFF OUTPUT BUFFERING 
+ob_end_flush();
+?>

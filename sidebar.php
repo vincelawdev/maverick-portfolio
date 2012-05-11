@@ -85,6 +85,7 @@
 		<h4>Connect With <?php the_author_meta("first_name", mp_options::mp_get_author_id()); ?></h4>
 		<?php mp_options::mp_display_social_buttons(); ?>
 		<?php mp_options::mp_display_facebook_like_box(); ?>
+		<p><a href="<?php bloginfo("rss2_url"); ?>" rel="nofollow"><img src="<?php bloginfo("template_directory"); ?>/images/icon-rss-small.png" class="rss" /></a>Subscribe to my blog via Email or <a href="<?php bloginfo("rss2_url"); ?>" rel="nofollow">RSS</a></p>
 		
 	</div>
 	<!-- SOCIAL - END -->

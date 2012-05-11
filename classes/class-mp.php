@@ -696,15 +696,41 @@ class mp_options
 				$slides->the_post();
 			
 				#INITIALISE THE SLIDE DETAILS
-				$slide_image = get_post_meta($post->ID, "slide_image", true);
-				$slide_url = get_post_meta($post->ID, "slide_url", true);
 				$slide_title = get_the_title($post->ID);
+				$slide_image = get_post_meta($post->ID, "slide_image", true);
+				$slide_url = get_post_meta($post->ID, "slide_url", true);				
+				$slide_animation_in = get_post_meta($post->ID, "slide_animation_in", true);
+				$slide_animation_out = get_post_meta($post->ID, "slide_animation_out", true);
+				$slide_type = get_post_meta($post->ID, "slide_type", true);
+				
+				#FORMAT SLIDE IN ANIMATION
+				if($slide_animation_in == "No Animation")
+				{
+					$slide_animation_in = "";
+				}
+				#FORMAT SLIDE OUT ANIMATION
+				if($slide_animation_out == "No Animation")
+				{
+					$slide_animation_out = "";
+				}
 				
 				#OPEN SLIDE LIST ITEM
-				echo '<li data-animate="flash, bounce">';
+				echo '<li data-animate="' . $slide_animation_in . ', ' . $slide_animation_out . '">';
 				
-				#DISPLAY IMAGE WITH LINK
-				echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '" /></a>';
+				switch($slide_type)
+				{
+					#DISPLAY SLIDE IMAGE WITH SLIDE URL
+					case "image":
+					
+						echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '" /></a>';
+						break;
+						
+					#DISPLAY SLIDE VIDEO
+					case "video":
+					
+						the_content();
+						break;
+				}				
 								
 				#CLOSE SLIDE LIST ITEM
 				echo '</li>';
@@ -842,19 +868,30 @@ class mp_options
 		#INITIALISE SLIDE OPTIONS
 		$slide_image = get_post_meta($post->ID, "slide_image", true);
 		$slide_url = get_post_meta($post->ID, "slide_url", true);
+		$slide_animation_in = get_post_meta($post->ID, "slide_animation_in", true);
+		$slide_animation_out = get_post_meta($post->ID, "slide_animation_out", true);
+		$slide_type = get_post_meta($post->ID, "slide_type", true);
 		
 		#DISPLAY SLIDE NONCE FIELD
 		echo '<input name="slide_nonce" id="slide_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
+		
+		#DISPLAY SLIDE TYPE FIELD
+		echo '<p><strong>Slide Type:</strong><br />'; mp_options::mp_display_slide_type_radio_button($slide_type); echo '</p><p>Select the type of slide you wish to create.</p>';
 				
 		#DISPLAY SLIDE IMAGE FIELD
 		echo '<p><strong>Slide Image:</strong><br /><input name="slide_image" id="slide_image" type="text" size="80" value="' . urldecode($slide_image) . '" /></p><p>Enter the URL of the slide image.</p>';
 		
 		#DISPLAY SLIDE URL FIELD
 		echo '<p><strong>Slide URL:</strong><br /><input name="slide_url" id="slide_url" type="text" size="80" value="' . urldecode($slide_url) . '" /></p><p>Enter the URL of the slide.</p>';
+		#DISPLAY SLIDE IN ANIMATION FIELD
+		echo '<p><strong>Slide In Animation:</strong><br />'; mp_options::mp_display_slide_animation_in_list($slide_animation_in); echo '</p><p>Select the animation of the slide when it enters the slider. Please refer to the <a href="http://daneden.me/animate/" target="_blank">Animate.css</a> page to preview the animations.</p>';
+		
+		#DISPLAY SLIDE OUT ANIMATION FIELD
+		echo '<p><strong>Slide Out Animation:</strong><br />'; mp_options::mp_display_slide_animation_out_list($slide_animation_out); echo '</p><p>Select the animation of the slide when it exits the slider. Please refer to the <a href="http://daneden.me/animate/" target="_blank">Animate.css</a> page to preview the animations.</p>';
 		?>
 		<script type="text/javascript">
 		jQuery(document).ready(function()
-		{
+		{			
 			jQuery("div.wrap").after('<div id="<?php echo $slide_error_box; ?>" class="mp_errors error"></div>');
 			
 			jQuery("form#post").validate(
@@ -869,12 +906,18 @@ class mp_options
 				{
 					slide_image:
 					{
-						required: true,
+						required: function(element)
+						{
+        					return jQuery("input[name=slide_type]:checked").val() == "image";
+      					},
 						url2: true
 					},
 					slide_url:
 					{
-						required: true,
+						required: function(element)
+						{
+        					return jQuery("input[name=slide_type]:checked").val() == "image";
+      					},
 						url2: true
 					}
 				},
@@ -908,12 +951,131 @@ class mp_options
 		<?php
 	}
 	
+	#THIS FUNCTION DISPLAYS THE LIST OF SLIDE IN ANIMATIONS
+	function mp_display_slide_animation_in_list($selected_animation)
+	{
+		#INITIALISE DEFAULT ANIMATION
+		$default_animation = "bounceInLeft";
+		
+		#SELECT DEFAULT ANIMATION IF NO ANIMATION WAS SELECTED
+		if(empty($selected_animation))
+		{
+			$selected_animation = $default_animation;
+		}
+		
+		#INITIALISE SELECT LIST HTML
+		$select_list = "<select name=\"slide_animation_in\" id=\"slide_animation_in\" class=\"postform\">\n";
+		
+		#INITALISE ANIMATIONS
+		$animations = array('No Animation', 'flash', 'bounce', 'shake', 'tada', 'swing', 'wobble', 'pulse', 'flip', 'flipInX', 'flipInY', 'fadeIn', 'fadeInUp', 'fadeInDown', 'fadeInLeft', 'fadeInRight', 'fadeInUpBig', 'fadeInDownBig', 'fadeInLeftBig', 'fadeInRightBig', 'bounceIn', 'bounceInDown', 'bounceInUp', 'bounceInLeft', 'bounceInRight', 'rotateIn', 'rotateInDownLeft', 'rotateInDownRight', 'rotateInUpLeft', 'rotateInUpRight', 'hinge', 'rollIn');
+		
+		#APPEND ANIMATIONS
+		foreach($animations as $animation)
+		{
+			#SELECTED ANIMATION
+			if($selected_animation == $animation)
+			{
+				$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $animation . "\">" . $animation . "</option>\n";
+			}
+			#UNSELECTED ANIMATION
+			else
+			{
+				$select_list .= "<option class=\"level-0\" value=\"" . $animation . "\">" . $animation . "</option>\n";
+			}
+		}
+		
+		#CLOSE SELECT LIST HTML
+		$select_list .= "</select>";
+		
+		#DISPLAY SELECT LIST
+		echo $select_list;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE LIST OF SLIDE OUT ANIMATIONS
+	function mp_display_slide_animation_out_list($selected_animation)
+	{
+		#INITIALISE DEFAULT ANIMATION
+		$default_animation = "bounceOutRight";
+		
+		#SELECT DEFAULT ANIMATION IF NO ANIMATION WAS SELECTED
+		if(empty($selected_animation))
+		{
+			$selected_animation = $default_animation;
+		}
+		
+		#INITIALISE SELECT LIST HTML
+		$select_list = "<select name=\"slide_animation_out\" id=\"slide_animation_out\" class=\"postform\">\n";
+		
+		#INITALISE ANIMATIONS
+		$animations = array('No Animation', 'flash', 'bounce', 'shake', 'tada', 'swing', 'wobble', 'pulse',	'flip', 'flipOutX', 'flipOutY', 'fadeOut', 'fadeOutUp', 'fadeOutDown', 'fadeOutLeft', 'fadeOutRight', 'fadeOutUpBig', 'fadeOutDownBig', 'fadeOutLeftBig', 'fadeOutRightBig', 'bounceOut', 'bounceOutDown', 'bounceOutUp', 'bounceOutLeft', 'bounceOutRight', 'rotateOut', 'rotateOutDownLeft', 'rotateOutDownRight', 'rotateOutUpLeft', 'rotateOutUpRight', 'hinge', 'rollOut');
+		
+		#APPEND ANIMATIONS
+		foreach($animations as $animation)
+		{
+			#SELECTED ANIMATION
+			if($selected_animation == $animation)
+			{
+				$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $animation . "\">" . $animation . "</option>\n";
+			}
+			#UNSELECTED ANIMATION
+			else
+			{
+				$select_list .= "<option class=\"level-0\" value=\"" . $animation . "\">" . $animation . "</option>\n";
+			}
+		}
+		
+		#CLOSE SELECT LIST HTML
+		$select_list .= "</select>";
+		
+		#DISPLAY SELECT LIST
+		echo $select_list;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE OF SLIDE TYPE RADIO BUTTONS
+	function mp_display_slide_type_radio_button($selected_slide_type)
+	{
+		#INITIALISE DEFAULT SLIDE TYPE
+		$default_slide_type = "text_image";
+		
+		#SELECT DEFAULT SLIDE TYPE IF NO SLIDE TYPE WAS SELECTED
+		if(empty($selected_slide_type))
+		{
+			$selected_slide_type = $default_slide_type;
+		}
+		
+		#INITIALISE SLIDE TYPES
+		$slide_types = array
+		(
+			"Text + Images" => "text_image",
+			"Image Only" => "image",
+			"Video" => "video"
+		);
+		
+		#DISPLAY SLIDE TYPES
+		foreach($slide_types as $slide_type_key => $slide_type_value)
+		{
+			#SELECTED SLIDE TYPE
+			if($selected_slide_type == $slide_type_value)
+			{
+				echo '<input type="radio" name="slide_type" id="' . $slide_type_value . '" value="' . $slide_type_value . '" checked="checked" /><label for="' . $slide_type_value . '">' . $slide_type_key . '</label>&nbsp;&nbsp;&nbsp;';
+			}
+			#UNSELECTED SLIDE TYPE
+			else
+			{
+				echo '<input type="radio" name="slide_type" id="' . $slide_type_value . '" value="' . $slide_type_value . '" /><label for="' . $slide_type_value . '">' . $slide_type_key . '</label>&nbsp;&nbsp;&nbsp;';
+			}
+		}
+	}
+	
 	#THIS FUNCTION SAVES THE SLIDE BOX FORM CONTENTS
 	function mp_meta_boxes_slide_form_save($post_id) 
 	{
 		#SAVE SLIDE BOX FORM CONTENTS
 		mp_options::mp_meta_boxes_save($post_id, "slide_nonce", "slide_image", "post");
 		mp_options::mp_meta_boxes_save($post_id, "slide_nonce", "slide_url", "post");
+		mp_options::mp_meta_boxes_save($post_id, "slide_nonce", "slide_animation_in", "post");
+		mp_options::mp_meta_boxes_save($post_id, "slide_nonce", "slide_animation_out", "post");
+		mp_options::mp_meta_boxes_save($post_id, "slide_nonce", "slide_type", "post");
 		
 		#RETURN POST ID
 		return $post_id;

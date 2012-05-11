@@ -38,6 +38,20 @@
 	animation-delay: .2s;
 	animation-timing-function: ease;
 	animation-fill-mode: both;
+	text-align: center;
+}
+
+#content ul#slider li span.vvqbox
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+#content ul#slider li object,
+#content ul#slider li iframe
+{
+	margin: -10px 0px 0px 0px;
+	padding: 0px;
 }
 
 /********************************

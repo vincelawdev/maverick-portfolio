@@ -1385,12 +1385,41 @@ body
 
 #sidebar p
 {
-	margin: 0px 0px 13px 0px;
+	margin: 0px;
 	padding: 0px;
 	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #CCCCCC;
+}
+
+#sidebar p a:link
+{
+	color: #ff6600;
+	text-decoration: underline;
+}
+
+#sidebar p a:visited
+{
+	color: #996699;
+	text-decoration: none;
+}
+
+#sidebar p a:active,
+#sidebar p a:hover
+{
+	color: #ebc308;
+	text-decoration: underline;
+}
+
+#sidebar img.rss
+{
+	width: 16px;
+	heigh: 16px;
+	margin: 0px 3px 0px 0px;
+	padding: 0px;
+	vertical-align: text-top;
+	float: left;
 }
 
 #sidebar form
@@ -1522,12 +1551,7 @@ body
 	text-decoration: none;
 }
 
-#footer_row1 #footer_column1 a:active
-{
-	color: #ebc308;
-	text-decoration: underline;
-}
-
+#footer_row1 #footer_column1 a:active,
 #footer_row1 #footer_column1 a:hover
 {
 	color: #ebc308;

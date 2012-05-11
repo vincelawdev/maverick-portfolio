@@ -91,7 +91,7 @@ if(is_front_page())
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-anythingslider-fx-min.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-anythingslider-video-min.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-easing1.2.js"></script>
-<script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-anythingslider-home.js"></script>
+<script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-anythingslider-home.php"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/anythingslider.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/animate.css" />
 <?php

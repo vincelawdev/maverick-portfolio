@@ -41,17 +41,55 @@
 	text-align: center;
 }
 
-#content ul#slider li span.vvqbox
+#content ul#slider li span.vvqbox,
+#content ul#slider li object,
+#content ul#slider li iframe
 {
 	margin: 0px;
 	padding: 0px;
 }
 
-#content ul#slider li object,
-#content ul#slider li iframe
+#content ul#slider li h2
 {
-	margin: -10px 0px 0px 0px;
+	margin: 0px 0px 15px 0px;
 	padding: 0px;
+	font-family: "MatizRegular";
+	font-size: 48px;
+	font-weight: normal;
+	color: #F00;
+	-webkit-font-smoothing: antialiased;
+	text-align: center;
+}
+
+#content ul#slider li p
+{
+	margin: 0px 0px 10px 0px;
+	padding: 0px;
+	font-family: "MatizRegular";
+	font-size: 36px;
+	font-weight: normal;
+	color: #545454;
+	-webkit-font-smoothing: antialiased;
+	text-align: center;
+}
+
+#content ul#slider li p a:link
+{
+	color: #1a58ad;
+	text-decoration: underline;
+}
+
+#content ul#slider li p a:visited
+{
+	color: #320682;
+	text-decoration: underline;
+}
+
+#content ul#slider li p a:active,
+#content ul#slider li p a:hover
+{
+	color: #ebc308;
+	text-decoration: underline;
 }
 
 /********************************
@@ -193,9 +231,9 @@ ACTIVE STATE (HAS KEYBOARD FOCUS)
 #content .anythingSlider-default .anythingControls ul a
 {
 	margin: 0px;
-	padding: 1px 9px 2px 9px;
+	padding: 1px 9px 3px 9px;
 	font-family: "ExpresswayRegular";
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: normal;
 	color: #333333;
 	-webkit-font-smoothing: antialiased;
@@ -214,9 +252,9 @@ ACTIVE STATE (HAS KEYBOARD FOCUS)
 #content .anythingSlider-default .anythingControls .start-stop
 {
 	margin: 0px;
-	padding: 1px 9px 2px 9px;
+	padding: 1px 9px 3px 9px;
 	font-family: "ExpresswayRegular";
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: normal;
 	color: #FFFFFF;
 	-webkit-font-smoothing: antialiased;

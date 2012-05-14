@@ -97,6 +97,12 @@ class mp_options
 	function mp_theme_settings()
 	{
 		register_setting("mp_settings_author", "mp_author");
+		register_setting("mp_settings_rss", "mp_feedburner_rss");
+		register_setting("mp_settings_rss", "mp_feedburner_email");
+		register_setting("mp_settings_rss", "mp_rss_slides");
+		register_setting("mp_settings_rss", "mp_rss_projects");
+		register_setting("mp_settings_rss", "mp_rss_testimonials");
+		register_setting("mp_settings_rss", "mp_rss_comments");
 		register_setting("mp_settings_sidebar", "mp_facebook_like_box");
 		register_setting("mp_settings_sidebar", "mp_posts_recent_number");
 		register_setting("mp_settings_sidebar", "mp_posts_comments_number");
@@ -115,6 +121,18 @@ class mp_options
 			case "author":
 			
 				update_option("mp_author", 1);
+				
+				break;
+				
+			#RSS
+			case "rss":
+				
+				update_option("mp_feedburner_rss", "");
+				update_option("mp_feedburner_email", "");
+				update_option("mp_rss_slides", 1);
+				update_option("mp_rss_projects", 1);
+				update_option("mp_rss_testimonials", 1);
+				update_option("mp_rss_comments", 1);
 				
 				break;
 				
@@ -160,6 +178,7 @@ class mp_options
 			<ul style="display: block">
 				<li style="display: inline"><?php if($sub_page == "author" || empty($sub_page)) { echo "<strong>Author</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=author">Author</a><?php } ?></li>
 				<li style="display: inline"><?php if($sub_page == "sidebar") { echo "<strong>Sidebar</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=sidebar">Sidebar</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == "rss") { echo "<strong>RSS</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=rss">RSS</a><?php } ?></li>
 				<li style="display: inline"><?php if($sub_page == "tracking") { echo "<strong>Tracking</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=tracking">Tracking</a><?php } ?></li>
 				<li style="display: inline"><?php if($sub_page == "reset") { echo "<strong>Reset</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=reset">Reset</a><?php } ?></li>
 				<li style="display: inline"><a href="http://www.employvince.com/contact/" target="_blank">Support</a></li>			
@@ -191,6 +210,86 @@ class mp_options
 				?>
 			
 				</form>
+			
+				<?php
+				break;
+				
+			#RSS
+			case "rss":
+				
+				#DISPLAY UPDATE MESSAGE
+				if(isset($_GET["settings-updated"]) && ($_GET["settings-updated"] == true))
+				{
+				?>
+				<div class="updated fade"><p><strong><?php _e("Your RSS options have been saved."); ?></strong></p></div>
+				<?php
+				}
+				?>
+				
+				<div id="mp_rss_errors" class="mp_errors error"></div>
+				
+				<form id="mp_rss" method="post" action="options.php">
+				<?php
+				settings_fields("mp_settings_rss");
+				
+				#INITIALISE FEEDBURNER DESCRIPTION
+				$feedburner_description = '<p>Register your RSS feed at <a href="http://feedburner.google.com/" target="_blank">FeedBurner</a> to get a FeedBurner feed address to replace your default RSS feed address: <a href="' . get_bloginfo("rss2_url") . '" target="_blank">' . get_bloginfo("rss2_url") . '</a>.</p>';
+				
+				#DISPLAY FEEDBURNER FEED ADDRESS
+				mp_options::mp_option_field("FeedBurner", $feedburner_description, true, false, "FeedBurner Feed Address", "text", "mp_feedburner_rss", "mp_feedburner_rss", "Enter the FeedBurner Feed Address of your RSS feed", "", false);
+				
+				#DISPLAY FEEDBURNER EMAIL SUBSCRIPTION ADDRESS
+				mp_options::mp_option_field("", "", false, true, "FeedBurner Subscription Address", "text", "mp_feedburner_email", "mp_feedburner_email", "Enter the subscription address of your FeedBurner Feed", "", true);
+				
+				#DISPLAY SLIDES RSS
+				mp_options::mp_option_field("Custom Posts", "", true, false, "Slides", "yes_no", "mp_rss_slides", "mp_rss_slides", "Select whether you wish to enable the Slides RSS feed", "Yes", false);
+				
+				#DISPLAY PROJECTS RSS
+				mp_options::mp_option_field("", "", false, false, "Projects", "yes_no", "mp_rss_projects", "mp_rss_projects", "Select whether you wish to enable the Projects RSS feed", "Yes", false);
+				
+				#DISPLAY TESTIMONIALS RSS
+				mp_options::mp_option_field("", "", false, true, "Testimonials", "yes_no", "mp_rss_testimonials", "mp_rss_testimonials", "Select whether you wish to enable the Testimonials RSS feed", "Yes", true);
+				
+				#DISPLAY COMMENTS RSS
+				mp_options::mp_option_field("Comments", "", true, true, "Comments", "yes_no", "mp_rss_comments", "mp_rss_comments", "Select whether you wish to enable the Comments RSS feed", "Yes", true);
+				?>
+			
+				</form>
+				
+				<script type="text/javascript">
+				jQuery(document).ready(function()
+				{
+					//VALIDATE FORM FIELDS
+					jQuery("#mp_rss").validate(
+					{
+						errorLabelContainer: jQuery("#mp_rss_errors"),
+						errorElement: "p",
+						errorClass: "mp_error_field",
+						rules:
+						{
+							mp_feedburner_rss:
+							{
+								url2: true
+							},
+							mp_feedburner_email:
+							{
+								url2: true
+							}
+						},
+						messages:
+						{
+							mp_feedburner_rss:
+							{
+								url2: "Please enter a valid FeedBurner Feed Address."
+							},
+							mp_feedburner_email:
+							{
+								url2: "Please enter a valid FeedBurner Subscription Address."
+							}
+						}
+					});
+				});
+				</script>
 			
 				<?php
 				break;
@@ -277,6 +376,17 @@ class mp_options
 						<div class="updated fade"><p><strong><?php _e("Your Author options have been reset."); ?></strong></p></div>
 						<?php
 					}
+					#RSS RESET SECURITY CHECK PASSED
+					if(!empty($_POST["rss_reset"]) && check_admin_referer("rss_reset_check"))
+					{
+						#RESET RSS OPTIONS
+						mp_options::mp_reset_options("rss");
+						
+						#DISPLAY RESET MESSAGE
+						?>
+						<div class="updated fade"><p><strong><?php _e("Your RSS options have been reset."); ?></strong></p></div>
+						<?php
+					}
 					#SIDEBAR RESET SECURITY CHECK PASSED
 					if(!empty($_POST["sidebar_reset"]) && check_admin_referer("sidebar_reset_check"))
 					{
@@ -316,6 +426,15 @@ class mp_options
 					<?php wp_nonce_field("sidebar_reset_check"); ?>
 					
 					<input type="submit" name="sidebar_reset" class="button-primary" value="<?php _e("Reset Options") ?>" onclick="javascript:check = confirm('<?php _e('Reset all Sidebar options to default settings?', 'sidebar_reset'); ?>'); if(check == false) { return false; }" />
+					
+					</form>
+					
+					<h3 class="title">RSS</h3>
+					
+					<form name="rss_reset_form" method="post">
+					<?php wp_nonce_field("rss_reset_check"); ?>
+					
+					<input type="submit" name="rss_reset" class="button-primary" value="<?php _e("Reset Options") ?>" onclick="javascript:check = confirm('<?php _e('Reset all RSS options to default settings?', 'rss_reset'); ?>'); if(check == false) { return false; }" />
 					
 					</form>
 					
@@ -379,6 +498,12 @@ class mp_options
 			case "textarea":
 				
 				mp_options::mp_display_textarea($input_id, $mp_option);
+				break;
+				
+			#YES/NO:
+			case "yes_no":
+				
+				mp_options::mp_display_yes_no_list($input_id, $mp_option);
 				break;
 				
 			#AUTHOR SELECT LIST:
@@ -448,6 +573,41 @@ class mp_options
 		
 		#DISPLAY TEXTAREA
 		echo $textarea;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE LIST OF YES & NO OPTIONS
+	function mp_display_yes_no_list($select_id, $selected_option)
+	{		
+		#INITIALISE SELECT LIST HTML
+		$select_list = "<select name=\"$select_id\" id=\"$select_id\" class=\"postform\">\n";
+		
+		#INITIALISE OPTIONS
+		$options = array
+		(
+			"Yes" => 1,
+			"No" => 0
+		);
+		
+		#DISPLAY OPTIONS
+		foreach($options as $option_key => $option_value)
+		{
+			#SELECTED OPTION
+			if($selected_option == $option_value)
+			{
+				$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $option_value . "\">" . $option_key . "</option>\n";
+			}
+			#UNSELECTED OPTION
+			else
+			{
+				$select_list .= "<option class=\"level-0\" value=\"" . $option_value . "\">" . $option_key . "</option>\n";
+			}
+		}
+		
+		#CLOSE SELECT LIST HTML
+		$select_list .= "</select>";
+		
+		#DISPLAY SELECT LIST
+		echo $select_list;
 	}
 	
 	#THIS FUNCTION DISPLAYS THE LIST OF AUTHORS
@@ -725,7 +885,8 @@ class mp_options
 						echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '" /></a>';
 						break;
 						
-					#DISPLAY SLIDE VIDEO
+					#DISPLAY SLIDE TEXT & SLIDE VIDEO
+					case "text_image":
 					case "video":
 					
 						the_content();
@@ -738,6 +899,41 @@ class mp_options
 			
 			#CLOSE SLIDE LIST
 			echo '</ul>';
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE SLIDE TITLES
+	function mp_display_slide_titles()
+	{
+		#RETRIEVE THE DATABASE
+		global $wpdb;
+		
+		#RETREIVE SLIDES
+		$slides = $wpdb->get_results("SELECT post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'slide' ORDER BY post_date DESC LIMIT 5");
+		
+		#SLIDES EXIST
+		if(!empty($slides))
+		{
+			#INITIALISE NUMBER OF SLIDES
+			$number_of_slides = count($slides);
+			
+			#INITIALISE LAST SLIDE
+			$last_slide = $number_of_slides - 1;
+			
+			#DISPLAY SLIDES TITLES
+			for($slide_counter = 0; $slide_counter < $number_of_slides; $slide_counter ++)
+			{
+				#CURRENT SLIDE TITLES IS NOT LAST SLIDE
+				if($slide_counter != $last_slide)
+				{
+					echo "'" . addslashes($slides[$slide_counter]->post_title) . "', ";
+				}
+				#CURRENT SLIDE TITLES IS LAST SLIDE
+				else
+				{
+					echo "'" . addslashes($slides[$slide_counter]->post_title) . "'";
+				}				
+			}
 		}
 	}
 	
@@ -2968,6 +3164,92 @@ class mp_options
 		
 		#RETURN PAGE
 		return $page;	
+	}
+
+	#THIS FUNCTION DISPLAYS THE RSS FEEDS IN THE HEADER
+	function mp_display_rss_feeds_header()
+	{
+		#INITIALISE SITE NAME
+		$mp_site_name = get_bloginfo("name");
+		
+		#INITIALISE FEEDBURNER RSS FEED
+		$mp_feedburner_rss = get_option("mp_feedburner_rss");
+		
+		#INITIALISE WORDPRESS RSS FEED
+		$mp_wordpress_rss = get_bloginfo("rss2_url");
+		
+		#DISPLAY FEEDBURNER RSS FEED
+		if(!empty($mp_feedburner_rss))
+		{
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' RSS Feed" href="' . $mp_feedburner_rss . '" />' . "\n";
+		}
+		#DISPLAY WORDPRESS RSS FEED
+		else
+		{
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' RSS Feed" href="' . $mp_wordpress_rss . '" />' . "\n";
+		}
+		
+		#DISPLAY SLIDES RSS FEED
+		if(get_option("mp_rss_slides"))
+		{
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Slides RSS Feed" href="' . $mp_wordpress_rss . '/?post_type=slide" />' . "\n";
+		}
+		
+		#DISPLAY PROJECTS RSS FEED
+		if(get_option("mp_rss_projects"))
+		{
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Projects RSS Feed" href="' . $mp_wordpress_rss . '/?post_type=project" />' . "\n";
+		}
+		
+		#DISPLAY TESTIMONIALS RSS FEED
+		if(get_option("mp_rss_testimonials"))
+		{
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Testimonials RSS Feed" href="' . $mp_wordpress_rss . '/?post_type=testimonial" />' . "\n";
+		}
+		
+		#DISPLAY COMMENTS RSS FEED
+		if(get_option("mp_rss_comments"))
+		{
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Comments RSS Feed" href="' . get_bloginfo("comments_rss2_url") . '" />' . "\n";
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE RSS FEED IN THE SIDEBAR
+	function mp_display_rss_feed_sidebar()
+	{		
+		#INITIALISE FEEDBURNER RSS FEED
+		$mp_feedburner_rss = get_option("mp_feedburner_rss");
+
+		#INITIALISE FEEDBURNER EMAIL SUBSCRIPTION ADDRESS
+		$mp_feedburner_email = get_option("mp_feedburner_email");
+		
+		#INITIALISE WORDPRESS RSS FEED
+		$mp_wordpress_rss = get_bloginfo("rss2_url");
+		
+		#INIITALISE RSS LINK WITH FEEDBURNER RSS FEED
+		if(!empty($mp_feedburner_rss))
+		{
+			$mp_rss = $mp_feedburner_rss;	
+		}
+		#INIITALISE RSS LINK WITH WORDPRESS RSS FEED
+		else
+		{
+			$mp_rss = $mp_wordpress_rss;
+		}
+		
+		#INITIALISE EMAIL LINK WITH FEEDBURNER EMAIL SUBSCRIPTION ADDRESS
+		if(!empty($mp_feedburner_email))
+		{
+			$mp_email = '<a href="' . $mp_feedburner_email . '" rel="nofollow">Email</a>';
+		}
+		#INITIALISE EMAIL LINK WITH NO URL
+		else
+		{
+			$mp_email = "Email";
+		}
+		
+		#DISPLAY RSS FEED SUBSCRIPTION TEXT
+		echo '<p><a href="' . $mp_rss . '" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-rss-small.png" class="rss" /></a>Subscribe to my blog via ' . $mp_email . ' or <a href="' . $mp_rss . '" rel="nofollow">RSS</a></p>';
 	}
 }
 ?>

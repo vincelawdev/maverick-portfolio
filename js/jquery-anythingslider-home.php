@@ -45,7 +45,10 @@ jQuery(document).ready(function()
 		changeBy            : 1,         		// Amount to go forward or back when changing panels. 
 		hashTags            : true,      		// Should links change the hashtag in the URL? 
 		infiniteSlides      : false,      		// if false, the slider will not wrap & not clone any panels 
-		navigationFormatter : null,      		// Details at the top of the file on this use (advanced use) 
+		navigationFormatter : function(index, panel)
+		{
+    		return [<?php mp_options::mp_display_slide_titles(); ?>][index - 1];
+		},										// Format navigation labels with text
 		navigationSize      : 5,				// Set this to the maximum number of visible navigation tabs; false to disable
 		buildArrows         : false,      		// If true, builds the forwards and backwards buttons 
   		buildNavigation     : true,     		// If true, builds a list of anchor links to link to each panel 
@@ -63,7 +66,13 @@ jQuery(document).ready(function()
 		delay               : 10000,      		// How long between slideshow transitions in AutoPlay mode (in milliseconds) 
 		resumeDelay         : 5000,     		// Resume slideshow after user interaction, only if autoplayLocked is true (in milliseconds). 
 		animationTime       : 0,       			// How long the slideshow transition takes (in milliseconds) 
-		delayBeforeAnimate  : 500        		// How long to pause slide animation before going to the desired slide (used if you want your "out" FX to show).
+		delayBeforeAnimate  : 500,        		// How long to pause slide animation before going to the desired slide (used if you want your "out" FX to show).
+		
+		// Video 
+		resumeOnVideoEnd    : true,      		// If true & the slideshow is active & a supported video is playing, it will pause the autoplay until the video is complete 
+		resumeOnVisible     : false,      		// If true the video will resume playing (if previously paused, except for YouTube iframe - known issue); if false, the video remains paused. 
+		addWmodeToObject    : "opaque",  		// If your slider has an embedded object, the script will automatically add a wmode parameter with this setting 
+		isVideoPlaying      : function(base){ return false; } // return true if video is playing or false if not - used by video extension 
 	}).anythingSliderFx(
     {},
     {

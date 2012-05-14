@@ -9,10 +9,10 @@ get_header();
 		<!-- ANYTHING SLIDER - END -->
 		
 		<?php
-		#PAGE EXISTS
+		#HOME PAGE EXISTS
 		if(have_posts())
 		{
-			#DISPLAY PAGE
+			#DISPLAY HOME PAGE
 			while(have_posts())
 			{
 				the_post();

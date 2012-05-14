@@ -36,7 +36,7 @@ if(is_front_page())
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/superfish.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/colorbox.php" />
 <!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/ie.css" /><![endif]-->
-<link rel="alternate" type="application/rss+xml" title="<?php bloginfo("name"); ?> RSS Feed" href="<?php bloginfo("rss2_url"); ?>" />
+<?php mp_options::mp_display_rss_feeds_header(); ?>
 <link rel="pingback" href="<?php bloginfo("pingback_url"); ?>" />
 <?php
 #LOAD THREADED COMMENTS
@@ -56,7 +56,7 @@ if((!is_page() || is_page("blog")) && !is_tax() && !is_singular("project"))
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-organic-tabs-initialise.js"></script>
 <?php
 }
-#LOAD MENU FIX FOR PORTFOLIOis_singular("project")
+#LOAD MENU FIX FOR PORTFOLIO
 if(is_page_template("portfolio.php") || is_tax("portfolio-categories") || is_singular("project"))
 {
 ?>

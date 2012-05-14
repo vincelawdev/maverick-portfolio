@@ -41,11 +41,7 @@
 <div id="footer_row2">
 
 	<!-- FOOTER - ROW 2 - WRAPPER - START -->
-	<div class="footer_wrapper">
-	
-		<?php wp_nav_menu(array("theme_location" => "menu_footer", "container" => "none", "menu_class" => "",  "fallback_cb" => "")); ?><a href="<?php bloginfo("rss2_url"); ?>" rel="nofollow"><img src="<?php bloginfo("template_directory"); ?>/images/icon-rss.png" id="footer_rss" alt="RSS Feed" /></a>
-	
-	</div>
+	<div class="footer_wrapper"><?php wp_nav_menu(array("theme_location" => "menu_footer", "container" => "none", "menu_class" => "",  "fallback_cb" => "")); ?></div>
 	<!-- FOOTER - ROW 2 - WRAPPER - END -->
 
 </div>

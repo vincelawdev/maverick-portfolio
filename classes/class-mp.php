@@ -82,6 +82,7 @@ class mp_options
 		
 		#INITIALISE SHORTCODES
 		add_shortcode("testimonial", array("mp_options", "mp_testimonial_shortcode"));
+		add_shortcode("rss", array("mp_options", "mp_rss_shortcode"));		
 		
 		#INITIALISE TRACKING CODE IN FOOTER
 		add_action("wp_footer", array("mp_options", "mp_tracking"));
@@ -102,6 +103,7 @@ class mp_options
 		register_setting("mp_settings_rss", "mp_rss_slides");
 		register_setting("mp_settings_rss", "mp_rss_projects");
 		register_setting("mp_settings_rss", "mp_rss_testimonials");
+		register_setting("mp_settings_rss", "mp_rss_external");
 		register_setting("mp_settings_rss", "mp_rss_comments");
 		register_setting("mp_settings_sidebar", "mp_facebook_like_box");
 		register_setting("mp_settings_sidebar", "mp_posts_recent_number");
@@ -132,6 +134,7 @@ class mp_options
 				update_option("mp_rss_slides", 1);
 				update_option("mp_rss_projects", 1);
 				update_option("mp_rss_testimonials", 1);
+				update_option("mp_rss_external", "");
 				update_option("mp_rss_comments", 1);
 				
 				break;
@@ -252,6 +255,12 @@ class mp_options
 				
 				#DISPLAY COMMENTS RSS
 				mp_options::mp_option_field("Comments", "", true, true, "Comments", "yes_no", "mp_rss_comments", "mp_rss_comments", "Select whether you wish to enable the Comments RSS feed", "Yes", true);
+				
+				#INITIALISE EXTERNAL FEEDS DESCRIPTION
+				$external_description = '<p>Enter any external RSS feeds you wish to display on your RSS page with the [rss] shortcode.</p>';
+				
+				#DISPLAY EXTERNAL FEEDS
+				mp_options::mp_option_field("External RSS Feeds", $external_description, true, true, "External RSS Feeds", "textarea", "mp_rss_external", "mp_rss_external", "Enter the name of your RSS feed and feed address on each line, separated by a comma. For example: Jame's Feed,http://www.james.com/feed/", "", true);
 				?>
 			
 				</form>
@@ -3250,6 +3259,92 @@ class mp_options
 		
 		#DISPLAY RSS FEED SUBSCRIPTION TEXT
 		echo '<p><a href="' . $mp_rss . '" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-rss-small.png" class="rss" /></a>Subscribe to my blog via ' . $mp_email . ' or <a href="' . $mp_rss . '" rel="nofollow">RSS</a></p>';
+	}
+
+	#THIS FUNCTION DISPLAYS THE RSS FEEDS WITH A SHORTCODE [RSS]
+	function mp_rss_shortcode($parameters, $content = null)
+	{
+		#INITIALISE SITE NAME
+		$mp_site_name = get_bloginfo("name");
+		
+		#INITIALISE FEEDBURNER RSS FEED
+		$mp_feedburner_rss = get_option("mp_feedburner_rss");
+		
+		#INITIALISE WORDPRESS RSS FEED
+		$mp_wordpress_rss = get_bloginfo("rss2_url");
+		
+		#INITILIASE EXTERNAL RSS FEEDS
+		$mp_rss_external = get_option("mp_rss_external");
+		
+		#DISPLAY RSS FEEDS HEADER
+		echo '<h2>' . $mp_site_name . ' RSS Feeds</h2>' . "\n";
+		
+		#OPEN UNORDERED LIST
+		echo "<ul>";
+		
+		#DISPLAY FEEDBURNER RSS FEED
+		if(!empty($mp_feedburner_rss))
+		{
+			echo '<li><a href="' . $mp_feedburner_rss . '" rel=nofollow" />' . $mp_site_name . ' RSS Feed</li></a>' . "\n";
+		}
+		#DISPLAY WORDPRESS RSS FEED
+		else
+		{
+			echo '<li><a href="' . $mp_wordpress_rss . '" rel=nofollow" />' . $mp_site_name . ' RSS Feed</li></a>' . "\n";
+		}
+		
+		#DISPLAY SLIDES RSS FEED
+		if(get_option("mp_rss_slides"))
+		{
+			echo '<li><a href="' . $mp_wordpress_rss . '/?post_type=slide" rel=nofollow" />' . $mp_site_name . ' Slides RSS Feed</li></a>' . "\n";
+		}
+		
+		#DISPLAY PROJECTS RSS FEED
+		if(get_option("mp_rss_projects"))
+		{
+			echo '<li><a href="' . $mp_wordpress_rss . '/?post_type=project" rel=nofollow" />' . $mp_site_name . ' Projects RSS Feed</li></a>' . "\n";
+		}
+		
+		#DISPLAY TESTIMONIALS RSS FEED
+		if(get_option("mp_rss_testimonials"))
+		{
+			echo '<li><a href="' . $mp_wordpress_rss . '/?post_type=testimonial" rel=nofollow" />' . $mp_site_name . ' Testimonials RSS Feed</li></a>' . "\n";
+		}
+		
+		#DISPLAY COMMENTS RSS FEED
+		if(get_option("mp_rss_comments"))
+		{
+			echo '<li><a href="' . get_bloginfo("comments_rss2_url") . '" rel=nofollow" />' . $mp_site_name . ' Comments RSS Feed</li></a>' . "\n";
+		}
+		
+		#CLOSE UNORDERED LIST
+		echo "</ul>";
+		
+		#DISPLAY EXTERNAL RSS FEEDS
+		if(!empty($mp_rss_external))
+		{			
+			#SPLIT EXTERNAL RSS FEEDS CONTENT INTO LINES
+			$mp_rss_external_lines = preg_split("/\r?\n|\r/", $mp_rss_external);
+			
+			#DISPLAY RSS FEEDS HEADER
+			echo "<h2>External RSS Feeds</h2>\n";
+			
+			#OPEN UNORDERED LIST
+			echo "<ul>";
+			
+			#DISPLAY EXTERNAL RSS FEEDS
+			foreach($mp_rss_external_lines as $mp_rss_external_line)
+			{
+				#SPLIT EXTERNAL RSS FEED LINE INTO NAME & ADDRESS
+				$mp_rss_external = split(",", $mp_rss_external_line);
+				
+				#DISPLAY EXTERNAL RSS FEED NAME & ADDRES
+				echo '<li><a href="' . trim($mp_rss_external[1]) . '" rel=nofollow" />' . trim($mp_rss_external[0]) . '</li></a>' . "\n";
+			}
+			
+			#CLOSE UNORDERED LIST
+			echo "</ul>";
+		}
 	}
 }
 ?>

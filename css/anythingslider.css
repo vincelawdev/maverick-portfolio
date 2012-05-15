@@ -5,93 +5,6 @@
 	based on work by Remy Sharp: http://jqueryfordesigners.com/
 */
 
-/* ANYTHING SLIDER */
-#content ul#slider
-{
-	width: 660px;
-	height: 410px;
-	margin: 0px;
-	padding: 0px 0px 28px 0px;
-	list-style: none;
-	overflow: hidden;
-}
-
-#content ul#slider li
-{
-	-webkit-backface-visibility: hidden;
-	-moz-backface-visibility: hidden;
-	-ms-backface-visibility: hidden;
-	backface-visibility: hidden;
-	-webkit-animation-duration: 1s;
-	-webkit-animation-delay: .2s;
-	-webkit-animation-timing-function: ease;
-	-webkit-animation-fill-mode: both;
-	-moz-animation-duration: 1s;
-	-moz-animation-delay: .2s;
-	-moz-animation-timing-function: ease;
-	-moz-animation-fill-mode: both;
-	-ms-animation-duration: 1s;
-	-ms-animation-delay: .2s;
-	-ms-animation-timing-function: ease;
-	-ms-animation-fill-mode: both;
-	animation-duration: 1s;
-	animation-delay: .2s;
-	animation-timing-function: ease;
-	animation-fill-mode: both;
-	text-align: center;
-}
-
-#content ul#slider li span.vvqbox,
-#content ul#slider li object,
-#content ul#slider li iframe
-{
-	margin: 0px;
-	padding: 0px;
-}
-
-#content ul#slider li h2
-{
-	margin: 0px 0px 15px 0px;
-	padding: 0px;
-	font-family: "MatizRegular";
-	font-size: 48px;
-	font-weight: normal;
-	color: #F00;
-	-webkit-font-smoothing: antialiased;
-	text-align: center;
-}
-
-#content ul#slider li p
-{
-	margin: 0px 0px 10px 0px;
-	padding: 0px;
-	font-family: "MatizRegular";
-	font-size: 36px;
-	font-weight: normal;
-	color: #545454;
-	-webkit-font-smoothing: antialiased;
-	text-align: center;
-}
-
-#content ul#slider li p a:link
-{
-	color: #1a58ad;
-	text-decoration: underline;
-}
-
-#content ul#slider li p a:visited
-{
-	color: #320682;
-	text-decoration: underline;
-}
-
-#content ul#slider li p a:active,
-#content ul#slider li p a:hover
-{
-	color: #ebc308;
-	text-decoration: underline;
-}
-
 /********************************
 DEFAULT STATE (NO KEYBOARD FOCUS)
 ********************************/
@@ -104,8 +17,7 @@ DEFAULT STATE (NO KEYBOARD FOCUS)
 
 #content .anythingSlider-default .anythingWindow
 {
-	border-top: 3px solid #CCCCCC;
-	border-bottom: 3px solid #CCCCCC;
+	
 }
 
 /* Navigation buttons + start/stop button, default state */
@@ -204,12 +116,37 @@ ACTIVE STATE (HAS KEYBOARD FOCUS)
  ************************/
 #content .anythingSlider-default .arrow
 {
-	display: none;
+	top: 50%;
+	position: absolute;
+	display: block;
 }
 
-/* Navigation Links */
+.anythingSlider-default .arrow a
+{
+	display: block;
+	width: 45px;
+	height: 140px;
+	margin: -70px 0 0 0; /* half height of image */
+	text-align: center;
+	outline: 0;
+	background: url(../images/default.png) no-repeat;
+}
+
+/* back arrow */
+#content .anythingSlider-default .back { left: 0; }
+#content .anythingSlider-default .back a { background-position: left top; }
+#content .anythingSlider-default .back a:hover,
+#content .anythingSlider-default .back a.hover { background-position: left -140px; }
+
+/* forward arrow */
+#content .anythingSlider-default .forward { right: 0; }
+#content .anythingSlider-default .forward a { background-position: right top; }
+#content .anythingSlider-default .forward a:hover,
+#content .anythingSlider-default .forward a.hover { background-position: right -140px; }
+
 #content .anythingSlider-default .anythingControls
 {
+	border-top: 3px solid #CCCCCC;
 	outline: none;
 	display: none;
 }

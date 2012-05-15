@@ -32,7 +32,7 @@ header("content-type: application/x-javascript");
 //WAIT FOR PAGE TO LOAD
 jQuery(document).ready(function()
 {
-	jQuery("#slider").anythingSlider(
+	jQuery("#slider1").anythingSlider(
 	{
 		//APPEARANCE 
 		theme               : "default", 		// Theme name 
@@ -77,6 +77,20 @@ jQuery(document).ready(function()
     {},
     {
 		dataAnimate: 'data-animate'
+    });
+	
+	jQuery("#featured_work_wrapper").jCarouselLite(
+	{
+		btnPrev	: ".previous",
+        btnNext	: ".next",
+		auto	: null,
+		speed	: 500,
+		easing	: "swing",
+		vertical: false,
+		circular: true,
+		visible	: 2,
+		start	: 0,
+		scroll	: 1        
     });
 });
 <?php

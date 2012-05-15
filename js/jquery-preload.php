@@ -40,6 +40,10 @@ $(document).ready(function()
 	preload5 = new Image();
 	preload6 = new Image();
 	preload7 = new Image();
+	preload8 = new Image();
+	preload9 = new Image();
+	preload10 = new Image();
+	preload11 = new Image();
 	preload1.src = "<?php bloginfo("template_directory"); ?>/images/arrow-menu-down-on.png";
 	preload2.src = "<?php bloginfo("template_directory"); ?>/images/arrow-menu-right-on.png";
 	preload3.src = "<?php bloginfo("template_directory"); ?>/images/button-search-on.png";
@@ -47,6 +51,10 @@ $(document).ready(function()
 	preload5.src = "<?php bloginfo("template_directory"); ?>/images/menu-home-off.png";
 	preload6.src = "<?php bloginfo("template_directory"); ?>/images/arrow-sidebar-on.png";
 	preload7.src = "<?php bloginfo("template_directory"); ?>/images/arrow-sidebar-off.png";
+	preload8.src = "<?php bloginfo("template_directory"); ?>/images/arrow-slider-left-off.png";
+	preload9.src = "<?php bloginfo("template_directory"); ?>/images/arrow-slider-left-on.png";
+	preload10.src = "<?php bloginfo("template_directory"); ?>/images/arrow-slider-right-off.png";
+	preload11.src = "<?php bloginfo("template_directory"); ?>/images/arrow-slider-right-on.png";
 });
 <?php
 #SEND THE OUTPUT BUFFER AND TURN OFF OUTPUT BUFFERING 

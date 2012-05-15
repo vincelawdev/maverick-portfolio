@@ -856,7 +856,7 @@ class mp_options
 		if($slides->have_posts())
 		{
 			#OPEN SLIDE LIST
-			echo '<ul id="slider">';
+			echo '<ul id="slider1">';
 			
 			#DISPLAY SLIDES
 			while($slides->have_posts())
@@ -1030,7 +1030,7 @@ class mp_options
 				#DISPLAY SLIDE IMAGE ICON
 				if(!empty($slide_image))
 				{
-					echo '<a href="' . $slide_image . '" title="" class="colorbox"><img src="' . get_bloginfo("template_url") . '/images/icon-picture.png" /></a>';
+					echo '<a href="' . $slide_image . '" title="" class="colorbox"><img src="' . get_bloginfo("template_url") . '/images/icon-picture.png" alt="" /></a>';
 				}
 				
 				break;
@@ -1044,7 +1044,7 @@ class mp_options
 				#DISPLAY SLIDE URL ICON
 				if(!empty($slide_url))
 				{
-					echo '<a href="' . $slide_url . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-url.png" /></a>';
+					echo '<a href="' . $slide_url . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-url.png" alt="" /></a>';
 				}
 				
 				break;
@@ -1519,7 +1519,7 @@ class mp_options
 				#DISPLAY PROJECT GALLERY ICON
 				if(!empty($portfolio_project_gallery))
 				{
-					echo '<a href="admin.php?page=nggallery-manage-gallery&mode=edit&gid=' . $portfolio_project_gallery . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-gallery.png" /></a>';
+					echo '<a href="admin.php?page=nggallery-manage-gallery&mode=edit&gid=' . $portfolio_project_gallery . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-gallery.png" alt="" /></a>';
 				}
 				
 				break;
@@ -1533,7 +1533,7 @@ class mp_options
 				#DISPLAY PROJECT URL ICON
 				if(!empty($portfolio_project_url))
 				{
-					echo '<a href="' . $portfolio_project_url . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-url.png" /></a>';
+					echo '<a href="' . $portfolio_project_url . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-url.png" alt="" /></a>';
 				}
 				
 				break;
@@ -1661,7 +1661,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE PROJECTS
-	function mp_display_projects($category, $page)
+	function mp_display_projects($category, $page, $pagination = true, $list_id = "projects", $max_words = 20)
 	{		
 		#RETRIEVE THE POST
 		global $post;
@@ -1712,7 +1712,7 @@ class mp_options
 		if($projects->have_posts())
 		{
 			#OPEN PROJECT LIST
-			echo '<ul id="projects">';
+			echo '<ul id="' . $list_id . '">';
 			
 			#DISPLAY PROJECTS
 			while($projects->have_posts())
@@ -1757,12 +1757,12 @@ class mp_options
 				#DISPLAY EXCERPT VIA THE ADVANCED EXCERPT PLUGIN
 				if(function_exists("the_advanced_excerpt"))
 				{
-					the_advanced_excerpt("length=20");
+					the_advanced_excerpt("length=$max_words");
 				}
 				#DISPLAY EXCERPT VIA THE CLASS FUNCTION
 				else
 				{
-					mp_options::mp_display_project_excerpt(20);
+					echo mp_options::mp_get_excerpt($max_words);
 				}
 				
 				#CLOSE PROJECT LIST ITEM
@@ -1772,24 +1772,28 @@ class mp_options
 			#CLOSE PROJECT LIST
 			echo "</ul>";
 			
-			#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
-			if(function_exists("wp_pagenavi"))
+			#PAGING NAVIGATION IS ENABLED
+			if($pagination)
 			{
-				wp_pagenavi(array("query" =>$projects));
-			}
-			#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
-			else
-			{
-			?>
-				<p class="left"><?php next_posts_link("&laquo; Previous Entries"); ?></p>
-				<p class="right"><?php previous_posts_link("Next Entries &raquo;"); ?></p>
-			<?php
+				#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
+				if(function_exists("wp_pagenavi"))
+				{
+					wp_pagenavi(array("query" =>$projects));
+				}
+				#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
+				else
+				{
+				?>
+					<p class="left"><?php next_posts_link("&laquo; Previous Entries"); ?></p>
+					<p class="right"><?php previous_posts_link("Next Entries &raquo;"); ?></p>
+				<?php
+				}
 			}
 		}
 	}
 	
-	#THIS FUNCTION DISPLAYS THE PROJECT EXCERPT WITH A MAXIMUM NUMBER OF WORDS
-	function mp_display_project_excerpt($max_words)
+	#THIS FUNCTION RETYRNS THE POST EXCERPT WITH A MAXIMUM NUMBER OF WORDS
+	function mp_get_excerpt($max_words)
 	{
 		#INITIALISE CONTENT
 		$content = get_the_content();
@@ -1800,7 +1804,7 @@ class mp_options
 		#CONTENT CONTAINS LESS WORDS THAN MAXIMUM NUMBER OF WORDS
 		if($content_word_count < $max_words)
 		{
-			echo $content;
+			return $content;
 		}
 		#CONTENT CONTAINS MORE WORDS THAN MAXIMUM NUMBER OF WORDS
 		else
@@ -1814,8 +1818,8 @@ class mp_options
 			#INITIALISE TRUNCATED CONTENT
 			$content_excerpt = trim($excerpt[0]) . '... <a href="' . get_permalink() . '" title="' . get_the_title() . '">Read the rest</a>';
 			
-			#DISPLAY TRUNCATED CONTENT
-			echo wpautop($content_excerpt);
+			#RETURN TRUNCATED CONTENT
+			return wpautop($content_excerpt);
 		}
 	}
 	
@@ -1960,7 +1964,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE TESTIMONIALS
-	function mp_display_testimonials($scope, $page)
+	function mp_display_testimonials($scope, $page, $pagination = true, $max_words = 100)
 	{
 		#RETRIEVE THE POST
 		global $post;
@@ -2001,7 +2005,30 @@ class mp_options
 				"order" => "DESC",
 				"orderby" => "date"
 			);
-		}		
+		}
+		#INITIALISE TESTIMONIAL ARGUMENTS OF FEATURED TESTIMONIALS ON HOME PAGE
+		elseif($scope == "home")
+		{
+			#INITIALISE TESTIMONIAL ARGUMENTS
+			$args = array
+			(
+				"post_type" => "testimonial",
+				"post_status" => "publish",
+				"posts_per_page" => 1,
+				"paged" => $page,
+				"order" => "DESC",
+				"orderby" => "rand",
+				"meta_query" =>
+				array
+				(
+					array
+					(
+						"key" => "testimonial_feature",
+						"value" => 1
+					)
+				)
+			);
+		}	
 	
 		#INITIALISE TESTIMONIALS
 		$testimonials = new WP_Query($args);
@@ -2010,7 +2037,7 @@ class mp_options
 		if($testimonials->have_posts())
 		{
 			#DISPLAY TESTIMONIAL SUB HEADING
-			if($scope == "project")
+			if($scope == "project" || $scope == "home")
 			{
 				echo '<h3 class="sub_heading">Testimonials</h3>';
 			}
@@ -2028,8 +2055,16 @@ class mp_options
 				$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);
 				$testimonial_pdf = get_post_meta($post->ID, "testimonial_pdf", true);
 				
-				#INITIALISE TESTIMONIAL CONTENT
-				$testimonial_content = get_the_content();
+				#INITIALISE TESTIMONIAL CONTENT FOR FEATURED TESTIMONIALS
+				if($scope == "home")
+				{
+					$testimonial_content = mp_options::mp_get_excerpt($max_words);
+				}
+				#INITIALISE TESTIMONIAL CONTENT FOR NON-FEATURED TESTIMONIALS
+				else
+				{
+					$testimonial_content = get_the_content();
+				}		
 				
 				#APPEND TESTIMONIAL NAME & LOCATION
 				$testimonial_content .= "<br /><br />- $testimonial_name, $testimonial_location";
@@ -2053,21 +2088,25 @@ class mp_options
 				}
 				
 				#DISPLAY TESTIMONIAL BOX
-				echo mp_options::mp_testimonial_shortcode("", $testimonial_content);		
+				echo mp_options::mp_testimonial_shortcode("", $testimonial_content);
 			}
-							
-			#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
-			if(function_exists("wp_pagenavi"))
-			{
-				wp_pagenavi(array("query" =>$testimonials));
-			}
-			#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
-			else
-			{
-			?>
-				<p class="left"><?php next_posts_link("&laquo; Previous Testimonials"); ?></p>
-				<p class="right"><?php previous_posts_link("Next Testimonials &raquo;"); ?></p>
-			<?php
+			
+			#PAGING NAVIGATION IS ENABLED
+			if($pagination)
+			{		
+				#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
+				if(function_exists("wp_pagenavi"))
+				{
+					wp_pagenavi(array("query" =>$testimonials));
+				}
+				#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
+				else
+				{
+				?>
+					<p class="left"><?php next_posts_link("&laquo; Previous Testimonials"); ?></p>
+					<p class="right"><?php previous_posts_link("Next Testimonials &raquo;"); ?></p>
+				<?php
+				}
 			}
 		}
 		#TESTIMONIALS DO NOT EXIST
@@ -2149,6 +2188,7 @@ class mp_options
 			"photo" => "Photo",
 			"url" => "URL",
 			"pdf" => "PDF",
+			"feature" => "Feature",
 			"date" => "Date"
 		);
 		
@@ -2220,7 +2260,7 @@ class mp_options
 				#DISPLAY TESTIMONIAL PHOTO ICON
 				if(!empty($testimonial_photo))
 				{
-					echo '<a href="' . $testimonial_photo . '" title="' . $testimonial_name . '" class="colorbox"><img src="' . get_bloginfo("template_url") . '/images/icon-picture.png" /></a>';
+					echo '<a href="' . $testimonial_photo . '" title="' . $testimonial_name . '" class="colorbox"><img src="' . get_bloginfo("template_url") . '/images/icon-picture.png" alt="" /></a>';
 				}
 				
 				break;
@@ -2234,7 +2274,7 @@ class mp_options
 				#DISPLAY TESTIMONIAL URL ICON
 				if(!empty($testimonial_url))
 				{
-					echo '<a href="' . $testimonial_url . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-url.png" /></a>';
+					echo '<a href="' . $testimonial_url . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-url.png" alt="" /></a>';
 				}
 				
 				break;
@@ -2248,7 +2288,21 @@ class mp_options
 				#DISPLAY TESTIMONIAL PDF ICON
 				if(!empty($testimonial_pdf))
 				{
-					echo '<a href="' . $testimonial_pdf . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-pdf.png" /></a>';
+					echo '<a href="' . $testimonial_pdf . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-pdf.png" alt="" /></a>';
+				}
+				
+				break;
+				
+			#TESTIMONIAL FEATURE
+			case "feature":
+			
+				#INITIALISE TESTIMONIAL FEATURE
+				$testimonial_feature = get_post_meta($post->ID, "testimonial_feature", true);
+				
+				#DISPLAY TESTIMONIAL FEATURE ICON
+				if($testimonial_feature)
+				{
+					echo '<img src="' . get_bloginfo("template_url") . '/images/icon-pin.png" alt="" />';
 				}
 				
 				break;
@@ -2281,6 +2335,7 @@ class mp_options
 		$testimonial_photo = get_post_meta($post->ID, "testimonial_photo", true);
 		$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);
 		$testimonial_pdf = get_post_meta($post->ID, "testimonial_pdf", true);
+		$testimonial_feature = get_post_meta($post->ID, "testimonial_feature", true);
 		
 		#DISPLAY TESTIMONIAL NONCE FIELD
 		echo '<input name="testimonial_nonce" id="testimonial_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
@@ -2292,6 +2347,7 @@ class mp_options
 		echo '<p><strong>Photo:</strong><br /><input name="testimonial_photo" id="testimonial_photo" type="text" size="80" value="' . urldecode($testimonial_photo) . '" /></p><p>Enter the photo URL of the person who wrote the testimonial.</p>';
 		echo '<p><strong>URL:</strong><br /><input name="testimonial_url" id="testimonial_url" type="text" size="80" value="' . urldecode($testimonial_url) . '" /></p><p>Enter the URL of the person who wrote the testimonial.</p>';
 		echo '<p><strong>PDF:</strong><br /><input name="testimonial_pdf" id="testimonial_pdf" type="text" size="80" value="' . urldecode($testimonial_pdf) . '" /></p><p>Enter the URL of the PDF document of the testimonial.</p>';
+		echo '<p><strong>Feature on Home Page:</strong><br />'; mp_options::mp_display_yes_no_list("testimonial_feature", $testimonial_feature); echo '</p><p>Select whether you wish to display this testimonial on the home page.</p>';
 		?>
 		<script type="text/javascript">
 		jQuery(document).ready(function()
@@ -2371,6 +2427,7 @@ class mp_options
 		mp_options::mp_meta_boxes_save($post_id, "testimonial_nonce", "testimonial_photo", "post");
 		mp_options::mp_meta_boxes_save($post_id, "testimonial_nonce", "testimonial_url", "post");
 		mp_options::mp_meta_boxes_save($post_id, "testimonial_nonce", "testimonial_pdf", "post");
+		mp_options::mp_meta_boxes_save($post_id, "testimonial_nonce", "testimonial_feature", "post");
 		
 		#RETURN POST ID
 		return $post_id;
@@ -3201,19 +3258,19 @@ class mp_options
 		#DISPLAY SLIDES RSS FEED
 		if(get_option("mp_rss_slides"))
 		{
-			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Slides RSS Feed" href="' . $mp_wordpress_rss . '/?post_type=slide" />' . "\n";
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Slides RSS Feed" href="' . $mp_wordpress_rss . '?post_type=slide" />' . "\n";
 		}
 		
 		#DISPLAY PROJECTS RSS FEED
 		if(get_option("mp_rss_projects"))
 		{
-			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Projects RSS Feed" href="' . $mp_wordpress_rss . '/?post_type=project" />' . "\n";
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Projects RSS Feed" href="' . $mp_wordpress_rss . '?post_type=project" />' . "\n";
 		}
 		
 		#DISPLAY TESTIMONIALS RSS FEED
 		if(get_option("mp_rss_testimonials"))
 		{
-			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Testimonials RSS Feed" href="' . $mp_wordpress_rss . '/?post_type=testimonial" />' . "\n";
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Testimonials RSS Feed" href="' . $mp_wordpress_rss . '?post_type=testimonial" />' . "\n";
 		}
 		
 		#DISPLAY COMMENTS RSS FEED
@@ -3296,19 +3353,19 @@ class mp_options
 		#DISPLAY SLIDES RSS FEED
 		if(get_option("mp_rss_slides"))
 		{
-			echo '<li><a href="' . $mp_wordpress_rss . '/?post_type=slide" rel=nofollow" />' . $mp_site_name . ' Slides RSS Feed</li></a>' . "\n";
+			echo '<li><a href="' . $mp_wordpress_rss . '?post_type=slide" rel=nofollow" />' . $mp_site_name . ' Slides RSS Feed</li></a>' . "\n";
 		}
 		
 		#DISPLAY PROJECTS RSS FEED
 		if(get_option("mp_rss_projects"))
 		{
-			echo '<li><a href="' . $mp_wordpress_rss . '/?post_type=project" rel=nofollow" />' . $mp_site_name . ' Projects RSS Feed</li></a>' . "\n";
+			echo '<li><a href="' . $mp_wordpress_rss . '?post_type=project" rel=nofollow" />' . $mp_site_name . ' Projects RSS Feed</li></a>' . "\n";
 		}
 		
 		#DISPLAY TESTIMONIALS RSS FEED
 		if(get_option("mp_rss_testimonials"))
 		{
-			echo '<li><a href="' . $mp_wordpress_rss . '/?post_type=testimonial" rel=nofollow" />' . $mp_site_name . ' Testimonials RSS Feed</li></a>' . "\n";
+			echo '<li><a href="' . $mp_wordpress_rss . '?post_type=testimonial" rel=nofollow" />' . $mp_site_name . ' Testimonials RSS Feed</li></a>' . "\n";
 		}
 		
 		#DISPLAY COMMENTS RSS FEED

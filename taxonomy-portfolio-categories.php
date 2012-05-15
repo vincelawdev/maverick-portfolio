@@ -9,15 +9,11 @@ get_header();
 		#PORTFOLIO CATEGORY EXISTS
 		if(have_posts())
 		{
-			#DISPLAY PORTFOLIO CATEGORY
-			while(have_posts())
-			{
-				the_post();
-				?>		
-				<h1 class="page_title"><?php the_title(); ?></h1>
-				<?php mp_options::mp_display_projects(get_query_var("term"), mp_options::mp_get_page()); ?>
-			<?php
-			}
+			the_post();
+			?>		
+			<h1 class="page_title"><?php the_title(); ?></h1>
+			<?php mp_options::mp_display_projects(get_query_var("term"), mp_options::mp_get_page()); ?>
+		<?php
 		}
 		?>
 		<!-- PORTFOLIO CATEGORY - END -->

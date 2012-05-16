@@ -1493,14 +1493,14 @@ body
 }
 
 /* HOME PAGE */
-#content #slider1_wrapper
+#content #anythingslider_wrapper
 {
 	margin: 0px 0px 12px 0px;
 	padding: 0px;
 	overflow: hidden;
 }
 
-#content ul#slider1
+#content ul#anythingslider
 {
 	width: 660px;
 	height: 410px;
@@ -1511,7 +1511,7 @@ body
 	overflow: hidden;
 }
 
-#content ul#slider1 li
+#content ul#anythingslider li
 {
 	-webkit-backface-visibility: hidden;
 	-moz-backface-visibility: hidden;
@@ -1536,15 +1536,15 @@ body
 	text-align: center;
 }
 
-#content ul#slider1 li span.vvqbox,
-#content ul#slider1 li object,
-#content ul#slider1 li iframe
+#content ul#anythingslider li span.vvqbox,
+#content ul#anythingslider li object,
+#content ul#anythingslider li iframe
 {
 	margin: 0px;
 	padding: 0px;
 }
 
-#content ul#slider1 li h2
+#content ul#anythingslider li h2
 {
 	margin: 0px 0px 15px 0px;
 	padding: 0px;
@@ -1556,7 +1556,7 @@ body
 	text-align: center;
 }
 
-#content ul#slider1 li p
+#content ul#anythingslider li p
 {
 	margin: 0px 0px 10px 0px;
 	padding: 0px;
@@ -1568,20 +1568,20 @@ body
 	text-align: center;
 }
 
-#content ul#slider1 li p a:link
+#content ul#anythingslider li p a:link
 {
 	color: #1a58ad;
 	text-decoration: underline;
 }
 
-#content ul#slider1 li p a:visited
+#content ul#anythingslider li p a:visited
 {
 	color: #320682;
 	text-decoration: underline;
 }
 
-#content ul#slider1 li p a:active,
-#content ul#slider1 li p a:hover
+#content ul#anythingslider li p a:active,
+#content ul#anythingslider li p a:hover
 {
 	color: #ebc308;
 	text-decoration: underline;
@@ -1674,7 +1674,7 @@ body
 	-webkit-font-smoothing: antialiased;
 }
 
-#content div.previous
+#content div.home_previous
 {
 	width: 20px;
 	height: 25px;
@@ -1687,13 +1687,13 @@ body
 	float: left;
 }
 
-#content div.previous:hover,
-#content div.previous:active
+#content div.home_previous:hover,
+#content div.home_previous:active
 {
 	background-image: url("images/arrow-slider-left-on.png");
 }
 
-#content div.next
+#content div.home_next
 {
 	width: 20px;
 	height: 25px;
@@ -1706,10 +1706,59 @@ body
 	float: right;
 }
 
-#content div.next:hover,
-#content div.next:active
+#content div.home_next:hover,
+#content div.home_next:active
 {
 	background-image: url("images/arrow-slider-right-on.png");
+}
+
+#content #home_column1
+{
+	width: 320px;
+	margin: 3px 20px 0px 0px;
+	padding: 0px;
+	float: left;
+}
+
+#content #home_column2
+{
+	width: 320px;
+	margin: 3px 0px 0px 0px;
+	padding: 0px;
+	float: left;
+}
+
+#content #home_column1 ul,
+#content #home_column2 ul
+{
+	margin: 0px;
+	padding: 0px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	font-weight: normal;
+	color: #333333;
+	list-style-type: none;
+}
+
+#content #home_column1 ul li,
+#content #home_column2 ul li
+{
+	margin: 0px 0px 4px 0px;
+	padding: 0px 0px 0px 19px;
+	background-image: url("images/arrow-home-right.png");
+	background-repeat: no-repeat;
+	background-position: 3px 4px;
+}
+
+#content #home_column1 span.info,
+#content #home_column2 span.info
+{
+	margin: 0px;
+	padding: 0px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 12px;
+	font-weight: normal;
+	color: #adadad;
 }
 
 /* FOOTER */

@@ -42,6 +42,27 @@ input.mp_error_field
 	background-color: #FFEBE8;
 }
 
+/* ARTICLE CUSTOM POST TYPE ICONS */
+#adminmenu #menu-posts-article .wp-menu-image
+{
+	background-image: url("<?php bloginfo("template_url") ?>/images/menu-cp-article-off.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#adminmenu #menu-posts-article:hover .wp-menu-image,
+#adminmenu #menu-posts-article.wp-has-current-submenu .wp-menu-image
+{
+	background-image: url("<?php bloginfo("template_url") ?>/images/menu-cp-article-on.png");
+}
+
+#icon-edit.icon32-posts-article
+{
+	background-image: url("<?php bloginfo("template_url") ?>/images/icon-cp-article.png");
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+
 /* SLIDE CUSTOM POST TYPE ICONS */
 #adminmenu #menu-posts-slide .wp-menu-image
 {

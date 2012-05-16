@@ -34,6 +34,15 @@ class mp_options
 		#INITIALISE THEME ADMIN JAVASCRIPT & CSS
 		add_action("admin_head", array("mp_options", "mp_admin_head"));
 		
+		#INITIALISE ARTICLE CUSTOM POST TYPE
+		add_action("init", array("mp_options", "mp_custom_posts_articles"));
+		add_action("init", array("mp_options", "mp_custom_taxonomies_article_directories"));
+		add_filter("manage_edit-article_columns", array("mp_options", "mp_article_edit_columns"));
+		add_action("manage_article_posts_custom_column",  array("mp_options", "mp_article_custom_columns"));
+		
+		#INITIALISE ARTICLE META BOX
+		add_action("admin_init", array("mp_options", "mp_meta_boxes_article"));
+		
 		#INITIALISE SLIDE CUSTOM POST TYPE
 		add_action("init", array("mp_options", "mp_custom_posts_slides"));
 		add_filter("manage_edit-slide_columns", array("mp_options", "mp_slide_edit_columns"));
@@ -825,6 +834,7 @@ class mp_options
 		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-metadata.js"></script>' . "\n";
 		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-validate.js"></script>' . "\n";
 		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-validate-additional-methods.js"></script>' . "\n";
+		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-preload-admin.php"></script>' . "\n";
 		
 		#LOAD JAVASCRIPT FOR TINYMCE EDITOR FOR USER BIOGRAPHY IN WORDPRESS 3.3 +
 		if(function_exists("wp_editor"))
@@ -833,119 +843,223 @@ class mp_options
 		}
 	}
 	
-	#THIS FUNCTION DISPLAYS THE SLIDES
-	function mp_display_slides()
+	#THIS FUNCTION CREATES THE ARTICLE CUSTOM POST TYPE
+	function mp_custom_posts_articles()
+	{
+		#INITIALISE ARTICLE CUSTOM POST TYPE LABELS
+		$labels = array
+		(
+			"name" => _x("Articles", "post type general name"),
+			"singular_name" => _x("Article", "post type singular name"),
+			"add_new" => _x("Add New", "article"),
+			"add_new_item" => __("Add New Article"),
+			"edit_item" => __("Edit Article"),
+			"new_item" => __("New Article"),
+			"all_items" => __("All Articles"),
+			"view_item" => __("View Article"),
+			"search_items" => __("Search Articles"),
+			"not_found" =>  __("No Articles found"),
+			"not_found_in_trash" => __("No Articles found in Trash"), 
+			"parent_item_colon" => "",
+			"menu_name" => "Articles"
+		);
+		
+		#INITIALISE ARTICLE CUSTOM POST TYPE ARGUMENTS
+		$args = array
+		(
+			"labels" => $labels,
+			"description" => "Article",
+			"public" => true,
+			"publicly_queryable" => true,
+			"exclude_from_search" => false,
+			"show_ui" => true, 
+			"show_in_menu" => true,
+			"menu_position" => 20,
+			"menu_icon" => null,
+			"capability_type" => "post",
+			"hierarchical" => false,
+			"supports" => array("title", "editor", "revisions"),
+			"has_archive" => false,
+			"rewrite" => array("slug" => "article", "with_front" => false),
+			"query_var" => true,
+			"can_export" => true,
+			"show_in_nav_menus" => true
+		);
+		
+		#REGISTER ARTICLE CUSTOM POST TYPE
+		register_post_type("article", $args);
+	}
+	
+	#THIS FUNCTION CREATES THE ARTICLE DIRECTORIES CUSTOM TAXONOMY
+	function mp_custom_taxonomies_article_directories()
+	{
+		#INITIALISE ARTICLE DIRECTORIES CUSTOM TAXONOMY LABELS
+		$labels = array
+		(
+			"name" => _x("Article Directories", "taxonomy general name"),
+			"singular_name" => _x("Article Directory", "taxonomy singular name"),
+			"search_items" =>  __("Search Article Directories"),
+			"all_items" => __("All Article Directories"),
+			"parent_item" => __("Parent Article Directory"),
+			"parent_item_colon" => __("Parent Article Directory:"),
+			"edit_item" => __("Edit Article Directory"), 
+			"update_item" => __("Update Article Directory"),
+			"add_new_item" => __("Add New Article Directory"),
+			"new_item_name" => __("New Article Directory"),
+			"menu_name" => __("Article Directories"),
+			"choose_from_most_used" => __("Choose from the most used Article Directories")
+		);
+		
+		#INITIALISE ARTICLE DIRECTORIES CUSTOM TAXONOMY ARGUMENTS
+		$args = array
+		(
+			"labels" => $labels,	
+			"public" => true,
+			"show_in_nav_menus" => true,
+			"show_ui" => true,
+			"show_tagcloud" => false,
+			"hierarchical" => true,
+			"rewrite" => array("slug" => "article-directories", "with_front" => false),
+			"query_var" => true
+		);
+		
+		#REGISTER ARTICLE DIRECTORIES CUSTOM TAXONOMY
+		register_taxonomy("article-directories", "article", $args);
+	}
+	
+	#THIS FUNCTION DISPLAYS THE ARTICLE COLUMNS
+	function mp_article_edit_columns($columns)
+	{
+		#INITIALISE ARTICLE COLUMNS
+		$columns = 
+		array
+		(
+			"cb" => "<input type=\"checkbox\" />",
+			"title" => "Title",
+			"article_url" => "URL",
+			"article_directory" => "Directory",
+			"date" => "Date"
+		);
+		
+		#RETURN ARTICLE COLUMNS
+		return $columns;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE ARTICLE COLUMN VALUES
+	function mp_article_custom_columns($column)
+	{
+		#RETRIEVE THE ARTICLE
+		global $post;
+		
+		#DISPLAY ARTICLE VALUES
+		switch($column)
+		{
+			#ARTICLE DIRECTORY
+			case "article_directory":
+			
+				echo get_the_term_list($post->ID, "article-directories", "", ", ");
+				break;
+			
+			#ARTICLE URL
+			case "article_url":
+			
+				#INITIALISE ARTICLE URL
+				$article_url = get_post_meta($post->ID, "article_url", true);
+				
+				#DISPLAY ARTICLE URL ICON
+				if(!empty($article_url))
+				{
+					echo '<a href="' . $article_url . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-url.png" alt="" /></a>';
+				}
+				
+				break;
+		}
+	}
+	
+	#THIS FUNCTION CREATES THE ARTICLE BOX
+	function mp_meta_boxes_article()
+	{
+		#ADD ARTICLE BOX TO ARTICLE CUSTOM POSTS
+		add_meta_box("article_box", "Article Information", array("mp_options", "mp_meta_boxes_article_form"), "article", "normal", "high");
+	 
+		#SAVE ARTICLE BOX FORM CONTENTS
+		add_action("save_post", array("mp_options", "mp_meta_boxes_article_form_save"));
+	}
+	
+	#THIS FUNCTION CREATES THE ARTICLE BOX FORM
+	function mp_meta_boxes_article_form()
 	{
 		#RETRIEVE THE POST
 		global $post;
 	
-		#INITIALISE SLIDE ARGUMENTS
-		$args = array
-		(
-			"post_type" => "slide",
-			"post_status" => "publish",
-			"posts_per_page" => 5,
-			"order" => "DESC",
-			"orderby" => "date"
-		);
+		#INITIALISE ARTICLE ERROR BOX ID
+		$article_error_box = "article_errors" . $post->ID;
+	
+		#INITIALISE ARTICLE OPTIONS
+		$article_url = get_post_meta($post->ID, "article_url", true);
 		
-		#INITIALISE SLIDES
-		$slides = new WP_Query($args);
+		#DISPLAY ARTICLE NONCE FIELD
+		echo '<input name="article_nonce" id="article_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
 		
-		#SLIDES EXISTS
-		if($slides->have_posts())
-		{
-			#OPEN SLIDE LIST
-			echo '<ul id="slider1">';
+		#DISPLAY ARTICLE URL FIELD
+		echo '<p><strong>Article URL:</strong><br /><input name="article_url" id="article_url" type="text" size="80" value="' . urldecode($article_url) . '" /></p><p>Enter the URL of the article.</p>';
+		?>
+		<script type="text/javascript">
+		jQuery(document).ready(function()
+		{			
+			jQuery("div.wrap").after('<div id="<?php echo $article_error_box; ?>" class="mp_errors error"></div>');
 			
-			#DISPLAY SLIDES
-			while($slides->have_posts())
+			jQuery("form#post").validate(
 			{
-				#RETRIEVE THE SLIDE CONTENT
-				$slides->the_post();
-			
-				#INITIALISE THE SLIDE DETAILS
-				$slide_title = get_the_title($post->ID);
-				$slide_image = get_post_meta($post->ID, "slide_image", true);
-				$slide_url = get_post_meta($post->ID, "slide_url", true);				
-				$slide_animation_in = get_post_meta($post->ID, "slide_animation_in", true);
-				$slide_animation_out = get_post_meta($post->ID, "slide_animation_out", true);
-				$slide_type = get_post_meta($post->ID, "slide_type", true);
+				//VALIDATION CONTAINER & ERROR MESSAGES
+				errorLabelContainer: jQuery("#<?php echo $article_error_box; ?>"),
+				errorElement: "p",
+				errorClass: "mp_error_field",
 				
-				#FORMAT SLIDE IN ANIMATION
-				if($slide_animation_in == "No Animation")
+				//VALIDATION RULES
+				rules:
 				{
-					$slide_animation_in = "";
+					article_url:
+					{
+						required: true,
+						url2: true
+					}
+				},
+				//VALIDATION MESSAGES
+				messages:
+				{
+					article_url:
+					{
+						required: "Please enter an Article URL.",
+						url2: "Please enter a valid Article URL."
+					}
 				}
-				#FORMAT SLIDE OUT ANIMATION
-				if($slide_animation_out == "No Animation")
-				{
-					$slide_animation_out = "";
-				}
-				
-				#OPEN SLIDE LIST ITEM
-				echo '<li data-animate="' . $slide_animation_in . ', ' . $slide_animation_out . '">';
-				
-				switch($slide_type)
-				{
-					#DISPLAY SLIDE IMAGE WITH SLIDE URL
-					case "image":
-					
-						echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '" /></a>';
-						break;
-						
-					#DISPLAY SLIDE TEXT & SLIDE VIDEO
-					case "text_image":
-					case "video":
-					
-						the_content();
-						break;
-				}				
-								
-				#CLOSE SLIDE LIST ITEM
-				echo '</li>';
-			}
+			});
 			
-			#CLOSE SLIDE LIST
-			echo '</ul>';
-		}
+			jQuery("#publish").click(function()
+			{
+				form_check = jQuery("#post").valid();
+				
+				if(!form_check)
+				{
+					return false;
+				}
+			});
+		});
+		</script>
+		<?php
 	}
 	
-	#THIS FUNCTION DISPLAYS THE SLIDE TITLES
-	function mp_display_slide_titles()
+	#THIS FUNCTION SAVES THE ARTICLE BOX FORM CONTENTS
+	function mp_meta_boxes_article_form_save($post_id) 
 	{
-		#RETRIEVE THE DATABASE
-		global $wpdb;
+		#SAVE ARTICLE BOX FORM CONTENTS
+		mp_options::mp_meta_boxes_save($post_id, "article_nonce", "article_url", "post");
 		
-		#RETREIVE SLIDES
-		$slides = $wpdb->get_results("SELECT post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'slide' ORDER BY post_date DESC LIMIT 5");
-		
-		#SLIDES EXIST
-		if(!empty($slides))
-		{
-			#INITIALISE NUMBER OF SLIDES
-			$number_of_slides = count($slides);
-			
-			#INITIALISE LAST SLIDE
-			$last_slide = $number_of_slides - 1;
-			
-			#DISPLAY SLIDES TITLES
-			for($slide_counter = 0; $slide_counter < $number_of_slides; $slide_counter ++)
-			{
-				#CURRENT SLIDE TITLES IS NOT LAST SLIDE
-				if($slide_counter != $last_slide)
-				{
-					echo "'" . addslashes($slides[$slide_counter]->post_title) . "', ";
-				}
-				#CURRENT SLIDE TITLES IS LAST SLIDE
-				else
-				{
-					echo "'" . addslashes($slides[$slide_counter]->post_title) . "'";
-				}				
-			}
-		}
+		#RETURN POST ID
+		return $post_id;
 	}
-	
+		
 	#THIS FUNCTION CREATES THE SLIDE CUSTOM POST TYPE
 	function mp_custom_posts_slides()
 	{
@@ -1236,7 +1350,7 @@ class mp_options
 		echo $select_list;
 	}
 	
-	#THIS FUNCTION DISPLAYS THE OF SLIDE TYPE RADIO BUTTONS
+	#THIS FUNCTION DISPLAYS THE SLIDE TYPE RADIO BUTTONS
 	function mp_display_slide_type_radio_button($selected_slide_type)
 	{
 		#INITIALISE DEFAULT SLIDE TYPE
@@ -1284,6 +1398,119 @@ class mp_options
 		
 		#RETURN POST ID
 		return $post_id;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE SLIDES
+	function mp_display_slides()
+	{
+		#RETRIEVE THE POST
+		global $post;
+	
+		#INITIALISE SLIDE ARGUMENTS
+		$args = array
+		(
+			"post_type" => "slide",
+			"post_status" => "publish",
+			"posts_per_page" => 5,
+			"order" => "DESC",
+			"orderby" => "date"
+		);
+		
+		#INITIALISE SLIDES
+		$slides = new WP_Query($args);
+		
+		#SLIDES EXISTS
+		if($slides->have_posts())
+		{
+			#OPEN SLIDE LIST
+			echo '<ul id="anythingslider">';
+			
+			#DISPLAY SLIDES
+			while($slides->have_posts())
+			{
+				#RETRIEVE THE SLIDE CONTENT
+				$slides->the_post();
+			
+				#INITIALISE THE SLIDE DETAILS
+				$slide_title = get_the_title($post->ID);
+				$slide_image = get_post_meta($post->ID, "slide_image", true);
+				$slide_url = get_post_meta($post->ID, "slide_url", true);				
+				$slide_animation_in = get_post_meta($post->ID, "slide_animation_in", true);
+				$slide_animation_out = get_post_meta($post->ID, "slide_animation_out", true);
+				$slide_type = get_post_meta($post->ID, "slide_type", true);
+				
+				#FORMAT SLIDE IN ANIMATION
+				if($slide_animation_in == "No Animation")
+				{
+					$slide_animation_in = "";
+				}
+				#FORMAT SLIDE OUT ANIMATION
+				if($slide_animation_out == "No Animation")
+				{
+					$slide_animation_out = "";
+				}
+				
+				#OPEN SLIDE LIST ITEM
+				echo '<li data-animate="' . $slide_animation_in . ', ' . $slide_animation_out . '">';
+				
+				switch($slide_type)
+				{
+					#DISPLAY SLIDE IMAGE WITH SLIDE URL
+					case "image":
+					
+						echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '" /></a>';
+						break;
+						
+					#DISPLAY SLIDE TEXT & SLIDE VIDEO
+					case "text_image":
+					case "video":
+					
+						the_content();
+						break;
+				}				
+								
+				#CLOSE SLIDE LIST ITEM
+				echo '</li>';
+			}
+			
+			#CLOSE SLIDE LIST
+			echo '</ul>';
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE SLIDE TITLES
+	function mp_display_slide_titles()
+	{
+		#RETRIEVE THE DATABASE
+		global $wpdb;
+		
+		#RETREIVE SLIDES
+		$slides = $wpdb->get_results("SELECT post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'slide' ORDER BY post_date DESC LIMIT 5");
+		
+		#SLIDES EXIST
+		if(!empty($slides))
+		{
+			#INITIALISE NUMBER OF SLIDES
+			$number_of_slides = count($slides);
+			
+			#INITIALISE LAST SLIDE
+			$last_slide = $number_of_slides - 1;
+			
+			#DISPLAY SLIDES TITLES
+			for($slide_counter = 0; $slide_counter < $number_of_slides; $slide_counter ++)
+			{
+				#CURRENT SLIDE TITLES IS NOT LAST SLIDE
+				if($slide_counter != $last_slide)
+				{
+					echo "'" . addslashes($slides[$slide_counter]->post_title) . "', ";
+				}
+				#CURRENT SLIDE TITLES IS LAST SLIDE
+				else
+				{
+					echo "'" . addslashes($slides[$slide_counter]->post_title) . "'";
+				}				
+			}
+		}
 	}
 	
 	#THIS FUNCTION CREATES THE PROJECT CUSTOM POST TYPE
@@ -1792,7 +2019,7 @@ class mp_options
 		}
 	}
 	
-	#THIS FUNCTION RETYRNS THE POST EXCERPT WITH A MAXIMUM NUMBER OF WORDS
+	#THIS FUNCTION RETURNS THE POST EXCERPT WITH A MAXIMUM NUMBER OF WORDS
 	function mp_get_excerpt($max_words)
 	{
 		#INITIALISE CONTENT
@@ -1961,169 +2188,6 @@ class mp_options
 		
 		#CLOSE PROJECT DETAILS DIV
 		echo "</div>";
-	}
-	
-	#THIS FUNCTION DISPLAYS THE TESTIMONIALS
-	function mp_display_testimonials($scope, $page, $pagination = true, $max_words = 100)
-	{
-		#RETRIEVE THE POST
-		global $post;
-		
-		#INITIALISE TESTIMONIAL ARGUMENTS OF PROJECT PAGE
-		if($scope == "project")
-		{
-			#INITIALISE TESTIMONIAL ARGUMENTS
-			$args = array
-			(
-				"post_type" => "testimonial",
-				"post_status" => "publish",
-				"posts_per_page" => get_option("posts_per_page"),
-				"paged" => $page,
-				"order" => "DESC",
-				"orderby" => "date",
-				"meta_query" =>
-				array
-				(
-					array
-					(
-						"key" => "testimonial_project",
-						"value" => get_the_ID()
-					)
-				)
-			);
-		}
-		#INITIALISE TESTIMONIAL ARGUMENTS OF TESTIMONIALS PAGE
-		elseif($scope == "testimonials")
-		{
-			#INITIALISE TESTIMONIAL ARGUMENTS
-			$args = array
-			(
-				"post_type" => "testimonial",
-				"post_status" => "publish",
-				"posts_per_page" => get_option("posts_per_page"),
-				"paged" => $page,
-				"order" => "DESC",
-				"orderby" => "date"
-			);
-		}
-		#INITIALISE TESTIMONIAL ARGUMENTS OF FEATURED TESTIMONIALS ON HOME PAGE
-		elseif($scope == "home")
-		{
-			#INITIALISE TESTIMONIAL ARGUMENTS
-			$args = array
-			(
-				"post_type" => "testimonial",
-				"post_status" => "publish",
-				"posts_per_page" => 1,
-				"paged" => $page,
-				"order" => "DESC",
-				"orderby" => "rand",
-				"meta_query" =>
-				array
-				(
-					array
-					(
-						"key" => "testimonial_feature",
-						"value" => 1
-					)
-				)
-			);
-		}	
-	
-		#INITIALISE TESTIMONIALS
-		$testimonials = new WP_Query($args);
-		
-		#TESTIMONIALS EXISTS
-		if($testimonials->have_posts())
-		{
-			#DISPLAY TESTIMONIAL SUB HEADING
-			if($scope == "project" || $scope == "home")
-			{
-				echo '<h3 class="sub_heading">Testimonials</h3>';
-			}
-			
-			#DISPLAY TESTIMONIAL
-			while($testimonials->have_posts())
-			{
-				#RETRIEVE THE TESTIMONIAL CONTENT
-				$testimonials->the_post();
-				
-				#INITIALISE TESTIMONIAL DETAILS
-				$testimonial_name = get_post_meta($post->ID, "testimonial_name", true);
-				$testimonial_location = get_post_meta($post->ID, "testimonial_location", true);
-				$testimonial_photo = get_post_meta($post->ID, "testimonial_photo", true);
-				$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);
-				$testimonial_pdf = get_post_meta($post->ID, "testimonial_pdf", true);
-				
-				#INITIALISE TESTIMONIAL CONTENT FOR FEATURED TESTIMONIALS
-				if($scope == "home")
-				{
-					$testimonial_content = mp_options::mp_get_excerpt($max_words);
-				}
-				#INITIALISE TESTIMONIAL CONTENT FOR NON-FEATURED TESTIMONIALS
-				else
-				{
-					$testimonial_content = get_the_content();
-				}		
-				
-				#APPEND TESTIMONIAL NAME & LOCATION
-				$testimonial_content .= "<br /><br />- $testimonial_name, $testimonial_location";
-				
-				#APPEND TESTIMONIAL URL
-				if(!empty($testimonial_url))
-				{
-					$testimonial_content .= ', <a href="' . $testimonial_url . '" rel="nofollow">' . $testimonial_url . '</a>';
-				}
-				
-				#APPEND TESTIMONIAL PHOTO
-				if(!empty($testimonial_photo))
-				{					
-					$testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial_photo" />' . $testimonial_content;
-				}
-				
-				#APPEND TESTIMONIAL PDF
-				if(!empty($testimonial_pdf))
-				{
-					$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial_pdf" />PDF</a>';
-				}
-				
-				#DISPLAY TESTIMONIAL BOX
-				echo mp_options::mp_testimonial_shortcode("", $testimonial_content);
-			}
-			
-			#PAGING NAVIGATION IS ENABLED
-			if($pagination)
-			{		
-				#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
-				if(function_exists("wp_pagenavi"))
-				{
-					wp_pagenavi(array("query" =>$testimonials));
-				}
-				#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
-				else
-				{
-				?>
-					<p class="left"><?php next_posts_link("&laquo; Previous Testimonials"); ?></p>
-					<p class="right"><?php previous_posts_link("Next Testimonials &raquo;"); ?></p>
-				<?php
-				}
-			}
-		}
-		#TESTIMONIALS DO NOT EXIST
-		else
-		{
-			return;	
-		}
-	}
-	
-	#THIS FUNCTION ADDS CONTENT TO A TESTIMONIAL BOX
-	function mp_testimonial_shortcode($parameters, $content = null)
-	{
-		#ADD CONTENT TO TESTIMONIAL BOX
-		$content = '<div class="testimonial_box"><div class="testimonial">' . wpautop($content) . '</div></div>';
-		
-		#RETURN CONTENT
-		return do_shortcode($content);
 	}
 	
 	#THIS FUNCTION CREATES THE TESTIMONIALS CUSTOM POST TYPE
@@ -2431,6 +2495,170 @@ class mp_options
 		
 		#RETURN POST ID
 		return $post_id;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE TESTIMONIALS
+	function mp_display_testimonials($scope, $page, $pagination = true, $max_words = 100)
+	{
+		#RETRIEVE THE POST
+		global $post;
+		
+		#INITIALISE TESTIMONIAL ARGUMENTS OF PROJECT PAGE
+		if($scope == "project")
+		{
+			#INITIALISE TESTIMONIAL ARGUMENTS
+			$args = array
+			(
+				"post_type" => "testimonial",
+				"post_status" => "publish",
+				"posts_per_page" => get_option("posts_per_page"),
+				"paged" => $page,
+				"order" => "DESC",
+				"orderby" => "date",
+				"meta_query" =>
+				array
+				(
+					array
+					(
+						"key" => "testimonial_project",
+						"value" => get_the_ID()
+					)
+				)
+			);
+		}
+		#INITIALISE TESTIMONIAL ARGUMENTS OF TESTIMONIALS PAGE
+		elseif($scope == "testimonials")
+		{
+			#INITIALISE TESTIMONIAL ARGUMENTS
+			$args = array
+			(
+				"post_type" => "testimonial",
+				"post_status" => "publish",
+				"posts_per_page" => get_option("posts_per_page"),
+				"paged" => $page,
+				"order" => "DESC",
+				"orderby" => "date"
+			);
+		}
+		#INITIALISE TESTIMONIAL ARGUMENTS OF FEATURED TESTIMONIALS ON HOME PAGE
+		elseif($scope == "home")
+		{
+			#INITIALISE TESTIMONIAL ARGUMENTS
+			$args = array
+			(
+				"post_type" => "testimonial",
+				"post_status" => "publish",
+				"posts_per_page" => 1,
+				"paged" => $page,
+				"order" => "DESC",
+				"orderby" => "rand",
+				"meta_query" =>
+				array
+				(
+					array
+					(
+						"key" => "testimonial_feature",
+						"value" => 1
+					)
+				)
+			);
+		}	
+	
+		#INITIALISE TESTIMONIALS
+		$testimonials = new WP_Query($args);
+		
+		#TESTIMONIALS EXISTS
+		if($testimonials->have_posts())
+		{
+			#DISPLAY TESTIMONIAL SUB HEADING
+			if($scope == "project" || $scope == "home")
+			{
+				echo '<h3 class="sub_heading">Testimonials</h3>';
+			}
+			
+			#DISPLAY TESTIMONIAL
+			while($testimonials->have_posts())
+			{
+				#RETRIEVE THE TESTIMONIAL CONTENT
+				$testimonials->the_post();
+				
+				#INITIALISE TESTIMONIAL DETAILS
+				$testimonial_name = get_post_meta($post->ID, "testimonial_name", true);
+				$testimonial_location = get_post_meta($post->ID, "testimonial_location", true);
+				$testimonial_photo = get_post_meta($post->ID, "testimonial_photo", true);
+				$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);
+				$testimonial_pdf = get_post_meta($post->ID, "testimonial_pdf", true);
+				
+				#INITIALISE TESTIMONIAL CONTENT FOR FEATURED TESTIMONIALS
+				if($scope == "home")
+				{
+					$testimonial_content = mp_options::mp_get_excerpt($max_words);
+				}
+				#INITIALISE TESTIMONIAL CONTENT FOR NON-FEATURED TESTIMONIALS
+				else
+				{
+					$testimonial_content = get_the_content();
+				}		
+				
+				#APPEND TESTIMONIAL NAME & LOCATION
+				$testimonial_content .= "<br /><br />- $testimonial_name, $testimonial_location";
+				
+				#APPEND TESTIMONIAL URL
+				if(!empty($testimonial_url))
+				{
+					$testimonial_content .= ', <a href="' . $testimonial_url . '" rel="nofollow">' . $testimonial_url . '</a>';
+				}
+				
+				#APPEND TESTIMONIAL PHOTO
+				if(!empty($testimonial_photo))
+				{					
+					$testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial_photo" />' . $testimonial_content;
+				}
+				
+				#APPEND TESTIMONIAL PDF
+				if(!empty($testimonial_pdf))
+				{
+					$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial_pdf" />PDF</a>';
+				}
+				
+				#DISPLAY TESTIMONIAL BOX
+				echo mp_options::mp_testimonial_shortcode("", $testimonial_content);
+			}
+			
+			#PAGING NAVIGATION IS ENABLED
+			if($pagination)
+			{		
+				#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
+				if(function_exists("wp_pagenavi"))
+				{
+					wp_pagenavi(array("query" =>$testimonials));
+				}
+				#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
+				else
+
+				{
+				?>
+					<p class="left"><?php next_posts_link("&laquo; Previous Testimonials"); ?></p>
+					<p class="right"><?php previous_posts_link("Next Testimonials &raquo;"); ?></p>
+				<?php
+				}
+			}
+		}
+		#TESTIMONIALS DO NOT EXIST
+		else
+		{
+			return;	
+		}
+	}
+	
+	#THIS FUNCTION ADDS CONTENT TO A TESTIMONIAL BOX
+	function mp_testimonial_shortcode($parameters, $content = null)
+	{
+		#ADD CONTENT TO TESTIMONIAL BOX
+		$content = '<div class="testimonial_box"><div class="testimonial">' . wpautop($content) . '</div></div>';
+		
+		#RETURN CONTENT
+		return do_shortcode($content);
 	}
 	
 	#THIS FUNCTION SAVES THE META BOX FORM CONTENTS
@@ -3401,6 +3629,73 @@ class mp_options
 			
 			#CLOSE UNORDERED LIST
 			echo "</ul>";
+		}
+	}
+
+	#THIS FUNCTION DISPLAYS THE RECENT BLOG POSTS ON THE HOME PAGE
+	function mp_display_recent_posts_home()
+	{
+		#RETRIEVE THE DATABASE
+		global $wpdb;
+		
+		#RETREIVE POSTS
+		$posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC LIMIT 5");
+		
+		#POSTS EXIST
+		if(!empty($posts))
+		{
+			#OPEN UNORDERED LIST
+			echo '<ul>';
+			
+			#DISPLAY POSTS
+			foreach($posts as $post)
+			{
+				echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $post->post_title . '</a><br /><span class="info">' . get_the_time(get_option("date_format") . " " . get_option("time_format"), $post->ID) . '</span></li>';
+			}
+			
+			#CLOSE UNORDERED LIST
+			echo "</ul>\n";
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE RECENT ARTICLES ON THE HOME PAGE
+	function mp_display_recent_articles_home()
+	{
+		#RETRIEVE THE DATABASE
+		global $wpdb;
+		
+		#RETREIVE ARTICLES
+		$articles = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'article' ORDER BY post_date DESC LIMIT 5");
+		
+		#ARTICLES EXIST
+		if(!empty($articles))
+		{
+			#OPEN UNORDERED LIST
+			echo '<ul>';
+			
+			#DISPLAY ARTICLES
+			foreach($articles as $article)
+			{
+				#INITIALISE ARTICLE DIRECTORY
+				$article_directories = get_the_terms($article->ID, "article-directories");
+				
+				#DISPLAY ARTICLE TITLE & LINK
+				echo '<li><a href="' . get_permalink($article->ID) . '" title="' . $article->post_title . '">' . $article->post_title . '</a><br /><span class="info">' . get_the_time(get_option("date_format"), $article->ID);
+				
+				#ARTICLE DIRECTORY EXISTS
+				if($article_directories && ! is_wp_error($article_directories))
+				{
+					echo " | " . $article_directories[0]->name . "</span></li>";
+				}
+				#ARTICLE DIRECTORY DOES NOT EXIST
+				else
+				{
+					echo "</span></li>";
+				}
+			}
+			
+			#CLOSE UNORDERED LIST
+			echo "</ul>\n";
 		}
 	}
 }

@@ -74,7 +74,15 @@ if(is_singular("project"))
 <?php
 }
 ?>
+<?php
+#LOAD HEIGHT FIX
+if(!is_front_page())
+{
+?>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-fix-height.js"></script>
+<?php
+}
+?>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-preload.php"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-hover-intent.js"></script>
 <script type="text/javascript" src="<?php bloginfo("template_directory"); ?>/js/jquery-superfish.js"></script>

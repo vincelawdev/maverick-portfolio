@@ -109,6 +109,7 @@ class mp_options
 		register_setting("mp_settings_author", "mp_author");
 		register_setting("mp_settings_rss", "mp_feedburner_rss");
 		register_setting("mp_settings_rss", "mp_feedburner_email");
+		register_setting("mp_settings_rss", "mp_rss_articles");
 		register_setting("mp_settings_rss", "mp_rss_slides");
 		register_setting("mp_settings_rss", "mp_rss_projects");
 		register_setting("mp_settings_rss", "mp_rss_testimonials");
@@ -140,6 +141,7 @@ class mp_options
 				
 				update_option("mp_feedburner_rss", "");
 				update_option("mp_feedburner_email", "");
+				update_option("mp_rss_articles", 1);
 				update_option("mp_rss_slides", 1);
 				update_option("mp_rss_projects", 1);
 				update_option("mp_rss_testimonials", 1);
@@ -253,8 +255,11 @@ class mp_options
 				#DISPLAY FEEDBURNER EMAIL SUBSCRIPTION ADDRESS
 				mp_options::mp_option_field("", "", false, true, "FeedBurner Subscription Address", "text", "mp_feedburner_email", "mp_feedburner_email", "Enter the subscription address of your FeedBurner Feed", "", true);
 				
+				#DISPLAY Articles RSS
+				mp_options::mp_option_field("Custom Posts", "", true, false, "Articles", "yes_no", "mp_rss_articles", "mp_rss_articles", "Select whether you wish to enable the Articles RSS feed", "Yes", false);
+				
 				#DISPLAY SLIDES RSS
-				mp_options::mp_option_field("Custom Posts", "", true, false, "Slides", "yes_no", "mp_rss_slides", "mp_rss_slides", "Select whether you wish to enable the Slides RSS feed", "Yes", false);
+				mp_options::mp_option_field("", "", false, false, "Slides", "yes_no", "mp_rss_slides", "mp_rss_slides", "Select whether you wish to enable the Slides RSS feed", "Yes", false);
 				
 				#DISPLAY PROJECTS RSS
 				mp_options::mp_option_field("", "", false, false, "Projects", "yes_no", "mp_rss_projects", "mp_rss_projects", "Select whether you wish to enable the Projects RSS feed", "Yes", false);
@@ -2589,12 +2594,12 @@ class mp_options
 				$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);
 				$testimonial_pdf = get_post_meta($post->ID, "testimonial_pdf", true);
 				
-				#INITIALISE TESTIMONIAL CONTENT FOR FEATURED TESTIMONIALS
-				if($scope == "home")
+				#INITIALISE TESTIMONIAL CONTENT FOR NON-PROJECT PAGES
+				if($scope == "home" || $scope == "testimonials")
 				{
 					$testimonial_content = mp_options::mp_get_excerpt($max_words);
 				}
-				#INITIALISE TESTIMONIAL CONTENT FOR NON-FEATURED TESTIMONIALS
+				#INITIALISE TESTIMONIAL CONTENT FOR PROJECT PAGE
 				else
 				{
 					$testimonial_content = get_the_content();
@@ -2649,6 +2654,54 @@ class mp_options
 		{
 			return;	
 		}
+	}
+	
+	#THIS FUNCTION DISPLAYS A SINGLE TESTIMONIAL
+	function mp_display_testimonial()
+	{
+		#RETRIEVE THE POST
+		global $post;
+		
+		#INITIALISE TESTIMONIAL DETAILS
+		$testimonial_name = get_post_meta($post->ID, "testimonial_name", true);
+		$testimonial_location = get_post_meta($post->ID, "testimonial_location", true);
+		$testimonial_photo = get_post_meta($post->ID, "testimonial_photo", true);
+		$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);
+		$testimonial_pdf = get_post_meta($post->ID, "testimonial_pdf", true);
+		$testimonial_project = get_post_meta($post->ID, "testimonial_project", true);
+		
+		#INITIALISE TESTIMONIAL CONTENT
+		$testimonial_content = get_the_content();
+		
+		#APPEND TESTIMONIAL NAME & LOCATION
+		$testimonial_content .= "<br /><br />- $testimonial_name, $testimonial_location";
+		
+		#APPEND TESTIMONIAL URL
+		if(!empty($testimonial_url))
+		{
+			$testimonial_content .= ', <a href="' . $testimonial_url . '" rel="nofollow">' . $testimonial_url . '</a>';
+		}
+		
+		#APPEND TESTIMONIAL PHOTO
+		if(!empty($testimonial_photo))
+		{					
+			$testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial_photo" />' . $testimonial_content;
+		}
+		
+		#APPEND TESTIMONIAL PDF
+		if(!empty($testimonial_pdf))
+		{
+			$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial_pdf" />PDF</a>';
+		}
+		
+		#DISPLAY TESTIMONIAL PROJECT
+		if(!empty($testimonial_project))
+		{
+			echo '<h3 class="sub_heading">Project: <a href="' . get_permalink($testimonial_project) . '">' . get_the_title($testimonial_project) . '</a></h3>';
+		}
+		
+		#DISPLAY TESTIMONIAL BOX
+		echo mp_options::mp_testimonial_shortcode("", $testimonial_content);	
 	}
 	
 	#THIS FUNCTION ADDS CONTENT TO A TESTIMONIAL BOX
@@ -3483,6 +3536,12 @@ class mp_options
 			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' RSS Feed" href="' . $mp_wordpress_rss . '" />' . "\n";
 		}
 		
+		#DISPLAY ARTICLES RSS FEED
+		if(get_option("mp_rss_articles"))
+		{
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Articles RSS Feed" href="' . $mp_wordpress_rss . '?post_type=article" />' . "\n";
+		}
+		
 		#DISPLAY SLIDES RSS FEED
 		if(get_option("mp_rss_slides"))
 		{
@@ -3576,6 +3635,12 @@ class mp_options
 		else
 		{
 			echo '<li><a href="' . $mp_wordpress_rss . '" rel=nofollow" />' . $mp_site_name . ' RSS Feed</li></a>' . "\n";
+		}
+		
+		#DISPLAY ARTICLES RSS FEED
+		if(get_option("mp_rss_articles"))
+		{
+			echo '<li><a href="' . $mp_wordpress_rss . '?post_type=article" rel=nofollow" />' . $mp_site_name . ' Articles RSS Feed</li></a>' . "\n";
 		}
 		
 		#DISPLAY SLIDES RSS FEED

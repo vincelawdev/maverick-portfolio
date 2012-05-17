@@ -16,7 +16,9 @@ get_header();
 				?>		
 				<h1 class="page_title"><?php the_title(); ?></h1>
 				
+				<!-- PROJECT THUMBNAILS - START -->
 				<?php mp_options::mp_display_project_thumbnails(); ?>
+				<!-- PROJECT THUMBNAILS - END -->
 				
 				<!-- PROJECT DETAILS - START -->
 				<?php mp_options::mp_display_project_details(); the_content(); ?>

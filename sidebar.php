@@ -50,7 +50,7 @@
 		}
 	}
 	#DISPLAY BLOG CATEGORIES
-	if((!is_page() || is_page("blog")) && !is_tax() && !is_singular("project"))
+	if((!is_page() || is_page("blog")) && !is_tax() && !is_singular(array("project", "testimonial", "article")))
 	{
 	?>
 	<!-- CATEGORIES - START -->
@@ -91,7 +91,7 @@
 	
 	<?php
 	#DISPLAY BLOG POSTS, COMMENTS & ARCHIVES
-	if((!is_page() || is_page("blog")) && !is_tax() && !is_singular("project"))
+	if((!is_page() || is_page("blog")) && !is_tax() && !is_singular(array("project", "testimonial", "article")))
 	{
 	?>
 	<!-- POST TABS - START -->

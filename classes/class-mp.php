@@ -1064,7 +1064,147 @@ class mp_options
 		#RETURN POST ID
 		return $post_id;
 	}
+	
+	#THIS FUNCTION DISPLAYS THE ARTICLES
+	function mp_display_articles($category, $page, $pagination = true, $max_words = 20)
+	{		
+		#RETRIEVE THE POST
+		global $post;
 		
+		#INITIALISE ARTICLE ARGUMENTS OF ARTICLES PAGE
+		if(empty($category))
+		{
+			#INITIALISE ARTICLE ARGUMENTS
+			$args = array
+			(
+				"post_type" => "article",
+				"post_status" => "publish",
+				"posts_per_page" => get_option("posts_per_page"),
+				"paged" => $page,
+				"order" => "DESC",
+				"orderby" => "date"
+			);
+		}
+		#INITIALISE ARTICLE ARGUMENTS OF ARTICLE DIRECTORIES
+		else
+		{
+			#INITIALISE ARTICLE ARGUMENTS
+			$args = array
+			(
+				"post_type" => "article",
+				"post_status" => "publish",
+				"posts_per_page" => get_option("posts_per_page"),
+				"paged" => $page,
+				"order" => "DESC",
+				"orderby" => "date",
+				"tax_query" =>
+				array
+				(
+					array
+					(
+						"taxonomy" => "article-directories",
+						"field" => "slug",
+						"terms" => $category
+					)
+				)
+			);
+		}
+		
+		#INITIALISE ARTICLE
+		$articles = new WP_Query($args);
+		
+		#ARTICLES EXISTS
+		if($articles->have_posts())
+		{			
+			#DISPLAY ARTICLES
+			while($articles->have_posts())
+			{
+				#RETRIEVE THE ARTICLE CONTENT
+				$articles->the_post();
+				
+				#INITIALISE ARTICLE URL
+				$article_url = get_post_meta($post->ID, "article_url", true);
+				
+				echo '<h3 class="post_title"><a href="' . $article_url . '" title="' . get_the_title(). '" class="post_title_link" rel="nofollow">' . get_the_title(). '</a></h3>';
+				echo '<p class="post_info">Published on ' . get_the_time(get_option("date_format")) . ' in ' . get_the_term_list($post->ID, "article-directories", "", ", ") . ' by ' . get_the_author() . '</p>';
+				echo '<div class="post_line">';
+
+				#DISPLAY ARTICLE THUMBNAIL
+				if(has_post_thumbnail())
+				{
+					echo '<a href="' . get_permalink() . '" title="' . get_the_title() . '" class="post_thumbnail">' . get_the_post_thumbnail($post->ID, "thumbnail") . '</a>';
+				}
+				
+				#DISPLAY ARTICLE EXCERPT
+				the_content();
+				
+				echo '</div>';				
+			}
+			
+			#PAGING NAVIGATION IS ENABLED
+			if($pagination)
+			{
+				#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
+				if(function_exists("wp_pagenavi"))
+				{
+					wp_pagenavi(array("query" =>$articles));
+				}
+				#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
+				else
+				{
+				?>
+					<p class="left"><?php next_posts_link("&laquo; Previous Articles"); ?></p>
+					<p class="right"><?php previous_posts_link("Next Articles &raquo;"); ?></p>
+				<?php
+				}
+			}
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE RECENT ARTICLES ON THE HOME PAGE
+	function mp_display_recent_articles_home()
+	{
+		#RETRIEVE THE DATABASE
+		global $wpdb;
+		
+		#RETREIVE ARTICLES
+		$articles = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'article' ORDER BY post_date DESC LIMIT 5");
+		
+		#ARTICLES EXIST
+		if(!empty($articles))
+		{
+			#OPEN UNORDERED LIST
+			echo '<ul>';
+			
+			#DISPLAY ARTICLES
+			foreach($articles as $article)
+			{
+				#INITIALISE ARTICLE URL
+				$article_url = get_post_meta($article->ID, "article_url", true);
+				
+				#INITIALISE ARTICLE DIRECTORY
+				$article_directories = get_the_terms($article->ID, "article-directories");
+				
+				#DISPLAY ARTICLE TITLE & LINK
+				echo '<li><a href="' . $article_url . '" title="' . $article->post_title . '" rel="nofollow">' . $article->post_title . '</a><br /><span class="info">' . get_the_time(get_option("date_format"), $article->ID);
+				
+				#ARTICLE DIRECTORY EXISTS
+				if($article_directories && ! is_wp_error($article_directories))
+				{
+					echo " | " . $article_directories[0]->name . "</span></li>";
+				}
+				#ARTICLE DIRECTORY DOES NOT EXIST
+				else
+				{
+					echo "</span></li>";
+				}
+			}
+			
+			#CLOSE UNORDERED LIST
+			echo "</ul>\n";
+		}
+	}
+	
 	#THIS FUNCTION CREATES THE SLIDE CUSTOM POST TYPE
 	function mp_custom_posts_slides()
 	{
@@ -1994,7 +2134,7 @@ class mp_options
 				#DISPLAY EXCERPT VIA THE CLASS FUNCTION
 				else
 				{
-					echo mp_options::mp_get_excerpt($max_words);
+					echo mp_options::mp_get_excerpt($max_words, true);
 				}
 				
 				#CLOSE PROJECT LIST ITEM
@@ -2016,8 +2156,8 @@ class mp_options
 				else
 				{
 				?>
-					<p class="left"><?php next_posts_link("&laquo; Previous Entries"); ?></p>
-					<p class="right"><?php previous_posts_link("Next Entries &raquo;"); ?></p>
+					<p class="left"><?php next_posts_link("&laquo; Previous Projects"); ?></p>
+					<p class="right"><?php previous_posts_link("Next Projects &raquo;"); ?></p>
 				<?php
 				}
 			}
@@ -2025,10 +2165,14 @@ class mp_options
 	}
 	
 	#THIS FUNCTION RETURNS THE POST EXCERPT WITH A MAXIMUM NUMBER OF WORDS
-	function mp_get_excerpt($max_words)
+	function mp_get_excerpt($max_words, $strip_tags = false)
 	{
 		#INITIALISE CONTENT
 		$content = get_the_content();
+		
+		#DISPLAY SHORTCODE IN CONTENT
+		$content = do_shortcode($content);
+		$content = apply_filters("the_content", $content);
 		
 		#INITIALISE CONTENT WORD COUNT
 		$content_word_count = str_word_count($content);
@@ -2042,7 +2186,10 @@ class mp_options
 		else
 		{
 			#REMOVE TAGS FROM CONTENT
-			$content = trim(strip_tags($content));
+			if($strip_tags)
+			{
+				$content = trim(strip_tags($content));
+			}
 			
 			#TRUNCATE CONTENT INTO THE MAXIMUM NUMBER OF WORDS
 			preg_match("/(\S+\s*){0,$max_words}/", $content, $excerpt);
@@ -2909,13 +3056,13 @@ class mp_options
 		if(class_exists("CustomTaxonomySort"))
 		{
 			#INITIALISE CATEGORIES WITH CUSTOM SORT ORDER
-			$categories = get_terms("portfolio-categories", "orderby=custom_sort&order=ASC&hide_empty=0");
+			$categories = get_terms("portfolio-categories", "orderby=custom_sort&order=ASC&hide_empty=1");
 		}
 		#CUSTOM TAXONOMY SORT PLUGIN DEACTIVATED
 		else
 		{
 			#INITIALISE CATEGORIES WITH NAME SORT ORDER
-			$categories = get_terms("portfolio-categories", "orderby=name&hide_empty=0");
+			$categories = get_terms("portfolio-categories", "orderby=name&hide_empty=1");
 		}
 		
 		#CATEGORIES EXIST
@@ -3458,35 +3605,29 @@ class mp_options
 		}
 	}
 
-	#THIS FUNCTION DISPLAYS THE BLOG POST WITH A MAXIMUM NUMBER OF WORDS
-	function mp_display_blog_post_excerpt($max_words)
+	#THIS FUNCTION DISPLAYS THE RECENT BLOG POSTS ON THE HOME PAGE
+	function mp_display_recent_posts_home()
 	{
-		#INITIALISE CONTENT
-		$content = get_the_content();
+		#RETRIEVE THE DATABASE
+		global $wpdb;
 		
-		#DISPLAY SHORTCODE IN CONTENT
-		$content = do_shortcode($content);
-		$content = apply_filters("the_content", $content);
+		#RETREIVE POSTS
+		$posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC LIMIT 5");
 		
-		#INITIALISE CONTENT WORD COUNT
-		$content_word_count = str_word_count($content);
-		
-		#CONTENT CONTAINS LESS WORDS THAN MAXIMUM NUMBER OF WORDS
-		if($content_word_count < $max_words)
+		#POSTS EXIST
+		if(!empty($posts))
 		{
-			echo $content;
-		}
-		#CONTENT CONTAINS MORE WORDS THAN MAXIMUM NUMBER OF WORDS
-		else
-		{
-			#TRUNCATE CONTENT INTO THE MAXIMUM NUMBER OF WORDS
-			preg_match("/(\S+\s*){0,$max_words}/", $content, $excerpt);
+			#OPEN UNORDERED LIST
+			echo '<ul>';
 			
-			#INITIALISE TRUNCATED CONTENT
-			$content_excerpt = trim($excerpt[0]) . '... <a href="' . get_permalink() . '" title="' . get_the_title() . '">Read the rest</a>';
+			#DISPLAY POSTS
+			foreach($posts as $post)
+			{
+				echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $post->post_title . '</a><br /><span class="info">' . get_the_time(get_option("date_format") . " " . get_option("time_format"), $post->ID) . '</span></li>';
+			}
 			
-			#DISPLAY TRUNCATED CONTENT
-			echo $content_excerpt;
+			#CLOSE UNORDERED LIST
+			echo "</ul>\n";
 		}
 	}
 
@@ -3694,73 +3835,6 @@ class mp_options
 			
 			#CLOSE UNORDERED LIST
 			echo "</ul>";
-		}
-	}
-
-	#THIS FUNCTION DISPLAYS THE RECENT BLOG POSTS ON THE HOME PAGE
-	function mp_display_recent_posts_home()
-	{
-		#RETRIEVE THE DATABASE
-		global $wpdb;
-		
-		#RETREIVE POSTS
-		$posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC LIMIT 5");
-		
-		#POSTS EXIST
-		if(!empty($posts))
-		{
-			#OPEN UNORDERED LIST
-			echo '<ul>';
-			
-			#DISPLAY POSTS
-			foreach($posts as $post)
-			{
-				echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $post->post_title . '</a><br /><span class="info">' . get_the_time(get_option("date_format") . " " . get_option("time_format"), $post->ID) . '</span></li>';
-			}
-			
-			#CLOSE UNORDERED LIST
-			echo "</ul>\n";
-		}
-	}
-	
-	#THIS FUNCTION DISPLAYS THE RECENT ARTICLES ON THE HOME PAGE
-	function mp_display_recent_articles_home()
-	{
-		#RETRIEVE THE DATABASE
-		global $wpdb;
-		
-		#RETREIVE ARTICLES
-		$articles = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'article' ORDER BY post_date DESC LIMIT 5");
-		
-		#ARTICLES EXIST
-		if(!empty($articles))
-		{
-			#OPEN UNORDERED LIST
-			echo '<ul>';
-			
-			#DISPLAY ARTICLES
-			foreach($articles as $article)
-			{
-				#INITIALISE ARTICLE DIRECTORY
-				$article_directories = get_the_terms($article->ID, "article-directories");
-				
-				#DISPLAY ARTICLE TITLE & LINK
-				echo '<li><a href="' . get_permalink($article->ID) . '" title="' . $article->post_title . '">' . $article->post_title . '</a><br /><span class="info">' . get_the_time(get_option("date_format"), $article->ID);
-				
-				#ARTICLE DIRECTORY EXISTS
-				if($article_directories && ! is_wp_error($article_directories))
-				{
-					echo " | " . $article_directories[0]->name . "</span></li>";
-				}
-				#ARTICLE DIRECTORY DOES NOT EXIST
-				else
-				{
-					echo "</span></li>";
-				}
-			}
-			
-			#CLOSE UNORDERED LIST
-			echo "</ul>\n";
 		}
 	}
 }

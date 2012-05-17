@@ -38,15 +38,13 @@ if(is_front_page())
 <!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo("template_directory"); ?>/css/ie.css" /><![endif]-->
 <?php mp_options::mp_display_rss_feeds_header(); ?>
 <link rel="pingback" href="<?php bloginfo("pingback_url"); ?>" />
+<?php wp_head(); ?>
 <?php
 #LOAD THREADED COMMENTS
 if(is_single())
 {
 	wp_enqueue_script("comment-reply");
 }
-?>
-<?php wp_head(); ?>
-<?php
 #LOAD MENU FIX FOR BLOG & ORGANIC TABS
 if((!is_page() || is_page("blog")) && !is_tax() && !is_singular(array("project", "testimonial", "article")))
 {

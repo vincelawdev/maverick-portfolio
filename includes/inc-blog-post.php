@@ -17,7 +17,7 @@ if(function_exists("the_advanced_excerpt"))
 #DISPLAY EXCERPT VIA THE CLASS FUNCTION
 else
 {
-	mp_options::mp_display_blog_post_excerpt(100);
+	echo mp_options::mp_get_excerpt(100);
 }
 ?>
 </div>

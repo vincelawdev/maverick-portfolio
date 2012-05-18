@@ -1,22 +1,22 @@
 <?php
-#Template Name: Portfolio Category Template
+#Template Name: Article Directory Template
 
 get_header();
 ?>
 
-		<!-- PORTFOLIO CATEGORY - START -->
+		<!-- ARTICLE DIRECTORY - START -->
 		<?php
-		#PORTFOLIO CATEGORY EXISTS
+		#ARTICLE DIRECTORY EXISTS
 		if(have_posts())
 		{
 			the_post();
 			?>		
 			<h1 class="page_title"><?php $term = get_term_by("slug", get_query_var("term"), get_query_var("taxonomy")); echo $term->name; ?></h1>
-			<?php mp_options::mp_display_projects(get_query_var("term"), mp_options::mp_get_page()); ?>
+			<?php mp_options::mp_display_articles(get_query_var("term"), mp_options::mp_get_page()); ?>
 		<?php
 		}
 		?>
-		<!-- PORTFOLIO CATEGORY - END -->
+		<!-- ARTICLE DIRECTORY - END -->
 	
 	</div>
 	<!-- CONTENT - END -->

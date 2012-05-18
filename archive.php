@@ -12,35 +12,35 @@
 			if(is_category())
 			{
 			?>
-			<h1 class="post_title_underline">Archive for the &quot;<?php echo single_cat_title(); ?>&quot; Category</h1>
+			<h1 class="page_title">Archive for the &quot;<?php echo single_cat_title(); ?>&quot; Category</h1>
 			<?php
 			}
 			#TAG ARCHIVE
 			elseif(is_tag())
 			{
 			?>
-			<h1 class="post_title_underline">Archive for the &quot;<?php echo single_tag_title(); ?>&quot; Tag</h1>
+			<h1 class="page_title">Archive for the &quot;<?php echo single_tag_title(); ?>&quot; Tag</h1>
 			<?php
 			}
 			#DAILY ARCHIVE
 			elseif(is_day())
 			{
 			?>
-			<h1 class="post_title_underline">Archive for <?php the_time("jS F Y"); ?></h1>
+			<h1 class="page_title">Archive for <?php the_time("jS F Y"); ?></h1>
 			<?php
 			}
 			#MONTHLY ARCHIVE
 			elseif(is_month())
 			{
 			?>
-			<h1 class="post_title_underline">Archive for <?php the_time("F Y"); ?></h1>
+			<h1 class="page_title">Archive for <?php the_time("F Y"); ?></h1>
 			<?php
 			}
 			#YEARLY ARCHIVE
 			elseif(is_year())
 			{
 			?>
-			<h1 class="post_title_underline">Archive for <?php the_time("Y"); ?></h1>
+			<h1 class="page_title">Archive for <?php the_time("Y"); ?></h1>
 			<?php
 			}
 			#AUTHOR ARCHIVES
@@ -49,7 +49,7 @@
 				#INITIALISE AUTHOR OBJECT
 				$author = get_userdata(get_query_var("author"));			
 			?>
-			<h1 class="post_title_underline">Archive for <?php echo $author->display_name; ?></h1>
+			<h1 class="page_title">Archive for <?php echo $author->display_name; ?></h1>
 			<?php
 			#PAGED ARCHIVE
 			}

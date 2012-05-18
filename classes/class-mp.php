@@ -97,6 +97,10 @@ class mp_options
 		add_action("wp_footer", array("mp_options", "mp_tracking"));
 	}
 	
+	/**************************************************************************
+	#THEME OPTION FUNCTIONS
+	**************************************************************************/
+	
 	#THIS FUNCTION ADDS THE THEME OPTIONS MENU ITEM TO THE APPEARANCE MENU
 	function mp_admin_menu()
 	{
@@ -631,138 +635,7 @@ class mp_options
 		
 		#DISPLAY SELECT LIST
 		echo $select_list;
-	}
-	
-	#THIS FUNCTION DISPLAYS THE LIST OF AUTHORS
-	function mp_display_author_list($select_id, $selected_author, $default_author = 1)
-	{
-		#RETRIEVE THE DATABASE
-		global $wpdb;
-		
-		#INITIALISE AUTHORS
-		$authors = $wpdb->get_results("SELECT ID, display_name from $wpdb->users ORDER BY ID");
-		
-		#SELECT DEFAULT AUTHOR IF NO AUTHOR WAS SELECTED
-		if(empty($selected_author) && !empty($default_author))
-		{
-			$selected_author = $default_author;
-		}
-		
-		#INITIALISE SELECT LIST HTML
-		$select_list = "<select name=\"$select_id\" id=\"$select_id\" class=\"postform\">\n";
-		
-		#APPEND AUTHORS
-		foreach($authors as $author)
-		{
-			#SELECTED AUTHOR
-			if($selected_author == $author->ID)
-			{
-				$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $author->ID . "\">" . $author->display_name . "</option>\n";
-			}
-			#UNSELECTED AUTHOR
-			else
-			{
-				$select_list .= "<option class=\"level-0\" value=\"" . $author->ID . "\">" . $author->display_name . "</option>\n";
-			}
-		}
-		
-		#CLOSE SELECT LIST HTML
-		$select_list .= "</select>";
-		
-		#DISPLAY SELECT LIST
-		echo $select_list;
-	}
-	
-	#THIS FUNCTION DISPLAYS THE LIST OF PROJECTS
-	function mp_display_project_list($select_id, $selected_project)
-	{
-		#RETRIEVE THE POST
-		global $post;
-	
-		#INITIALISE PROJECT ARGUMENTS
-		$args = array
-		(
-			"post_type" => "project",
-			"post_status" => "publish",
-			"posts_per_page" => -1,
-			"orderby" => "title",
-			"order" => "ASC"
-		);
-		
-		#INITIALISE PROJECTS
-		$projects = new WP_Query($args);
-		
-		#PROJECTS EXISTS
-		if($projects->have_posts())
-		{			
-			#INITIALISE SELECT LIST HTML
-			$select_list = "<select name=\"$select_id\" id=\"$select_id\" class=\"postform\">\n";
-			$select_list .= "<option class=\"level-0\" value=\"\">Select Project</option>\n";
-			
-			#DISPLAY PROJECTS
-			while($projects->have_posts())
-			{
-				#RETRIEVE THE PROJECT CONTENT
-				$projects->the_post();  
-				
-				#SELECTED PROJECT
-				if($selected_project == $post->ID)
-				{
-					$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $post->ID . "\">" . $post->post_title . "</option>\n";
-				}
-				#UNSELECTED PROJECT
-				else
-				{
-					$select_list .= "<option class=\"level-0\" value=\"" . $post->ID . "\">" . $post->post_title . "</option>\n";
-				}
-			}
-			
-			#CLOSE SELECT LIST HTML
-			$select_list .= "</select>";
-			
-			#DISPLAY SELECT LIST
-			echo $select_list;
-		}
-	}
-	
-	#THIS FUNCTION DISPLAYS THE LIST OF GALLERIES
-	function mp_display_gallery_list($select_id, $selected_gallery)
-	{
-		#NEXTGEN GALLERY PLUGIN IS ACTIVATED
-		if(function_exists("nggShowSlideshow"))
-		{
-			#RETRIEVE THE DATABASE
-			global $wpdb;
-			
-			#RETREIVE ALL NEXTGEN GALLERIES
-			$galleries = $wpdb->get_results("SELECT gid, title FROM $wpdb->prefix" . "ngg_gallery ORDER BY gid ASC");
-		
-			#INITIALISE SELECT LIST HTML
-			$select_list = "<select name=\"$select_id\" id=\"$select_id\" class=\"postform\">\n";
-			$select_list .= "<option class=\"level-0\" value=\"\">Select Project Gallery</option>\n";
-			
-			#DISPLAY OTHER NEXTGEN GALLERY SELECT LIST OPTIONS
-			foreach($galleries as $gallery)
-			{
-				#DISPLAY SELECTED NEXTGEN GALLERY
-				if($selected_gallery == $gallery->gid)
-				{
-					$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $gallery->gid . "\">" . $gallery->title . "</option>\n";
-				}
-				#DISPLAY UNSELECTED NEXTGEN GALLERY
-				else
-				{
-					$select_list .= "<option class=\"level-0\" value=\"" . $gallery->gid . "\">" . $gallery->title . "</option>\n";
-				}
-			}
-			
-			#CLOSE SELECT LIST HTML
-			$select_list .= "</select>";
-			
-			#DISPLAY SELECT LIST
-			echo $select_list;
-		}
-	}
+	}	
 	
 	#THIS FUNCTION DISPLAYS THE NUMBER OF LIST ITEMS OF SIDEBAR LISTS
 	function mp_display_sidebar_list($select_id, $selected_number_of_items, $default_number_of_items = 5, $number_of_items)
@@ -829,7 +702,7 @@ class mp_options
 		}
 	}
 	
-	#THIS FUNCTION INCLUDES THE JAVASCRIPT & CSS FILES OF THE THEME OPTIONS
+	#THIS FUNCTION INCLUDES THE JAVASCRIPT & CSS FILES INTO ADMIN WORDPRESS PAGES
 	function mp_admin_head()
 	{
 		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo("template_url") . '/css/admin.php" type="text/css" />' . "\n";
@@ -847,6 +720,74 @@ class mp_options
 			echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-tinymce-biography.js"></script>' . "\n";
 		}
 	}
+	
+	#THIS FUNCTION SAVES THE META BOX FORM CONTENTS
+	function mp_meta_boxes_save($post_id, $nonce, $field_name, $type, $url_encode = false)
+	{		
+		#FORMATTING FORM DID NOT SUBMIT FROM THE RIGHT PLACE
+		if(!wp_verify_nonce($_POST["$nonce"], __FILE__))
+		{
+			return $post_id;
+		}
+		
+		#DETERMINE USER'S PERMISSIONS TO EDIT PAGE/POST
+		switch($type)
+		{
+			#PAGES
+			case "page":
+			
+				#USER HAS NO PERMISSION TO EDIT PAGE
+				if($_POST["post_type"] == "page" && !current_user_can("edit_pages", $post_id)) 
+				{
+					return $post_id;
+				}
+				
+			#POSTS
+			case "post":
+			
+				#USER HAS NO PERMISSION TO EDIT POST
+				if($_POST["post_type"] == "post" && !current_user_can("edit_posts", $post_id)) 
+				{
+					return $post_id;
+				}
+		}
+		
+		#INITIALISE CURRENT FIELD
+		$current_field = get_post_meta($post_id, $field_name, true);
+		
+		#INITIALISE NEW FIELD
+		$new_field = $_POST["$field_name"];
+		
+		#URL ENCODE NEW FIELD
+		if($url_encode)
+		{
+			$new_field = urlencode($new_field);
+		}
+		
+		#CURRENT FIELD EXISTS
+		if($current_field) 
+		{
+			#DELETE EXISTING FORMATTING
+			if(empty($new_field))
+			{
+				delete_post_meta($post_id, $field_name);
+			}
+			#UPDATE EXISTING FORMATTING
+			else
+			{
+				update_post_meta($post_id, $field_name, $new_field);
+			}
+		}
+		#NEW FIELD EXISTS
+		elseif(!empty($new_field))
+		{
+			add_post_meta($post_id, $field_name, $new_field, true);
+		}
+	}
+	
+	/**************************************************************************
+	#ARTICLE FUNCTIONS
+	**************************************************************************/
 	
 	#THIS FUNCTION CREATES THE ARTICLE CUSTOM POST TYPE
 	function mp_custom_posts_articles()
@@ -883,7 +824,7 @@ class mp_options
 			"menu_icon" => null,
 			"capability_type" => "post",
 			"hierarchical" => false,
-			"supports" => array("title", "editor", "revisions"),
+			"supports" => array("title", "editor", "revisions", "thumbnail"),
 			"has_archive" => false,
 			"rewrite" => array("slug" => "article", "with_front" => false),
 			"query_var" => true,
@@ -1132,7 +1073,7 @@ class mp_options
 				#DISPLAY ARTICLE THUMBNAIL
 				if(has_post_thumbnail())
 				{
-					echo '<a href="' . get_permalink() . '" title="' . get_the_title() . '" class="post_thumbnail">' . get_the_post_thumbnail($post->ID, "thumbnail") . '</a>';
+					echo '<a href="' . $article_url . '" title="' . get_the_title() . '" class="post_thumbnail" rel="nofollow">' . get_the_post_thumbnail($post->ID, "thumbnail") . '</a>';
 				}
 				
 				#DISPLAY ARTICLE EXCERPT
@@ -1204,6 +1145,46 @@ class mp_options
 			echo "</ul>\n";
 		}
 	}
+	
+	#THIS FUNCTION DISPLAYS THE ARTICLE DIRECTORIES IN THE SIDEBAR
+	function mp_display_article_directories($current_directory)
+	{
+		#CUSTOM TAXONOMY SORT PLUGIN ACTIVATED
+		if(class_exists("CustomTaxonomySort"))
+		{
+			#INITIALISE DIRECTORIES WITH CUSTOM SORT ORDER
+			$directories = get_terms("article-directories", "orderby=custom_sort&order=ASC&hide_empty=1");
+		}
+		#CUSTOM TAXONOMY SORT PLUGIN DEACTIVATED
+		else
+		{
+			#INITIALISE DIRECTORIES WITH NAME SORT ORDER
+			$directories = get_terms("article-directories", "orderby=name&hide_empty=1");
+		}
+		
+		#DIRECTORIES EXIST
+		if(count($directories) > 0)
+		{			
+			#DISPLAY DIRECTORY LINKS
+			foreach($directories as $directory)
+			{				
+				#DISPLAY SELECTED SUB DIRECTORY LINKS
+				if($directory->slug == $current_directory)
+				{
+					echo '<li class="current"><a href="' . get_term_link($directory->slug, "article-directories") . '">' . $directory->name . ' (' . $directory->count . ')</a></li>';
+				}
+				#DISPLAY UNSELECTED SUB DIRECTORY LINKS
+				else
+				{
+					echo '<li><a href="' . get_term_link($directory->slug, "article-directories") . '">' . $directory->name . ' (' . $directory->count . ')</a></li>';
+				}
+			}
+		}
+	}
+	
+	/**************************************************************************
+	#SLIDE FUNCTIONS
+	**************************************************************************/
 	
 	#THIS FUNCTION CREATES THE SLIDE CUSTOM POST TYPE
 	function mp_custom_posts_slides()
@@ -1658,6 +1639,10 @@ class mp_options
 		}
 	}
 	
+	/**************************************************************************
+	#PROJECT FUNCTIONS
+	**************************************************************************/
+	
 	#THIS FUNCTION CREATES THE PROJECT CUSTOM POST TYPE
 	function mp_custom_posts_project()
 	{
@@ -2019,6 +2004,97 @@ class mp_options
 		<?php
 	}
 	
+	#THIS FUNCTION DISPLAYS THE LIST OF PROJECTS
+	function mp_display_project_list($select_id, $selected_project)
+	{
+		#RETRIEVE THE POST
+		global $post;
+	
+		#INITIALISE PROJECT ARGUMENTS
+		$args = array
+		(
+			"post_type" => "project",
+			"post_status" => "publish",
+			"posts_per_page" => -1,
+			"orderby" => "title",
+			"order" => "ASC"
+		);
+		
+		#INITIALISE PROJECTS
+		$projects = new WP_Query($args);
+		
+		#PROJECTS EXISTS
+		if($projects->have_posts())
+		{			
+			#INITIALISE SELECT LIST HTML
+			$select_list = "<select name=\"$select_id\" id=\"$select_id\" class=\"postform\">\n";
+			$select_list .= "<option class=\"level-0\" value=\"\">Select Project</option>\n";
+			
+			#DISPLAY PROJECTS
+			while($projects->have_posts())
+			{
+				#RETRIEVE THE PROJECT CONTENT
+				$projects->the_post();  
+				
+				#SELECTED PROJECT
+				if($selected_project == $post->ID)
+				{
+					$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $post->ID . "\">" . $post->post_title . "</option>\n";
+				}
+				#UNSELECTED PROJECT
+				else
+				{
+					$select_list .= "<option class=\"level-0\" value=\"" . $post->ID . "\">" . $post->post_title . "</option>\n";
+				}
+			}
+			
+			#CLOSE SELECT LIST HTML
+			$select_list .= "</select>";
+			
+			#DISPLAY SELECT LIST
+			echo $select_list;
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE LIST OF GALLERIES
+	function mp_display_gallery_list($select_id, $selected_gallery)
+	{
+		#NEXTGEN GALLERY PLUGIN IS ACTIVATED
+		if(function_exists("nggShowSlideshow"))
+		{
+			#RETRIEVE THE DATABASE
+			global $wpdb;
+			
+			#RETREIVE ALL NEXTGEN GALLERIES
+			$galleries = $wpdb->get_results("SELECT gid, title FROM $wpdb->prefix" . "ngg_gallery ORDER BY gid ASC");
+		
+			#INITIALISE SELECT LIST HTML
+			$select_list = "<select name=\"$select_id\" id=\"$select_id\" class=\"postform\">\n";
+			$select_list .= "<option class=\"level-0\" value=\"\">Select Project Gallery</option>\n";
+			
+			#DISPLAY OTHER NEXTGEN GALLERY SELECT LIST OPTIONS
+			foreach($galleries as $gallery)
+			{
+				#DISPLAY SELECTED NEXTGEN GALLERY
+				if($selected_gallery == $gallery->gid)
+				{
+					$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $gallery->gid . "\">" . $gallery->title . "</option>\n";
+				}
+				#DISPLAY UNSELECTED NEXTGEN GALLERY
+				else
+				{
+					$select_list .= "<option class=\"level-0\" value=\"" . $gallery->gid . "\">" . $gallery->title . "</option>\n";
+				}
+			}
+			
+			#CLOSE SELECT LIST HTML
+			$select_list .= "</select>";
+			
+			#DISPLAY SELECT LIST
+			echo $select_list;
+		}
+	}
+	
 	#THIS FUNCTION SAVES THE PROJECT BOX FORM CONTENTS
 	function mp_meta_boxes_portfolio_form_save($post_id) 
 	{		
@@ -2164,44 +2240,6 @@ class mp_options
 		}
 	}
 	
-	#THIS FUNCTION RETURNS THE POST EXCERPT WITH A MAXIMUM NUMBER OF WORDS
-	function mp_get_excerpt($max_words, $strip_tags = false)
-	{
-		#INITIALISE CONTENT
-		$content = get_the_content();
-		
-		#DISPLAY SHORTCODE IN CONTENT
-		$content = do_shortcode($content);
-		$content = apply_filters("the_content", $content);
-		
-		#INITIALISE CONTENT WORD COUNT
-		$content_word_count = str_word_count($content);
-		
-		#CONTENT CONTAINS LESS WORDS THAN MAXIMUM NUMBER OF WORDS
-		if($content_word_count < $max_words)
-		{
-			return $content;
-		}
-		#CONTENT CONTAINS MORE WORDS THAN MAXIMUM NUMBER OF WORDS
-		else
-		{
-			#REMOVE TAGS FROM CONTENT
-			if($strip_tags)
-			{
-				$content = trim(strip_tags($content));
-			}
-			
-			#TRUNCATE CONTENT INTO THE MAXIMUM NUMBER OF WORDS
-			preg_match("/(\S+\s*){0,$max_words}/", $content, $excerpt);
-			
-			#INITIALISE TRUNCATED CONTENT
-			$content_excerpt = trim($excerpt[0]) . '... <a href="' . get_permalink() . '" title="' . get_the_title() . '">Read the rest</a>';
-			
-			#RETURN TRUNCATED CONTENT
-			return wpautop($content_excerpt);
-		}
-	}
-	
 	#THIS FUNCTION DISPLAYS THE PROJECT THUMBNAILS
 	function mp_display_project_thumbnails()
 	{
@@ -2341,6 +2379,48 @@ class mp_options
 		#CLOSE PROJECT DETAILS DIV
 		echo "</div>";
 	}
+	
+	#THIS FUNCTION DISPLAYS THE PROJECT CATEGORIES IN THE SIDEBAR
+	function mp_display_portfolio_categories($current_category)
+	{
+		#CUSTOM TAXONOMY SORT PLUGIN ACTIVATED
+		if(class_exists("CustomTaxonomySort"))
+		{
+			#INITIALISE CATEGORIES WITH CUSTOM SORT ORDER
+			$categories = get_terms("portfolio-categories", "orderby=custom_sort&order=ASC&hide_empty=1");
+		}
+		#CUSTOM TAXONOMY SORT PLUGIN DEACTIVATED
+		else
+		{
+			#INITIALISE CATEGORIES WITH NAME SORT ORDER
+			$categories = get_terms("portfolio-categories", "orderby=name&hide_empty=1");
+		}
+		
+		#CATEGORIES EXIST
+		if(count($categories) > 0)
+		{			
+			#DISPLAY CATEGORY LINKS
+			foreach($categories as $category)
+			{
+				
+				
+				#DISPLAY SELECTED SUB CATEGORY LINKS
+				if($category->slug == $current_category)
+				{
+					echo '<li class="current"><a href="' . get_term_link($category->slug, "portfolio-categories") . '">' . $category->name . ' (' . $category->count . ')</a></li>';
+				}
+				#DISPLAY UNSELECTED SUB CATEGORY LINKS
+				else
+				{
+					echo '<li><a href="' . get_term_link($category->slug, "portfolio-categories") . '">' . $category->name . ' (' . $category->count . ')</a></li>';
+				}
+			}
+		}
+	}
+	
+	/**************************************************************************
+	#TESTIMONIAL FUNCTIONS
+	**************************************************************************/
 	
 	#THIS FUNCTION CREATES THE TESTIMONIALS CUSTOM POST TYPE
 	function mp_custom_posts_testimonials()
@@ -2861,70 +2941,10 @@ class mp_options
 		return do_shortcode($content);
 	}
 	
-	#THIS FUNCTION SAVES THE META BOX FORM CONTENTS
-	function mp_meta_boxes_save($post_id, $nonce, $field_name, $type, $url_encode = false)
-	{		
-		#FORMATTING FORM DID NOT SUBMIT FROM THE RIGHT PLACE
-		if(!wp_verify_nonce($_POST["$nonce"], __FILE__))
-		{
-			return $post_id;
-		}
-		
-		#DETERMINE USER'S PERMISSIONS TO EDIT PAGE/POST
-		switch($type)
-		{
-			#PAGES
-			case "page":
+	/**************************************************************************
+	#AUTHOR FUNCTIONS
+	**************************************************************************/
 			
-				#USER HAS NO PERMISSION TO EDIT PAGE
-				if($_POST["post_type"] == "page" && !current_user_can("edit_pages", $post_id)) 
-				{
-					return $post_id;
-				}
-				
-			#POSTS
-			case "post":
-			
-				#USER HAS NO PERMISSION TO EDIT POST
-				if($_POST["post_type"] == "post" && !current_user_can("edit_posts", $post_id)) 
-				{
-					return $post_id;
-				}
-		}
-		
-		#INITIALISE CURRENT FIELD
-		$current_field = get_post_meta($post_id, $field_name, true);
-		
-		#INITIALISE NEW FIELD
-		$new_field = $_POST["$field_name"];
-		
-		#URL ENCODE NEW FIELD
-		if($url_encode)
-		{
-			$new_field = urlencode($new_field);
-		}
-		
-		#CURRENT FIELD EXISTS
-		if($current_field) 
-		{
-			#DELETE EXISTING FORMATTING
-			if(empty($new_field))
-			{
-				delete_post_meta($post_id, $field_name);
-			}
-			#UPDATE EXISTING FORMATTING
-			else
-			{
-				update_post_meta($post_id, $field_name, $new_field);
-			}
-		}
-		#NEW FIELD EXISTS
-		elseif(!empty($new_field))
-		{
-			add_post_meta($post_id, $field_name, $new_field, true);
-		}
-	}
-	
 	#THIS FUNCTION REPLACES THE "BIOGRAPHICAL INFO" FIELD IN THE USER PROFILE WITH A TINYMCE EDITOR
 	function mp_tinymce_biography($user)
 	{
@@ -2960,6 +2980,66 @@ class mp_options
 		
 		return $contact_fields;
 	}
+	
+	#THIS FUNCTION RETURNS THE AUTHOR ID
+	function mp_get_author_id()
+	{
+		#INITIALISE AUTHOR ID
+		$mp_author = get_option("mp_author");
+			
+		#SET DEFAULT AUTHOR ID
+		if(empty($mp_author))
+		{
+			$mp_author = 1;
+		}
+		
+		#RETURN AUTHOR ID
+		return $mp_author;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE LIST OF AUTHORS
+	function mp_display_author_list($select_id, $selected_author, $default_author = 1)
+	{
+		#RETRIEVE THE DATABASE
+		global $wpdb;
+		
+		#INITIALISE AUTHORS
+		$authors = $wpdb->get_results("SELECT ID, display_name from $wpdb->users ORDER BY ID");
+		
+		#SELECT DEFAULT AUTHOR IF NO AUTHOR WAS SELECTED
+		if(empty($selected_author) && !empty($default_author))
+		{
+			$selected_author = $default_author;
+		}
+		
+		#INITIALISE SELECT LIST HTML
+		$select_list = "<select name=\"$select_id\" id=\"$select_id\" class=\"postform\">\n";
+		
+		#APPEND AUTHORS
+		foreach($authors as $author)
+		{
+			#SELECTED AUTHOR
+			if($selected_author == $author->ID)
+			{
+				$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $author->ID . "\">" . $author->display_name . "</option>\n";
+			}
+			#UNSELECTED AUTHOR
+			else
+			{
+				$select_list .= "<option class=\"level-0\" value=\"" . $author->ID . "\">" . $author->display_name . "</option>\n";
+			}
+		}
+		
+		#CLOSE SELECT LIST HTML
+		$select_list .= "</select>";
+		
+		#DISPLAY SELECT LIST
+		echo $select_list;
+	}
+	
+	/**************************************************************************
+	#SOCIAL FUNCTIONS
+	**************************************************************************/
 	
 	#THIS FUNCTION DISPLAYS THE INSTAGRAM THUMBNAILS
 	function mp_display_instagram_thumbnails()
@@ -3049,42 +3129,6 @@ class mp_options
 		}
 	}
 	
-	#THIS FUNCTION DISPLAYS THE PROJECT CATEGORIES IN THE SIDEBAR
-	function mp_display_portfolio_categories($current_category)
-	{
-		#CUSTOM TAXONOMY SORT PLUGIN ACTIVATED
-		if(class_exists("CustomTaxonomySort"))
-		{
-			#INITIALISE CATEGORIES WITH CUSTOM SORT ORDER
-			$categories = get_terms("portfolio-categories", "orderby=custom_sort&order=ASC&hide_empty=1");
-		}
-		#CUSTOM TAXONOMY SORT PLUGIN DEACTIVATED
-		else
-		{
-			#INITIALISE CATEGORIES WITH NAME SORT ORDER
-			$categories = get_terms("portfolio-categories", "orderby=name&hide_empty=1");
-		}
-		
-		#CATEGORIES EXIST
-		if(count($categories) > 0)
-		{			
-			#DISPLAY CATEGORY LINKS
-			foreach($categories as $category)
-			{
-				#DISPLAY SELECTED SUB CATEGORY LINKS
-				if($category->slug == $current_category)
-				{
-					echo '<li class="current"><a href="' . get_term_link($category->slug, "portfolio-categories") . '">' . $category->name . "</a></li>";
-				}
-				#DISPLAY UNSELECTED SUB CATEGORY LINKS
-				else
-				{
-					echo '<li><a href="' . get_term_link($category->slug, "portfolio-categories") . '">' . $category->name . "</a></li>";
-				}
-			}
-		}
-	}
-	
 	#THIS FUNCTION DISPLAYS THE SOCIAL MEDIA BUTTONS IN THE SIDEBAR
 	function mp_display_social_buttons()
 	{
@@ -3169,7 +3213,106 @@ class mp_options
 		}
 	}
 	
-	#THIS FUNCTION DISPLAYS THE RECENT POSTS
+	/**************************************************************************
+	#BLOG & COMMENT FUNCTIONS
+	**************************************************************************/
+	
+	#THIS FUNCTION DISPLAYS THE BLOG POSTS
+	function mp_display_blog_posts($page)
+	{		
+		#RETRIEVE THE POST
+		global $post;
+		
+		#INITIALISE BLOG POST ARGUMENTS
+		$args = array
+		(
+			"posts_per_page" => get_option("posts_per_page"),
+			"post_type"  => "post",
+			"post_status" => "publish",
+			"paged" => $page,
+			"order" => "DESC",
+			"orderby" => "date"
+		);
+		
+		#RETRIEVE BLOG POSTS
+		$blog_posts = new WP_Query($args);
+		
+		#BLOG POSTS EXISTS
+		if($blog_posts->have_posts())
+		{			
+			#DISPLAY BLOG POSTS
+			while($blog_posts->have_posts())
+			{
+				$blog_posts->the_post();
+				
+				#INCLUDE BLOG POST TEMPLATE
+				include(TEMPLATEPATH . "/includes/inc-blog-post.php");
+			}
+
+			#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
+			if(function_exists("wp_pagenavi"))
+			{
+				wp_pagenavi(array("query" =>$blog_posts));
+			}
+			#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
+			else
+			{
+			?>
+				<p class="left"><?php next_posts_link("&laquo; Previous Entries"); ?></p>
+				<p class="right"><?php previous_posts_link("Next Entries &raquo;"); ?></p>
+			<?php
+			}
+		}
+		#NO BLOG POSTS EXIST
+		else
+		{
+		?>		
+		<p>Sorry, no posts matched your criteria.</p>
+		<?php
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE BLOG CATEGORIES IN THE SIDEBAR
+	function mp_display_blog_categories()
+	{
+		#INITIALISE CATEGORIES
+		$categories = wp_list_categories("orderby=name&show_count=1&hierarchical=0&title_li=&echo=0");
+		
+		#MOVE THE ENDING ANCHOR TAG TO THE END OF THE LIST ITEM
+		$categories = str_replace("</a>", "", $categories);
+		$categories = str_replace("</li>", "</a></li>", $categories);
+		
+		#DISPLAY CATEGORIES
+		echo $categories;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE RECENT BLOG POSTS ON THE HOME PAGE
+	function mp_display_recent_posts_home()
+	{
+		#RETRIEVE THE DATABASE
+		global $wpdb;
+		
+		#RETREIVE POSTS
+		$posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC LIMIT 5");
+		
+		#POSTS EXIST
+		if(!empty($posts))
+		{
+			#OPEN UNORDERED LIST
+			echo '<ul>';
+			
+			#DISPLAY POSTS
+			foreach($posts as $post)
+			{
+				echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $post->post_title . '</a><br /><span class="info">' . get_the_time(get_option("date_format") . " " . get_option("time_format"), $post->ID) . '</span></li>';
+			}
+			
+			#CLOSE UNORDERED LIST
+			echo "</ul>\n";
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE RECENT BLOG POSTS
 	function mp_display_recent_posts()
 	{
 		#RETRIEVE THE DATABASE
@@ -3204,7 +3347,7 @@ class mp_options
 		}
 	}
 	
-	#THIS FUNCTION DISPLAYS THE MOST COMMENTED POSTS
+	#THIS FUNCTION DISPLAYS THE MOST COMMENTED BLOG POSTS
 	function mp_display_most_commented_posts()
 	{
 		#RETRIEVE THE DATABASE
@@ -3380,22 +3523,6 @@ class mp_options
 		}
 	}
 	
-	#THIS FUNCTION RETURNS THE AUTHOR ID
-	function mp_get_author_id()
-	{
-		#INITIALISE AUTHOR ID
-		$mp_author = get_option("mp_author");
-			
-		#SET DEFAULT AUTHOR ID
-		if(empty($mp_author))
-		{
-			$mp_author = 1;
-		}
-		
-		#RETURN AUTHOR ID
-		return $mp_author;
-	}
-	
 	#THIS FUNCTION RETURNS THE COMMENT TYPE COUNT
 	#ACCEPTS: 'comment', 'trackback', 'pingback' for $comment_type
 	function mp_get_comment_type_count($post_id, $comment_type)
@@ -3548,86 +3675,43 @@ class mp_options
 			
 			return;
 		}
-	}
+	}	
 
-	#THIS FUNCTION DISPLAYS THE BLOG POSTS
-	function mp_display_blog_posts($page)
-	{		
-		#RETRIEVE THE POST
-		global $post;
+	#THIS FUNCTION RETURNS THE POST EXCERPT WITH A MAXIMUM NUMBER OF WORDS
+	function mp_get_excerpt($max_words, $strip_tags = false)
+	{
+		#INITIALISE CONTENT
+		$content = get_the_content();
 		
-		#INITIALISE BLOG POST ARGUMENTS
-		$args = array
-		(
-			"posts_per_page" => get_option("posts_per_page"),
-			"post_type"  => "post",
-			"post_status" => "publish",
-			"paged" => $page,
-			"order" => "DESC",
-			"orderby" => "date"
-		);
+		#DISPLAY SHORTCODE IN CONTENT
+		$content = do_shortcode($content);
+		$content = apply_filters("the_content", $content);
 		
-		#RETRIEVE BLOG POSTS
-		$blog_posts = new WP_Query($args);
+		#INITIALISE CONTENT WORD COUNT
+		$content_word_count = str_word_count($content);
 		
-		#BLOG POSTS EXISTS
-		if($blog_posts->have_posts())
-		{			
-			#DISPLAY BLOG POSTS
-			while($blog_posts->have_posts())
-			{
-				$blog_posts->the_post();
-				
-				#INCLUDE BLOG POST TEMPLATE
-				include(TEMPLATEPATH . "/includes/inc-blog-post.php");
-			}
-
-			#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
-			if(function_exists("wp_pagenavi"))
-			{
-				wp_pagenavi(array("query" =>$blog_posts));
-			}
-			#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
-			else
-			{
-			?>
-				<p class="left"><?php next_posts_link("&laquo; Previous Entries"); ?></p>
-				<p class="right"><?php previous_posts_link("Next Entries &raquo;"); ?></p>
-			<?php
-			}
+		#CONTENT CONTAINS LESS WORDS THAN MAXIMUM NUMBER OF WORDS
+		if($content_word_count < $max_words)
+		{
+			return $content;
 		}
-		#NO BLOG POSTS EXIST
+		#CONTENT CONTAINS MORE WORDS THAN MAXIMUM NUMBER OF WORDS
 		else
 		{
-		?>		
-		<p>Sorry, no posts matched your criteria.</p>
-		<?php
-		}
-	}
-
-	#THIS FUNCTION DISPLAYS THE RECENT BLOG POSTS ON THE HOME PAGE
-	function mp_display_recent_posts_home()
-	{
-		#RETRIEVE THE DATABASE
-		global $wpdb;
-		
-		#RETREIVE POSTS
-		$posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC LIMIT 5");
-		
-		#POSTS EXIST
-		if(!empty($posts))
-		{
-			#OPEN UNORDERED LIST
-			echo '<ul>';
-			
-			#DISPLAY POSTS
-			foreach($posts as $post)
+			#REMOVE TAGS FROM CONTENT
+			if($strip_tags)
 			{
-				echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $post->post_title . '</a><br /><span class="info">' . get_the_time(get_option("date_format") . " " . get_option("time_format"), $post->ID) . '</span></li>';
+				$content = trim(strip_tags($content));
 			}
 			
-			#CLOSE UNORDERED LIST
-			echo "</ul>\n";
+			#TRUNCATE CONTENT INTO THE MAXIMUM NUMBER OF WORDS
+			preg_match("/(\S+\s*){0,$max_words}/", $content, $excerpt);
+			
+			#INITIALISE TRUNCATED CONTENT
+			$content_excerpt = trim($excerpt[0]) . '... <a href="' . get_permalink() . '" title="' . get_the_title() . '">Read the rest</a>';
+			
+			#RETURN TRUNCATED CONTENT
+			return wpautop($content_excerpt);
 		}
 	}
 
@@ -3652,7 +3736,11 @@ class mp_options
 		
 		#RETURN PAGE
 		return $page;	
-	}
+	}	
+	
+	/**************************************************************************
+	#RSS FUNCTIONS
+	**************************************************************************/
 
 	#THIS FUNCTION DISPLAYS THE RSS FEEDS IN THE HEADER
 	function mp_display_rss_feeds_header()

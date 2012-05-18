@@ -17,7 +17,7 @@
 			#RETRIEVE SEARCH TERM
 			$search_term = trim($_REQUEST["s"]);
 			?>
-			<h1 class="post_title_underline"><?php mp_options::mp_display_search_results_title(); ?> for &quot;<?php echo $search_term; ?>&quot;</h1>
+			<h1 class="page_title"><?php mp_options::mp_display_search_results_title(); ?> for &quot;<?php echo $search_term; ?>&quot;</h1>
 			<?php
 		}
 		

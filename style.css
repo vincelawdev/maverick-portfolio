@@ -399,19 +399,6 @@ body
 	-webkit-font-smoothing: antialiased;
 }
 
-#content .post_title_underline
-{
-	margin: 0px;
-	padding: 0px;
-	font-family: "ExpresswayRegular", Georgia;
-	font-size: 27px;
-	font-weight: normal;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-	border-bottom: 2px solid #cccccc;
-	display: block;
-}
-
 #content a.post_title_link:link
 {
 	color: #333333;

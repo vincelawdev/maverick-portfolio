@@ -53,28 +53,42 @@
 	if((!is_page() || is_page("blog")) && !is_tax() && !is_singular(array("project", "testimonial", "article")))
 	{
 	?>
-	<!-- CATEGORIES - START -->
+	<!-- BLOG CATEGORIES - START -->
 	<div class="sidebar_box">
 	
 		<h4>Categories</h4>	
-		<ul class="sidebar"><?php wp_list_cats("sort_column=name&hierarchical=0"); ?></ul>
+		<ul class="sidebar"><?php mp_options::mp_display_blog_categories(); ?></ul>
 		
 	</div>
-	<!-- CATEGORIES - END -->
+	<!-- BLOG CATEGORIES - END -->
+	<?php
+	}
+	#DISPLAY ARTICLE DIRECTORIES
+	if(is_page_template("articles.php") || is_tax("article-directories") || is_singular("article"))
+	{
+	?>
+	<!-- ARTICLE DIRECTORIES - START -->
+	<div class="sidebar_box">
+	
+		<h4>Directories</h4>	
+		<ul class="sidebar"><?php mp_options::mp_display_article_directories(get_query_var("term")); ?></ul>
+		
+	</div>
+	<!-- ARTICLE DIRECTORIES - END -->
 	<?php
 	}
 	#DISPLAY PORTFOLIO CATEGORIES
 	if(is_page_template("portfolio.php") || is_tax("portfolio-categories") || is_singular("project"))
 	{
 	?>
-	<!-- CATEGORIES - START -->
+	<!-- PORTFOLIO CATEGORIES - START -->
 	<div class="sidebar_box">
 	
 		<h4>Categories</h4>	
 		<ul class="sidebar"><?php mp_options::mp_display_portfolio_categories(get_query_var("term")); ?></ul>
 		
 	</div>
-	<!-- CATEGORIES - END -->
+	<!-- PORTFOLIO CATEGORIES - END -->
 	<?php
 	}
 	?>
@@ -85,7 +99,8 @@
 		<h4>Connect With <?php the_author_meta("first_name", mp_options::mp_get_author_id()); ?></h4>
 		<?php mp_options::mp_display_social_buttons(); ?>
 		<?php mp_options::mp_display_facebook_like_box(); ?>
-		<?php mp_options::mp_display_rss_feed_sidebar(); ?>		
+		<?php mp_options::mp_display_rss_feed_sidebar(); ?>
+		
 	</div>
 	<!-- SOCIAL - END -->
 	

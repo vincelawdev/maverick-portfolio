@@ -1,12 +1,12 @@
 <?php
 #TURN ON OUTPUT BUFFERING
-if(!ob_start("ob_gzhandler"))
+if(!ob_start('ob_gzhandler'))
 {
 	ob_start();
 }
 
 #INITIALISE WP-LOAD.PHP FILE PATH
-$wp_include_path = "../wp-load.php";
+$wp_include_path = '../wp-load.php';
 
 #SEARCH FOR WP-LOAD.PHP FILE PATH
 for($counter = 0; $counter < 10; $counter ++)
@@ -14,7 +14,7 @@ for($counter = 0; $counter < 10; $counter ++)
 	#WP-LOAD.PHP FILE DOES NOT EXIST AT THIS PATH
 	if(!file_exists($wp_include_path))
 	{
-		$wp_include_path = "../$wp_include_path";
+		$wp_include_path = '../' . $wp_include_path;
 	}
 	#WP-LOAD.PHP FILE PATH FOUND
 	else
@@ -27,7 +27,7 @@ for($counter = 0; $counter < 10; $counter ++)
 require($wp_include_path);
 
 #SET FILE TYPE AS CSS
-header("content-type: text/css");
+header('content-type: text/css');
 ?>
 /* ERROR CONTAINER */
 .mp_errors
@@ -45,7 +45,7 @@ input.mp_error_field
 /* ARTICLE CUSTOM POST TYPE ICONS */
 #adminmenu #menu-posts-article .wp-menu-image
 {
-	background-image: url("<?php bloginfo("template_url") ?>/images/menu-cp-article-off.png");
+	background-image: url('<?php bloginfo('template_url'); ?>/images/menu-cp-article-off.png');
 	background-repeat: no-repeat;
 	background-position: center center;
 }
@@ -53,12 +53,12 @@ input.mp_error_field
 #adminmenu #menu-posts-article:hover .wp-menu-image,
 #adminmenu #menu-posts-article.wp-has-current-submenu .wp-menu-image
 {
-	background-image: url("<?php bloginfo("template_url") ?>/images/menu-cp-article-on.png");
+	background-image: url('<?php bloginfo('template_url'); ?>/images/menu-cp-article-on.png');
 }
 
 #icon-edit.icon32-posts-article
 {
-	background-image: url("<?php bloginfo("template_url") ?>/images/icon-cp-article.png");
+	background-image: url('<?php bloginfo('template_url'); ?>/images/icon-cp-article.png');
 	background-repeat: no-repeat;
 	background-position: top left;
 }
@@ -66,7 +66,7 @@ input.mp_error_field
 /* SLIDE CUSTOM POST TYPE ICONS */
 #adminmenu #menu-posts-slide .wp-menu-image
 {
-	background-image: url("<?php bloginfo("template_url") ?>/images/menu-cp-slide-off.png");
+	background-image: url('<?php bloginfo('template_url'); ?>/images/menu-cp-slide-off.png');
 	background-repeat: no-repeat;
 	background-position: center center;
 }
@@ -74,12 +74,12 @@ input.mp_error_field
 #adminmenu #menu-posts-slide:hover .wp-menu-image,
 #adminmenu #menu-posts-slide.wp-has-current-submenu .wp-menu-image
 {
-	background-image: url("<?php bloginfo("template_url") ?>/images/menu-cp-slide-on.png");
+	background-image: url('<?php bloginfo('template_url'); ?>/images/menu-cp-slide-on.png');
 }
 
 #icon-edit.icon32-posts-slide
 {
-	background-image: url("<?php bloginfo("template_url") ?>/images/icon-cp-slide.png");
+	background-image: url('<?php bloginfo('template_url'); ?>/images/icon-cp-slide.png');
 	background-repeat: no-repeat;
 	background-position: top left;
 }
@@ -87,7 +87,7 @@ input.mp_error_field
 /* PROJECT CUSTOM POST TYPE ICONS */
 #adminmenu #menu-posts-project .wp-menu-image
 {
-	background-image: url("<?php bloginfo("template_url") ?>/images/menu-cp-portfolio-off.png");
+	background-image: url('<?php bloginfo('template_url'); ?>/images/menu-cp-portfolio-off.png');
 	background-repeat: no-repeat;
 	background-position: center center;
 }
@@ -95,12 +95,12 @@ input.mp_error_field
 #adminmenu #menu-posts-project:hover .wp-menu-image,
 #adminmenu #menu-posts-project.wp-has-current-submenu .wp-menu-image
 {
-	background-image: url("<?php bloginfo("template_url") ?>/images/menu-cp-portfolio-on.png");
+	background-image: url('<?php bloginfo('template_url'); ?>/images/menu-cp-portfolio-on.png');
 }
 
 #icon-edit.icon32-posts-project
 {
-	background-image: url("<?php bloginfo("template_url") ?>/images/icon-cp-portfolio.png");
+	background-image: url('<?php bloginfo('template_url'); ?>/images/icon-cp-portfolio.png');
 	background-repeat: no-repeat;
 	background-position: top left;
 }
@@ -108,7 +108,7 @@ input.mp_error_field
 /* TESTIMONIAL CUSTOM POST TYPE ICONS */
 #adminmenu #menu-posts-testimonial .wp-menu-image
 {
-	background-image: url("<?php bloginfo("template_url") ?>/images/menu-cp-testimonial-off.png");
+	background-image: url('<?php bloginfo('template_url'); ?>/images/menu-cp-testimonial-off.png');
 	background-repeat: no-repeat;
 	background-position: center center;
 }
@@ -116,12 +116,12 @@ input.mp_error_field
 #adminmenu #menu-posts-testimonial:hover .wp-menu-image,
 #adminmenu #menu-posts-testimonial.wp-has-current-submenu .wp-menu-image
 {
-	background-image: url("<?php bloginfo("template_url") ?>/images/menu-cp-testimonial-on.png");
+	background-image: url('<?php bloginfo('template_url'); ?>/images/menu-cp-testimonial-on.png');
 }
 
 #icon-edit.icon32-posts-testimonial
 {
-	background-image: url("<?php bloginfo("template_url") ?>/images/icon-cp-testimonial.png");
+	background-image: url('<?php bloginfo('template_url'); ?>/images/icon-cp-testimonial.png');
 	background-repeat: no-repeat;
 	background-position: top left;
 }

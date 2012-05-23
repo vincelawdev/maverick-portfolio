@@ -1,12 +1,12 @@
 <?php
 #TURN ON OUTPUT BUFFERING
-if(!ob_start("ob_gzhandler"))
+if(!ob_start('ob_gzhandler'))
 {
 	ob_start();
 }
 
 #INITIALISE WP-LOAD.PHP FILE PATH
-$wp_include_path = "../wp-load.php";
+$wp_include_path = '../wp-load.php';
 
 #SEARCH FOR WP-LOAD.PHP FILE PATH
 for($counter = 0; $counter < 10; $counter ++)
@@ -14,7 +14,7 @@ for($counter = 0; $counter < 10; $counter ++)
 	#WP-LOAD.PHP FILE DOES NOT EXIST AT THIS PATH
 	if(!file_exists($wp_include_path))
 	{
-		$wp_include_path = "../$wp_include_path";
+		$wp_include_path = '../' . $wp_include_path;
 	}
 	#WP-LOAD.PHP FILE PATH FOUND
 	else
@@ -27,7 +27,7 @@ for($counter = 0; $counter < 10; $counter ++)
 require($wp_include_path);
 
 #SET FILE TYPE AS JAVASCRIPT
-header("content-type: application/x-javascript");
+header('content-type: application/x-javascript');
 ?>
 //WAIT FOR PAGE TO LOAD
 $(document).ready(function() 
@@ -44,17 +44,17 @@ $(document).ready(function()
 	preload9 = new Image();
 	preload10 = new Image();
 	preload11 = new Image();
-	preload1.src = "<?php bloginfo("template_directory"); ?>/images/arrow-menu-down-on.png";
-	preload2.src = "<?php bloginfo("template_directory"); ?>/images/arrow-menu-right-on.png";
-	preload3.src = "<?php bloginfo("template_directory"); ?>/images/button-search-on.png";
-	preload4.src = "<?php bloginfo("template_directory"); ?>/images/menu-home-on.png";
-	preload5.src = "<?php bloginfo("template_directory"); ?>/images/menu-home-off.png";
-	preload6.src = "<?php bloginfo("template_directory"); ?>/images/arrow-sidebar-on.png";
-	preload7.src = "<?php bloginfo("template_directory"); ?>/images/arrow-sidebar-off.png";
-	preload8.src = "<?php bloginfo("template_directory"); ?>/images/arrow-slider-left-off.png";
-	preload9.src = "<?php bloginfo("template_directory"); ?>/images/arrow-slider-left-on.png";
-	preload10.src = "<?php bloginfo("template_directory"); ?>/images/arrow-slider-right-off.png";
-	preload11.src = "<?php bloginfo("template_directory"); ?>/images/arrow-slider-right-on.png";
+	preload1.src = "<?php bloginfo('template_directory'); ?>/images/arrow-menu-down-on.png";
+	preload2.src = "<?php bloginfo('template_directory'); ?>/images/arrow-menu-right-on.png";
+	preload3.src = "<?php bloginfo('template_directory'); ?>/images/button-search-on.png";
+	preload4.src = "<?php bloginfo('template_directory'); ?>/images/menu-home-on.png";
+	preload5.src = "<?php bloginfo('template_directory'); ?>/images/menu-home-off.png";
+	preload6.src = "<?php bloginfo('template_directory'); ?>/images/arrow-sidebar-on.png";
+	preload7.src = "<?php bloginfo('template_directory'); ?>/images/arrow-sidebar-off.png";
+	preload8.src = "<?php bloginfo('template_directory'); ?>/images/arrow-slider-left-off.png";
+	preload9.src = "<?php bloginfo('template_directory'); ?>/images/arrow-slider-left-on.png";
+	preload10.src = "<?php bloginfo('template_directory'); ?>/images/arrow-slider-right-off.png";
+	preload11.src = "<?php bloginfo('template_directory'); ?>/images/arrow-slider-right-on.png";
 });
 <?php
 #SEND THE OUTPUT BUFFER AND TURN OFF OUTPUT BUFFERING 

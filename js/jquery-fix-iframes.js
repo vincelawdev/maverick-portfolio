@@ -2,11 +2,11 @@
 $(document).ready(function() 
 {
 	//INITIALISE IFRAME ARRAY
-	iframes = document.getElementsByTagName("iframe");
+	iframes = document.getElementsByTagName('iframe');
 	
 	//SET IFRAME TO TRANSPARENT
 	for(counter = 0; counter < iframes.length; counter ++)
 	{
-		iframes[counter].setAttribute("allowTransparency", "true");
+		iframes[counter].setAttribute('allowTransparency', 'true');
 	}
 });

@@ -1,12 +1,12 @@
 <?php
 #TURN ON OUTPUT BUFFERING
-if(!ob_start("ob_gzhandler"))
+if(!ob_start('ob_gzhandler'))
 {
 	ob_start();
 }
 
 #INITIALISE WP-LOAD.PHP FILE PATH
-$wp_include_path = "../wp-load.php";
+$wp_include_path = '../wp-load.php';
 
 #SEARCH FOR WP-LOAD.PHP FILE PATH
 for($counter = 0; $counter < 10; $counter ++)
@@ -14,7 +14,7 @@ for($counter = 0; $counter < 10; $counter ++)
 	#WP-LOAD.PHP FILE DOES NOT EXIST AT THIS PATH
 	if(!file_exists($wp_include_path))
 	{
-		$wp_include_path = "../$wp_include_path";
+		$wp_include_path = '../' . $wp_include_path;
 	}
 	#WP-LOAD.PHP FILE PATH FOUND
 	else
@@ -27,15 +27,15 @@ for($counter = 0; $counter < 10; $counter ++)
 require($wp_include_path);
 
 #SET FILE TYPE AS JAVASCRIPT
-header("content-type: application/x-javascript");
+header('content-type: application/x-javascript');
 ?>
 //WAIT FOR PAGE TO LOAD
 jQuery(document).ready(function()
 {
-	jQuery("#anythingslider").anythingSlider(
+	jQuery('#anythingslider').anythingSlider(
 	{
 		//APPEARANCE 
-		theme               : "default", 		// Theme name 
+		theme               : 'default', 		// Theme name 
 		expand              : false,     		// If true, the entire slider will expand to fit the parent element 
 		resizeContents      : true,      		// If true, solitary images/objects in the panel will expand to fit the viewport 
 		showMultiple        : false,     		// Set this value to a number and it will show that many slides at once
@@ -71,21 +71,21 @@ jQuery(document).ready(function()
 		// Video 
 		resumeOnVideoEnd    : true,      		// If true & the slideshow is active & a supported video is playing, it will pause the autoplay until the video is complete 
 		resumeOnVisible     : false,      		// If true the video will resume playing (if previously paused, except for YouTube iframe - known issue); if false, the video remains paused. 
-		addWmodeToObject    : "opaque",  		// If your slider has an embedded object, the script will automatically add a wmode parameter with this setting 
+		addWmodeToObject    : 'opaque',  		// If your slider has an embedded object, the script will automatically add a wmode parameter with this setting 
 		isVideoPlaying      : function(base){ return false; } // return true if video is playing or false if not - used by video extension 
 	}).anythingSliderFx(
     {},
     {
-		dataAnimate: "data-animate"
+		dataAnimate: 'data-animate'
     });
 	
-	jQuery("#featured_work_wrapper").jCarouselLite(
+	jQuery('#featured_work_wrapper').jCarouselLite(
 	{
-		btnPrev	: ".home_previous",
-        btnNext	: ".home_next",
+		btnPrev	: '.home_previous',
+        btnNext	: '.home_next',
 		auto	: null,
 		speed	: 500,
-		easing	: "swing",
+		easing	: 'swing',
 		vertical: false,
 		circular: true,
 		visible	: 2,

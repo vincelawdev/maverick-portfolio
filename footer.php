@@ -7,8 +7,8 @@
 		<!-- ABOUT - START -->
 		<div id="footer_column1">
 		
-			<h5>About <?php the_author_meta("first_name", mp_options::mp_get_author_id()); ?></h5>			
-			<?php echo wpautop(get_the_author_meta("user_description", mp_options::mp_get_author_id())); ?>
+			<h5>About <?php the_author_meta('first_name', mp_options::mp_get_author_id()); ?></h5>			
+			<?php echo wpautop(get_the_author_meta('user_description', mp_options::mp_get_author_id())); ?>
 			
 		</div>
 		<!-- ABOUT - END -->
@@ -41,7 +41,7 @@
 <div id="footer_row2">
 
 	<!-- FOOTER - ROW 2 - WRAPPER - START -->
-	<div class="footer_wrapper"><?php wp_nav_menu(array("theme_location" => "menu_footer", "container" => "none", "menu_class" => "",  "fallback_cb" => "")); ?></div>
+	<div class="footer_wrapper"><?php wp_nav_menu(array('theme_location' => 'menu_footer', 'container' => 'none', 'menu_class' => '',  'fallback_cb' => '')); ?></div>
 	<!-- FOOTER - ROW 2 - WRAPPER - END -->
 
 </div>

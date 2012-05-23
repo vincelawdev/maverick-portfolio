@@ -11,8 +11,8 @@ get_header();
 		{
 			the_post();
 			?>		
-			<h1 class="page_title"><?php $term = get_term_by("slug", get_query_var("term"), get_query_var("taxonomy")); echo $term->name; ?></h1>
-			<?php mp_options::mp_display_articles(get_query_var("term"), mp_options::mp_get_page()); ?>
+			<h1 class="page_title"><?php $term = get_term_by('slug', get_query_var('term'), get_query_var('taxonomy')); echo $term->name; ?></h1>
+			<?php mp_options::mp_display_articles(get_query_var('term'), mp_options::mp_get_page()); ?>
 		<?php
 		}
 		?>

@@ -2,5 +2,5 @@
 jQuery(document).ready(function($)
 {
 	//REMOVE DEFAULT BIOGRAPHY FIELD
-	$("#description").parents("tr").remove();
+	$('#description').parents('tr').remove();
 });

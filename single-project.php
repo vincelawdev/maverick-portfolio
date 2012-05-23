@@ -22,7 +22,7 @@ get_header();
 			<!-- PROJECT DETAILS - END -->
 			
 			<!-- PROJECT TESTIMONIALS - START -->
-			<?php mp_options::mp_display_testimonials("project", mp_options::mp_get_page()); ?>
+			<?php mp_options::mp_display_testimonials('project', mp_options::mp_get_page()); ?>
 			<!-- PROJECT TESTIMONIALS - END -->
 		<?php
 		}

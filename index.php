@@ -9,13 +9,13 @@
 			$page = mp_options::mp_get_page();
 			
 			#RETRIEVE POSTS
-			query_posts("paged=$page");
+			query_posts('paged=$page');
 		}
 		#SEARCH RESULTS
 		else
 		{
 			#RETRIEVE SEARCH TERM
-			$search_term = trim($_REQUEST["s"]);
+			$search_term = trim($_REQUEST['s']);
 			?>
 			<h1 class="page_title"><?php mp_options::mp_display_search_results_title(); ?> for &quot;<?php echo $search_term; ?>&quot;</h1>
 			<?php
@@ -30,11 +30,11 @@
 				the_post();
 				
 				#INCLUDE BLOG POST TEMPLATE
-				include(TEMPLATEPATH . "/includes/inc-blog-post.php");
+				include(TEMPLATEPATH . '/includes/inc-blog-post.php');
 			}
 			
 			#INCLUDE BLOG POST NAVIGATION TEMPLATE
-			include(TEMPLATEPATH . "/includes/inc-blog-post-navigation.php");
+			include(TEMPLATEPATH . '/includes/inc-blog-post-navigation.php');
 		}
 		#NO POSTS EXIST
 		else
@@ -42,12 +42,12 @@
 			#NO BLOG POSTS
 			if(!is_search())
 			{
-				echo "<p>Sorry, no posts matched your criteria.</p>";
+				echo '<p>Sorry, no posts matched your criteria.</p>';
 			}
 			#NO SEARCH RESULTS
 			else
 			{
-				echo "<p>Sorry, no results matched your search criteria.</p>";
+				echo '<p>Sorry, no results matched your search criteria.</p>';
 			}
 		}
 		?>

@@ -13,7 +13,7 @@ body
 	margin: 0px; 
 	padding: 0px;
 	background-color: #c7c7c7;
-	background-image: url("images/bg-page.jpg");
+	background-image: url('images/bg-page.jpg');
 }
 
 /* HEADER */
@@ -38,7 +38,7 @@ body
 {
 	margin: 9px 0px 0px 0px;
 	padding: 0px;
-	font-family: "CodeProDemoRegular", Georgia;
+	font-family: 'CodeProDemoRegular', Georgia;
 	font-size: 24px;
 	font-weight: normal;
 	color: #ffffff;	
@@ -50,7 +50,7 @@ body
 {
 	margin: 12px 0px 0px 13px;
 	padding: 0px;
-	font-family: "CodeProDemoRegular", Georgia;
+	font-family: 'CodeProDemoRegular', Georgia;
 	font-size: 16px;
 	line-height: 18px;
 	font-weight: normal;
@@ -113,7 +113,7 @@ body
 {
 	margin: 0px;
 	padding: 0px;
-	font-family: "ExpresswayRegular", Georgia;
+	font-family: 'ExpresswayRegular', Georgia;
 	font-size: 20px;
 	font-weight: normal;
 	color: #CCCCCC;
@@ -150,12 +150,12 @@ body
 
 #menu ul.sf-menu > li span.arrow_down_off
 {
-	background-image: url("images/arrow-menu-down-off.png");
+	background-image: url('images/arrow-menu-down-off.png');
 }
 
 #menu ul.sf-menu > li span.arrow_down_on
 {
-	background-image: url("images/arrow-menu-down-on.png");
+	background-image: url('images/arrow-menu-down-on.png');
 }
 
 #menu span.arrow_right_off, #menu span.arrow_right_on
@@ -171,12 +171,12 @@ body
 
 #menu span.arrow_right_off
 {
-	background-image: url("images/arrow-menu-right-off.png");
+	background-image: url('images/arrow-menu-right-off.png');
 }
 
 #menu span.arrow_right_on
 {
-	background-image: url("images/arrow-menu-right-on.png");
+	background-image: url('images/arrow-menu-right-on.png');
 }
 
 #menu ul.sf-menu > li:hover, #menu ul.sf-menu > li.current-menu-item, #menu ul.sf-menu > li.current-page-ancestor
@@ -217,7 +217,7 @@ body
 	height: 25px;
 	margin: 7px 0px 0px 0px;
 	padding: 0px 10px 0px 10px;	
-	font-family: "ExpresswayRegular", Georgia;
+	font-family: 'ExpresswayRegular', Georgia;
 	font-size: 14px;
 	color: #333333;
 	-webkit-border-radius: 8px;
@@ -245,7 +245,7 @@ body
 	height: 27px;
 	margin: 7px 0px 0px 0px;
 	padding: 0px;
-	background-image: url("images/button-search-off.png");
+	background-image: url('images/button-search-off.png');
 	background-repeat: no-repeat;
 	background-position: top left;
 	background-color: #222222;
@@ -256,7 +256,7 @@ body
 
 #search_button:hover
 {
-	background-image: url("images/button-search-on.png");
+	background-image: url('images/button-search-on.png');
 	background-repeat: no-repeat;
 	background-position: top left;
 }
@@ -381,7 +381,7 @@ body
 {
 	margin: 0px 0px 15px 0px;
 	padding: 0px;
-	font-family: "ExpresswayRegular", Georgia;
+	font-family: 'ExpresswayRegular', Georgia;
 	font-size: 27px;
 	font-weight: normal;
 	color: #333333;
@@ -392,7 +392,7 @@ body
 {
 	margin: 0px 0px 5px 0px;
 	padding: 0px;
-	font-family: "ExpresswayRegular", Georgia;
+	font-family: 'ExpresswayRegular', Georgia;
 	font-size: 27px;
 	font-weight: normal;
 	color: #333333;
@@ -422,7 +422,7 @@ body
 {
 	margin: 0px 0px 10px 0px;
 	padding: 0px 0px 8px 0px;
-	font-family: "ExpresswayRegular", Georgia;
+	font-family: 'ExpresswayRegular', Georgia;
 	font-size: 20px;
 	font-weight: normal;
 	color: #333333;
@@ -451,7 +451,7 @@ body
 {
 	margin: 0px;
 	padding: 0px;
-	font-family: "ExpresswayRegular", Georgia;
+	font-family: 'ExpresswayRegular', Georgia;
 	font-size: 13px;
 	font-weight: normal;
 	color: #adadad;
@@ -494,7 +494,7 @@ body
 
 #content h2
 {
-	font-family: "ExpresswayRegular", Georgia;
+	font-family: 'ExpresswayRegular', Georgia;
 	font-size: 20px;
 	font-weight: normal;
 	color: #333333;
@@ -505,7 +505,7 @@ body
 {
 	margin: 10px 0px 10px 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #333333;
@@ -530,7 +530,7 @@ body
 	margin: 10px 0px 0px 0px;
 	padding: 0px;
 	list-style-position: inside;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #333333;
@@ -556,7 +556,7 @@ body
 {
 	margin: 0px 0px 11px 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #333333;
@@ -662,7 +662,7 @@ body
 {
 	margin: 0px;
 	padding: 0px;
-	font-family: "ExpresswayRegular", Georgia;
+	font-family: 'ExpresswayRegular', Georgia;
 	font-size: 16px;
 	font-weight: normal;
 	color: #333333;
@@ -724,7 +724,7 @@ body
 {
 	margin: 2px 0px 0px 0px;
 	padding: 0px;
-	font-family: "ExpresswayRegular", Georgia;
+	font-family: 'ExpresswayRegular', Georgia;
 	font-size: 16px;
 	font-weight: normal;
 	color: #333333;
@@ -749,7 +749,7 @@ body
 {
 	margin: 3px 0px 0px 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 12px;
 	font-weight: normal;
 	color: #333333;
@@ -766,7 +766,7 @@ body
 {
 	margin: 8px 0px 0px 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #333333;
@@ -793,7 +793,7 @@ body
 	position: absolute;
 	width: 658px;
 	height: 298px;
-	background-image: url("images/icon-magnifier-large.png");
+	background-image: url('images/icon-magnifier-large.png');
 	background-repeat: no-repeat;
 	background-position: 4px 4px;
 	border: 1px solid #cccccc;
@@ -833,7 +833,7 @@ body
 {
 	margin: 0px;
 	padding: 0px;
-	font-family: "ExpresswayRegular", Georgia;
+	font-family: 'ExpresswayRegular', Georgia;
 	font-size: 16px;
 	font-weight: normal;
 	color: #333333;
@@ -948,7 +948,7 @@ body
 	width: 256px;
 	margin: 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #333333;
@@ -985,7 +985,7 @@ body
 {
 	margin: 0px 0px 11px 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #333333;
@@ -1025,7 +1025,7 @@ body
 	padding: 0px;
 	list-style-type: none;
 	list-style-position: inside;
-	background-image: url("images/arrow-comments.png");
+	background-image: url('images/arrow-comments.png');
 	background-repeat: no-repeat;
 	background-position: top left;
 	overflow: hidden;
@@ -1071,12 +1071,12 @@ body
 
 #content ul.comments li.bypostauthor .comment_header
 {
-	background-image: url("images/bg-comments-author.png");
+	background-image: url('images/bg-comments-author.png');
 }
 
 #content ul.comments li .comment_header
 {
-	background-image: url("images/bg-comments-user.png");
+	background-image: url('images/bg-comments-user.png');
 }
 
 #content ul.comments li .comment_avatar
@@ -1123,7 +1123,7 @@ body
 {
 	margin: 2px 0px 3px 0px;
 	padding: 0px;
-	font-family: "ExpresswayRegular", Georgia;
+	font-family: 'ExpresswayRegular', Georgia;
 	font-size: 18px;
 	font-weight: normal;
 	-webkit-font-smoothing: antialiased;
@@ -1167,7 +1167,7 @@ body
 {
 	margin: 0px;
 	padding: 0px;
-	font-family: "ExpresswayRegular", Georgia;
+	font-family: 'ExpresswayRegular', Georgia;
 	font-size: 14px;
 	font-weight: normal;
 	color: #333333;
@@ -1200,7 +1200,7 @@ body
 {
 	margin: 10px 0px 10px 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #333333;
@@ -1245,7 +1245,7 @@ body
 {
 	margin: 0px;
 	padding: 0px;
-	font-family: "CodeProDemoRegular", Georgia;
+	font-family: 'CodeProDemoRegular', Georgia;
 	font-size: 18px;
 	font-weight: normal;
 	color: #cccccc;	
@@ -1306,7 +1306,7 @@ body
 {
 	margin: 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #CCCCCC;
@@ -1318,7 +1318,7 @@ body
 	margin: 1px 0px 1px 0px;
 	padding: 0px;
 	border-bottom: 1px dotted #cccccc;
-	background-image: url("images/arrow-sidebar-off.png");
+	background-image: url('images/arrow-sidebar-off.png');
 	background-repeat: no-repeat;
 	background-position: 3px 10px;
 }
@@ -1347,7 +1347,7 @@ body
 #sidebar ul.sidebar li:hover,
 #sidebar ul.sidebar li.current
 {
-	background-image: url("images/arrow-sidebar-on.png");
+	background-image: url('images/arrow-sidebar-on.png');
 	background-color: #d8d8d8;
 }
 
@@ -1355,7 +1355,7 @@ body
 {
 	margin: 1px 0px 1px 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #CCCCCC;
@@ -1394,7 +1394,7 @@ body
 {
 	margin: 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #CCCCCC;
@@ -1439,7 +1439,7 @@ body
 {
 	margin: 10px 0px 0px 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #333333;
@@ -1479,7 +1479,7 @@ body
 {
 	margin: 0px;
 	padding: 4px 5px 4px 5px;
-	font-family: "CodeProDemoRegular", Georgia;
+	font-family: 'CodeProDemoRegular', Georgia;
 	font-size: 10px;
 	font-weight: normal;
 	color: #333333;
@@ -1555,7 +1555,7 @@ body
 {
 	margin: 0px 0px 15px 0px;
 	padding: 0px;
-	font-family: "MatizRegular";
+	font-family: 'MatizRegular';
 	font-size: 48px;
 	font-weight: normal;
 	color: #F00;
@@ -1567,7 +1567,7 @@ body
 {
 	margin: 0px 0px 10px 0px;
 	padding: 0px;
-	font-family: "MatizRegular";
+	font-family: 'MatizRegular';
 	font-size: 36px;
 	font-weight: normal;
 	color: #545454;
@@ -1632,7 +1632,7 @@ body
 {
 	margin: 2px 0px 0px 0px;
 	padding: 0px;
-	font-family: "ExpresswayRegular", Georgia;
+	font-family: 'ExpresswayRegular', Georgia;
 	font-size: 16px;
 	font-weight: normal;
 	color: #333333;
@@ -1657,7 +1657,7 @@ body
 {
 	margin: 3px 0px 0px 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 12px;
 	font-weight: normal;
 	color: #333333;
@@ -1674,7 +1674,7 @@ body
 {
 	margin: 8px 0px 0px 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #333333;
@@ -1687,7 +1687,7 @@ body
 	height: 25px;
 	margin: 126px 20px 0px 0px;
 	padding: 0px;
-	background-image: url("images/arrow-slider-left-off.png");
+	background-image: url('images/arrow-slider-left-off.png');
 	background-repeat: no-repeat;
 	background-position: top left;
 	cursor: pointer;
@@ -1697,7 +1697,7 @@ body
 #content div.home_previous:hover,
 #content div.home_previous:active
 {
-	background-image: url("images/arrow-slider-left-on.png");
+	background-image: url('images/arrow-slider-left-on.png');
 }
 
 #content div.home_next
@@ -1706,7 +1706,7 @@ body
 	height: 25px;
 	margin: 126px 0px 0px 0px;
 	padding: 0px;
-	background-image: url("images/arrow-slider-right-off.png");
+	background-image: url('images/arrow-slider-right-off.png');
 	background-repeat: no-repeat;
 	background-position: top right;
 	cursor: pointer;
@@ -1716,7 +1716,7 @@ body
 #content div.home_next:hover,
 #content div.home_next:active
 {
-	background-image: url("images/arrow-slider-right-on.png");
+	background-image: url('images/arrow-slider-right-on.png');
 }
 
 #content #home_column1
@@ -1740,7 +1740,7 @@ body
 {
 	margin: 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #333333;
@@ -1752,7 +1752,7 @@ body
 {
 	margin: 0px 0px 4px 0px;
 	padding: 0px 0px 0px 19px;
-	background-image: url("images/arrow-home-right.png");
+	background-image: url('images/arrow-home-right.png');
 	background-repeat: no-repeat;
 	background-position: 3px 4px;
 }
@@ -1762,7 +1762,7 @@ body
 {
 	margin: 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 12px;
 	font-weight: normal;
 	color: #adadad;
@@ -1869,7 +1869,7 @@ body
 	position: absolute;
 	width: 144px;
 	height: 107px;
-	background-image: url("images/icon-magnifier.png");
+	background-image: url('images/icon-magnifier.png');
 	background-repeat: no-repeat;
 	background-position: 4px 4px;
 	border: 3px solid #cccccc;
@@ -1927,7 +1927,7 @@ body
 	position: absolute;
 	width: 66px;
 	height: 66px;
-	background-image: url("images/icon-magnifier.png");
+	background-image: url('images/icon-magnifier.png');
 	background-repeat: no-repeat;
 	background-position: 4px 4px;
 	border: 2px solid #cccccc;
@@ -1952,7 +1952,7 @@ body
 {
 	margin: 8px 0px 10px 0px;
 	padding: 0px;
-	font-family: "CodeProDemoRegular", Georgia;
+	font-family: 'CodeProDemoRegular', Georgia;
 	font-size: 18px;
 	font-weight: normal;
 	color: #cccccc;
@@ -1965,7 +1965,7 @@ body
 {
 	margin: 0px 0px 15px 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #cccccc;
@@ -1986,7 +1986,7 @@ body
 {
 	margin: 11px 0px 0px 0px;
 	padding: 0px;
-	font-family: "ExpresswayRegular", Georgia;
+	font-family: 'ExpresswayRegular', Georgia;
 	font-size: 13px;
 	font-weight: normal;
 	color: #AAAAAA;
@@ -2044,7 +2044,7 @@ form
 {
 	margin: 1px;
 	padding: 4px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-style: normal;
 	color: #333333;
@@ -2060,7 +2060,7 @@ form
 {
 	margin: 0px;
 	padding: 8px 10px 8px 10px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	color: #333333;
 	background-image: -ms-linear-gradient(top, #F3F3F3 0%, #FDFDFD 100%);
@@ -2079,7 +2079,7 @@ form
 	height: 300px;
 	margin: 0px;
 	padding: 8px 10px 8px 10px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	color: #333333;
 	background-image: -ms-linear-gradient(top, #FDFDFD 0%, #F3F3F3 100%);
@@ -2105,7 +2105,7 @@ form
 {
 	margin: 0px;
 	padding: 7px 27px 7px 27px;
-	font-family: "CodeProDemoRegular", Georgia;
+	font-family: 'CodeProDemoRegular', Georgia;
 	font-size: 13px;
 	font-weight: normal;
 	color: #333333;
@@ -2211,7 +2211,7 @@ a img
 {
 	margin: 0px;
 	padding: 0px;
-	font-family: "ExpresswayRegular";
+	font-family: 'ExpresswayRegular';
 	font-size: 16px;
 	font-weight: normal;
 	color: #333333;
@@ -2234,7 +2234,7 @@ blockquote p
 {
 	margin: 10px 0px 10px 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	font-style: italic;
@@ -2250,7 +2250,7 @@ blockquote p
 	padding: 0px 10px 10px 40px;
 	border: 1px solid #cccccc;
 	background-color: #f6f6f6;
-	background-image: url("images/bg-testimonial-left.png");
+	background-image: url('images/bg-testimonial-left.png');
 	background-repeat: no-repeat;
 	background-position: 10px 10px;
 	overflow: hidden;
@@ -2258,7 +2258,7 @@ blockquote p
 
 #content div.testimonial_box div.testimonial
 {
-	background-image: url("images/bg-testimonial-right.png");
+	background-image: url('images/bg-testimonial-right.png');
 	background-repeat: no-repeat;
 	background-position: bottom right;
 	overflow: hidden;
@@ -2275,7 +2275,7 @@ blockquote p
 {
 	margin: 10px 0px 10px 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #333333;
@@ -2294,7 +2294,7 @@ blockquote p
 {
 	margin: 10px 0px 10px 0px;
 	padding: 0px;
-	font-family: "ExpresswayRegular", Georgia;
+	font-family: 'ExpresswayRegular', Georgia;
 	font-size: 20px;
 	font-weight: normal;
 	color: #333333;
@@ -2306,7 +2306,7 @@ blockquote p
 {
 	margin: 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 15px;
 	font-style: normal;
 	color: #333333;
@@ -2329,7 +2329,7 @@ blockquote p
 .wp-table-reloaded th
 {
 	padding: 4px;
-	font-family: "ExpresswayRegular", Georgia;
+	font-family: 'ExpresswayRegular', Georgia;
 	font-size: 16px;
 	font-weight: normal;
 	color: #333333;
@@ -2341,7 +2341,7 @@ blockquote p
 .wp-table-reloaded td
 {
 	padding: 4px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #333333;
@@ -2361,7 +2361,7 @@ blockquote p
 {
 	margin: 10px 0px 10px 0px;
 	padding: 0px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 14px;
 	font-weight: normal;
 	color: #333333;
@@ -2423,36 +2423,36 @@ input#captcha_code
 /* FONTS */
 @font-face
 {
-    font-family: "CodeProDemoRegular";
-    src: url("fonts/Code_Pro_Demo-webfont.eot");
-    src: url("fonts/Code_Pro_Demo-webfont.eot?#iefix") format("embedded-opentype"),
-         url("fonts/Code_Pro_Demo-webfont.woff") format("woff"),
-         url("fonts/Code_Pro_Demo-webfont.ttf") format("truetype"),
-         url("fonts/Code_Pro_Demo-webfont.svg#CodeProDemoRegular") format("svg");
+    font-family: 'CodeProDemoRegular';
+    src: url('fonts/Code_Pro_Demo-webfont.eot');
+    src: url('fonts/Code_Pro_Demo-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/Code_Pro_Demo-webfont.woff') format('woff'),
+         url('fonts/Code_Pro_Demo-webfont.ttf') format('truetype'),
+         url('fonts/Code_Pro_Demo-webfont.svg#CodeProDemoRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face
 {
-    font-family: "ExpresswayRegular";
-    src: url("fonts/expressway_rg-webfont.eot");
-    src: url("fonts/expressway_rg-webfont.eot?#iefix") format("embedded-opentype"),
-         url("fonts/expressway_rg-webfont.woff") format("woff"),
-         url("fonts/expressway_rg-webfont.ttf") format("truetype"),
-         url("fonts/expressway_rg-webfont.svg#ExpresswayRegular") format("svg");
+    font-family: 'ExpresswayRegular';
+    src: url('fonts/expressway_rg-webfont.eot');
+    src: url('fonts/expressway_rg-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/expressway_rg-webfont.woff') format('woff'),
+         url('fonts/expressway_rg-webfont.ttf') format('truetype'),
+         url('fonts/expressway_rg-webfont.svg#ExpresswayRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face
 {
-    font-family: "MatizRegular";
-    src: url("fonts/Matiz-webfont.eot");
-    src: url("fonts/Matiz-webfont.eot?#iefix") format("embedded-opentype"),
-         url("fonts/Matiz-webfont.woff") format("woff"),
-         url("fonts/Matiz-webfont.ttf") format("truetype"),
-         url("fonts/Matiz-webfont.svg#MatizRegular") format("svg");
+    font-family: 'MatizRegular';
+    src: url('fonts/Matiz-webfont.eot');
+    src: url('fonts/Matiz-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/Matiz-webfont.woff') format('woff'),
+         url('fonts/Matiz-webfont.ttf') format('truetype'),
+         url('fonts/Matiz-webfont.svg#MatizRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 }

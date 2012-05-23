@@ -2,5 +2,5 @@
 jQuery(document).ready(function($)
 {
 	//IMAGES
-	$("a.colorbox").colorbox();
+	$('a.colorbox').colorbox();
 });

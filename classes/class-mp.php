@@ -6,95 +6,95 @@ class mp_options
 	function __construct()
 	{	
 		#REMOVE UNNECESSARY META DATA FROM WORDPRESS HEAD
-		remove_action("wp_head", "wp_generator");
-		remove_action("wp_head", "start_post_rel_link");
-		remove_action("wp_head", "index_rel_link");
-		remove_action("wp_head", "adjacent_posts_rel_link");
-		remove_action("wp_head", "adjacent_posts_rel_link_wp_head");
-		remove_action("wp_head", "parent_post_rel_link");
-		remove_action("wp_head", "parent_post_rel_link_wp_head");
+		remove_action('wp_head', 'wp_generator');
+		remove_action('wp_head', 'start_post_rel_link');
+		remove_action('wp_head', 'index_rel_link');
+		remove_action('wp_head', 'adjacent_posts_rel_link');
+		remove_action('wp_head', 'adjacent_posts_rel_link_wp_head');
+		remove_action('wp_head', 'parent_post_rel_link');
+		remove_action('wp_head', 'parent_post_rel_link_wp_head');
 		
 		#ENABLE POST THUMBNAILS
-		add_theme_support("post-thumbnails");
+		add_theme_support('post-thumbnails');
 		
 		#INITIALISE MENUS
-		register_nav_menu("menu_top", "Top Menu");
-		register_nav_menu("menu_footer", "Footer Menu");
+		register_nav_menu('menu_top', 'Top Menu');
+		register_nav_menu('menu_footer', 'Footer Menu');
 		
 		#ENABLE SIDEBAR WIDGETS
-		register_sidebar(array("before_widget" => '<div class="sidebar_box">',"after_widget" => "</div>", "before_title" => "<h4>", "after_title" => "</h4>",));
+		register_sidebar(array('before_widget' => '<div class="sidebar_box">','after_widget' => '</div>', 'before_title' => '<h4>', 'after_title' => '</h4>',));
 		
 		#INITIALISE JQUERY LIBRARY
-		add_action("init", array("mp_options", "mp_jquery"));
+		add_action('init', array('mp_options', 'mp_jquery'));
 		
 		#INITIALISE THEME OPTIONS
-		add_action("admin_menu", array("mp_options", "mp_admin_menu"));
-		add_action("admin_init", array("mp_options", "mp_theme_settings"));
+		add_action('admin_menu', array('mp_options', 'mp_admin_menu'));
+		add_action('admin_init', array('mp_options', 'mp_theme_settings'));
 		
 		#INITIALISE THEME ADMIN JAVASCRIPT & CSS
-		add_action("admin_head", array("mp_options", "mp_admin_head"));
+		add_action('admin_head', array('mp_options', 'mp_admin_head'));
 		
 		#INITIALISE ARTICLE CUSTOM POST TYPE
-		add_action("init", array("mp_options", "mp_custom_posts_articles"));
-		add_action("init", array("mp_options", "mp_custom_taxonomies_article_directories"));
-		add_filter("manage_edit-article_columns", array("mp_options", "mp_article_edit_columns"));
-		add_action("manage_article_posts_custom_column",  array("mp_options", "mp_article_custom_columns"));
+		add_action('init', array('mp_options', 'mp_custom_posts_articles'));
+		add_action('init', array('mp_options', 'mp_custom_taxonomies_article_directories'));
+		add_filter('manage_edit-article_columns', array('mp_options', 'mp_article_edit_columns'));
+		add_action('manage_article_posts_custom_column',  array('mp_options', 'mp_article_custom_columns'));
 		
 		#INITIALISE ARTICLE META BOX
-		add_action("admin_init", array("mp_options", "mp_meta_boxes_article"));
+		add_action('admin_init', array('mp_options', 'mp_meta_boxes_article'));
 		
 		#INITIALISE SLIDE CUSTOM POST TYPE
-		add_action("init", array("mp_options", "mp_custom_posts_slides"));
-		add_filter("manage_edit-slide_columns", array("mp_options", "mp_slide_edit_columns"));
-		add_action("manage_slide_posts_custom_column",  array("mp_options", "mp_slide_custom_columns"));
+		add_action('init', array('mp_options', 'mp_custom_posts_slides'));
+		add_filter('manage_edit-slide_columns', array('mp_options', 'mp_slide_edit_columns'));
+		add_action('manage_slide_posts_custom_column',  array('mp_options', 'mp_slide_custom_columns'));
 		
 		#INITIALISE SLIDE META BOX
-		add_action("admin_init", array("mp_options", "mp_meta_boxes_slide"));
+		add_action('admin_init', array('mp_options', 'mp_meta_boxes_slide'));
 		
 		#INITIALISE PROJECT CUSTOM POST TYPE & TAXONOMIES
-		add_action("init", array("mp_options", "mp_custom_posts_project"));
-		add_action("init", array("mp_options", "mp_custom_taxonomies_project_categories"));
-		add_action("init", array("mp_options", "mp_custom_taxonomies_project_scope"));
-		add_action("init", array("mp_options", "mp_custom_taxonomies_project_skills"));
-		add_filter("manage_edit-project_columns", array("mp_options", "mp_project_edit_columns"));
-		add_action("manage_project_posts_custom_column",  array("mp_options", "mp_project_custom_columns"));
+		add_action('init', array('mp_options', 'mp_custom_posts_project'));
+		add_action('init', array('mp_options', 'mp_custom_taxonomies_project_categories'));
+		add_action('init', array('mp_options', 'mp_custom_taxonomies_project_scope'));
+		add_action('init', array('mp_options', 'mp_custom_taxonomies_project_skills'));
+		add_filter('manage_edit-project_columns', array('mp_options', 'mp_project_edit_columns'));
+		add_action('manage_project_posts_custom_column',  array('mp_options', 'mp_project_custom_columns'));
 		
 		#INITIALISE PROJECT META BOX
-		add_action("admin_init", array("mp_options", "mp_meta_boxes_project"));
+		add_action('admin_init', array('mp_options', 'mp_meta_boxes_project'));
 		
 		#INITIALISE TESTIMONIAL CUSTOM POST TYPE
-		add_action("init", array("mp_options", "mp_custom_posts_testimonials"));
-		add_filter("manage_edit-testimonial_columns", array("mp_options", "mp_testimonial_edit_columns"));
-		add_action("manage_testimonial_posts_custom_column",  array("mp_options", "mp_testimonial_custom_columns"));
+		add_action('init', array('mp_options', 'mp_custom_posts_testimonials'));
+		add_filter('manage_edit-testimonial_columns', array('mp_options', 'mp_testimonial_edit_columns'));
+		add_action('manage_testimonial_posts_custom_column',  array('mp_options', 'mp_testimonial_custom_columns'));
 		
 		#INITIALISE TESTIMONIAL META BOX
-		add_action("admin_init", array("mp_options", "mp_meta_boxes_testimonial"));
+		add_action('admin_init', array('mp_options', 'mp_meta_boxes_testimonial'));
 		
 		#INITIALISE TINYMCE EDITOR FOR USER BIOGRAPHY IN WORDPRESS 3.3 +
-		if(function_exists("wp_editor") && current_user_can("edit_posts"))
+		if(function_exists('wp_editor') && current_user_can('edit_posts'))
 		{
 			#REPLACE BIOGRAPHY FIELD WITH TINYMCE EDITOR
-			add_action("show_user_profile", array("mp_options", "mp_tinymce_biography"));
-			add_action("edit_user_profile", array("mp_options", "mp_tinymce_biography"));
+			add_action('show_user_profile', array('mp_options', 'mp_tinymce_biography'));
+			add_action('edit_user_profile', array('mp_options', 'mp_tinymce_biography'));
 			
 			#REMOVE TEXTAREA FILTERS FROM BIOGRAPHY FIELD
-			remove_all_filters("pre_user_description");
+			remove_all_filters('pre_user_description');
 			
 			#ADD CONTENT FILTERS TO THE BIOGRAPHY FIELD
-			add_filter("get_the_author_description", "wptexturize");
-			add_filter("get_the_author_description", "convert_chars");
-			add_filter("get_the_author_description", "wpautop");
+			add_filter('get_the_author_description', 'wptexturize');
+			add_filter('get_the_author_description', 'convert_chars');
+			add_filter('get_the_author_description', 'wpautop');
 		}
 		
 		#INITIALISE USER CONTACT INFO FIELDS
-		add_filter("user_contactmethods", array("mp_options", "mp_contact_info"));
+		add_filter('user_contactmethods', array('mp_options', 'mp_contact_info'));
 		
 		#INITIALISE SHORTCODES
-		add_shortcode("testimonial", array("mp_options", "mp_testimonial_shortcode"));
-		add_shortcode("rss", array("mp_options", "mp_rss_shortcode"));		
+		add_shortcode('testimonial', array('mp_options', 'mp_testimonial_shortcode'));
+		add_shortcode('rss', array('mp_options', 'mp_rss_shortcode'));		
 		
 		#INITIALISE TRACKING CODE IN FOOTER
-		add_action("wp_footer", array("mp_options", "mp_tracking"));
+		add_action('wp_footer', array('mp_options', 'mp_tracking'));
 	}
 	
 	/**************************************************************************
@@ -104,27 +104,27 @@ class mp_options
 	#THIS FUNCTION ADDS THE THEME OPTIONS MENU ITEM TO THE APPEARANCE MENU
 	function mp_admin_menu()
 	{
-		add_theme_page("Options", "Options", "administrator", "mp_options", array("mp_options", "mp_options_page"));
+		add_theme_page('Options', 'Options', 'administrator', 'mp_options', array('mp_options', 'mp_options_page'));
 	}
 	
 	#THIS FUNCTION REGISTERS THE THEME OPTION SETTINGS
 	function mp_theme_settings()
 	{
-		register_setting("mp_settings_author", "mp_author");
-		register_setting("mp_settings_rss", "mp_feedburner_rss");
-		register_setting("mp_settings_rss", "mp_feedburner_email");
-		register_setting("mp_settings_rss", "mp_rss_articles");
-		register_setting("mp_settings_rss", "mp_rss_slides");
-		register_setting("mp_settings_rss", "mp_rss_projects");
-		register_setting("mp_settings_rss", "mp_rss_testimonials");
-		register_setting("mp_settings_rss", "mp_rss_external");
-		register_setting("mp_settings_rss", "mp_rss_comments");
-		register_setting("mp_settings_sidebar", "mp_facebook_like_box");
-		register_setting("mp_settings_sidebar", "mp_posts_recent_number");
-		register_setting("mp_settings_sidebar", "mp_posts_comments_number");
-		register_setting("mp_settings_sidebar", "mp_comments_recent_number");
-		register_setting("mp_settings_sidebar", "mp_comments_commenters_number");
-		register_setting("mp_settings_tracking", "mp_tracking");
+		register_setting('mp_settings_author', 'mp_author');
+		register_setting('mp_settings_rss', 'mp_feedburner_rss');
+		register_setting('mp_settings_rss', 'mp_feedburner_email');
+		register_setting('mp_settings_rss', 'mp_rss_articles');
+		register_setting('mp_settings_rss', 'mp_rss_slides');
+		register_setting('mp_settings_rss', 'mp_rss_projects');
+		register_setting('mp_settings_rss', 'mp_rss_testimonials');
+		register_setting('mp_settings_rss', 'mp_rss_external');
+		register_setting('mp_settings_rss', 'mp_rss_comments');
+		register_setting('mp_settings_sidebar', 'mp_facebook_like_box');
+		register_setting('mp_settings_sidebar', 'mp_posts_recent_number');
+		register_setting('mp_settings_sidebar', 'mp_posts_comments_number');
+		register_setting('mp_settings_sidebar', 'mp_comments_recent_number');
+		register_setting('mp_settings_sidebar', 'mp_comments_commenters_number');
+		register_setting('mp_settings_tracking', 'mp_tracking');
 	}
 	
 	#THIS FUNCTION RESETS THE THEME OPTION SETTINGS
@@ -134,41 +134,41 @@ class mp_options
 		switch($option)
 		{
 			#AUTHOR
-			case "author":
+			case 'author':
 			
-				update_option("mp_author", 1);
+				update_option('mp_author', 1);
 				
 				break;
 				
 			#RSS
-			case "rss":
+			case 'rss':
 				
-				update_option("mp_feedburner_rss", "");
-				update_option("mp_feedburner_email", "");
-				update_option("mp_rss_articles", 1);
-				update_option("mp_rss_slides", 1);
-				update_option("mp_rss_projects", 1);
-				update_option("mp_rss_testimonials", 1);
-				update_option("mp_rss_external", "");
-				update_option("mp_rss_comments", 1);
+				update_option('mp_feedburner_rss', '');
+				update_option('mp_feedburner_email', '');
+				update_option('mp_rss_articles', 1);
+				update_option('mp_rss_slides', 1);
+				update_option('mp_rss_projects', 1);
+				update_option('mp_rss_testimonials', 1);
+				update_option('mp_rss_external', '');
+				update_option('mp_rss_comments', 1);
 				
 				break;
 				
 			#SIDEBAR
-			case "sidebar":
+			case 'sidebar':
 			
-				update_option("mp_facebook_like_box", "");
-				update_option("mp_posts_recent_number", 5);
-				update_option("mp_posts_comments_number", 5);
-				update_option("mp_comments_recent_number", 5);
-				update_option("mp_comments_commenters_number", 5);
+				update_option('mp_facebook_like_box', '');
+				update_option('mp_posts_recent_number', 5);
+				update_option('mp_posts_comments_number', 5);
+				update_option('mp_comments_recent_number', 5);
+				update_option('mp_comments_commenters_number', 5);
 				
 				break;
 				
 			#TRACKING
-			case "tracking":
+			case 'tracking':
 			
-				update_option("mp_tracking", "");
+				update_option('mp_tracking', '');
 				
 				break;
 		}
@@ -178,12 +178,12 @@ class mp_options
 	function mp_options_page()
 	{
 		#INITIALISE SUB PAGE
-		$sub_page = $_REQUEST["sub_page"];
+		$sub_page = $_REQUEST['sub_page'];
 		
 		#SET DEFAULT SUB PAGE TO AUTHOR
 		if(empty($sub_page))
 		{
-			$sub_page = "author";
+			$sub_page = 'author';
 		}
 		
 		?>
@@ -194,11 +194,11 @@ class mp_options
 			<h2>Options</h2>
 			
 			<ul style="display: block">
-				<li style="display: inline"><?php if($sub_page == "author" || empty($sub_page)) { echo "<strong>Author</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=author">Author</a><?php } ?></li>
-				<li style="display: inline"><?php if($sub_page == "sidebar") { echo "<strong>Sidebar</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=sidebar">Sidebar</a><?php } ?></li>
-				<li style="display: inline"><?php if($sub_page == "rss") { echo "<strong>RSS</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=rss">RSS</a><?php } ?></li>
-				<li style="display: inline"><?php if($sub_page == "tracking") { echo "<strong>Tracking</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=tracking">Tracking</a><?php } ?></li>
-				<li style="display: inline"><?php if($sub_page == "reset") { echo "<strong>Reset</strong>"; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=reset">Reset</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == 'author' || empty($sub_page)) { echo '<strong>Author</strong>'; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=author">Author</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == 'sidebar') { echo '<strong>Sidebar</strong>'; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=sidebar">Sidebar</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == 'rss') { echo '<strong>RSS</strong>'; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=rss">RSS</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == 'tracking') { echo '<strong>Tracking</strong>'; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=tracking">Tracking</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == 'reset') { echo '<strong>Reset</strong>'; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=reset">Reset</a><?php } ?></li>
 				<li style="display: inline"><a href="http://www.employvince.com/contact/" target="_blank">Support</a></li>			
 			</ul>
 			
@@ -208,23 +208,23 @@ class mp_options
 		switch($sub_page)
 		{
 			#AUTHOR
-			case "author":
+			case 'author':
 				
 				#DISPLAY UPDATE MESSAGE
-				if(isset($_GET["settings-updated"]) && ($_GET["settings-updated"] == true))
+				if(isset($_GET['settings-updated']) && ($_GET['settings-updated'] == true))
 				{
 				?>
-				<div class="updated fade"><p><strong><?php _e("Your Author options have been saved."); ?></strong></p></div>
+				<div class="updated fade"><p><strong><?php _e('Your Author options have been saved.'); ?></strong></p></div>
 				<?php
 				}
 				?>
 				
 				<form method="post" action="options.php">
 				<?php
-				settings_fields("mp_settings_author");
+				settings_fields('mp_settings_author');
 				
 				#DISPLAY AUTHORS
-				mp_options::mp_option_field("Author", "", true, true, "Author", "author", "mp_author", "mp_author", "Select the author you wish to display in the sidebar and footer", "", true);
+				mp_options::mp_option_field('Author', '', true, true, 'Author', 'author', 'mp_author', 'mp_author', 'Select the author you wish to display in the sidebar and footer', '', true);
 				?>
 			
 				</form>
@@ -233,13 +233,13 @@ class mp_options
 				break;
 				
 			#RSS
-			case "rss":
+			case 'rss':
 				
 				#DISPLAY UPDATE MESSAGE
-				if(isset($_GET["settings-updated"]) && ($_GET["settings-updated"] == true))
+				if(isset($_GET['settings-updated']) && ($_GET['settings-updated'] == true))
 				{
 				?>
-				<div class="updated fade"><p><strong><?php _e("Your RSS options have been saved."); ?></strong></p></div>
+				<div class="updated fade"><p><strong><?php _e('Your RSS options have been saved.'); ?></strong></p></div>
 				<?php
 				}
 				?>
@@ -248,37 +248,37 @@ class mp_options
 				
 				<form id="mp_rss" method="post" action="options.php">
 				<?php
-				settings_fields("mp_settings_rss");
+				settings_fields('mp_settings_rss');
 				
 				#INITIALISE FEEDBURNER DESCRIPTION
-				$feedburner_description = '<p>Register your RSS feed at <a href="http://feedburner.google.com/" target="_blank">FeedBurner</a> to get a FeedBurner feed address to replace your default RSS feed address: <a href="' . get_bloginfo("rss2_url") . '" target="_blank">' . get_bloginfo("rss2_url") . '</a>.</p>';
+				$feedburner_description = '<p>Register your RSS feed at <a href="http://feedburner.google.com/" target="_blank">FeedBurner</a> to get a FeedBurner feed address to replace your default RSS feed address: <a href="' . get_bloginfo('rss2_url') . '" target="_blank">' . get_bloginfo('rss2_url') . '</a>.</p>';
 				
 				#DISPLAY FEEDBURNER FEED ADDRESS
-				mp_options::mp_option_field("FeedBurner", $feedburner_description, true, false, "FeedBurner Feed Address", "text", "mp_feedburner_rss", "mp_feedburner_rss", "Enter the FeedBurner Feed Address of your RSS feed", "", false);
+				mp_options::mp_option_field('FeedBurner', $feedburner_description, true, false, 'FeedBurner Feed Address', 'text', 'mp_feedburner_rss', 'mp_feedburner_rss', 'Enter the FeedBurner Feed Address of your RSS feed', '', false);
 				
 				#DISPLAY FEEDBURNER EMAIL SUBSCRIPTION ADDRESS
-				mp_options::mp_option_field("", "", false, true, "FeedBurner Subscription Address", "text", "mp_feedburner_email", "mp_feedburner_email", "Enter the subscription address of your FeedBurner Feed", "", true);
+				mp_options::mp_option_field('', '', false, true, 'FeedBurner Subscription Address', 'text', 'mp_feedburner_email', 'mp_feedburner_email', 'Enter the subscription address of your FeedBurner Feed', '', true);
 				
-				#DISPLAY Articles RSS
-				mp_options::mp_option_field("Custom Posts", "", true, false, "Articles", "yes_no", "mp_rss_articles", "mp_rss_articles", "Select whether you wish to enable the Articles RSS feed", "Yes", false);
+				#DISPLAY ARTICLES RSS
+				mp_options::mp_option_field('Custom Posts', '', true, false, 'Articles', 'yes_no', 'mp_rss_articles', 'mp_rss_articles', 'Select whether you wish to enable the Articles RSS feed', 'Yes', false);
 				
 				#DISPLAY SLIDES RSS
-				mp_options::mp_option_field("", "", false, false, "Slides", "yes_no", "mp_rss_slides", "mp_rss_slides", "Select whether you wish to enable the Slides RSS feed", "Yes", false);
+				mp_options::mp_option_field('', '', false, false, 'Slides', 'yes_no', 'mp_rss_slides', 'mp_rss_slides', 'Select whether you wish to enable the Slides RSS feed', 'Yes', false);
 				
 				#DISPLAY PROJECTS RSS
-				mp_options::mp_option_field("", "", false, false, "Projects", "yes_no", "mp_rss_projects", "mp_rss_projects", "Select whether you wish to enable the Projects RSS feed", "Yes", false);
+				mp_options::mp_option_field('', '', false, false, 'Projects', 'yes_no', 'mp_rss_projects', 'mp_rss_projects', 'Select whether you wish to enable the Projects RSS feed', 'Yes', false);
 				
 				#DISPLAY TESTIMONIALS RSS
-				mp_options::mp_option_field("", "", false, true, "Testimonials", "yes_no", "mp_rss_testimonials", "mp_rss_testimonials", "Select whether you wish to enable the Testimonials RSS feed", "Yes", true);
+				mp_options::mp_option_field('', '', false, true, 'Testimonials', 'yes_no', 'mp_rss_testimonials', 'mp_rss_testimonials', 'Select whether you wish to enable the Testimonials RSS feed', 'Yes', true);
 				
 				#DISPLAY COMMENTS RSS
-				mp_options::mp_option_field("Comments", "", true, true, "Comments", "yes_no", "mp_rss_comments", "mp_rss_comments", "Select whether you wish to enable the Comments RSS feed", "Yes", true);
+				mp_options::mp_option_field('Comments', '', true, true, 'Comments', 'yes_no', 'mp_rss_comments', 'mp_rss_comments', 'Select whether you wish to enable the Comments RSS feed', 'Yes', true);
 				
 				#INITIALISE EXTERNAL FEEDS DESCRIPTION
 				$external_description = '<p>Enter any external RSS feeds you wish to display on your RSS page with the [rss] shortcode.</p>';
 				
 				#DISPLAY EXTERNAL FEEDS
-				mp_options::mp_option_field("External RSS Feeds", $external_description, true, true, "External RSS Feeds", "textarea", "mp_rss_external", "mp_rss_external", "Enter the name of your RSS feed and feed address on each line, separated by a comma. For example: Jame's Feed,http://www.james.com/feed/", "", true);
+				mp_options::mp_option_field('External RSS Feeds', $external_description, true, true, 'External RSS Feeds', 'textarea', 'mp_rss_external', 'mp_rss_external', 'Enter the name of your RSS feed and feed address on each line, separated by a comma. For example: Jame\'s Feed,http://www.james.com/feed/', '', true);
 				?>
 			
 				</form>
@@ -287,11 +287,11 @@ class mp_options
 				jQuery(document).ready(function()
 				{
 					//VALIDATE FORM FIELDS
-					jQuery("#mp_rss").validate(
+					jQuery('#mp_rss').validate(
 					{
-						errorLabelContainer: jQuery("#mp_rss_errors"),
-						errorElement: "p",
-						errorClass: "mp_error_field",
+						errorLabelContainer: jQuery('#mp_rss_errors'),
+						errorElement: 'p',
+						errorClass: 'mp_error_field',
 						rules:
 						{
 							mp_feedburner_rss:
@@ -307,11 +307,11 @@ class mp_options
 						{
 							mp_feedburner_rss:
 							{
-								url2: "Please enter a valid FeedBurner Feed Address."
+								url2: 'Please enter a valid FeedBurner Feed Address.'
 							},
 							mp_feedburner_email:
 							{
-								url2: "Please enter a valid FeedBurner Subscription Address."
+								url2: 'Please enter a valid FeedBurner Subscription Address.'
 							}
 						}
 					});
@@ -322,38 +322,38 @@ class mp_options
 				break;
 				
 			#SIDEBAR
-			case "sidebar":
+			case 'sidebar':
 				
 				#DISPLAY UPDATE MESSAGE
-				if(isset($_GET["settings-updated"]) && ($_GET["settings-updated"] == true))
+				if(isset($_GET['settings-updated']) && ($_GET['settings-updated'] == true))
 				{
 				?>
-				<div class="updated fade"><p><strong><?php _e("Your Sidebar options have been saved."); ?></strong></p></div>
+				<div class="updated fade"><p><strong><?php _e('Your Sidebar options have been saved.'); ?></strong></p></div>
 				<?php
 				}
 				?>
 				
 				<form method="post" action="options.php">
 				<?php
-				settings_fields("mp_settings_sidebar");
+				settings_fields('mp_settings_sidebar');
 				
 				#INITIALISE FACEBOOK LIKE BOX DESCRIPTION
 				$facebook_description = '<p>Generate a <a href="https://developers.facebook.com/docs/reference/plugins/like-box/" target="_blank">Facebook Like Box</a> Iframe social plugin code from Facebook. For best results, please enter 260 for the Width, select the Dark colour scheme, uncheck "Show header" and enter #333333 for the Border Color.</p>';
 				
 				#DISPLAY FACEBOOK LIKE BOX
-				mp_options::mp_option_field("Facebook Like Box", $facebook_description, true, true, "Facebook Like Box Code", "textarea", "mp_facebook_like_box", "mp_facebook_like_box", "Enter the Facebook Like Box Iframe social plugin code of your Facebook Page", "", true);
+				mp_options::mp_option_field('Facebook Like Box', $facebook_description, true, true, 'Facebook Like Box Code', 'textarea', 'mp_facebook_like_box', 'mp_facebook_like_box', 'Enter the Facebook Like Box Iframe social plugin code of your Facebook Page', '', true);
 				
 				#DISPLAY RECENT POSTS SELECT LIST
-				mp_options::mp_option_field("Posts", "", true, false, "Recent Posts", "sidebar_lists", "mp_posts_recent_number", "mp_posts_recent_number", "Select the number of posts to display in the Recent Posts list", 5, false, 20);
+				mp_options::mp_option_field('Posts', '', true, false, 'Recent Posts', 'sidebar_lists', 'mp_posts_recent_number', 'mp_posts_recent_number', 'Select the number of posts to display in the Recent Posts list', 5, false, 20);
 				
 				#DISPLAY MOST COMMENTS SELECT LIST
-				mp_options::mp_option_field("", "", false, true, "Most Comments", "sidebar_lists", "mp_posts_comments_number", "mp_posts_comments_number", "Select the number of posts to display in the Most Comments list", 5, true, 20);
+				mp_options::mp_option_field('', '', false, true, 'Most Comments', 'sidebar_lists', 'mp_posts_comments_number', 'mp_posts_comments_number', 'Select the number of posts to display in the Most Comments list', 5, true, 20);
 				
 				#DISPLAY RECENT COMMENTS SELECT LIST
-				mp_options::mp_option_field("Comments", "", true, false, "Recent Comments", "sidebar_lists", "mp_comments_recent_number", "mp_comments_recent_number", "Select the number of comments to display in the Recent Comments list", 5, false, 20);
+				mp_options::mp_option_field('Comments', '', true, false, 'Recent Comments', 'sidebar_lists', 'mp_comments_recent_number', 'mp_comments_recent_number', 'Select the number of comments to display in the Recent Comments list', 5, false, 20);
 				
 				#DISPLAY TOP COMMENTERS SELECT LIST
-				mp_options::mp_option_field("", "", false, true, "Top Commenters", "sidebar_lists", "mp_comments_commenters_number", "mp_comments_commenters_number", "Select the number of commenters to display in the Top Commenters list", 5, true, 20);
+				mp_options::mp_option_field('', '', false, true, 'Top Commenters', 'sidebar_lists', 'mp_comments_commenters_number', 'mp_comments_commenters_number', 'Select the number of commenters to display in the Top Commenters list', 5, true, 20);
 				?>
 			
 				</form>
@@ -362,26 +362,26 @@ class mp_options
 				break;
 		
 			#TRACKING
-			case "tracking":
+			case 'tracking':
 				
 				#DISPLAY UPDATE MESSAGE
-				if(isset($_GET["settings-updated"]) && ($_GET["settings-updated"] == true))
+				if(isset($_GET['settings-updated']) && ($_GET['settings-updated'] == true))
 				{
 				?>
-				<div class="updated fade"><p><strong><?php _e("Your Tracking options have been saved."); ?></strong></p></div>
+				<div class="updated fade"><p><strong><?php _e('Your Tracking options have been saved.'); ?></strong></p></div>
 				<?php
 				}
 				?>
 				
 				<form method="post" action="options.php">
 				<?php
-				settings_fields("mp_settings_tracking");
+				settings_fields('mp_settings_tracking');
 				
 				#INITIALISE TRACKING DESCRIPTION
 				$tracking_description = '<p>To use <a href="http://www.google.com/analytics/" target="_blank">Google Analytics</a>, your web site must be registered with your <a href="http://www.google.com/analytics/" target="_blank">Google Analytics</a> account.</p>';
 				
 				#DISPLAY TRACKING
-				mp_options::mp_option_field("Google Analytics Or Other Tracking Services", $tracking_description, true, true, "Tracking Code", "textarea", "mp_tracking", "mp_tracking", "Enter the tracking code of your tracking service. The tracking code will appear just before the &lt;/body&gt; tag of your web site", "", true);
+				mp_options::mp_option_field('Google Analytics Or Other Tracking Services', $tracking_description, true, true, 'Tracking Code', 'textarea', 'mp_tracking', 'mp_tracking', 'Enter the tracking code of your tracking service. The tracking code will appear just before the &lt;/body&gt; tag of your web site', '', true);
 				?>
 			
 				</form>
@@ -390,50 +390,50 @@ class mp_options
 				break;
 				
 			#RESET
-				case "reset":
+				case 'reset':
 					
 					#AUTHOR RESET SECURITY CHECK PASSED
-					if(!empty($_POST["author_reset"]) && check_admin_referer("author_reset_check"))
+					if(!empty($_POST['author_reset']) && check_admin_referer('author_reset_check'))
 					{
 						#RESET AUTHOR OPTIONS
-						mp_options::mp_reset_options("author");
+						mp_options::mp_reset_options('author');
 						
 						#DISPLAY RESET MESSAGE
 						?>
-						<div class="updated fade"><p><strong><?php _e("Your Author options have been reset."); ?></strong></p></div>
+						<div class="updated fade"><p><strong><?php _e('Your Author options have been reset.'); ?></strong></p></div>
 						<?php
 					}
 					#RSS RESET SECURITY CHECK PASSED
-					if(!empty($_POST["rss_reset"]) && check_admin_referer("rss_reset_check"))
+					if(!empty($_POST['rss_reset']) && check_admin_referer('rss_reset_check'))
 					{
 						#RESET RSS OPTIONS
-						mp_options::mp_reset_options("rss");
+						mp_options::mp_reset_options('rss');
 						
 						#DISPLAY RESET MESSAGE
 						?>
-						<div class="updated fade"><p><strong><?php _e("Your RSS options have been reset."); ?></strong></p></div>
+						<div class="updated fade"><p><strong><?php _e('Your RSS options have been reset.'); ?></strong></p></div>
 						<?php
 					}
 					#SIDEBAR RESET SECURITY CHECK PASSED
-					if(!empty($_POST["sidebar_reset"]) && check_admin_referer("sidebar_reset_check"))
+					if(!empty($_POST['sidebar_reset']) && check_admin_referer('sidebar_reset_check'))
 					{
 						#RESET SIDEBAR OPTIONS
-						mp_options::mp_reset_options("sidebar");
+						mp_options::mp_reset_options('sidebar');
 						
 						#DISPLAY RESET MESSAGE
 						?>
-						<div class="updated fade"><p><strong><?php _e("Your Sidebar options have been reset."); ?></strong></p></div>
+						<div class="updated fade"><p><strong><?php _e('Your Sidebar options have been reset.'); ?></strong></p></div>
 						<?php
 					}
 					#TRACKING RESET SECURITY CHECK PASSED
-					if(!empty($_POST["tracking_reset"]) && check_admin_referer("tracking_reset_check"))
+					if(!empty($_POST['tracking_reset']) && check_admin_referer('tracking_reset_check'))
 					{
 						#RESET TRACKING OPTIONS
-						mp_options::mp_reset_options("tracking");
+						mp_options::mp_reset_options('tracking');
 						
 						#DISPLAY RESET MESSAGE
 						?>
-						<div class="updated fade"><p><strong><?php _e("Your Tracking options have been reset."); ?></strong></p></div>
+						<div class="updated fade"><p><strong><?php _e('Your Tracking options have been reset.'); ?></strong></p></div>
 						<?php
 					}
 					?>
@@ -441,36 +441,36 @@ class mp_options
 					<h3 class="title">Author</h3>
 					
 					<form name="author_reset_form" method="post">
-					<?php wp_nonce_field("author_reset_check"); ?>
+					<?php wp_nonce_field('author_reset_check'); ?>
 					
-					<input type="submit" name="author_reset" class="button-primary" value="<?php _e("Reset Options") ?>" onclick="javascript:check = confirm('<?php _e('Reset all Author options to default settings?', 'author_reset'); ?>'); if(check == false) { return false; }" />
+					<input type="submit" name="author_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Author options to default settings?', 'author_reset'); ?>'); if(check == false) { return false; }" />
 					
 					</form>
 					
 					<h3 class="title">Sidebar</h3>
 					
 					<form name="sidebar_reset_form" method="post">
-					<?php wp_nonce_field("sidebar_reset_check"); ?>
+					<?php wp_nonce_field('sidebar_reset_check'); ?>
 					
-					<input type="submit" name="sidebar_reset" class="button-primary" value="<?php _e("Reset Options") ?>" onclick="javascript:check = confirm('<?php _e('Reset all Sidebar options to default settings?', 'sidebar_reset'); ?>'); if(check == false) { return false; }" />
+					<input type="submit" name="sidebar_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Sidebar options to default settings?', 'sidebar_reset'); ?>'); if(check == false) { return false; }" />
 					
 					</form>
 					
 					<h3 class="title">RSS</h3>
 					
 					<form name="rss_reset_form" method="post">
-					<?php wp_nonce_field("rss_reset_check"); ?>
+					<?php wp_nonce_field('rss_reset_check'); ?>
 					
-					<input type="submit" name="rss_reset" class="button-primary" value="<?php _e("Reset Options") ?>" onclick="javascript:check = confirm('<?php _e('Reset all RSS options to default settings?', 'rss_reset'); ?>'); if(check == false) { return false; }" />
+					<input type="submit" name="rss_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all RSS options to default settings?', 'rss_reset'); ?>'); if(check == false) { return false; }" />
 					
 					</form>
 					
 					<h3 class="title">Tracking</h3>
 					
 					<form name="tracking_reset_form" method="post">
-					<?php wp_nonce_field("tracking_reset_check"); ?>
+					<?php wp_nonce_field('tracking_reset_check'); ?>
 					
-					<input type="submit" name="tracking_reset" class="button-primary" value="<?php _e("Reset Options") ?>" onclick="javascript:check = confirm('<?php _e('Reset all Tracking options to default settings?', 'tracking_reset'); ?>'); if(check == false) { return false; }" />
+					<input type="submit" name="tracking_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Tracking options to default settings?', 'tracking_reset'); ?>'); if(check == false) { return false; }" />
 					
 					</form>					
 					
@@ -480,10 +480,10 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE THEME'S OPTIONS PAGE FIELDS
-	function mp_option_field($h3_title = "", $below_h3_title = "", $open_table = false, $close_table = false, $column_name, $input_type, $input_id, $input_option, $input_description, $input_default, $save_button = false, $min_width = "", $max_width = "")
+	function mp_option_field($h3_title = '', $below_h3_title = '', $open_table = false, $close_table = false, $column_name, $input_type, $input_id, $input_option, $input_description, $input_default, $save_button = false, $min_width = '', $max_width = '')
 	{
 		#INITIALISE OPTION
-		$mp_option = get_option("$input_option");
+		$mp_option = get_option($input_option);
 		
 		#DISPLAY HEADER
 		if(!empty($h3_title))
@@ -516,38 +516,38 @@ class mp_options
 		switch($input_type)
 		{		
 			#TEXT BOX
-			case "text":
+			case 'text':
 			
 				mp_options::mp_display_text($input_id, $mp_option);
 				break;
 				
 			#TEXTAREA:
-			case "textarea":
+			case 'textarea':
 				
 				mp_options::mp_display_textarea($input_id, $mp_option);
 				break;
 				
 			#YES/NO:
-			case "yes_no":
+			case 'yes_no':
 				
 				mp_options::mp_display_yes_no_list($input_id, $mp_option);
 				break;
 				
 			#AUTHOR SELECT LIST:
-			case "author":
+			case 'author':
 				
 				mp_options::mp_display_author_list($input_id, $mp_option, $input_default);
 				break;
 			
 			#SIDEBAR LIST ITEMS
-			case "sidebar_lists":
+			case 'sidebar_lists':
 			
 				mp_options::mp_display_sidebar_list($input_id, $mp_option, $input_default, $min_width);
 				break;
 		}
 		
 		#CLOSE 2ND COLUMN WITH INPUT DESCRIPTION & DEFAULT VALUES OF MINIMUM & MAXIMUM WIDTH
-		if($input_type == "width" && !empty($min_width) && !empty($max_width))
+		if($input_type == 'width' && !empty($min_width) && !empty($max_width))
 		{
 			echo '<br /><span class="description">' . $input_description . '. Default: ' . $input_default . ', Minimum: ' . $min_width . 'px, Maximum: ' . $max_width . 'px.</span></td>' . "\n";
 		}
@@ -606,13 +606,13 @@ class mp_options
 	function mp_display_yes_no_list($select_id, $selected_option)
 	{		
 		#INITIALISE SELECT LIST HTML
-		$select_list = "<select name=\"$select_id\" id=\"$select_id\" class=\"postform\">\n";
+		$select_list = '<select name="' . $select_id . '" id="' . $select_id . '" class="postform">' . "\n";
 		
 		#INITIALISE OPTIONS
 		$options = array
 		(
-			"Yes" => 1,
-			"No" => 0
+			'Yes' => 1,
+			'No' => 0
 		);
 		
 		#DISPLAY OPTIONS
@@ -621,17 +621,17 @@ class mp_options
 			#SELECTED OPTION
 			if($selected_option == $option_value)
 			{
-				$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $option_value . "\">" . $option_key . "</option>\n";
+				$select_list .= '<option class="level-0" selected="selected" value="' . $option_value . '">' . $option_key . '</option>' . "\n";
 			}
 			#UNSELECTED OPTION
 			else
 			{
-				$select_list .= "<option class=\"level-0\" value=\"" . $option_value . "\">" . $option_key . "</option>\n";
+				$select_list .= '<option class="level-0" value="' . $option_value . '">' . $option_key . '</option>' . "\n";
 			}
 		}
 		
 		#CLOSE SELECT LIST HTML
-		$select_list .= "</select>";
+		$select_list .= '</select>';
 		
 		#DISPLAY SELECT LIST
 		echo $select_list;
@@ -647,7 +647,7 @@ class mp_options
 		}
 	
 		#INITIALISE SELECT LIST HTML
-		$select_list = "<select name=\"$select_id\" id=\"$select_id\" class=\"postform\">\n";
+		$select_list = '<select name="' . $select_id . '" id="' . $select_id . '" class="postform">' . "\n";
 		
 		#APPEND LIST ITEMS
 		for($item_counter = 1; $item_counter <= $number_of_items; $item_counter ++)
@@ -655,18 +655,17 @@ class mp_options
 			#SELECTED LIST ITEM
 			if($selected_number_of_items == $item_counter)
 			{
-	
-				$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"$item_counter\">" . $item_counter . "</option>\n";
+				$select_list .= '<option class="level-0" selected="selected" value="' . $item_counter . '">' . $item_counter . '</option>' . "\n";
 			}
 			#UNSELECTED LIST ITEM
 			else
 			{
-				$select_list .= "<option class=\"level-0\" value=\"$item_counter\">" . $item_counter . "</option>\n";
+				$select_list .= '<option class="level-0" value="' . $item_counter . '">' . $item_counter . '</option>' . "\n";
 			}
 		}
 		
 		#CLOSE SELECT LIST HTML
-		$select_list .= "</select>";
+		$select_list .= '</select>';
 		
 		#DISPLAY SELECT LIST
 		echo $select_list;
@@ -676,7 +675,7 @@ class mp_options
 	function mp_tracking()
 	{
 		#INITIALISE TRACKING SETTINGS
-		$mp_tracking = get_option("mp_tracking");
+		$mp_tracking = get_option('mp_tracking');
 		
 		#TRACKING SETTINGS EXIST
 		if(!empty($mp_tracking))
@@ -692,32 +691,32 @@ class mp_options
 		if(!is_admin())
 		{
 			#DEREGISTER DEFAULT JQUERY INCLUDES
-			wp_deregister_script("jquery");	
+			wp_deregister_script('jquery');	
 	
 			#LOAD THE GOOGLE API JQUERY INCLUDES
-			wp_register_script("jquery", "http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js", false, "1.7.2", false);
+			wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', false, '1.7.2', false);
 	
 			#REGISTER CUSTOM JQUERY INCLUDES
-			wp_enqueue_script("jquery");
+			wp_enqueue_script('jquery');
 		}
 	}
 	
 	#THIS FUNCTION INCLUDES THE JAVASCRIPT & CSS FILES INTO ADMIN WORDPRESS PAGES
 	function mp_admin_head()
 	{
-		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo("template_url") . '/css/admin.php" type="text/css" />' . "\n";
-		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo("template_url") . '/css/colorbox.php" type="text/css" />' . "\n";
-		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-colorbox-min.js"></script>' . "\n";
-		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-colorbox-admin-initialise.js"></script>' . "\n";
-		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-metadata.js"></script>' . "\n";
-		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-validate.js"></script>' . "\n";
-		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-validate-additional-methods.js"></script>' . "\n";
-		echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-preload-admin.php"></script>' . "\n";
+		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . '/css/admin.php" type="text/css" />' . "\n";
+		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . '/css/colorbox.php" type="text/css" />' . "\n";
+		echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-colorbox-min.js"></script>' . "\n";
+		echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-colorbox-admin-initialise.js"></script>' . "\n";
+		echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-metadata.js"></script>' . "\n";
+		echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-validate.js"></script>' . "\n";
+		echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-validate-additional-methods.js"></script>' . "\n";
+		echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-preload-admin.php"></script>' . "\n";
 		
 		#LOAD JAVASCRIPT FOR TINYMCE EDITOR FOR USER BIOGRAPHY IN WORDPRESS 3.3 +
-		if(function_exists("wp_editor"))
+		if(function_exists('wp_editor'))
 		{
-			echo '<script type="text/javascript" src="' . get_bloginfo("template_url") . '/js/jquery-tinymce-biography.js"></script>' . "\n";
+			echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-tinymce-biography.js"></script>' . "\n";
 		}
 	}
 	
@@ -725,7 +724,7 @@ class mp_options
 	function mp_meta_boxes_save($post_id, $nonce, $field_name, $type, $url_encode = false)
 	{		
 		#FORMATTING FORM DID NOT SUBMIT FROM THE RIGHT PLACE
-		if(!wp_verify_nonce($_POST["$nonce"], __FILE__))
+		if(!wp_verify_nonce($_POST[$nonce], __FILE__))
 		{
 			return $post_id;
 		}
@@ -734,19 +733,19 @@ class mp_options
 		switch($type)
 		{
 			#PAGES
-			case "page":
+			case 'page':
 			
 				#USER HAS NO PERMISSION TO EDIT PAGE
-				if($_POST["post_type"] == "page" && !current_user_can("edit_pages", $post_id)) 
+				if($_POST['post_type'] == 'page' && !current_user_can('edit_pages', $post_id)) 
 				{
 					return $post_id;
 				}
 				
 			#POSTS
-			case "post":
+			case 'post':
 			
 				#USER HAS NO PERMISSION TO EDIT POST
-				if($_POST["post_type"] == "post" && !current_user_can("edit_posts", $post_id)) 
+				if($_POST['post_type'] == 'post' && !current_user_can('edit_posts', $post_id)) 
 				{
 					return $post_id;
 				}
@@ -756,7 +755,7 @@ class mp_options
 		$current_field = get_post_meta($post_id, $field_name, true);
 		
 		#INITIALISE NEW FIELD
-		$new_field = $_POST["$field_name"];
+		$new_field = $_POST[$field_name];
 		
 		#URL ENCODE NEW FIELD
 		if($url_encode)
@@ -795,45 +794,45 @@ class mp_options
 		#INITIALISE ARTICLE CUSTOM POST TYPE LABELS
 		$labels = array
 		(
-			"name" => _x("Articles", "post type general name"),
-			"singular_name" => _x("Article", "post type singular name"),
-			"add_new" => _x("Add New", "article"),
-			"add_new_item" => __("Add New Article"),
-			"edit_item" => __("Edit Article"),
-			"new_item" => __("New Article"),
-			"all_items" => __("All Articles"),
-			"view_item" => __("View Article"),
-			"search_items" => __("Search Articles"),
-			"not_found" =>  __("No Articles found"),
-			"not_found_in_trash" => __("No Articles found in Trash"), 
-			"parent_item_colon" => "",
-			"menu_name" => "Articles"
+			'name' => _x('Articles', 'post type general name'),
+			'singular_name' => _x('Article', 'post type singular name'),
+			'add_new' => _x('Add New', 'article'),
+			'add_new_item' => __('Add New Article'),
+			'edit_item' => __('Edit Article'),
+			'new_item' => __('New Article'),
+			'all_items' => __('All Articles'),
+			'view_item' => __('View Article'),
+			'search_items' => __('Search Articles'),
+			'not_found' =>  __('No Articles found'),
+			'not_found_in_trash' => __('No Articles found in Trash'), 
+			'parent_item_colon' => '',
+			'menu_name' => 'Articles'
 		);
 		
 		#INITIALISE ARTICLE CUSTOM POST TYPE ARGUMENTS
 		$args = array
 		(
-			"labels" => $labels,
-			"description" => "Article",
-			"public" => true,
-			"publicly_queryable" => true,
-			"exclude_from_search" => false,
-			"show_ui" => true, 
-			"show_in_menu" => true,
-			"menu_position" => 20,
-			"menu_icon" => null,
-			"capability_type" => "post",
-			"hierarchical" => false,
-			"supports" => array("title", "editor", "revisions", "thumbnail"),
-			"has_archive" => false,
-			"rewrite" => array("slug" => "article", "with_front" => false),
-			"query_var" => true,
-			"can_export" => true,
-			"show_in_nav_menus" => true
+			'labels' => $labels,
+			'description' => 'Article',
+			'public' => true,
+			'publicly_queryable' => true,
+			'exclude_from_search' => false,
+			'show_ui' => true, 
+			'show_in_menu' => true,
+			'menu_position' => 20,
+			'menu_icon' => null,
+			'capability_type' => 'post',
+			'hierarchical' => false,
+			'supports' => array('title', 'editor', 'revisions', 'thumbnail'),
+			'has_archive' => false,
+			'rewrite' => array('slug' => 'article', 'with_front' => false),
+			'query_var' => true,
+			'can_export' => true,
+			'show_in_nav_menus' => true
 		);
 		
 		#REGISTER ARTICLE CUSTOM POST TYPE
-		register_post_type("article", $args);
+		register_post_type('article', $args);
 	}
 	
 	#THIS FUNCTION CREATES THE ARTICLE DIRECTORIES CUSTOM TAXONOMY
@@ -842,35 +841,35 @@ class mp_options
 		#INITIALISE ARTICLE DIRECTORIES CUSTOM TAXONOMY LABELS
 		$labels = array
 		(
-			"name" => _x("Article Directories", "taxonomy general name"),
-			"singular_name" => _x("Article Directory", "taxonomy singular name"),
-			"search_items" =>  __("Search Article Directories"),
-			"all_items" => __("All Article Directories"),
-			"parent_item" => __("Parent Article Directory"),
-			"parent_item_colon" => __("Parent Article Directory:"),
-			"edit_item" => __("Edit Article Directory"), 
-			"update_item" => __("Update Article Directory"),
-			"add_new_item" => __("Add New Article Directory"),
-			"new_item_name" => __("New Article Directory"),
-			"menu_name" => __("Article Directories"),
-			"choose_from_most_used" => __("Choose from the most used Article Directories")
+			'name' => _x('Article Directories', 'taxonomy general name'),
+			'singular_name' => _x('Article Directory', 'taxonomy singular name'),
+			'search_items' =>  __('Search Article Directories'),
+			'all_items' => __('All Article Directories'),
+			'parent_item' => __('Parent Article Directory'),
+			'parent_item_colon' => __('Parent Article Directory:'),
+			'edit_item' => __('Edit Article Directory'), 
+			'update_item' => __('Update Article Directory'),
+			'add_new_item' => __('Add New Article Directory'),
+			'new_item_name' => __('New Article Directory'),
+			'menu_name' => __('Article Directories'),
+			'choose_from_most_used' => __('Choose from the most used Article Directories')
 		);
 		
 		#INITIALISE ARTICLE DIRECTORIES CUSTOM TAXONOMY ARGUMENTS
 		$args = array
 		(
-			"labels" => $labels,	
-			"public" => true,
-			"show_in_nav_menus" => true,
-			"show_ui" => true,
-			"show_tagcloud" => false,
-			"hierarchical" => true,
-			"rewrite" => array("slug" => "article-directories", "with_front" => false),
-			"query_var" => true
+			'labels' => $labels,	
+			'public' => true,
+			'show_in_nav_menus' => true,
+			'show_ui' => true,
+			'show_tagcloud' => false,
+			'hierarchical' => true,
+			'rewrite' => array('slug' => 'article-directories', 'with_front' => false),
+			'query_var' => true
 		);
 		
 		#REGISTER ARTICLE DIRECTORIES CUSTOM TAXONOMY
-		register_taxonomy("article-directories", "article", $args);
+		register_taxonomy('article-directories', 'article', $args);
 	}
 	
 	#THIS FUNCTION DISPLAYS THE ARTICLE COLUMNS
@@ -880,11 +879,11 @@ class mp_options
 		$columns = 
 		array
 		(
-			"cb" => "<input type=\"checkbox\" />",
-			"title" => "Title",
-			"article_url" => "URL",
-			"article_directory" => "Directory",
-			"date" => "Date"
+			'cb' => '<input type="checkbox" />',
+			'title' => 'Title',
+			'article_url' => 'URL',
+			'article_directory' => 'Directory',
+			'date' => 'Date'
 		);
 		
 		#RETURN ARTICLE COLUMNS
@@ -901,21 +900,21 @@ class mp_options
 		switch($column)
 		{
 			#ARTICLE DIRECTORY
-			case "article_directory":
+			case 'article_directory':
 			
-				echo get_the_term_list($post->ID, "article-directories", "", ", ");
+				echo get_the_term_list($post->ID, 'article-directories', '', ', ');
 				break;
 			
 			#ARTICLE URL
-			case "article_url":
+			case 'article_url':
 			
 				#INITIALISE ARTICLE URL
-				$article_url = get_post_meta($post->ID, "article_url", true);
+				$article_url = get_post_meta($post->ID, 'article_url', true);
 				
 				#DISPLAY ARTICLE URL ICON
 				if(!empty($article_url))
 				{
-					echo '<a href="' . $article_url . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-url.png" alt="" /></a>';
+					echo '<a href="' . $article_url . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-url.png" alt="" /></a>';
 				}
 				
 				break;
@@ -926,10 +925,10 @@ class mp_options
 	function mp_meta_boxes_article()
 	{
 		#ADD ARTICLE BOX TO ARTICLE CUSTOM POSTS
-		add_meta_box("article_box", "Article Information", array("mp_options", "mp_meta_boxes_article_form"), "article", "normal", "high");
+		add_meta_box('article_box', 'Article Information', array('mp_options', 'mp_meta_boxes_article_form'), 'article', 'normal', 'high');
 	 
 		#SAVE ARTICLE BOX FORM CONTENTS
-		add_action("save_post", array("mp_options", "mp_meta_boxes_article_form_save"));
+		add_action('save_post', array('mp_options', 'mp_meta_boxes_article_form_save'));
 	}
 	
 	#THIS FUNCTION CREATES THE ARTICLE BOX FORM
@@ -939,10 +938,10 @@ class mp_options
 		global $post;
 	
 		#INITIALISE ARTICLE ERROR BOX ID
-		$article_error_box = "article_errors" . $post->ID;
+		$article_error_box = 'article_errors' . $post->ID;
 	
 		#INITIALISE ARTICLE OPTIONS
-		$article_url = get_post_meta($post->ID, "article_url", true);
+		$article_url = get_post_meta($post->ID, 'article_url', true);
 		
 		#DISPLAY ARTICLE NONCE FIELD
 		echo '<input name="article_nonce" id="article_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
@@ -953,14 +952,14 @@ class mp_options
 		<script type="text/javascript">
 		jQuery(document).ready(function()
 		{			
-			jQuery("div.wrap").after('<div id="<?php echo $article_error_box; ?>" class="mp_errors error"></div>');
+			jQuery('div.wrap').after('<div id="<?php echo $article_error_box; ?>" class="mp_errors error"></div>');
 			
-			jQuery("form#post").validate(
+			jQuery('form#post').validate(
 			{
 				//VALIDATION CONTAINER & ERROR MESSAGES
-				errorLabelContainer: jQuery("#<?php echo $article_error_box; ?>"),
-				errorElement: "p",
-				errorClass: "mp_error_field",
+				errorLabelContainer: jQuery('#<?php echo $article_error_box; ?>'),
+				errorElement: 'p',
+				errorClass: 'mp_error_field',
 				
 				//VALIDATION RULES
 				rules:
@@ -976,15 +975,15 @@ class mp_options
 				{
 					article_url:
 					{
-						required: "Please enter an Article URL.",
-						url2: "Please enter a valid Article URL."
+						required: 'Please enter an Article URL.',
+						url2: 'Please enter a valid Article URL.'
 					}
 				}
 			});
 			
-			jQuery("#publish").click(function()
+			jQuery('#publish').click(function()
 			{
-				form_check = jQuery("#post").valid();
+				form_check = jQuery('#post').valid();
 				
 				if(!form_check)
 				{
@@ -1000,7 +999,7 @@ class mp_options
 	function mp_meta_boxes_article_form_save($post_id) 
 	{
 		#SAVE ARTICLE BOX FORM CONTENTS
-		mp_options::mp_meta_boxes_save($post_id, "article_nonce", "article_url", "post");
+		mp_options::mp_meta_boxes_save($post_id, 'article_nonce', 'article_url', 'post');
 		
 		#RETURN POST ID
 		return $post_id;
@@ -1018,12 +1017,12 @@ class mp_options
 			#INITIALISE ARTICLE ARGUMENTS
 			$args = array
 			(
-				"post_type" => "article",
-				"post_status" => "publish",
-				"posts_per_page" => get_option("posts_per_page"),
-				"paged" => $page,
-				"order" => "DESC",
-				"orderby" => "date"
+				'post_type' => 'article',
+				'post_status' => 'publish',
+				'posts_per_page' => get_option('posts_per_page'),
+				'paged' => $page,
+				'order' => 'DESC',
+				'orderby' => 'date'
 			);
 		}
 		#INITIALISE ARTICLE ARGUMENTS OF ARTICLE DIRECTORIES
@@ -1032,20 +1031,20 @@ class mp_options
 			#INITIALISE ARTICLE ARGUMENTS
 			$args = array
 			(
-				"post_type" => "article",
-				"post_status" => "publish",
-				"posts_per_page" => get_option("posts_per_page"),
-				"paged" => $page,
-				"order" => "DESC",
-				"orderby" => "date",
-				"tax_query" =>
+				'post_type' => 'article',
+				'post_status' => 'publish',
+				'posts_per_page' => get_option('posts_per_page'),
+				'paged' => $page,
+				'order' => 'DESC',
+				'orderby' => 'date',
+				'tax_query' =>
 				array
 				(
 					array
 					(
-						"taxonomy" => "article-directories",
-						"field" => "slug",
-						"terms" => $category
+						'taxonomy' => 'article-directories',
+						'field' => 'slug',
+						'terms' => $category
 					)
 				)
 			);
@@ -1064,10 +1063,10 @@ class mp_options
 				$articles->the_post();
 				
 				#INITIALISE ARTICLE URL
-				$article_url = get_post_meta($post->ID, "article_url", true);
+				$article_url = get_post_meta($post->ID, 'article_url', true);
 				
 				echo '<h3 class="post_title"><a href="' . $article_url . '" title="' . get_the_title(). '" class="post_title_link" rel="nofollow">' . get_the_title(). '</a></h3>';
-				echo '<p class="post_info">Published on ' . get_the_time(get_option("date_format")) . ' in ' . get_the_term_list($post->ID, "article-directories", "", ", ") . ' by ' . get_the_author() . '</p>';
+				echo '<p class="post_info">Published on ' . get_the_time(get_option('date_format')) . ' in ' . get_the_term_list($post->ID, "article-directories", "", ", ") . ' by ' . get_the_author() . '</p>';
 				echo '<div class="post_line">';
 
 				#DISPLAY ARTICLE THUMBNAIL
@@ -1086,16 +1085,16 @@ class mp_options
 			if($pagination)
 			{
 				#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
-				if(function_exists("wp_pagenavi"))
+				if(function_exists('wp_pagenavi'))
 				{
-					wp_pagenavi(array("query" =>$articles));
+					wp_pagenavi(array('query' => $articles));
 				}
 				#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
 				else
 				{
 				?>
-					<p class="left"><?php next_posts_link("&laquo; Previous Articles"); ?></p>
-					<p class="right"><?php previous_posts_link("Next Articles &raquo;"); ?></p>
+					<p class="left"><?php next_posts_link('&laquo; Previous Articles'); ?></p>
+					<p class="right"><?php previous_posts_link('Next Articles &raquo;'); ?></p>
 				<?php
 				}
 			}
@@ -1121,28 +1120,28 @@ class mp_options
 			foreach($articles as $article)
 			{
 				#INITIALISE ARTICLE URL
-				$article_url = get_post_meta($article->ID, "article_url", true);
+				$article_url = get_post_meta($article->ID, 'article_url', true);
 				
 				#INITIALISE ARTICLE DIRECTORY
-				$article_directories = get_the_terms($article->ID, "article-directories");
+				$article_directories = get_the_terms($article->ID, 'article-directories');
 				
 				#DISPLAY ARTICLE TITLE & LINK
-				echo '<li><a href="' . $article_url . '" title="' . $article->post_title . '" rel="nofollow">' . $article->post_title . '</a><br /><span class="info">' . get_the_time(get_option("date_format"), $article->ID);
+				echo '<li><a href="' . $article_url . '" title="' . $article->post_title . '" rel="nofollow">' . $article->post_title . '</a><br /><span class="info">' . get_the_time(get_option('date_format'), $article->ID);
 				
 				#ARTICLE DIRECTORY EXISTS
 				if($article_directories && ! is_wp_error($article_directories))
 				{
-					echo " | " . $article_directories[0]->name . "</span></li>";
+					echo ' | ' . $article_directories[0]->name . '</span></li>';
 				}
 				#ARTICLE DIRECTORY DOES NOT EXIST
 				else
 				{
-					echo "</span></li>";
+					echo '</span></li>';
 				}
 			}
 			
 			#CLOSE UNORDERED LIST
-			echo "</ul>\n";
+			echo '</ul>' . "\n";
 		}
 	}
 	
@@ -1150,16 +1149,16 @@ class mp_options
 	function mp_display_article_directories($current_directory)
 	{
 		#CUSTOM TAXONOMY SORT PLUGIN ACTIVATED
-		if(class_exists("CustomTaxonomySort"))
+		if(class_exists('CustomTaxonomySort'))
 		{
 			#INITIALISE DIRECTORIES WITH CUSTOM SORT ORDER
-			$directories = get_terms("article-directories", "orderby=custom_sort&order=ASC&hide_empty=1");
+			$directories = get_terms('article-directories', 'orderby=custom_sort&order=ASC&hide_empty=1');
 		}
 		#CUSTOM TAXONOMY SORT PLUGIN DEACTIVATED
 		else
 		{
 			#INITIALISE DIRECTORIES WITH NAME SORT ORDER
-			$directories = get_terms("article-directories", "orderby=name&hide_empty=1");
+			$directories = get_terms('article-directories', 'orderby=name&hide_empty=1');
 		}
 		
 		#DIRECTORIES EXIST
@@ -1192,45 +1191,45 @@ class mp_options
 		#INITIALISE SLIDE CUSTOM POST TYPE LABELS
 		$labels = array
 		(
-			"name" => _x("Slides", "post type general name"),
-			"singular_name" => _x("Slide", "post type singular name"),
-			"add_new" => _x("Add New", "slide"),
-			"add_new_item" => __("Add New Slide"),
-			"edit_item" => __("Edit Slide"),
-			"new_item" => __("New Slide"),
-			"all_items" => __("All Slides"),
-			"view_item" => __("View Slide"),
-			"search_items" => __("Search Slides"),
-			"not_found" =>  __("No Slides found"),
-			"not_found_in_trash" => __("No Slides found in Trash"), 
-			"parent_item_colon" => "",
-			"menu_name" => "Slides"
+			'name' => _x('Slides', 'post type general name'),
+			'singular_name' => _x('Slide', 'post type singular name'),
+			'add_new' => _x('Add New', 'slide'),
+			'add_new_item' => __('Add New Slide'),
+			'edit_item' => __('Edit Slide'),
+			'new_item' => __('New Slide'),
+			'all_items' => __('All Slides'),
+			'view_item' => __('View Slide'),
+			'search_items' => __('Search Slides'),
+			'not_found' =>  __('No Slides found'),
+			'not_found_in_trash' => __('No Slides found in Trash'), 
+			'parent_item_colon' => '',
+			'menu_name' => 'Slides'
 		);
 		
 		#INITIALISE SLIDE CUSTOM POST TYPE ARGUMENTS
 		$args = array
 		(
-			"labels" => $labels,
-			"description" => "Slide",
-			"public" => true,
-			"publicly_queryable" => true,
-			"exclude_from_search" => false,
-			"show_ui" => true, 
-			"show_in_menu" => true,
-			"menu_position" => 20,
-			"menu_icon" => null,
-			"capability_type" => "post",
-			"hierarchical" => false,
-			"supports" => array("title", "editor", "revisions"),
-			"has_archive" => false,
-			"rewrite" => array("slug" => "slide", "with_front" => false),
-			"query_var" => true,
-			"can_export" => true,
-			"show_in_nav_menus" => true
+			'labels' => $labels,
+			'description' => 'Slide',
+			'public' => true,
+			'publicly_queryable' => true,
+			'exclude_from_search' => false,
+			'show_ui' => true, 
+			'show_in_menu' => true,
+			'menu_position' => 20,
+			'menu_icon' => null,
+			'capability_type' => 'post',
+			'hierarchical' => false,
+			'supports' => array('title', 'editor', 'revisions'),
+			'has_archive' => false,
+			'rewrite' => array('slug' => 'slide', 'with_front' => false),
+			'query_var' => true,
+			'can_export' => true,
+			'show_in_nav_menus' => true
 		);
 		
 		#REGISTER SLIDE CUSTOM POST TYPE
-		register_post_type("slide", $args);
+		register_post_type('slide', $args);
 	}
 	
 	#THIS FUNCTION DISPLAYS THE SLIDE COLUMNS
@@ -1240,12 +1239,12 @@ class mp_options
 		$columns = 
 		array
 		(
-			"cb" => "<input type=\"checkbox\" />",
-			"title" => "Title",
-			"image" => "Image",
-			"url" => "URL",
-			"date" => "Date",
-			"author" => "Author"
+			'cb' => '<input type="checkbox" />',
+			'title' => 'Title',
+			'image' => 'Image',
+			'url' => 'URL',
+			'date' => 'Date',
+			'author' => 'Author'
 		);
 		
 		#RETURN SLIDE COLUMNS
@@ -1262,29 +1261,29 @@ class mp_options
 		switch($column)
 		{			
 			#SLIDE IMAGE
-			case "image":
+			case 'image':
 			
 				#INITIALISE SLIDE IMAGE
-				$slide_image = get_post_meta($post->ID, "slide_image", true);
+				$slide_image = get_post_meta($post->ID, 'slide_image', true);
 				
 				#DISPLAY SLIDE IMAGE ICON
 				if(!empty($slide_image))
 				{
-					echo '<a href="' . $slide_image . '" title="" class="colorbox"><img src="' . get_bloginfo("template_url") . '/images/icon-picture.png" alt="" /></a>';
+					echo '<a href="' . $slide_image . '" title="" class="colorbox"><img src="' . get_bloginfo('template_url') . '/images/icon-picture.png" alt="" /></a>';
 				}
 				
 				break;
 				
 			#SLIDE URL
-			case "url":
+			case 'url':
 				
 				#INITIALISE SLIDE URL
-				$slide_url = get_post_meta($post->ID, "slide_url", true);
+				$slide_url = get_post_meta($post->ID, 'slide_url', true);
 				
 				#DISPLAY SLIDE URL ICON
 				if(!empty($slide_url))
 				{
-					echo '<a href="' . $slide_url . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-url.png" alt="" /></a>';
+					echo '<a href="' . $slide_url . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-url.png" alt="" /></a>';
 				}
 				
 				break;
@@ -1295,10 +1294,10 @@ class mp_options
 	function mp_meta_boxes_slide()
 	{
 		#ADD SLIDE BOX TO SLIDE CUSTOM POSTS
-		add_meta_box("slide_box", "Slide Information", array("mp_options", "mp_meta_boxes_slide_form"), "slide", "normal", "high");
+		add_meta_box('slide_box', 'Slide Information', array('mp_options', 'mp_meta_boxes_slide_form'), 'slide', 'normal', 'high');
 	 
 		#SAVE SLIDE BOX FORM CONTENTS
-		add_action("save_post", array("mp_options", "mp_meta_boxes_slide_form_save"));
+		add_action('save_post', array('mp_options', 'mp_meta_boxes_slide_form_save'));
 	}
 	
 	#THIS FUNCTION CREATES THE SLIDE BOX FORM
@@ -1308,14 +1307,14 @@ class mp_options
 		global $post;
 	
 		#INITIALISE SLIDE ERROR BOX ID
-		$slide_error_box = "slide_errors" . $post->ID;
+		$slide_error_box = 'slide_errors' . $post->ID;
 	
 		#INITIALISE SLIDE OPTIONS
-		$slide_image = get_post_meta($post->ID, "slide_image", true);
-		$slide_url = get_post_meta($post->ID, "slide_url", true);
-		$slide_animation_in = get_post_meta($post->ID, "slide_animation_in", true);
-		$slide_animation_out = get_post_meta($post->ID, "slide_animation_out", true);
-		$slide_type = get_post_meta($post->ID, "slide_type", true);
+		$slide_image = get_post_meta($post->ID, 'slide_image', true);
+		$slide_url = get_post_meta($post->ID, 'slide_url', true);
+		$slide_animation_in = get_post_meta($post->ID, 'slide_animation_in', true);
+		$slide_animation_out = get_post_meta($post->ID, 'slide_animation_out', true);
+		$slide_type = get_post_meta($post->ID, 'slide_type', true);
 		
 		#DISPLAY SLIDE NONCE FIELD
 		echo '<input name="slide_nonce" id="slide_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
@@ -1337,14 +1336,14 @@ class mp_options
 		<script type="text/javascript">
 		jQuery(document).ready(function()
 		{			
-			jQuery("div.wrap").after('<div id="<?php echo $slide_error_box; ?>" class="mp_errors error"></div>');
+			jQuery('div.wrap').after('<div id="<?php echo $slide_error_box; ?>" class="mp_errors error"></div>');
 			
-			jQuery("form#post").validate(
+			jQuery('form#post').validate(
 			{
 				//VALIDATION CONTAINER & ERROR MESSAGES
-				errorLabelContainer: jQuery("#<?php echo $slide_error_box; ?>"),
-				errorElement: "p",
-				errorClass: "mp_error_field",
+				errorLabelContainer: jQuery('#<?php echo $slide_error_box; ?>'),
+				errorElement: 'p',
+				errorClass: 'mp_error_field',
 				
 				//VALIDATION RULES
 				rules:
@@ -1353,7 +1352,7 @@ class mp_options
 					{
 						required: function(element)
 						{
-        					return jQuery("input[name=slide_type]:checked").val() == "image";
+        					return jQuery('input[name=slide_type]:checked').val() == 'image';
       					},
 						url2: true
 					},
@@ -1361,7 +1360,7 @@ class mp_options
 					{
 						required: function(element)
 						{
-        					return jQuery("input[name=slide_type]:checked").val() == "image";
+        					return jQuery('input[name=slide_type]:checked').val() == 'image';
       					},
 						url2: true
 					}
@@ -1371,20 +1370,20 @@ class mp_options
 				{
 					slide_image:
 					{
-						required: "Please enter a Slide Image.",
-						url2: "Please enter a valid Slide Image."
+						required: 'Please enter a Slide Image.',
+						url2: 'Please enter a valid Slide Image.'
 					},
 					slide_url:
 					{
-						required: "Please enter a Slide URL.",
-						url2: "Please enter a valid Slide URL."
+						required: 'Please enter a Slide URL.',
+						url2: 'Please enter a valid Slide URL.'
 					}
 				}
 			});
 			
-			jQuery("#publish").click(function()
+			jQuery('#publish').click(function()
 			{
-				form_check = jQuery("#post").valid();
+				form_check = jQuery('#post').valid();
 				
 				if(!form_check)
 				{
@@ -1398,9 +1397,9 @@ class mp_options
 	
 	#THIS FUNCTION DISPLAYS THE LIST OF SLIDE IN ANIMATIONS
 	function mp_display_slide_animation_in_list($selected_animation)
-	{
+	{		
 		#INITIALISE DEFAULT ANIMATION
-		$default_animation = "bounceInLeft";
+		$default_animation = 'bounceInLeft';
 		
 		#SELECT DEFAULT ANIMATION IF NO ANIMATION WAS SELECTED
 		if(empty($selected_animation))
@@ -1409,7 +1408,7 @@ class mp_options
 		}
 		
 		#INITIALISE SELECT LIST HTML
-		$select_list = "<select name=\"slide_animation_in\" id=\"slide_animation_in\" class=\"postform\">\n";
+		$select_list = '<select name="slide_animation_in" id="slide_animation_in" class="postform">' . "\n";
 		
 		#INITALISE ANIMATIONS
 		$animations = array('No Animation', 'flash', 'bounce', 'shake', 'tada', 'swing', 'wobble', 'pulse', 'flip', 'flipInX', 'flipInY', 'fadeIn', 'fadeInUp', 'fadeInDown', 'fadeInLeft', 'fadeInRight', 'fadeInUpBig', 'fadeInDownBig', 'fadeInLeftBig', 'fadeInRightBig', 'bounceIn', 'bounceInDown', 'bounceInUp', 'bounceInLeft', 'bounceInRight', 'rotateIn', 'rotateInDownLeft', 'rotateInDownRight', 'rotateInUpLeft', 'rotateInUpRight', 'hinge', 'rollIn');
@@ -1420,17 +1419,17 @@ class mp_options
 			#SELECTED ANIMATION
 			if($selected_animation == $animation)
 			{
-				$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $animation . "\">" . $animation . "</option>\n";
+				$select_list .= '<option class="level-0" selected="selected" value="' . $animation . '">' . $animation . '</option>' . "\n";
 			}
 			#UNSELECTED ANIMATION
 			else
 			{
-				$select_list .= "<option class=\"level-0\" value=\"" . $animation . "\">" . $animation . "</option>\n";
+				$select_list .= '<option class="level-0" value="' . $animation . '">' . $animation . '</option>' . "\n";
 			}
 		}
 		
 		#CLOSE SELECT LIST HTML
-		$select_list .= "</select>";
+		$select_list .= '</select>';
 		
 		#DISPLAY SELECT LIST
 		echo $select_list;
@@ -1440,7 +1439,7 @@ class mp_options
 	function mp_display_slide_animation_out_list($selected_animation)
 	{
 		#INITIALISE DEFAULT ANIMATION
-		$default_animation = "bounceOutRight";
+		$default_animation = 'bounceOutRight';
 		
 		#SELECT DEFAULT ANIMATION IF NO ANIMATION WAS SELECTED
 		if(empty($selected_animation))
@@ -1449,7 +1448,7 @@ class mp_options
 		}
 		
 		#INITIALISE SELECT LIST HTML
-		$select_list = "<select name=\"slide_animation_out\" id=\"slide_animation_out\" class=\"postform\">\n";
+		$select_list = '<select name="slide_animation_out" id="slide_animation_out" class="postform">' . "\n";
 		
 		#INITALISE ANIMATIONS
 		$animations = array('No Animation', 'flash', 'bounce', 'shake', 'tada', 'swing', 'wobble', 'pulse',	'flip', 'flipOutX', 'flipOutY', 'fadeOut', 'fadeOutUp', 'fadeOutDown', 'fadeOutLeft', 'fadeOutRight', 'fadeOutUpBig', 'fadeOutDownBig', 'fadeOutLeftBig', 'fadeOutRightBig', 'bounceOut', 'bounceOutDown', 'bounceOutUp', 'bounceOutLeft', 'bounceOutRight', 'rotateOut', 'rotateOutDownLeft', 'rotateOutDownRight', 'rotateOutUpLeft', 'rotateOutUpRight', 'hinge', 'rollOut');
@@ -1460,17 +1459,17 @@ class mp_options
 			#SELECTED ANIMATION
 			if($selected_animation == $animation)
 			{
-				$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $animation . "\">" . $animation . "</option>\n";
+				$select_list .= '<option class="level-0" selected="selected" value="' . $animation . '">' . $animation . '</option>' . "\n";
 			}
 			#UNSELECTED ANIMATION
 			else
 			{
-				$select_list .= "<option class=\"level-0\" value=\"" . $animation . "\">" . $animation . "</option>\n";
+				$select_list .= '<option class="level-0" value="' . $animation . '">' . $animation . '</option>' . "\n";
 			}
 		}
 		
 		#CLOSE SELECT LIST HTML
-		$select_list .= "</select>";
+		$select_list .= '</select>';
 		
 		#DISPLAY SELECT LIST
 		echo $select_list;
@@ -1480,7 +1479,7 @@ class mp_options
 	function mp_display_slide_type_radio_button($selected_slide_type)
 	{
 		#INITIALISE DEFAULT SLIDE TYPE
-		$default_slide_type = "text_image";
+		$default_slide_type = 'text_image';
 		
 		#SELECT DEFAULT SLIDE TYPE IF NO SLIDE TYPE WAS SELECTED
 		if(empty($selected_slide_type))
@@ -1491,9 +1490,9 @@ class mp_options
 		#INITIALISE SLIDE TYPES
 		$slide_types = array
 		(
-			"Text + Images" => "text_image",
-			"Image Only" => "image",
-			"Video" => "video"
+			'Text + Images' => 'text_image',
+			'Image Only' => 'image',
+			'Video' => 'video'
 		);
 		
 		#DISPLAY SLIDE TYPES
@@ -1516,11 +1515,11 @@ class mp_options
 	function mp_meta_boxes_slide_form_save($post_id) 
 	{
 		#SAVE SLIDE BOX FORM CONTENTS
-		mp_options::mp_meta_boxes_save($post_id, "slide_nonce", "slide_image", "post");
-		mp_options::mp_meta_boxes_save($post_id, "slide_nonce", "slide_url", "post");
-		mp_options::mp_meta_boxes_save($post_id, "slide_nonce", "slide_animation_in", "post");
-		mp_options::mp_meta_boxes_save($post_id, "slide_nonce", "slide_animation_out", "post");
-		mp_options::mp_meta_boxes_save($post_id, "slide_nonce", "slide_type", "post");
+		mp_options::mp_meta_boxes_save($post_id, 'slide_nonce', 'slide_image', 'post');
+		mp_options::mp_meta_boxes_save($post_id, 'slide_nonce', 'slide_url', 'post');
+		mp_options::mp_meta_boxes_save($post_id, 'slide_nonce', 'slide_animation_in', 'post');
+		mp_options::mp_meta_boxes_save($post_id, 'slide_nonce', 'slide_animation_out', 'post');
+		mp_options::mp_meta_boxes_save($post_id, 'slide_nonce', 'slide_type', 'post');
 		
 		#RETURN POST ID
 		return $post_id;
@@ -1535,11 +1534,11 @@ class mp_options
 		#INITIALISE SLIDE ARGUMENTS
 		$args = array
 		(
-			"post_type" => "slide",
-			"post_status" => "publish",
-			"posts_per_page" => 5,
-			"order" => "DESC",
-			"orderby" => "date"
+			'post_type' => 'slide',
+			'post_status' => 'publish',
+			'posts_per_page' => 5,
+			'order' => 'DESC',
+			'orderby' => 'date'
 		);
 		
 		#INITIALISE SLIDES
@@ -1559,37 +1558,38 @@ class mp_options
 			
 				#INITIALISE THE SLIDE DETAILS
 				$slide_title = get_the_title($post->ID);
-				$slide_image = get_post_meta($post->ID, "slide_image", true);
-				$slide_url = get_post_meta($post->ID, "slide_url", true);				
-				$slide_animation_in = get_post_meta($post->ID, "slide_animation_in", true);
-				$slide_animation_out = get_post_meta($post->ID, "slide_animation_out", true);
-				$slide_type = get_post_meta($post->ID, "slide_type", true);
+				$slide_image = get_post_meta($post->ID, 'slide_image', true);
+				$slide_url = get_post_meta($post->ID, 'slide_url', true);				
+				$slide_animation_in = get_post_meta($post->ID, 'slide_animation_in', true);
+				$slide_animation_out = get_post_meta($post->ID, 'slide_animation_out', true);
+				$slide_type = get_post_meta($post->ID, 'slide_type', true);
 				
 				#FORMAT SLIDE IN ANIMATION
-				if($slide_animation_in == "No Animation")
+				if($slide_animation_in == 'No Animation')
 				{
-					$slide_animation_in = "";
+					$slide_animation_in = '';
 				}
 				#FORMAT SLIDE OUT ANIMATION
-				if($slide_animation_out == "No Animation")
+				if($slide_animation_out == 'No Animation')
 				{
-					$slide_animation_out = "";
+					$slide_animation_out = '';
 				}
 				
 				#OPEN SLIDE LIST ITEM
 				echo '<li data-animate="' . $slide_animation_in . ', ' . $slide_animation_out . '">';
 				
+				#DISPLAY SLIDE ACCORDING TO SLIDE TYPE
 				switch($slide_type)
 				{
 					#DISPLAY SLIDE IMAGE WITH SLIDE URL
-					case "image":
+					case 'image':
 					
 						echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '" /></a>';
 						break;
 						
 					#DISPLAY SLIDE TEXT & SLIDE VIDEO
-					case "text_image":
-					case "video":
+					case 'text_image':
+					case 'video':
 					
 						the_content();
 						break;
@@ -1649,45 +1649,45 @@ class mp_options
 		#INITIALISE PROJECT CUSTOM POST TYPE LABELS
 		$labels = array
 		(
-			"name" => _x("Projects", "post type general name"),
-			"singular_name" => _x("Project", "post type singular name"),
-			"add_new" => _x("Add New", "project"),
-			"add_new_item" => __("Add New Project"),
-			"edit_item" => __("Edit Project"),
-			"new_item" => __("New Project"),
-			"all_items" => __("All Projects"),
-			"view_item" => __("View Projects"),
-			"search_items" => __("Search Projects"),
-			"not_found" =>  __("No Projects found"),
-			"not_found_in_trash" => __("No Projects found in Trash"), 
-			"parent_item_colon" => "",
-			"menu_name" => "Portfolio"
+			'name' => _x('Projects', 'post type general name'),
+			'singular_name' => _x('Project', 'post type singular name'),
+			'add_new' => _x('Add New', 'project'),
+			'add_new_item' => __('Add New Project'),
+			'edit_item' => __('Edit Project'),
+			'new_item' => __('New Project'),
+			'all_items' => __('All Projects'),
+			'view_item' => __('View Projects'),
+			'search_items' => __('Search Projects'),
+			'not_found' =>  __('No Projects found'),
+			'not_found_in_trash' => __('No Projects found in Trash'), 
+			'parent_item_colon' => '',
+			'menu_name' => 'Portfolio'
 		);
 		
 		#INITIALISE PROJECT CUSTOM POST TYPE ARGUMENTS
 		$args = array
 		(
-			"labels" => $labels,
-			"description" => "Project",
-			"public" => true,
-			"publicly_queryable" => true,
-			"exclude_from_search" => false,
-			"show_ui" => true, 
-			"show_in_menu" => true,
-			"menu_position" => 20,
-			"menu_icon" => null,
-			"capability_type" => "post",
-			"hierarchical" => false,
-			"supports" => array("title", "editor", "revisions", "thumbnail"),
-			"has_archive" => false,
-			"rewrite" => array("slug" => "portfolio/project", "with_front" => false),
-			"query_var" => true,
-			"can_export" => true,
-			"show_in_nav_menus" => true
+			'labels' => $labels,
+			'description' => 'Project',
+			'public' => true,
+			'publicly_queryable' => true,
+			'exclude_from_search' => false,
+			'show_ui' => true, 
+			'show_in_menu' => true,
+			'menu_position' => 20,
+			'menu_icon' => null,
+			'capability_type' => 'post',
+			'hierarchical' => false,
+			'supports' => array('title', 'editor', 'revisions', 'thumbnail'),
+			'has_archive' => false,
+			'rewrite' => array('slug' => 'portfolio/project', 'with_front' => false),
+			'query_var' => true,
+			'can_export' => true,
+			'show_in_nav_menus' => true
 		);
 		
 		#REGISTER PROJECT CUSTOM POST TYPE
-		register_post_type("project", $args);
+		register_post_type('project', $args);
 	}
 	
 	#THIS FUNCTION CREATES THE PROJECT CATEGORIES CUSTOM TAXONOMY
@@ -1696,35 +1696,35 @@ class mp_options
 		#INITIALISE PROJECT CATEGORIES CUSTOM TAXONOMY LABELS
 		$labels = array
 		(
-			"name" => _x("Project Categories", "taxonomy general name"),
-			"singular_name" => _x("Project Category", "taxonomy singular name"),
-			"search_items" =>  __("Search Project Categories"),
-			"all_items" => __("All Project Categories"),
-			"parent_item" => __("Parent Project Category"),
-			"parent_item_colon" => __("Parent Project Category:"),
-			"edit_item" => __("Edit Project Category"), 
-			"update_item" => __("Update Project Category"),
-			"add_new_item" => __("Add New Project Category"),
-			"new_item_name" => __("New Project Category"),
-			"menu_name" => __("Project Categories"),
-			"choose_from_most_used" => __("Choose from the most used Project Categories")
+			'name' => _x('Project Categories', 'taxonomy general name'),
+			'singular_name' => _x('Project Category', 'taxonomy singular name'),
+			'search_items' =>  __('Search Project Categories'),
+			'all_items' => __('All Project Categories'),
+			'parent_item' => __('Parent Project Category'),
+			'parent_item_colon' => __('Parent Project Category:'),
+			'edit_item' => __('Edit Project Category'), 
+			'update_item' => __('Update Project Category'),
+			'add_new_item' => __('Add New Project Category'),
+			'new_item_name' => __('New Project Category'),
+			'menu_name' => __('Project Categories'),
+			'choose_from_most_used' => __('Choose from the most used Project Categories')
 		);
 		
 		#INITIALISE PROJECT CATEGORIES CUSTOM TAXONOMY ARGUMENTS
 		$args = array
 		(
-			"labels" => $labels,	
-			"public" => true,
-			"show_in_nav_menus" => true,
-			"show_ui" => true,
-			"show_tagcloud" => false,
-			"hierarchical" => true,
-			"rewrite" => array("slug" => "portfolio-categories", "with_front" => false),
-			"query_var" => true
+			'labels' => $labels,	
+			'public' => true,
+			'show_in_nav_menus' => true,
+			'show_ui' => true,
+			'show_tagcloud' => false,
+			'hierarchical' => true,
+			'rewrite' => array('slug' => 'portfolio-categories', 'with_front' => false),
+			'query_var' => true
 		);
 		
 		#REGISTER PROJECT CATEGORIES CUSTOM TAXONOMY
-		register_taxonomy("portfolio-categories", "project", $args);
+		register_taxonomy('portfolio-categories', 'project', $args);
 	}
 	
 	#THIS FUNCTION CREATES THE PROJECT SCOPE CUSTOM TAXONOMY
@@ -1733,35 +1733,35 @@ class mp_options
 		#INITIALISE PROJECT SCOPE CUSTOM TAXONOMY LABELS
 		$labels = array
 		(
-			"name" => _x("Project Scope", "taxonomy general name"),
-			"singular_name" => _x("Project Scope", "taxonomy singular name"),
-			"search_items" =>  __("Search Project Scope"),
-			"all_items" => __("All Project Scope"),
-			"parent_item" => __("Parent Project Scope"),
-			"parent_item_colon" => __("Parent Project Scope:"),
-			"edit_item" => __("Edit Project Scope"), 
-			"update_item" => __("Update Project Scope"),
-			"add_new_item" => __("Add New Project Scope"),
-			"new_item_name" => __("New Project Scope"),
-			"menu_name" => __("Project Scope"),
-			"choose_from_most_used" => __("Choose from the most used Project Scope")
+			'name' => _x('Project Scope', 'taxonomy general name'),
+			'singular_name' => _x('Project Scope', 'taxonomy singular name'),
+			'search_items' =>  __('Search Project Scope'),
+			'all_items' => __('All Project Scope'),
+			'parent_item' => __('Parent Project Scope'),
+			'parent_item_colon' => __('Parent Project Scope:'),
+			'edit_item' => __('Edit Project Scope'), 
+			'update_item' => __('Update Project Scope'),
+			'add_new_item' => __('Add New Project Scope'),
+			'new_item_name' => __('New Project Scope'),
+			'menu_name' => __('Project Scope'),
+			'choose_from_most_used' => __('Choose from the most used Project Scope')
 		);
 		
 		#INITIALISE PROJECT SCOPE CUSTOM TAXONOMY ARGUMENTS
 		$args = array
 		(
-			"labels" => $labels,	
-			"public" => true,
-			"show_in_nav_menus" => true,
-			"show_ui" => true,
-			"show_tagcloud" => false,
-			"hierarchical" => true,
-			"rewrite" => array("slug" => "portfolio-scope", "with_front" => false),
-			"query_var" => true
+			'labels' => $labels,	
+			'public' => true,
+			'show_in_nav_menus' => true,
+			'show_ui' => true,
+			'show_tagcloud' => false,
+			'hierarchical' => true,
+			'rewrite' => array('slug' => 'portfolio-scope', 'with_front' => false),
+			'query_var' => true
 		);
 		
 		#REGISTER PROJECT SCOPE CUSTOM TAXONOMY
-		register_taxonomy("portfolio-scope", "project", $args);
+		register_taxonomy('portfolio-scope', 'project', $args);
 	}
 	
 	#THIS FUNCTION CREATES THE PROJECT SKILLS CUSTOM TAXONOMY
@@ -1770,35 +1770,35 @@ class mp_options
 		#INITIALISE PROJECT SKILLS CUSTOM TAXONOMY LABELS
 		$labels = array
 		(
-			"name" => _x("Project Skills", "taxonomy general name"),
-			"singular_name" => _x("Project Skill", "taxonomy singular name"),
-			"search_items" =>  __("Search Project Skills"),
-			"all_items" => __("All Project Skills"),
-			"parent_item" => __("Parent Project Skill"),
-			"parent_item_colon" => __("Parent Project Skill:"),
-			"edit_item" => __("Edit Project Skill"), 
-			"update_item" => __("Update Project Skill"),
-			"add_new_item" => __("Add New Project Skill"),
-			"new_item_name" => __("New Project Skill"),
-			"menu_name" => __("Project Skills"),
-			"choose_from_most_used" => __("Choose from the most used Project Skills")
+			'name' => _x('Project Skills', 'taxonomy general name'),
+			'singular_name' => _x('Project Skill', 'taxonomy singular name'),
+			'search_items' =>  __('Search Project Skills'),
+			'all_items' => __('All Project Skills'),
+			'parent_item' => __('Parent Project Skill'),
+			'parent_item_colon' => __('Parent Project Skill:'),
+			'edit_item' => __('Edit Project Skill'), 
+			'update_item' => __('Update Project Skill'),
+			'add_new_item' => __('Add New Project Skill'),
+			'new_item_name' => __('New Project Skill'),
+			'menu_name' => __('Project Skills'),
+			'choose_from_most_used' => __('Choose from the most used Project Skills')
 		);
 		
 		#INITIALISE PROJECT SKILLS CUSTOM TAXONOMY ARGUMENTS
 		$args = array
 		(
-			"labels" => $labels,	
-			"public" => true,
-			"show_in_nav_menus" => true,
-			"show_ui" => true,
-			"show_tagcloud" => false,
-			"hierarchical" => true,
-			"rewrite" => array("slug" => "portfolio-skill", "with_front" => false),
-			"query_var" => true
+			'labels' => $labels,	
+			'public' => true,
+			'show_in_nav_menus' => true,
+			'show_ui' => true,
+			'show_tagcloud' => false,
+			'hierarchical' => true,
+			'rewrite' => array('slug' => 'portfolio-skill', 'with_front' => false),
+			'query_var' => true
 		);
 		
 		#REGISTER PROJECT SKILLS CUSTOM TAXONOMY
-		register_taxonomy("portfolio-skill", "project", $args);
+		register_taxonomy('portfolio-skill', 'project', $args);
 	}
 	
 	#THIS FUNCTION DISPLAYS THE PROJECT COLUMNS
@@ -1808,17 +1808,17 @@ class mp_options
 		$columns = 
 		array
 		(
-			"cb" => "<input type=\"checkbox\" />",
-			"title" => "Title",
-			"project_category" => "Category",
-			"project_scope" => "Scope",
-			"project_skills" => "Skills",
-			"project_thumbnail" => "Thumbnail",
-			"project_gallery" => "Gallery",			
-			"project_url" => "URL",
-			"client_name" => "Client Name",
-			"client_location" => "Client Location",			
-			"date" => "Date"
+			'cb' => '<input type="checkbox" />',
+			'title' => 'Title',
+			'project_category' => 'Category',
+			'project_scope' => 'Scope',
+			'project_skills' => 'Skills',
+			'project_thumbnail' => 'Thumbnail',
+			'project_gallery' => 'Gallery',			
+			'project_url' => 'URL',
+			'client_name' => 'Client Name',
+			'client_location' => 'Client Location',			
+			'date' => 'Date'
 		);
 		
 		#RETURN TESTIMONIAL COLUMNS
@@ -1835,31 +1835,31 @@ class mp_options
 		switch($column)
 		{
 			#PROJECT CATEGORY
-			case "project_category":
+			case 'project_category':
 			
-				echo get_the_term_list($post->ID, "portfolio-categories", "", ", ");
+				echo get_the_term_list($post->ID, 'portfolio-categories', '', ', ');
 				break;
 				
 			#PROJECT SCOPE
-			case "project_scope":
+			case 'project_scope':
 			
-				echo get_the_term_list($post->ID, "portfolio-scope", "", ", ");
+				echo get_the_term_list($post->ID, 'portfolio-scope', '', ', ');
 				break;
 				
 			#PROJECT SKILLS
-			case "project_skills":
+			case 'project_skills':
 			
-				echo get_the_term_list($post->ID, "portfolio-skill", "", ", ");
+				echo get_the_term_list($post->ID, 'portfolio-skill', '', ', ');
 				break;
 			
 			#PROJECT THUMBNAIL
-			case "project_thumbnail":
+			case 'project_thumbnail':
 				
 				#PRODUCT THUMBNAIL EXISTS
 				if(has_post_thumbnail($post->ID))
 				{
 					#INITIALISE PROJECT THUMBNAIL ARRAY
-					$project_thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "thumbnail");
+					$project_thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'thumbnail');
 					
 					#DISPLAY PROJECT THUMBNAIL
 					echo '<img src="' . $project_thumbnail[0] . '" width="123" height="78" alt="" />';
@@ -1868,38 +1868,38 @@ class mp_options
 				break;
 				
 			#PROJECT GALLERY
-			case "project_gallery":
+			case 'project_gallery':
 				
 				#INITIALISE PROJECT GALLERY
-				$portfolio_project_gallery = get_post_meta($post->ID, "portfolio_project_gallery", true);
+				$portfolio_project_gallery = get_post_meta($post->ID, 'portfolio_project_gallery', true);
 				
 				#DISPLAY PROJECT GALLERY ICON
 				if(!empty($portfolio_project_gallery))
 				{
-					echo '<a href="admin.php?page=nggallery-manage-gallery&mode=edit&gid=' . $portfolio_project_gallery . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-gallery.png" alt="" /></a>';
+					echo '<a href="admin.php?page=nggallery-manage-gallery&mode=edit&gid=' . $portfolio_project_gallery . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-gallery.png" alt="" /></a>';
 				}
 				
 				break;
 			
 			#PROJECT URL
-			case "project_url":
+			case 'project_url':
 			
 				#INITIALISE PROJECT URL
-				$portfolio_project_url = get_post_meta($post->ID, "portfolio_project_url", true);
+				$portfolio_project_url = get_post_meta($post->ID, 'portfolio_project_url', true);
 				
 				#DISPLAY PROJECT URL ICON
 				if(!empty($portfolio_project_url))
 				{
-					echo '<a href="' . $portfolio_project_url . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-url.png" alt="" /></a>';
+					echo '<a href="' . $portfolio_project_url . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-url.png" alt="" /></a>';
 				}
 				
 				break;
 			
 			#CLIENT NAME
-			case "client_name":
+			case 'client_name':
 				
 				#INITIALISE CLIENT NAME
-				$portfolio_client_name = get_post_meta($post->ID, "portfolio_client_name", true);
+				$portfolio_client_name = get_post_meta($post->ID, 'portfolio_client_name', true);
 				
 				#DISPLAY CLIENT NAME
 				if(!empty($portfolio_client_name))
@@ -1910,10 +1910,10 @@ class mp_options
 				break;
 				
 			#CLIENT LOCATION
-			case "client_location":
+			case 'client_location':
 				
 				#INITIALISE CLIENT LOCATION
-				$portfolio_client_location = get_post_meta($post->ID, "portfolio_client_location", true);
+				$portfolio_client_location = get_post_meta($post->ID, 'portfolio_client_location', true);
 				
 				#DISPLAY CLIENT LOCATION
 				if(!empty($portfolio_client_location))
@@ -1929,10 +1929,10 @@ class mp_options
 	function mp_meta_boxes_project()
 	{
 		#ADD PROJECT BOX TO PROJECT CUSTOM POSTS
-		add_meta_box("portfolio_box", "Project Information", array("mp_options", "mp_meta_boxes_portfolio_form"), "project", "normal", "high");
+		add_meta_box('portfolio_box', 'Project Information', array('mp_options', 'mp_meta_boxes_portfolio_form'), 'project', 'normal', 'high');
 	 
 		#SAVE PROJECT BOX FORM CONTENTS
-		add_action("save_post", array("mp_options", "mp_meta_boxes_portfolio_form_save"));
+		add_action('save_post', array('mp_options', 'mp_meta_boxes_portfolio_form_save'));
 	}
 	
 	#THIS FUNCTION CREATES THE PROJECT BOX FORM
@@ -1942,13 +1942,13 @@ class mp_options
 		global $post;
 	
 		#INITIALISE PROJECT ERROR BOX ID
-		$portfolio_error_box = "portfolio_errors" . $post->ID;
+		$portfolio_error_box = 'portfolio_errors' . $post->ID;
 	
 		#INITIALISE PROJECT OPTIONS
-		$portfolio_client_name = get_post_meta($post->ID, "portfolio_client_name", true);
-		$portfolio_client_location = get_post_meta($post->ID, "portfolio_client_location", true);
-		$portfolio_project_url = get_post_meta($post->ID, "portfolio_project_url", true);
-		$portfolio_project_gallery = get_post_meta($post->ID, "portfolio_project_gallery", true);
+		$portfolio_client_name = get_post_meta($post->ID, 'portfolio_client_name', true);
+		$portfolio_client_location = get_post_meta($post->ID, 'portfolio_client_location', true);
+		$portfolio_project_url = get_post_meta($post->ID, 'portfolio_project_url', true);
+		$portfolio_project_gallery = get_post_meta($post->ID, 'portfolio_project_gallery', true);
 		
 		#DISPLAY PROJECT NONCE FIELD
 		echo '<input name="portfolio_nonce" id="portfolio_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
@@ -1963,14 +1963,14 @@ class mp_options
 		<script type="text/javascript">
 		jQuery(document).ready(function()
 		{
-			jQuery("div.wrap").after('<div id="<?php echo $portfolio_error_box; ?>" class="mp_errors error"></div>');
+			jQuery('div.wrap').after('<div id="<?php echo $portfolio_error_box; ?>" class="mp_errors error"></div>');
 			
-			jQuery("form#post").validate(
+			jQuery('form#post').validate(
 			{
 				//VALIDATION CONTAINER & ERROR MESSAGES
-				errorLabelContainer: jQuery("#<?php echo $portfolio_error_box; ?>"),
-				errorElement: "p",
-				errorClass: "mp_error_field",
+				errorLabelContainer: jQuery('#<?php echo $portfolio_error_box; ?>'),
+				errorElement: 'p',
+				errorClass: 'mp_error_field',
 				
 				//VALIDATION RULES
 				rules:
@@ -1985,14 +1985,14 @@ class mp_options
 				{
 					portfolio_project_url:
 					{
-						url2: "Please enter a valid URL."
+						url2: 'Please enter a valid URL.'
 					}
 				}
 			});
 			
-			jQuery("#publish").click(function()
+			jQuery('#publish').click(function()
 			{
-				form_check = jQuery("#post").valid();
+				form_check = jQuery('#post').valid();
 				
 				if(!form_check)
 				{
@@ -2013,11 +2013,11 @@ class mp_options
 		#INITIALISE PROJECT ARGUMENTS
 		$args = array
 		(
-			"post_type" => "project",
-			"post_status" => "publish",
-			"posts_per_page" => -1,
-			"orderby" => "title",
-			"order" => "ASC"
+			'post_type' => 'project',
+			'post_status' => 'publish',
+			'posts_per_page' => -1,
+			'orderby' => 'title',
+			'order' => 'ASC'
 		);
 		
 		#INITIALISE PROJECTS
@@ -2027,8 +2027,8 @@ class mp_options
 		if($projects->have_posts())
 		{			
 			#INITIALISE SELECT LIST HTML
-			$select_list = "<select name=\"$select_id\" id=\"$select_id\" class=\"postform\">\n";
-			$select_list .= "<option class=\"level-0\" value=\"\">Select Project</option>\n";
+			$select_list = '<select name="' . $select_id . '" id="' . $select_id . '" class="postform">' . "\n";
+			$select_list .= '<option class="level-0" value="">Select Project</option>' . "\n";
 			
 			#DISPLAY PROJECTS
 			while($projects->have_posts())
@@ -2039,17 +2039,17 @@ class mp_options
 				#SELECTED PROJECT
 				if($selected_project == $post->ID)
 				{
-					$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $post->ID . "\">" . $post->post_title . "</option>\n";
+					$select_list .= '<option class="level-0" selected="selected" value="' . $post->ID . '">' . $post->post_title . '</option>' . "\n";
 				}
 				#UNSELECTED PROJECT
 				else
 				{
-					$select_list .= "<option class=\"level-0\" value=\"" . $post->ID . "\">" . $post->post_title . "</option>\n";
+					$select_list .= '<option class="level-0" value="' . $post->ID . '">' . $post->post_title . '</option>' . "\n";
 				}
 			}
 			
 			#CLOSE SELECT LIST HTML
-			$select_list .= "</select>";
+			$select_list .= '</select>';
 			
 			#DISPLAY SELECT LIST
 			echo $select_list;
@@ -2060,7 +2060,7 @@ class mp_options
 	function mp_display_gallery_list($select_id, $selected_gallery)
 	{
 		#NEXTGEN GALLERY PLUGIN IS ACTIVATED
-		if(function_exists("nggShowSlideshow"))
+		if(function_exists('nggShowSlideshow'))
 		{
 			#RETRIEVE THE DATABASE
 			global $wpdb;
@@ -2069,8 +2069,8 @@ class mp_options
 			$galleries = $wpdb->get_results("SELECT gid, title FROM $wpdb->prefix" . "ngg_gallery ORDER BY gid ASC");
 		
 			#INITIALISE SELECT LIST HTML
-			$select_list = "<select name=\"$select_id\" id=\"$select_id\" class=\"postform\">\n";
-			$select_list .= "<option class=\"level-0\" value=\"\">Select Project Gallery</option>\n";
+			$select_list = '<select name="' . $select_id . '" id="' . $select_id . '" class="postform">' . "\n";
+			$select_list .= '<option class="level-0" value="">Select Project Gallery</option>' . "\n";
 			
 			#DISPLAY OTHER NEXTGEN GALLERY SELECT LIST OPTIONS
 			foreach($galleries as $gallery)
@@ -2078,17 +2078,17 @@ class mp_options
 				#DISPLAY SELECTED NEXTGEN GALLERY
 				if($selected_gallery == $gallery->gid)
 				{
-					$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $gallery->gid . "\">" . $gallery->title . "</option>\n";
+					$select_list .= '<option class="level-0" selected="selected" value="' . $gallery->gid . '">' . $gallery->title . '</option>' . "\n";
 				}
 				#DISPLAY UNSELECTED NEXTGEN GALLERY
 				else
 				{
-					$select_list .= "<option class=\"level-0\" value=\"" . $gallery->gid . "\">" . $gallery->title . "</option>\n";
+					$select_list .= '<option class="level-0" value="' . $gallery->gid . '">' . $gallery->title . '</option>' . "\n";
 				}
 			}
 			
 			#CLOSE SELECT LIST HTML
-			$select_list .= "</select>";
+			$select_list .= '</select>';
 			
 			#DISPLAY SELECT LIST
 			echo $select_list;
@@ -2096,20 +2096,20 @@ class mp_options
 	}
 	
 	#THIS FUNCTION SAVES THE PROJECT BOX FORM CONTENTS
-	function mp_meta_boxes_portfolio_form_save($post_id) 
+	function mp_meta_boxes_portfolio_form_save($post_id)
 	{		
 		#SAVE PROJECT BOX FORM CONTENTS
-		mp_options::mp_meta_boxes_save($post_id, "portfolio_nonce", "portfolio_client_name", "post");
-		mp_options::mp_meta_boxes_save($post_id, "portfolio_nonce", "portfolio_client_location", "post");
-		mp_options::mp_meta_boxes_save($post_id, "portfolio_nonce", "portfolio_project_url", "post");
-		mp_options::mp_meta_boxes_save($post_id, "portfolio_nonce", "portfolio_project_gallery", "post");
+		mp_options::mp_meta_boxes_save($post_id, 'portfolio_nonce', 'portfolio_client_name', 'post');
+		mp_options::mp_meta_boxes_save($post_id, 'portfolio_nonce', 'portfolio_client_location', 'post');
+		mp_options::mp_meta_boxes_save($post_id, 'portfolio_nonce', 'portfolio_project_url', 'post');
+		mp_options::mp_meta_boxes_save($post_id, 'portfolio_nonce', 'portfolio_project_gallery', 'post');
 		
 		#RETURN POST ID
 		return $post_id;
 	}
 	
 	#THIS FUNCTION DISPLAYS THE PROJECTS
-	function mp_display_projects($category, $page, $pagination = true, $list_id = "projects", $max_words = 20)
+	function mp_display_projects($category, $page, $pagination = true, $list_id = 'projects', $max_words = 20)
 	{		
 		#RETRIEVE THE POST
 		global $post;
@@ -2120,12 +2120,12 @@ class mp_options
 			#INITIALISE PROJECT ARGUMENTS
 			$args = array
 			(
-				"post_type" => "project",
-				"post_status" => "publish",
-				"posts_per_page" => get_option("posts_per_page"),
-				"paged" => $page,
-				"order" => "DESC",
-				"orderby" => "date"
+				'post_type' => 'project',
+				'post_status' => 'publish',
+				'posts_per_page' => get_option('posts_per_page'),
+				'paged' => $page,
+				'order' => 'DESC',
+				'orderby' => 'date'
 			);
 		}
 		#INITIALISE PROJECT ARGUMENTS OF PROJECT CATEGORIES
@@ -2134,20 +2134,20 @@ class mp_options
 			#INITIALISE PROJECT ARGUMENTS
 			$args = array
 			(
-				"post_type" => "project",
-				"post_status" => "publish",
-				"posts_per_page" => get_option("posts_per_page"),
-				"paged" => $page,
-				"order" => "DESC",
-				"orderby" => "date",
-				"tax_query" =>
+				'post_type' => 'project',
+				'post_status' => 'publish',
+				'posts_per_page' => get_option('posts_per_page'),
+				'paged' => $page,
+				'order' => 'DESC',
+				'orderby' => 'date',
+				'tax_query' =>
 				array
 				(
 					array
 					(
-						"taxonomy" => "portfolio-categories",
-						"field" => "slug",
-						"terms" => $category
+						'taxonomy' => 'portfolio-categories',
+						'field' => 'slug',
+						'terms' => $category
 					)
 				)
 			);
@@ -2172,7 +2172,7 @@ class mp_options
 				$project_title = $post->post_title;
 				
 				#OPEN PROJECT LIST ITEM
-				echo "<li>";
+				echo '<li>';
 				
 				#OPEN PROJECT LINK
 				echo '<a href="' . get_permalink() . '">';
@@ -2181,7 +2181,7 @@ class mp_options
 				if(has_post_thumbnail())
 				{
 					#INITIALISE PROJECT THUMBNAIL FILE
-					$project_thumbnail_file = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "full");
+					$project_thumbnail_file = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
 					
 					#DISPLAY PROJECT THUMBNAIL
 					echo '<img src="' . $project_thumbnail_file[0] . '" alt="' . $project_title . '" title="' . $project_title . '" class="project_thumbnail" />';
@@ -2190,20 +2190,20 @@ class mp_options
 				else
 				{
 					#DISPLAY DEFAULT PROJECT THUMBNAIL
-					echo '<img src="' . get_bloginfo("template_url") . '/images/portfolio-thumbnail-default.png" alt="' . $project_title . '" title="' . $project_title . '" class="project_thumbnail" />';
+					echo '<img src="' . get_bloginfo('template_url') . '/images/portfolio-thumbnail-default.png" alt="' . $project_title . '" title="' . $project_title . '" class="project_thumbnail" />';
 				}
 				
 				#CLOSE PROJECT LINK
-				echo "</a>";
+				echo '</a>';
 				
 				#DISPLAY PROJECT TITLE
-				echo '<h2><a href="' . get_permalink() . '">' . $project_title . "</a></h2>";
+				echo '<h2><a href="' . get_permalink() . '">' . $project_title . '</a></h2>';
 				
 				#DISPLAY PROJECT CATEGORIES
-				echo '<p class="categories">' . get_the_term_list($post->ID, "portfolio-categories", "", ", ") . "</p>";
+				echo '<p class="categories">' . get_the_term_list($post->ID, 'portfolio-categories', '', ', ') . '</p>';
 				
 				#DISPLAY EXCERPT VIA THE ADVANCED EXCERPT PLUGIN
-				if(function_exists("the_advanced_excerpt"))
+				if(function_exists('the_advanced_excerpt'))
 				{
 					the_advanced_excerpt("length=$max_words");
 				}
@@ -2214,26 +2214,26 @@ class mp_options
 				}
 				
 				#CLOSE PROJECT LIST ITEM
-				echo "</li>";				
+				echo '</li>';				
 			}
 			
 			#CLOSE PROJECT LIST
-			echo "</ul>";
+			echo '</ul>';
 			
 			#PAGING NAVIGATION IS ENABLED
 			if($pagination)
 			{
 				#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
-				if(function_exists("wp_pagenavi"))
+				if(function_exists('wp_pagenavi'))
 				{
-					wp_pagenavi(array("query" =>$projects));
+					wp_pagenavi(array('query' => $projects));
 				}
 				#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
 				else
 				{
 				?>
-					<p class="left"><?php next_posts_link("&laquo; Previous Projects"); ?></p>
-					<p class="right"><?php previous_posts_link("Next Projects &raquo;"); ?></p>
+					<p class="left"><?php next_posts_link('&laquo; Previous Projects'); ?></p>
+					<p class="right"><?php previous_posts_link('Next Projects &raquo;'); ?></p>
 				<?php
 				}
 			}
@@ -2244,10 +2244,10 @@ class mp_options
 	function mp_display_project_thumbnails()
 	{
 		#NEXTGEN GALLERY PLUGIN IS ACTIVATED
-		if(function_exists("nggShowSlideshow"))
+		if(function_exists('nggShowSlideshow'))
 		{
 			#INITIALISE PROJECT GALLERY
-			$portfolio_project_gallery = get_post_meta(get_the_ID(), "portfolio_project_gallery", true);
+			$portfolio_project_gallery = get_post_meta(get_the_ID(), 'portfolio_project_gallery', true);
 			
 			#PROJECT GALLERY EXISTS
 			if(!empty($portfolio_project_gallery))
@@ -2267,7 +2267,7 @@ class mp_options
 				<div id="project_gallery_thumbnails">' . "\n";
 				
 				#DISPLAY PREVIOUS BUTTON
-				echo '<a class="previous" href="#" title="Previous"><img src="' . get_bloginfo("template_url") . '/images/arrow-slider-left-off.png" alt="Previous" /></a>';
+				echo '<a class="previous" href="#" title="Previous"><img src="' . get_bloginfo('template_url') . '/images/arrow-slider-left-off.png" alt="Previous" /></a>';
 				
 				#OPEN UNORDERED LIST
 				echo '<ul class="thumbs noscript">';
@@ -2279,10 +2279,10 @@ class mp_options
 				}
 				
 				#CLOSE UNORDERED LIST
-				echo "</ul>";
+				echo '</ul>';
 				
 				#DISPLAY NEXT BUTTON
-				echo '<a class="next" href="#" title="Next"><img src="' . get_bloginfo("template_url") . '/images/arrow-slider-right-off.png" alt="Next" /></a>';
+				echo '<a class="next" href="#" title="Next"><img src="' . get_bloginfo('template_url') . '/images/arrow-slider-right-off.png" alt="Next" /></a>';
 				
 				echo '</div>
 				<!-- PROJECT GALLERY THUMBNAILS - END -->'. "\n";
@@ -2299,12 +2299,12 @@ class mp_options
 	function mp_display_project_details()
 	{
 		#INITIALISE PROJECT DETAILS
-		$portfolio_client_name = get_post_meta(get_the_ID(), "portfolio_client_name", true);
-		$portfolio_client_location = get_post_meta(get_the_ID(), "portfolio_client_location", true);
-		$portfolio_project_url = get_post_meta(get_the_ID(), "portfolio_project_url", true);
-		$portfolio_project_gallery = get_post_meta(get_the_ID(), "portfolio_project_gallery", true);
-		$portfolio_project_scope_terms = get_the_terms(get_the_ID(), "portfolio-scope");
-		$portfolio_project_skill_terms = get_the_terms(get_the_ID(), "portfolio-skill");
+		$portfolio_client_name = get_post_meta(get_the_ID(), 'portfolio_client_name', true);
+		$portfolio_client_location = get_post_meta(get_the_ID(), 'portfolio_client_location', true);
+		$portfolio_project_url = get_post_meta(get_the_ID(), 'portfolio_project_url', true);
+		$portfolio_project_gallery = get_post_meta(get_the_ID(), 'portfolio_project_gallery', true);
+		$portfolio_project_scope_terms = get_the_terms(get_the_ID(), 'portfolio-scope');
+		$portfolio_project_skill_terms = get_the_terms(get_the_ID(), 'portfolio-skill');
 		
 		#OPEN PROJECT DETAILS DIV WITH TOP MARGIN
 		if(!empty($portfolio_project_gallery))
@@ -2318,7 +2318,7 @@ class mp_options
 		}
 		
 		#OPEN TABLE
-		echo "<table>";
+		echo '<table>';
 		
 		#PROJECT URL EXISTS
 		if(!empty($portfolio_project_url))
@@ -2374,26 +2374,26 @@ class mp_options
 		}
 		
 		#CLOSE TABLE
-		echo "</table>";
+		echo '</table>';
 		
 		#CLOSE PROJECT DETAILS DIV
-		echo "</div>";
+		echo '</div>';
 	}
 	
 	#THIS FUNCTION DISPLAYS THE PROJECT CATEGORIES IN THE SIDEBAR
 	function mp_display_portfolio_categories($current_category)
 	{
 		#CUSTOM TAXONOMY SORT PLUGIN ACTIVATED
-		if(class_exists("CustomTaxonomySort"))
+		if(class_exists('CustomTaxonomySort'))
 		{
 			#INITIALISE CATEGORIES WITH CUSTOM SORT ORDER
-			$categories = get_terms("portfolio-categories", "orderby=custom_sort&order=ASC&hide_empty=1");
+			$categories = get_terms('portfolio-categories', 'orderby=custom_sort&order=ASC&hide_empty=1');
 		}
 		#CUSTOM TAXONOMY SORT PLUGIN DEACTIVATED
 		else
 		{
 			#INITIALISE CATEGORIES WITH NAME SORT ORDER
-			$categories = get_terms("portfolio-categories", "orderby=name&hide_empty=1");
+			$categories = get_terms('portfolio-categories', 'orderby=name&hide_empty=1');
 		}
 		
 		#CATEGORIES EXIST
@@ -2402,8 +2402,6 @@ class mp_options
 			#DISPLAY CATEGORY LINKS
 			foreach($categories as $category)
 			{
-				
-				
 				#DISPLAY SELECTED SUB CATEGORY LINKS
 				if($category->slug == $current_category)
 				{
@@ -2428,45 +2426,45 @@ class mp_options
 		#INITIALISE TESTIMONIAL CUSTOM POST TYPE LABELS
 		$labels = array
 		(
-			"name" => _x("Testimonials", "post type general name"),
-			"singular_name" => _x("Testimonial", "post type singular name"),
-			"add_new" => _x("Add New", "testimonial"),
-			"add_new_item" => __("Add New Testimonial"),
-			"edit_item" => __("Edit Testimonial"),
-			"new_item" => __("New Testimonial"),
-			"all_items" => __("All Testimonials"),
-			"view_item" => __("View Testimonial"),
-			"search_items" => __("Search Testimonials"),
-			"not_found" =>  __("No Testimonials found"),
-			"not_found_in_trash" => __("No Testimonials found in Trash"), 
-			"parent_item_colon" => "",
-			"menu_name" => "Testimonials"
+			'name' => _x('Testimonials', 'post type general name'),
+			'singular_name' => _x('Testimonial', 'post type singular name'),
+			'add_new' => _x('Add New', 'testimonial'),
+			'add_new_item' => __('Add New Testimonial'),
+			'edit_item' => __('Edit Testimonial'),
+			'new_item' => __('New Testimonial'),
+			'all_items' => __('All Testimonials'),
+			'view_item' => __('View Testimonial'),
+			'search_items' => __('Search Testimonials'),
+			'not_found' =>  __('No Testimonials found'),
+			'not_found_in_trash' => __('No Testimonials found in Trash'), 
+			'parent_item_colon' => '',
+			'menu_name' => 'Testimonials'
 		);
 		
 		#INITIALISE TESTIMONIAL CUSTOM POST TYPE ARGUMENTS
 		$args = array
 		(
-			"labels" => $labels,
-			"description" => "Testimonial",
-			"public" => true,
-			"publicly_queryable" => true,
-			"exclude_from_search" => false,
-			"show_ui" => true, 
-			"show_in_menu" => true,
-			"menu_position" => 20,
-			"menu_icon" => null,
-			"capability_type" => "post",
-			"hierarchical" => false,
-			"supports" => array("title", "editor", "revisions"),
-			"has_archive" => false,
-			"rewrite" => array("slug" => "testimonial", "with_front" => false),
-			"query_var" => false,
-			"can_export" => true,
-			"show_in_nav_menus" => true
+			'labels' => $labels,
+			'description' => 'Testimonial',
+			'public' => true,
+			'publicly_queryable' => true,
+			'exclude_from_search' => false,
+			'show_ui' => true, 
+			'show_in_menu' => true,
+			'menu_position' => 20,
+			'menu_icon' => null,
+			'capability_type' => 'post',
+			'hierarchical' => false,
+			'supports' => array('title', 'editor', 'revisions'),
+			'has_archive' => false,
+			'rewrite' => array('slug' => 'testimonial', 'with_front' => false),
+			'query_var' => false,
+			'can_export' => true,
+			'show_in_nav_menus' => true
 		);
 		
 		#REGISTER TESTIMONIAL CUSTOM POST TYPE
-		register_post_type("testimonial", $args);
+		register_post_type('testimonial', $args);
 	}
 	
 	#THIS FUNCTION DISPLAYS THE TESTIMONIAL COLUMNS
@@ -2476,16 +2474,16 @@ class mp_options
 		$columns = 
 		array
 		(
-			"cb" => "<input type=\"checkbox\" />",
-			"title" => "Title",
-			"project" => "Project",
-			"name" => "Name",
-			"location" => "Location",
-			"photo" => "Photo",
-			"url" => "URL",
-			"pdf" => "PDF",
-			"feature" => "Feature",
-			"date" => "Date"
+			'cb' => '<input type="checkbox" />',
+			'title' => 'Title',
+			'project' => 'Project',
+			'name' => 'Name',
+			'location' => 'Location',
+			'photo' => 'Photo',
+			'url' => 'URL',
+			'pdf' => 'PDF',
+			'feature' => 'Feature',
+			'date' => 'Date'
 		);
 		
 		#RETURN TESTIMONIAL COLUMNS
@@ -2502,10 +2500,10 @@ class mp_options
 		switch($column)
 		{
 			#TESTIMONIAL PROJECT
-			case "project":
+			case 'project':
 			
 				#INITIALISE TESTIMONIAL PROJECT ID
-				$testimonial_project = get_post_meta($post->ID, "testimonial_project", true);
+				$testimonial_project = get_post_meta($post->ID, 'testimonial_project', true);
 			
 				#INITIALISE TESTIMONIAL PROJECT TITLE
 				$testimonial_project_title = get_the_title($testimonial_project);
@@ -2519,10 +2517,10 @@ class mp_options
 				break;
 			
 			#TESTIMONIAL NAME
-			case "name":
+			case 'name':
 				
 				#INITIALISE TESTIMONIAL NAME
-				$testimonial_name = get_post_meta($post->ID, "testimonial_name", true);
+				$testimonial_name = get_post_meta($post->ID, 'testimonial_name', true);
 				
 				#DISPLAY TESTIMONIAL NAME
 				if(!empty($testimonial_name))
@@ -2533,10 +2531,10 @@ class mp_options
 				break;
 				
 			#TESTIMONIAL LOCATION
-			case "location":
+			case 'location':
 				
 				#INITIALISE TESTIMONIAL LOCATION
-				$testimonial_location = get_post_meta($post->ID, "testimonial_location", true);
+				$testimonial_location = get_post_meta($post->ID, 'testimonial_location', true);
 				
 				#DISPLAY TESTIMONIAL LOCATION
 				if(!empty($testimonial_location))
@@ -2547,58 +2545,58 @@ class mp_options
 				break;
 				
 			#TESTIMONIAL PHOTO
-			case "photo":
+			case 'photo':
 				
 				#INITIALISE TESTIMONIAL NAME & PHOTO
-				$testimonial_name = get_post_meta($post->ID, "testimonial_name", true);
-				$testimonial_photo = get_post_meta($post->ID, "testimonial_photo", true);
+				$testimonial_name = get_post_meta($post->ID, 'testimonial_name', true);
+				$testimonial_photo = get_post_meta($post->ID, 'testimonial_photo', true);
 				
 				#DISPLAY TESTIMONIAL PHOTO ICON
 				if(!empty($testimonial_photo))
 				{
-					echo '<a href="' . $testimonial_photo . '" title="' . $testimonial_name . '" class="colorbox"><img src="' . get_bloginfo("template_url") . '/images/icon-picture.png" alt="" /></a>';
+					echo '<a href="' . $testimonial_photo . '" title="' . $testimonial_name . '" class="colorbox"><img src="' . get_bloginfo('template_url') . '/images/icon-picture.png" alt="" /></a>';
 				}
 				
 				break;
 				
 			#TESTIMONIAL URL
-			case "url":
+			case 'url':
 			
 				#INITIALISE TESTIMONIAL URL
-				$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);
+				$testimonial_url = get_post_meta($post->ID, 'testimonial_url', true);
 				
 				#DISPLAY TESTIMONIAL URL ICON
 				if(!empty($testimonial_url))
 				{
-					echo '<a href="' . $testimonial_url . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-url.png" alt="" /></a>';
+					echo '<a href="' . $testimonial_url . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-url.png" alt="" /></a>';
 				}
 				
 				break;
 				
 			#TESTIMONIAL PDF
-			case "pdf":
+			case 'pdf':
 			
 				#INITIALISE TESTIMONIAL PDF
-				$testimonial_pdf = get_post_meta($post->ID, "testimonial_pdf", true);
+				$testimonial_pdf = get_post_meta($post->ID, 'testimonial_pdf', true);
 				
 				#DISPLAY TESTIMONIAL PDF ICON
 				if(!empty($testimonial_pdf))
 				{
-					echo '<a href="' . $testimonial_pdf . '" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-pdf.png" alt="" /></a>';
+					echo '<a href="' . $testimonial_pdf . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt="" /></a>';
 				}
 				
 				break;
 				
 			#TESTIMONIAL FEATURE
-			case "feature":
+			case 'feature':
 			
 				#INITIALISE TESTIMONIAL FEATURE
-				$testimonial_feature = get_post_meta($post->ID, "testimonial_feature", true);
+				$testimonial_feature = get_post_meta($post->ID, 'testimonial_feature', true);
 				
 				#DISPLAY TESTIMONIAL FEATURE ICON
 				if($testimonial_feature)
 				{
-					echo '<img src="' . get_bloginfo("template_url") . '/images/icon-pin.png" alt="" />';
+					echo '<img src="' . get_bloginfo('template_url') . '/images/icon-pin.png" alt="" />';
 				}
 				
 				break;
@@ -2609,10 +2607,10 @@ class mp_options
 	function mp_meta_boxes_testimonial()
 	{
 		#ADD TESTIMONIAL BOX TO TESTIMONIAL CUSTOM POSTS
-		add_meta_box("testimonial_box", "Testimonial Information", array("mp_options", "mp_meta_boxes_testimonial_form"), "testimonial", "normal", "high");
+		add_meta_box('testimonial_box', 'Testimonial Information', array('mp_options', 'mp_meta_boxes_testimonial_form'), 'testimonial', 'normal', 'high');
 	 
 		#SAVE TESTIMONIAL BOX FORM CONTENTS
-		add_action("save_post", array("mp_options", "mp_meta_boxes_testimonial_form_save"));
+		add_action('save_post', array('mp_options', 'mp_meta_boxes_testimonial_form_save'));
 	}
 	
 	#THIS FUNCTION CREATES THE TESTIMONIAL BOX FORM
@@ -2622,16 +2620,16 @@ class mp_options
 		global $post;
 	
 		#INITIALISE TESTIMONIAL ERROR BOX ID
-		$testimonial_error_box = "testimonial_errors" . $post->ID;
+		$testimonial_error_box = 'testimonial_errors' . $post->ID;
 	
 		#INITIALISE TESTIMONIAL OPTIONS
-		$testimonial_project = get_post_meta($post->ID, "testimonial_project", true);
-		$testimonial_name = get_post_meta($post->ID, "testimonial_name", true);
-		$testimonial_location = get_post_meta($post->ID, "testimonial_location", true);
-		$testimonial_photo = get_post_meta($post->ID, "testimonial_photo", true);
-		$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);
-		$testimonial_pdf = get_post_meta($post->ID, "testimonial_pdf", true);
-		$testimonial_feature = get_post_meta($post->ID, "testimonial_feature", true);
+		$testimonial_project = get_post_meta($post->ID, 'testimonial_project', true);
+		$testimonial_name = get_post_meta($post->ID, 'testimonial_name', true);
+		$testimonial_location = get_post_meta($post->ID, 'testimonial_location', true);
+		$testimonial_photo = get_post_meta($post->ID, 'testimonial_photo', true);
+		$testimonial_url = get_post_meta($post->ID, 'testimonial_url', true);
+		$testimonial_pdf = get_post_meta($post->ID, 'testimonial_pdf', true);
+		$testimonial_feature = get_post_meta($post->ID, 'testimonial_feature', true);
 		
 		#DISPLAY TESTIMONIAL NONCE FIELD
 		echo '<input name="testimonial_nonce" id="testimonial_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
@@ -2648,14 +2646,14 @@ class mp_options
 		<script type="text/javascript">
 		jQuery(document).ready(function()
 		{
-			jQuery("div.wrap").after('<div id="<?php echo $testimonial_error_box; ?>" class="mp_errors error"></div>');
+			jQuery('div.wrap').after('<div id="<?php echo $testimonial_error_box; ?>" class="mp_errors error"></div>');
 			
-			jQuery("form#post").validate(
+			jQuery('form#post').validate(
 			{
 				//VALIDATION CONTAINER & ERROR MESSAGES
-				errorLabelContainer: jQuery("#<?php echo $testimonial_error_box; ?>"),
-				errorElement: "p",
-				errorClass: "mp_error_field",
+				errorLabelContainer: jQuery('#<?php echo $testimonial_error_box; ?>'),
+				errorElement: 'p',
+				errorClass: 'mp_error_field',
 				
 				//VALIDATION RULES
 				rules:
@@ -2682,26 +2680,26 @@ class mp_options
 				{
 					testimonial_name:
 					{
-						required: "Please enter a Name."
+						required: 'Please enter a Name.'
 					},
 					testimonial_location:
 					{
-						required: "Please enter a Location."
+						required: 'Please enter a Location.'
 					},
 					testimonial_photo:
 					{
-						url2: "Please enter a valid Photo URL."
+						url2: 'Please enter a valid Photo URL.'
 					},
 					testimonial_url:
 					{
-						url2: "Please enter a valid URL."
+						url2: 'Please enter a valid URL.'
 					}
 				}
 			});
 			
-			jQuery("#publish").click(function()
+			jQuery('#publish').click(function()
 			{
-				form_check = jQuery("#post").valid();
+				form_check = jQuery('#post').valid();
 				
 				if(!form_check)
 				{
@@ -2715,15 +2713,15 @@ class mp_options
 	
 	#THIS FUNCTION SAVES THE TESTIMONIAL BOX FORM CONTENTS
 	function mp_meta_boxes_testimonial_form_save($post_id) 
-	{		
+	{
 		#SAVE TESTIMONIAL BOX FORM CONTENTS
-		mp_options::mp_meta_boxes_save($post_id, "testimonial_nonce", "testimonial_project", "post");
-		mp_options::mp_meta_boxes_save($post_id, "testimonial_nonce", "testimonial_name", "post");
-		mp_options::mp_meta_boxes_save($post_id, "testimonial_nonce", "testimonial_location", "post");
-		mp_options::mp_meta_boxes_save($post_id, "testimonial_nonce", "testimonial_photo", "post");
-		mp_options::mp_meta_boxes_save($post_id, "testimonial_nonce", "testimonial_url", "post");
-		mp_options::mp_meta_boxes_save($post_id, "testimonial_nonce", "testimonial_pdf", "post");
-		mp_options::mp_meta_boxes_save($post_id, "testimonial_nonce", "testimonial_feature", "post");
+		mp_options::mp_meta_boxes_save($post_id, 'testimonial_nonce', 'testimonial_project', 'post');
+		mp_options::mp_meta_boxes_save($post_id, 'testimonial_nonce', 'testimonial_name', 'post');
+		mp_options::mp_meta_boxes_save($post_id, 'testimonial_nonce', 'testimonial_location', 'post');
+		mp_options::mp_meta_boxes_save($post_id, 'testimonial_nonce', 'testimonial_photo', 'post');
+		mp_options::mp_meta_boxes_save($post_id, 'testimonial_nonce', 'testimonial_url', 'post');
+		mp_options::mp_meta_boxes_save($post_id, 'testimonial_nonce', 'testimonial_pdf', 'post');
+		mp_options::mp_meta_boxes_save($post_id, 'testimonial_nonce', 'testimonial_feature', 'post');
 		
 		#RETURN POST ID
 		return $post_id;
@@ -2736,61 +2734,61 @@ class mp_options
 		global $post;
 		
 		#INITIALISE TESTIMONIAL ARGUMENTS OF PROJECT PAGE
-		if($scope == "project")
+		if($scope == 'project')
 		{
 			#INITIALISE TESTIMONIAL ARGUMENTS
 			$args = array
 			(
-				"post_type" => "testimonial",
-				"post_status" => "publish",
-				"posts_per_page" => get_option("posts_per_page"),
-				"paged" => $page,
-				"order" => "DESC",
-				"orderby" => "date",
-				"meta_query" =>
+				'post_type' => 'testimonial',
+				'post_status' => 'publish',
+				'posts_per_page' => get_option('posts_per_page'),
+				'paged' => $page,
+				'order' => 'DESC',
+				'orderby' => 'date',
+				'meta_query' =>
 				array
 				(
 					array
 					(
-						"key" => "testimonial_project",
-						"value" => get_the_ID()
+						'key' => 'testimonial_project',
+						'value' => get_the_ID()
 					)
 				)
 			);
 		}
 		#INITIALISE TESTIMONIAL ARGUMENTS OF TESTIMONIALS PAGE
-		elseif($scope == "testimonials")
+		elseif($scope == 'testimonials')
 		{
 			#INITIALISE TESTIMONIAL ARGUMENTS
 			$args = array
 			(
-				"post_type" => "testimonial",
-				"post_status" => "publish",
-				"posts_per_page" => get_option("posts_per_page"),
-				"paged" => $page,
-				"order" => "DESC",
-				"orderby" => "date"
+				'post_type' => 'testimonial',
+				'post_status' => 'publish',
+				'posts_per_page' => get_option('posts_per_page'),
+				'paged' => $page,
+				'order' => 'DESC',
+				'orderby' => 'date'
 			);
 		}
 		#INITIALISE TESTIMONIAL ARGUMENTS OF FEATURED TESTIMONIALS ON HOME PAGE
-		elseif($scope == "home")
+		elseif($scope == 'home')
 		{
 			#INITIALISE TESTIMONIAL ARGUMENTS
 			$args = array
 			(
-				"post_type" => "testimonial",
-				"post_status" => "publish",
-				"posts_per_page" => 1,
-				"paged" => $page,
-				"order" => "DESC",
-				"orderby" => "rand",
-				"meta_query" =>
+				'post_type' => 'testimonial',
+				'post_status' => 'publish',
+				'posts_per_page' => 1,
+				'paged' => $page,
+				'order' => 'DESC',
+				'orderby' => 'rand',
+				'meta_query' =>
 				array
 				(
 					array
 					(
-						"key" => "testimonial_feature",
-						"value" => 1
+						'key' => 'testimonial_feature',
+						'value' => 1
 					)
 				)
 			);
@@ -2803,7 +2801,7 @@ class mp_options
 		if($testimonials->have_posts())
 		{
 			#DISPLAY TESTIMONIAL SUB HEADING
-			if($scope == "project" || $scope == "home")
+			if($scope == 'project' || $scope == 'home')
 			{
 				echo '<h3 class="sub_heading">Testimonials</h3>';
 			}
@@ -2815,14 +2813,14 @@ class mp_options
 				$testimonials->the_post();
 				
 				#INITIALISE TESTIMONIAL DETAILS
-				$testimonial_name = get_post_meta($post->ID, "testimonial_name", true);
-				$testimonial_location = get_post_meta($post->ID, "testimonial_location", true);
-				$testimonial_photo = get_post_meta($post->ID, "testimonial_photo", true);
-				$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);
-				$testimonial_pdf = get_post_meta($post->ID, "testimonial_pdf", true);
+				$testimonial_name = get_post_meta($post->ID, 'testimonial_name', true);
+				$testimonial_location = get_post_meta($post->ID, 'testimonial_location', true);
+				$testimonial_photo = get_post_meta($post->ID, 'testimonial_photo', true);
+				$testimonial_url = get_post_meta($post->ID, 'testimonial_url', true);
+				$testimonial_pdf = get_post_meta($post->ID, 'testimonial_pdf', true);
 				
 				#INITIALISE TESTIMONIAL CONTENT FOR NON-PROJECT PAGES
-				if($scope == "home" || $scope == "testimonials")
+				if($scope == 'home' || $scope == 'testimonials')
 				{
 					$testimonial_content = mp_options::mp_get_excerpt($max_words);
 				}
@@ -2833,7 +2831,7 @@ class mp_options
 				}		
 				
 				#APPEND TESTIMONIAL NAME & LOCATION
-				$testimonial_content .= "<br /><br />- $testimonial_name, $testimonial_location";
+				$testimonial_content .= '<br /><br />- ' . $testimonial_name . ', ' . $testimonial_location;
 				
 				#APPEND TESTIMONIAL URL
 				if(!empty($testimonial_url))
@@ -2850,7 +2848,7 @@ class mp_options
 				#APPEND TESTIMONIAL PDF
 				if(!empty($testimonial_pdf))
 				{
-					$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial_pdf" />PDF</a>';
+					$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial_pdf" />PDF</a>';
 				}
 				
 				#DISPLAY TESTIMONIAL BOX
@@ -2861,17 +2859,17 @@ class mp_options
 			if($pagination)
 			{		
 				#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
-				if(function_exists("wp_pagenavi"))
+				if(function_exists('wp_pagenavi'))
 				{
-					wp_pagenavi(array("query" =>$testimonials));
+					wp_pagenavi(array('query' => $testimonials));
 				}
 				#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
 				else
 
 				{
 				?>
-					<p class="left"><?php next_posts_link("&laquo; Previous Testimonials"); ?></p>
-					<p class="right"><?php previous_posts_link("Next Testimonials &raquo;"); ?></p>
+					<p class="left"><?php next_posts_link('&laquo; Previous Testimonials'); ?></p>
+					<p class="right"><?php previous_posts_link('Next Testimonials &raquo;'); ?></p>
 				<?php
 				}
 			}
@@ -2890,18 +2888,18 @@ class mp_options
 		global $post;
 		
 		#INITIALISE TESTIMONIAL DETAILS
-		$testimonial_name = get_post_meta($post->ID, "testimonial_name", true);
-		$testimonial_location = get_post_meta($post->ID, "testimonial_location", true);
-		$testimonial_photo = get_post_meta($post->ID, "testimonial_photo", true);
-		$testimonial_url = get_post_meta($post->ID, "testimonial_url", true);
-		$testimonial_pdf = get_post_meta($post->ID, "testimonial_pdf", true);
-		$testimonial_project = get_post_meta($post->ID, "testimonial_project", true);
+		$testimonial_name = get_post_meta($post->ID, 'testimonial_name', true);
+		$testimonial_location = get_post_meta($post->ID, 'testimonial_location', true);
+		$testimonial_photo = get_post_meta($post->ID, 'testimonial_photo', true);
+		$testimonial_url = get_post_meta($post->ID, 'testimonial_url', true);
+		$testimonial_pdf = get_post_meta($post->ID, 'testimonial_pdf', true);
+		$testimonial_project = get_post_meta($post->ID, 'testimonial_project', true);
 		
 		#INITIALISE TESTIMONIAL CONTENT
 		$testimonial_content = get_the_content();
 		
 		#APPEND TESTIMONIAL NAME & LOCATION
-		$testimonial_content .= "<br /><br />- $testimonial_name, $testimonial_location";
+		$testimonial_content .= '<br /><br />- ' . $testimonial_name . ', ' . $testimonial_location;
 		
 		#APPEND TESTIMONIAL URL
 		if(!empty($testimonial_url))
@@ -2918,7 +2916,7 @@ class mp_options
 		#APPEND TESTIMONIAL PDF
 		if(!empty($testimonial_pdf))
 		{
-			$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo("template_url") . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial_pdf" />PDF</a>';
+			$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial_pdf" />PDF</a>';
 		}
 		
 		#DISPLAY TESTIMONIAL PROJECT
@@ -2928,7 +2926,7 @@ class mp_options
 		}
 		
 		#DISPLAY TESTIMONIAL BOX
-		echo mp_options::mp_testimonial_shortcode("", $testimonial_content);	
+		echo mp_options::mp_testimonial_shortcode('', $testimonial_content);	
 	}
 	
 	#THIS FUNCTION ADDS CONTENT TO A TESTIMONIAL BOX
@@ -2951,8 +2949,8 @@ class mp_options
 		?>
 		<table class="form-table">
 		<tr>
-			<th><label for="description"><?php _e("Biographical Info"); ?></label></th>
-			<td><?php wp_editor(get_user_meta($user->ID, "description", true), "description", array("textarea_rows" => 15)); ?><p class="description"><?php _e("Share a little biographical information to fill out your profile. This may be shown publicly."); ?></p></td>
+			<th><label for="description"><?php _e('Biographical Info'); ?></label></th>
+			<td><?php wp_editor(get_user_meta($user->ID, 'description', true), 'description', array('textarea_rows' => 15)); ?><p class="description"><?php _e('Share a little biographical information to fill out your profile. This may be shown publicly.'); ?></p></td>
 		</tr>
 		</table>
 		<?php
@@ -2962,21 +2960,21 @@ class mp_options
 	function mp_contact_info($contact_fields)
 	{
 		#DELETE AIM, YIM & JABBER FIELDS
-		unset($contact_fields["aim"]);
-		unset($contact_fields["jabber"]);
-		unset($contact_fields["yim"]);
+		unset($contact_fields['aim']);
+		unset($contact_fields['jabber']);
+		unset($contact_fields['yim']);
 		
 		#ADD FACEBOOK, TWITTER, GOOGLE+, PINTEREST, LINKEDIN, GITHUB, DRIBBLE, INSTAGRAM, INSTAGRAM RSS FEED
-		$contact_fields["facebook"] = "Facebook";
-		$contact_fields["twitter"] = "Twitter";
-		$contact_fields["google_plus"] = "Google+";
-		$contact_fields["pinterest"] = "Pinterest";
-		$contact_fields["linkedin"] = "LinkedIn";
-		$contact_fields["github"] = "Github";
-		$contact_fields["dribbble"] = "Dribbble";
-		$contact_fields["dribbble_rss"] = "Dribbble RSS Feed";
-		$contact_fields["instagram"] = "Instagram";
-		$contact_fields["instagram_rss"] = "Instagram RSS Feed";
+		$contact_fields['facebook'] = 'Facebook';
+		$contact_fields['twitter'] = 'Twitter';
+		$contact_fields['google_plus'] = 'Google+';
+		$contact_fields['pinterest'] = 'Pinterest';
+		$contact_fields['linkedin'] = 'LinkedIn';
+		$contact_fields['github'] = 'Github';
+		$contact_fields['dribbble'] = 'Dribbble';
+		$contact_fields['dribbble_rss'] = 'Dribbble RSS Feed';
+		$contact_fields['instagram'] = 'Instagram';
+		$contact_fields['instagram_rss'] = 'Instagram RSS Feed';
 		
 		return $contact_fields;
 	}
@@ -2985,7 +2983,7 @@ class mp_options
 	function mp_get_author_id()
 	{
 		#INITIALISE AUTHOR ID
-		$mp_author = get_option("mp_author");
+		$mp_author = get_option('mp_author');
 			
 		#SET DEFAULT AUTHOR ID
 		if(empty($mp_author))
@@ -3013,7 +3011,7 @@ class mp_options
 		}
 		
 		#INITIALISE SELECT LIST HTML
-		$select_list = "<select name=\"$select_id\" id=\"$select_id\" class=\"postform\">\n";
+		$select_list = '<select name="' . $select_id . '" id="' . $select_id . '" class="postform">' . "\n";
 		
 		#APPEND AUTHORS
 		foreach($authors as $author)
@@ -3021,17 +3019,17 @@ class mp_options
 			#SELECTED AUTHOR
 			if($selected_author == $author->ID)
 			{
-				$select_list .= "<option class=\"level-0\" selected=\"selected\" value=\"" . $author->ID . "\">" . $author->display_name . "</option>\n";
+				$select_list .= '<option class="level-0" selected="selected" value="' . $author->ID . '">' . $author->display_name . '</option>' . "\n";
 			}
 			#UNSELECTED AUTHOR
 			else
 			{
-				$select_list .= "<option class=\"level-0\" value=\"" . $author->ID . "\">" . $author->display_name . "</option>\n";
+				$select_list .= '<option class="level-0" value="' . $author->ID . '">' . $author->display_name . '</option>' . "\n";
 			}
 		}
 		
 		#CLOSE SELECT LIST HTML
-		$select_list .= "</select>";
+		$select_list .= '</select>';
 		
 		#DISPLAY SELECT LIST
 		echo $select_list;
@@ -3045,13 +3043,13 @@ class mp_options
 	function mp_display_instagram_thumbnails()
 	{	
 		#INITIALISE INSTAGRAM RSS FEED
-		$instagram_rss = get_user_meta(mp_options::mp_get_author_id(), "instagram_rss", true);
+		$instagram_rss = get_user_meta(mp_options::mp_get_author_id(), 'instagram_rss', true);
 		
 		#INSTAGRAM RSS FEED EXISTS
 		if(!empty($instagram_rss))
 		{
 			#INCLUDE SIMPLEPIE RSS PARSER
-			include_once(ABSPATH.WPINC . "/class-simplepie.php");
+			include_once(ABSPATH.WPINC . '/class-simplepie.php');
 			
 			#INITIALISE SIMPLEPIE OBJECT
 			$feed = new SimplePie();
@@ -3060,19 +3058,19 @@ class mp_options
 			$feed->set_feed_url($instagram_rss);
 				
 			#INITIALISE SIMPLEPIE CACHE LOCATION
-			$feed->set_cache_location(dirname(dirname(__FILE__)) . "/cache");
+			$feed->set_cache_location(dirname(dirname(__FILE__)) . '/cache');
 			 
 			#RUN SIMPLEPIE FEED
 			$feed->init();
 			
 			#OPEN UNORDERED LIST
-			echo "<ul>";
+			echo '<ul>';
 			
 			#DISPLAY INSTAGRAM THUMBNAILS
 			foreach($feed->get_items(0, 12) as $item)
 			{
 				#FORMAT INSTAGRAM THUMBNAIL WITH THUMBNAIL IMAGE & IMAGE TITLE IN ALT/TITLE ATTRIBUTE
-				$instagram_thumbnail = str_replace("_7.jpg", "_5.jpg", $item->get_description());
+				$instagram_thumbnail = str_replace('_7.jpg', '_5.jpg', $item->get_description());
 				$instagram_thumbnail = str_replace('" />', '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '" />', $instagram_thumbnail);
 				
 				#DISPLAY INSTAGRAM THUMBNAIL
@@ -3080,7 +3078,7 @@ class mp_options
 			}
 			
 			#CLOSE UNORDERED LIST
-			echo "</ul>";
+			echo '</ul>';
 		}
 	}
 	
@@ -3088,13 +3086,13 @@ class mp_options
 	function mp_display_dribbble_thumbnails()
 	{
 		#INITIALISE DRIBBBLE RSS FEED
-		$dribbble_rss = get_user_meta(mp_options::mp_get_author_id(), "dribbble_rss", true);
+		$dribbble_rss = get_user_meta(mp_options::mp_get_author_id(), 'dribbble_rss', true);
 		
 		#DRIBBBLE RSS FEED EXISTS
 		if(!empty($dribbble_rss))
 		{
 			#INCLUDE SIMPLEPIE RSS PARSER
-			include_once(ABSPATH.WPINC . "/class-simplepie.php");
+			include_once(ABSPATH.WPINC . '/class-simplepie.php');
 			
 			#INITIALISE SIMPLEPIE OBJECT
 			$feed = new SimplePie();
@@ -3103,13 +3101,13 @@ class mp_options
 			$feed->set_feed_url($dribbble_rss);
 			
 			#INITIALISE SIMPLEPIE CACHE LOCATION
-			$feed->set_cache_location(dirname(dirname(__FILE__)) . "/cache");
+			$feed->set_cache_location(dirname(dirname(__FILE__)) . '/cache');
 			 
 			#RUN SIMPLEPIE FEED
 			$feed->init();
 			
 			#OPEN UNORDERED LIST
-			echo "<ul>";
+			echo '<ul>';
 			
 			#DISPLAY DRIBBBLE THUMBNAILS
 			foreach($feed->get_items(0, 4) as $item)
@@ -3125,7 +3123,7 @@ class mp_options
 			}
 			
 			#CLOSE UNORDERED LIST
-			echo "</ul>";
+			echo '</ul>';
 		}
 	}
 	
@@ -3136,14 +3134,14 @@ class mp_options
 		$author_id = mp_options::mp_get_author_id();
 		
 		#INITIALISE SOCIAL MEDIA PROFILES
-		$facebook = get_user_meta($author_id, "facebook", true);
-		$twitter = get_user_meta($author_id, "twitter", true);
-		$google_plus = get_user_meta($author_id, "google_plus", true);
-		$pinterest = get_user_meta($author_id, "pinterest", true);
-		$linkedin = get_user_meta($author_id, "linkedin", true);
-		$github = get_user_meta($author_id, "github", true);
-		$dribbble = get_user_meta($author_id, "dribbble", true);
-		$instagram = get_user_meta($author_id, "instagram", true);
+		$facebook = get_user_meta($author_id, 'facebook', true);
+		$twitter = get_user_meta($author_id, 'twitter', true);
+		$google_plus = get_user_meta($author_id, 'google_plus', true);
+		$pinterest = get_user_meta($author_id, 'pinterest', true);
+		$linkedin = get_user_meta($author_id, 'linkedin', true);
+		$github = get_user_meta($author_id, 'github', true);
+		$dribbble = get_user_meta($author_id, 'dribbble', true);
+		$instagram = get_user_meta($author_id, 'instagram', true);
 		
 		#OPEN SOCIAL BOX & UNORDERED LIST
 		echo '<div class="social_buttons"><ul class="social_buttons_list">';
@@ -3151,60 +3149,60 @@ class mp_options
 		#DISPLAY FACEBOOK BUTTON
 		if(!empty($facebook))
 		{
-			echo '<li><a href="' . $facebook . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-facebook.png" alt="Facebook" title="Facebook" /></a></li>';
+			echo '<li><a href="' . $facebook . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-facebook.png" alt="Facebook" title="Facebook" /></a></li>';
 		}
 		
 		#DISPLAY TWITTER BUTTON
 		if(!empty($twitter))
 		{
-			echo '<li><a href="' . $twitter . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-twitter.png" alt="Twitter" title="Twitter" /></a></li>';
+			echo '<li><a href="' . $twitter . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-twitter.png" alt="Twitter" title="Twitter" /></a></li>';
 		}
 		
 		#DISPLAY GOOGLE+ BUTTON
 		if(!empty($google_plus))
 		{
-			echo '<li><a href="' . $google_plus . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-google.png" alt="Google+" title="Google+" /></a></li>';
+			echo '<li><a href="' . $google_plus . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-google.png" alt="Google+" title="Google+" /></a></li>';
 		}
 		
 		#DISPLAY PINTEREST BUTTON
 		if(!empty($pinterest))
 		{
-			echo '<li><a href="' . $pinterest . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-pinterest.png" alt="Pinterest" title="Pinterest" /></a></li>';
+			echo '<li><a href="' . $pinterest . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-pinterest.png" alt="Pinterest" title="Pinterest" /></a></li>';
 		}
 		
 		#DISPLAY LINKEDIN BUTTON
 		if(!empty($linkedin))
 		{
-			echo '<li><a href="' . $linkedin . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-linkedin.png" alt="LinkedIn" title="LinkedIn" /></a></li>';
+			echo '<li><a href="' . $linkedin . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-linkedin.png" alt="LinkedIn" title="LinkedIn" /></a></li>';
 		}
 		
 		#DISPLAY GITHUB BUTTON
 		if(!empty($github))
 		{
-			echo '<li><a href="' . $github . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-github.png" alt="GitHub" title="GitHub" /></a></li>';
+			echo '<li><a href="' . $github . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-github.png" alt="GitHub" title="GitHub" /></a></li>';
 		}
 		
 		#DISPLAY DRIBBBLE BUTTON
 		if(!empty($github))
 		{
-			echo '<li><a href="' . $dribbble . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-dribbble.png" alt="Dribbble" title="Dribbble" /></a></li>';
+			echo '<li><a href="' . $dribbble . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-dribbble.png" alt="Dribbble" title="Dribbble" /></a></li>';
 		}
 		
 		#DISPLAY INSTAGRAM BUTTON
 		if(!empty($instagram))
 		{
-			echo '<li><a href="' . $instagram . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-instagram.png" alt="Instagram" title="Instagram" /></a></li>';
+			echo '<li><a href="' . $instagram . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-instagram.png" alt="Instagram" title="Instagram" /></a></li>';
 		}
 		
 		#CLOSE SOCIAL BOX & UNORDERED LIST
-		echo "</ul></div>";
+		echo '</ul></div>';
 	}
 	
 	#THIS FUNCTION DISPLAYS THE FACEBOOK LIKE BOX IN THE SIDEBAR
 	function mp_display_facebook_like_box()
 	{
 		#INITIALISE FACEBOOK LIKE BOX CODE
-		$facebook_code = get_option("mp_facebook_like_box");
+		$facebook_code = get_option('mp_facebook_like_box');
 		
 		#DISPLAY FACEBOOK LIKE BOX
 		if(!empty($facebook_code))
@@ -3226,12 +3224,12 @@ class mp_options
 		#INITIALISE BLOG POST ARGUMENTS
 		$args = array
 		(
-			"posts_per_page" => get_option("posts_per_page"),
-			"post_type"  => "post",
-			"post_status" => "publish",
-			"paged" => $page,
-			"order" => "DESC",
-			"orderby" => "date"
+			'posts_per_page' => get_option('posts_per_page'),
+			'post_type'  => 'post',
+			'post_status' => 'publish',
+			'paged' => $page,
+			'order' => 'DESC',
+			'orderby' => 'date'
 		);
 		
 		#RETRIEVE BLOG POSTS
@@ -3246,20 +3244,20 @@ class mp_options
 				$blog_posts->the_post();
 				
 				#INCLUDE BLOG POST TEMPLATE
-				include(TEMPLATEPATH . "/includes/inc-blog-post.php");
+				include(TEMPLATEPATH . '/includes/inc-blog-post.php');
 			}
 
 			#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
-			if(function_exists("wp_pagenavi"))
+			if(function_exists('wp_pagenavi'))
 			{
-				wp_pagenavi(array("query" =>$blog_posts));
+				wp_pagenavi(array('query' => $blog_posts));
 			}
 			#DISPLAY DEFAULT WORDPRESS PAGING NAVIGATION LINKS
 			else
 			{
 			?>
-				<p class="left"><?php next_posts_link("&laquo; Previous Entries"); ?></p>
-				<p class="right"><?php previous_posts_link("Next Entries &raquo;"); ?></p>
+				<p class="left"><?php next_posts_link('&laquo; Previous Entries'); ?></p>
+				<p class="right"><?php previous_posts_link('Next Entries &raquo;'); ?></p>
 			<?php
 			}
 		}
@@ -3276,11 +3274,11 @@ class mp_options
 	function mp_display_blog_categories()
 	{
 		#INITIALISE CATEGORIES WITH NAME SORT ORDER
-		$categories = wp_list_categories("orderby=name&order=ASC&show_count=1&hierarchical=0&title_li=&echo=0&hide_empty=1");	
+		$categories = wp_list_categories('orderby=name&order=ASC&show_count=1&hierarchical=0&title_li=&echo=0&hide_empty=1');	
 		
 		#MOVE THE ENDING ANCHOR TAG TO THE END OF THE LIST ITEM
-		$categories = str_replace("</a>", "", $categories);
-		$categories = str_replace("</li>", "</a></li>", $categories);
+		$categories = str_replace('</a>', '', $categories);
+		$categories = str_replace('</li>', '</a></li>', $categories);
 		
 		#DISPLAY CATEGORIES
 		echo $categories;
@@ -3304,11 +3302,11 @@ class mp_options
 			#DISPLAY POSTS
 			foreach($posts as $post)
 			{
-				echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $post->post_title . '</a><br /><span class="info">' . get_the_time(get_option("date_format") . " " . get_option("time_format"), $post->ID) . '</span></li>';
+				echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $post->post_title . '</a><br /><span class="info">' . get_the_time(get_option('date_format') . " " . get_option('time_format'), $post->ID) . '</span></li>';
 			}
 			
 			#CLOSE UNORDERED LIST
-			echo "</ul>\n";
+			echo '</ul>\n';
 		}
 	}
 	
@@ -3319,7 +3317,7 @@ class mp_options
 		global $wpdb;
 		
 		#INITIALISE NUMBER OF POSTS
-		$number_of_posts = get_option("mp_posts_recent_number");
+		$number_of_posts = get_option('mp_posts_recent_number');
 		
 		#INITIALISE DEFAULT NUMBER OF POSTS
 		if(empty($number_of_posts))
@@ -3343,7 +3341,7 @@ class mp_options
 			}
 			
 			#CLOSE UNORDERED LIST
-			echo "</ul>\n";
+			echo '</ul>' . "\n";
 		}
 	}
 	
@@ -3354,7 +3352,7 @@ class mp_options
 		global $wpdb;
 		
 		#INITIALISE NUMBER OF POSTS
-		$number_of_posts = get_option("mp_posts_comments_number");
+		$number_of_posts = get_option('mp_posts_comments_number');
 		
 		#INITIALISE DEFAULT NUMBER OF POSTS
 		if(empty($number_of_posts))
@@ -3378,7 +3376,7 @@ class mp_options
 			}
 			
 			#CLOSE UNORDERED LIST
-			echo "</ul>\n";
+			echo '</ul>' . "\n";
 		}
 	}
 	
@@ -3389,7 +3387,7 @@ class mp_options
 		global $wpdb;
 		
 		#INITIALISE NUMBER OF COMMENTS
-		$number_of_comments = get_option("mp_comments_recent_number");
+		$number_of_comments = get_option('mp_comments_recent_number');
 		
 		#INITIALISE DEFAULT NUMBER OF COMMENTS
 		if(empty($number_of_comments))
@@ -3423,7 +3421,7 @@ class mp_options
 			}
 			
 			#CLOSE UNORDERED LIST
-			echo "</ul>\n";
+			echo '</ul>' . "\n";
 		}		
 	}
 	
@@ -3434,7 +3432,7 @@ class mp_options
 		global $wpdb;
 		
 		#INITIALISE NUMBER OF COMMENTERS
-		$number_of_commenters = get_option("mp_comments_commenters_number");
+		$number_of_commenters = get_option('mp_comments_commenters_number');
 		
 		#INITIALISE DEFAULT NUMBER OF COMMENTERS
 		if(empty($number_of_commenters))
@@ -3516,7 +3514,7 @@ class mp_options
 			}			
 			
 			#CLOSE ORDERED LIST
-			$html .= "</ol>\n";
+			$html .= '</ol>' . "\n";
 			
 			#DISPLAY ORDERED LIST
 			echo $html;
@@ -3534,13 +3532,13 @@ class mp_options
 		switch($comment_type)
 		{
 			#COMMENTS
-			case "comment":
+			case 'comment':
 				$sql = "SELECT COUNT(comment_id) FROM $wpdb->comments WHERE comment_type = '" . $comment_type . "' OR comment_type = '' and comment_approved = 1 and comment_post_id = $post_id";
 				break;
 			
 			#PINGBACKS & TRACKBACKS
-			case "pingback":
-			case "trackback":
+			case 'pingback':
+			case 'trackback':
 				$sql = "SELECT COUNT(comment_id) FROM $wpdb->comments WHERE comment_type = '" . $comment_type . "' and comment_approved = 1 and comment_post_id = $post_id";
 				break;			
 		}
@@ -3554,7 +3552,7 @@ class mp_options
 	
 	#THIS FUNCTION DISPLAYS THE COMMENT TYPE COUNT LABELS
 	#REPLACES THE comments_number() FUNCTION
-	#mp_display_comment_counter(139, "comment", "0 Comments", "1 Comments", "Comments")
+	#mp_display_comment_counter(139, 'comment', '0 Comments', '1 Comments', 'Comments')
 	function mp_display_comment_counter($post_id, $comment_type, $label_zero, $label_single, $label_multiple)
 	{
 		#INITIALISE COMMENT TYPE COUNT
@@ -3577,7 +3575,7 @@ class mp_options
 		#DISPLAY MULTIPLE COMMENTS
 		elseif($comment_type_count > 1)
 		{
-			echo "$comment_type_count $label_multiple";
+			echo $comment_type_count . ' ' .  $label_multiple;
 			
 			return;
 		}
@@ -3587,13 +3585,13 @@ class mp_options
 	function mp_display_comment_list($comment, $args, $depth)
 	{
 		#RETRIEVE THE COMMENT
-   		$GLOBALS["comment"] = $comment;
+   		$GLOBALS['comment'] = $comment;
 		
 		#DISPLAY APPROVED COMMENT
       	if($comment->comment_approved)
 		{
 			#INITIALISE GRAVATAR DEFAULT AVATAR & AVATAR HASH			
-			$gravatar_default = urlencode(get_bloginfo("template_directory") . "/images/icon-avatar.png");
+			$gravatar_default = urlencode(get_bloginfo('template_directory') . '/images/icon-avatar.png');
 			$gravatar_hash = md5(strtolower(trim(get_comment_author_email())));
 			?>			
 			<!-- COMMENT <?php comment_ID(); ?> - START -->
@@ -3617,7 +3615,7 @@ class mp_options
 					comment_text();
 					
 					#DISPLAY COMMENT REPLY LINK
-					if($args["max_depth"] != $depth)
+					if($args['max_depth'] != $depth)
 					{
 						echo '<p class="reply">' . get_comment_reply_link(array_merge($args, array("depth" => $depth, "max_depth" => $args["max_depth"]))) . "</p>";
 					}
@@ -3657,21 +3655,21 @@ class mp_options
 		#NO SEARCH RESULTS
 		if($search_results == 0)
 		{
-			echo "No Search Results";
+			echo 'No Search Results';
 			
 			return;
 		}
 		#1 SEARCH RESULT
 		elseif($search_results == 1)
 		{
-			echo "1 Search Result";
+			echo '1 Search Result';
 			
 			return;
 		}
 		#MORE THAN 1 SEARCH RESULT
 		elseif($search_results > 1)
 		{
-			echo "$search_results Search Results";
+			echo $search_results . ' Search Results';
 			
 			return;
 		}
@@ -3685,7 +3683,7 @@ class mp_options
 		
 		#DISPLAY SHORTCODE IN CONTENT
 		$content = do_shortcode($content);
-		$content = apply_filters("the_content", $content);
+		$content = apply_filters('the_content', $content);
 		
 		#INITIALISE CONTENT WORD COUNT
 		$content_word_count = str_word_count($content);
@@ -3719,14 +3717,14 @@ class mp_options
 	function mp_get_page()
 	{
 		#INITIALISE PAGE VIA PAGED VARIABLE
-		if(get_query_var("paged"))
+		if(get_query_var('paged'))
 		{
-			$page = get_query_var("paged");
+			$page = get_query_var('paged');
 		}
 		#INITIALISE PAGE VIA PAGE VARIABLE
-		elseif(get_query_var("page"))
+		elseif(get_query_var('page'))
 		{
-			$page = get_query_var("page");
+			$page = get_query_var('page');
 		}
 		#INITIALISE DEFAULT PAGE
 		else
@@ -3746,13 +3744,13 @@ class mp_options
 	function mp_display_rss_feeds_header()
 	{
 		#INITIALISE SITE NAME
-		$mp_site_name = get_bloginfo("name");
+		$mp_site_name = get_bloginfo('name');
 		
 		#INITIALISE FEEDBURNER RSS FEED
-		$mp_feedburner_rss = get_option("mp_feedburner_rss");
+		$mp_feedburner_rss = get_option('mp_feedburner_rss');
 		
 		#INITIALISE WORDPRESS RSS FEED
-		$mp_wordpress_rss = get_bloginfo("rss2_url");
+		$mp_wordpress_rss = get_bloginfo('rss2_url');
 		
 		#DISPLAY FEEDBURNER RSS FEED
 		if(!empty($mp_feedburner_rss))
@@ -3766,33 +3764,33 @@ class mp_options
 		}
 		
 		#DISPLAY ARTICLES RSS FEED
-		if(get_option("mp_rss_articles"))
+		if(get_option('mp_rss_articles'))
 		{
 			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Articles RSS Feed" href="' . $mp_wordpress_rss . '?post_type=article" />' . "\n";
 		}
 		
 		#DISPLAY SLIDES RSS FEED
-		if(get_option("mp_rss_slides"))
+		if(get_option('mp_rss_slides'))
 		{
 			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Slides RSS Feed" href="' . $mp_wordpress_rss . '?post_type=slide" />' . "\n";
 		}
 		
 		#DISPLAY PROJECTS RSS FEED
-		if(get_option("mp_rss_projects"))
+		if(get_option('mp_rss_projects'))
 		{
 			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Projects RSS Feed" href="' . $mp_wordpress_rss . '?post_type=project" />' . "\n";
 		}
 		
 		#DISPLAY TESTIMONIALS RSS FEED
-		if(get_option("mp_rss_testimonials"))
+		if(get_option('mp_rss_testimonials'))
 		{
 			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Testimonials RSS Feed" href="' . $mp_wordpress_rss . '?post_type=testimonial" />' . "\n";
 		}
 		
 		#DISPLAY COMMENTS RSS FEED
-		if(get_option("mp_rss_comments"))
+		if(get_option('mp_rss_comments'))
 		{
-			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Comments RSS Feed" href="' . get_bloginfo("comments_rss2_url") . '" />' . "\n";
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Comments RSS Feed" href="' . get_bloginfo('comments_rss2_url') . '" />' . "\n";
 		}
 	}
 	
@@ -3800,13 +3798,13 @@ class mp_options
 	function mp_display_rss_feed_sidebar()
 	{		
 		#INITIALISE FEEDBURNER RSS FEED
-		$mp_feedburner_rss = get_option("mp_feedburner_rss");
+		$mp_feedburner_rss = get_option('mp_feedburner_rss');
 
 		#INITIALISE FEEDBURNER EMAIL SUBSCRIPTION ADDRESS
-		$mp_feedburner_email = get_option("mp_feedburner_email");
+		$mp_feedburner_email = get_option('mp_feedburner_email');
 		
 		#INITIALISE WORDPRESS RSS FEED
-		$mp_wordpress_rss = get_bloginfo("rss2_url");
+		$mp_wordpress_rss = get_bloginfo('rss2_url');
 		
 		#INIITALISE RSS LINK WITH FEEDBURNER RSS FEED
 		if(!empty($mp_feedburner_rss))
@@ -3831,23 +3829,23 @@ class mp_options
 		}
 		
 		#DISPLAY RSS FEED SUBSCRIPTION TEXT
-		echo '<p><a href="' . $mp_rss . '" rel="nofollow"><img src="' . get_bloginfo("template_directory") . '/images/icon-rss-small.png" class="rss" /></a>Subscribe to my blog via ' . $mp_email . ' or <a href="' . $mp_rss . '" rel="nofollow">RSS</a></p>';
+		echo '<p><a href="' . $mp_rss . '" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-rss-small.png" class="rss" /></a>Subscribe to my blog via ' . $mp_email . ' or <a href="' . $mp_rss . '" rel="nofollow">RSS</a></p>';
 	}
 
 	#THIS FUNCTION DISPLAYS THE RSS FEEDS WITH A SHORTCODE [RSS]
 	function mp_rss_shortcode($parameters, $content = null)
 	{
 		#INITIALISE SITE NAME
-		$mp_site_name = get_bloginfo("name");
+		$mp_site_name = get_bloginfo('name');
 		
 		#INITIALISE FEEDBURNER RSS FEED
-		$mp_feedburner_rss = get_option("mp_feedburner_rss");
+		$mp_feedburner_rss = get_option('mp_feedburner_rss');
 		
 		#INITIALISE WORDPRESS RSS FEED
-		$mp_wordpress_rss = get_bloginfo("rss2_url");
+		$mp_wordpress_rss = get_bloginfo('rss2_url');
 		
 		#INITILIASE EXTERNAL RSS FEEDS
-		$mp_rss_external = get_option("mp_rss_external");
+		$mp_rss_external = get_option('mp_rss_external');
 		
 		#DISPLAY RSS FEEDS HEADER
 		echo '<h2>' . $mp_site_name . ' RSS Feeds</h2>' . "\n";
@@ -3867,37 +3865,37 @@ class mp_options
 		}
 		
 		#DISPLAY ARTICLES RSS FEED
-		if(get_option("mp_rss_articles"))
+		if(get_option('mp_rss_articles'))
 		{
 			echo '<li><a href="' . $mp_wordpress_rss . '?post_type=article" rel=nofollow" />' . $mp_site_name . ' Articles RSS Feed</li></a>' . "\n";
 		}
 		
 		#DISPLAY SLIDES RSS FEED
-		if(get_option("mp_rss_slides"))
+		if(get_option('mp_rss_slides'))
 		{
 			echo '<li><a href="' . $mp_wordpress_rss . '?post_type=slide" rel=nofollow" />' . $mp_site_name . ' Slides RSS Feed</li></a>' . "\n";
 		}
 		
 		#DISPLAY PROJECTS RSS FEED
-		if(get_option("mp_rss_projects"))
+		if(get_option('mp_rss_projects'))
 		{
 			echo '<li><a href="' . $mp_wordpress_rss . '?post_type=project" rel=nofollow" />' . $mp_site_name . ' Projects RSS Feed</li></a>' . "\n";
 		}
 		
 		#DISPLAY TESTIMONIALS RSS FEED
-		if(get_option("mp_rss_testimonials"))
+		if(get_option('mp_rss_testimonials'))
 		{
 			echo '<li><a href="' . $mp_wordpress_rss . '?post_type=testimonial" rel=nofollow" />' . $mp_site_name . ' Testimonials RSS Feed</li></a>' . "\n";
 		}
 		
 		#DISPLAY COMMENTS RSS FEED
-		if(get_option("mp_rss_comments"))
+		if(get_option('mp_rss_comments'))
 		{
-			echo '<li><a href="' . get_bloginfo("comments_rss2_url") . '" rel=nofollow" />' . $mp_site_name . ' Comments RSS Feed</li></a>' . "\n";
+			echo '<li><a href="' . get_bloginfo('comments_rss2_url') . '" rel=nofollow" />' . $mp_site_name . ' Comments RSS Feed</li></a>' . "\n";
 		}
 		
 		#CLOSE UNORDERED LIST
-		echo "</ul>";
+		echo '</ul>';
 		
 		#DISPLAY EXTERNAL RSS FEEDS
 		if(!empty($mp_rss_external))
@@ -3906,10 +3904,10 @@ class mp_options
 			$mp_rss_external_lines = preg_split("/\r?\n|\r/", $mp_rss_external);
 			
 			#DISPLAY RSS FEEDS HEADER
-			echo "<h2>External RSS Feeds</h2>\n";
+			echo '<h2>External RSS Feeds</h2>' . "\n";
 			
 			#OPEN UNORDERED LIST
-			echo "<ul>";
+			echo '<ul>';
 			
 			#DISPLAY EXTERNAL RSS FEEDS
 			foreach($mp_rss_external_lines as $mp_rss_external_line)
@@ -3922,7 +3920,7 @@ class mp_options
 			}
 			
 			#CLOSE UNORDERED LIST
-			echo "</ul>";
+			echo '</ul>';
 		}
 	}
 }

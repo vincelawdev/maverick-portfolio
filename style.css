@@ -512,6 +512,19 @@ body
 	-webkit-font-smoothing: antialiased;
 }
 
+#content div.page_content p,
+#content div.page_content ul li,
+#content div.page_content ol li,
+#content div.post_content p,
+#content div.post_content ul li,
+#content div.post_content ol li,
+#content div.post_line p,
+#content div.post_line ul li,
+#content div.post_line ol li
+{
+	line-height: 22px;	
+}
+
 #content ol, #content ul
 {
 	margin: 10px 0px 0px 0px;
@@ -1198,6 +1211,13 @@ body
 #content ul.comments li .comment_text p.reply a:link
 {
 	text-decoration: none;
+}
+
+#content div.comment_text p,
+#content div.comment_text ul li,
+#content div.comment_text ol li
+{
+	line-height: 22px;	
 }
 
 /* SIDEBAR */
@@ -2303,6 +2323,101 @@ blockquote p
 .wp-pagenavi span.current
 {
 	font-weight: bold;
+}
+
+/* WP-TABLE RELOADED TABLES */
+.wp-table-reloaded th
+{
+	padding: 4px;
+	font-family: "ExpresswayRegular", Georgia;
+	font-size: 16px;
+	font-weight: normal;
+	color: #333333;
+	-webkit-font-smoothing: antialiased;
+	background-color: #E6EEEE;
+	border: 1px solid #FFFFFF;
+}
+
+.wp-table-reloaded td
+{
+	padding: 4px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	font-weight: normal;
+	color: #333333;
+	-webkit-font-smoothing: antialiased;
+	background-color: #FFFFFF;
+	vertical-align: top;
+}
+
+/* CONTACT FORM 7 */
+.wpcf7-not-valid-tip-no-ajax
+{
+	color: #F00;
+	display: block;
+}
+
+.wpcf7-response-output
+{
+	margin: 10px 0px 10px 0px;
+	padding: 0px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	font-weight: normal;
+	color: #333333;
+	-webkit-font-smoothing: antialiased;
+	display: block;
+}
+
+/* SI CAPTCHA */
+div#captchaImgDiv
+{
+	margin: 10px 0px 10px 0px;
+	display: block;
+}
+
+.captchaSizeDivSmall
+{
+	width: 175px;
+	height: 45px;
+	margin: 0px 0px 10px 0px;
+	padding: 0px;
+}
+
+.captchaSizeDivLarge
+{
+	width: 250px;
+	height: 60px;
+	margin: 0px 0px 10px 0px;
+	padding: 0px;
+}
+
+img#si_image_com,
+#si_image_reg,
+#si_image_log,
+#si_image_side_login
+{
+	margin: 0px 5px 0px 0px;
+	padding: 0px;
+	border: none; 
+	float: left;
+}
+
+.captchaImgRefresh
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+label#captcha_code_label
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+input#captcha_code 
+{
+	width: 65px;
 }
 
 /* FONTS */

@@ -9,15 +9,11 @@ get_header();
 		#TESTIMONIAL EXISTS
 		if(have_posts())
 		{
-			#DISPLAY TESTIMONIAL
-			while(have_posts())
-			{
-				the_post();
-				?>		
-				<h1 class="page_title"><?php the_title(); ?></h1>
-				<?php mp_options::mp_display_testimonial(); ?>
+			the_post();
+			?>		
+			<h1 class="page_title"><?php the_title(); ?></h1>
+			<?php mp_options::mp_display_testimonial(); ?>
 			<?php
-			}
 		}
 		?>
 		<!-- TESTIMONIAL - END -->

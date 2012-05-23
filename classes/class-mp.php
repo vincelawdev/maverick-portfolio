@@ -3275,8 +3275,8 @@ class mp_options
 	#THIS FUNCTION DISPLAYS THE BLOG CATEGORIES IN THE SIDEBAR
 	function mp_display_blog_categories()
 	{
-		#INITIALISE CATEGORIES
-		$categories = wp_list_categories("orderby=name&show_count=1&hierarchical=0&title_li=&echo=0");
+		#INITIALISE CATEGORIES WITH NAME SORT ORDER
+		$categories = wp_list_categories("orderby=name&order=ASC&show_count=1&hierarchical=0&title_li=&echo=0&hide_empty=1");	
 		
 		#MOVE THE ENDING ANCHOR TAG TO THE END OF THE LIST ITEM
 		$categories = str_replace("</a>", "", $categories);

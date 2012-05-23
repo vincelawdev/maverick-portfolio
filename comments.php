@@ -88,7 +88,6 @@ if(comments_open())
 		
 		<form action="<?php echo get_settings("siteurl"); ?>/wp-comments-post.php" method="post" id="comment_form">
 			<?php comment_id_fields(); ?>
-			<?php do_action("comment_form", $post->ID); ?>
 			<input type="hidden" name="redirect_to" value="<?php echo htmlspecialchars($_SERVER["REQUEST_URI"]); ?>" />
 			<?php
 			#USER NOT LOGGED IN
@@ -102,6 +101,7 @@ if(comments_open())
 			}
 			?>
 			<p><label for="comment">Comments: (Required)</label><br /><textarea rows="8" cols="20" name="comment" id="comment"></textarea></p>
+			<?php do_action("comment_form", $post->ID); ?>
 			<p><input name="submit" type="submit" value="Submit" /></p>
 		</form>
 		

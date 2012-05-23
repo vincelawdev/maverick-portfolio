@@ -9,15 +9,11 @@ get_header();
 		#PAGE EXISTS
 		if(have_posts())
 		{
-			#DISPLAY PAGE
-			while(have_posts())
-			{
-				the_post();
-				?>		
-				<h1 class="page_title"><?php the_title(); ?></h1>
-				<?php the_content(); ?>
+			the_post();
+			?>		
+			<h1 class="page_title"><?php the_title(); ?></h1>
+			<div class="page_content"><?php the_content(); ?></div>
 			<?php
-			}
 		}
 		?>
 		<!-- PAGE - END -->

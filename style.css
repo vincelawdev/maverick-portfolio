@@ -481,7 +481,7 @@ body
 	padding: 0px;
 	border-bottom: 1px solid #efefef;
 	overflow: hidden;
-	clear: both;	
+	clear: both;
 }
 
 #content .post_line img.wp-post-image
@@ -512,15 +512,15 @@ body
 	-webkit-font-smoothing: antialiased;
 }
 
-#content div.page_content p,
-#content div.page_content ul li,
-#content div.page_content ol li,
-#content div.post_content p,
-#content div.post_content ul li,
-#content div.post_content ol li,
-#content div.post_line p,
-#content div.post_line ul li,
-#content div.post_line ol li
+#content .page_content p,
+#content .page_content ul li,
+#content .page_content ol li,
+#content .post_content p,
+#content .post_content ul li,
+#content .post_content ol li,
+#content .post_line p,
+#content .post_line ul li,
+#content .post_line ol li
 {
 	line-height: 22px;	
 }

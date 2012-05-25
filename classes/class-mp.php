@@ -3306,7 +3306,7 @@ class mp_options
 			}
 			
 			#CLOSE UNORDERED LIST
-			echo '</ul>\n';
+			echo '</ul>' . "\n";
 		}
 	}
 	
@@ -3533,13 +3533,13 @@ class mp_options
 		{
 			#COMMENTS
 			case 'comment':
-				$sql = "SELECT COUNT(comment_id) FROM $wpdb->comments WHERE comment_type = '" . $comment_type . "' OR comment_type = '' and comment_approved = 1 and comment_post_id = $post_id";
+				$sql = "SELECT COUNT(comment_id) FROM $wpdb->comments WHERE comment_type = '$comment_type' OR comment_type = '' and comment_approved = 1 and comment_post_id = $post_id";
 				break;
 			
 			#PINGBACKS & TRACKBACKS
 			case 'pingback':
 			case 'trackback':
-				$sql = "SELECT COUNT(comment_id) FROM $wpdb->comments WHERE comment_type = '" . $comment_type . "' and comment_approved = 1 and comment_post_id = $post_id";
+				$sql = "SELECT COUNT(comment_id) FROM $wpdb->comments WHERE comment_type = '$comment_type' and comment_approved = 1 and comment_post_id = $post_id";
 				break;			
 		}
 		

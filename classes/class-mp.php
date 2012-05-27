@@ -2370,7 +2370,7 @@ class mp_options
 		if(!empty($portfolio_project_url))
 		{
 			#DISPLAY PROJECT URL
-			echo '<tr><td class="column1">URL:</td><td class="column2"><a href="' . $portfolio_project_url . '" rel="nofollow">' . $portfolio_project_url . "</a></td></tr>";
+			echo '<tr><td class="column1">URL:</td><td class="column2"><a href="' . $portfolio_project_url . '" class="project_url" rel="nofollow">' . mp_options::mp_trim_project_url($portfolio_project_url, 25) . "</a></td></tr>";
 		}
 		
 		#CLIENT NAME & LOCATION EXISTS
@@ -2424,6 +2424,19 @@ class mp_options
 		
 		#CLOSE PROJECT DETAILS DIV
 		echo '</div>';
+	}
+	
+	#THIS FUNCTION TRIMS THE PROJECT URL TO FIX INTO THE PROJECT DETAILS BOX
+	function mp_trim_project_url($project_url, $max_characters)
+	{
+		#PROJECT URL IS OVER THE MAXIMUM NUMBER OF CHARACTERS
+		if(strlen($project_url) > $max_characters)
+		{
+			$project_url = substr($project_url, 0, $max_characters) . "...";
+		}
+		
+		#RETURN PROJECT URL
+		return $project_url;
 	}
 	
 	#THIS FUNCTION DISPLAYS THE PROJECT CATEGORIES IN THE SIDEBAR

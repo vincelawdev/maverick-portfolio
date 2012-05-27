@@ -945,7 +945,6 @@ body
 #content #project_details1 table,
 #content #project_details2 table
 {
-	width: 256px;
 	margin: 0px;
 	padding: 0px;
 	font-family: Georgia, 'Times New Roman', Times, serif;
@@ -978,6 +977,12 @@ body
 	margin: 0px;
 	padding: 0px;
 	vertical-align: top;
+}
+
+#content #project_details1 table td.column2 a.project_url,
+#content #project_details2 table td.column2 a.project_url
+{
+	font-size: 12px;
 }
 
 /* TRACKBACKS & PINGBACKS */

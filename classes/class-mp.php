@@ -38,6 +38,7 @@ class mp_options
 		add_action('init', array('mp_options', 'mp_custom_posts_articles'));
 		add_action('init', array('mp_options', 'mp_custom_taxonomies_article_directories'));
 		add_filter('manage_edit-article_columns', array('mp_options', 'mp_article_edit_columns'));
+		add_filter('manage_edit-article_sortable_columns', array('mp_options', 'mp_article_sortable_columns'));
 		add_action('manage_article_posts_custom_column',  array('mp_options', 'mp_article_custom_columns'));
 		
 		#INITIALISE ARTICLE META BOX
@@ -57,6 +58,7 @@ class mp_options
 		add_action('init', array('mp_options', 'mp_custom_taxonomies_project_scope'));
 		add_action('init', array('mp_options', 'mp_custom_taxonomies_project_skills'));
 		add_filter('manage_edit-project_columns', array('mp_options', 'mp_project_edit_columns'));
+		add_filter('manage_edit-project_sortable_columns', array('mp_options', 'mp_project_sortable_columns'));
 		add_action('manage_project_posts_custom_column',  array('mp_options', 'mp_project_custom_columns'));
 		
 		#INITIALISE PROJECT META BOX
@@ -65,7 +67,8 @@ class mp_options
 		#INITIALISE TESTIMONIAL CUSTOM POST TYPE
 		add_action('init', array('mp_options', 'mp_custom_posts_testimonials'));
 		add_filter('manage_edit-testimonial_columns', array('mp_options', 'mp_testimonial_edit_columns'));
-		add_action('manage_testimonial_posts_custom_column',  array('mp_options', 'mp_testimonial_custom_columns'));
+		add_filter('manage_edit-testimonial_sortable_columns', array('mp_options', 'mp_testimonial_sortable_columns'));
+		add_action('manage_testimonial_posts_custom_column',  array('mp_options', 'mp_testimonial_custom_columns'));		
 		
 		#INITIALISE TESTIMONIAL META BOX
 		add_action('admin_init', array('mp_options', 'mp_meta_boxes_testimonial'));
@@ -890,6 +893,22 @@ class mp_options
 		return $columns;
 	}
 	
+	#THIS FUNCTION DISPLAYS THE SORTABLE ARTICLE COLUMNS
+	function mp_article_sortable_columns()
+	{
+		#INITIALISE SORTABLE ARTICLE COLUMNS
+		$columns = 
+		array
+		(
+			'title' => 'Title',
+			'article_directory' => 'Directory',
+			'date' => 'Date'
+		);
+		
+		#RETURN SORTABLE ARTICLE COLUMNS
+		return $columns;
+	}
+	
 	#THIS FUNCTION DISPLAYS THE ARTICLE COLUMN VALUES
 	function mp_article_custom_columns($column)
 	{
@@ -1243,8 +1262,7 @@ class mp_options
 			'title' => 'Title',
 			'image' => 'Image',
 			'url' => 'URL',
-			'date' => 'Date',
-			'author' => 'Author'
+			'date' => 'Date'
 		);
 		
 		#RETURN SLIDE COLUMNS
@@ -1677,8 +1695,8 @@ class mp_options
 			'menu_position' => 20,
 			'menu_icon' => null,
 			'capability_type' => 'post',
-			'hierarchical' => false,
-			'supports' => array('title', 'editor', 'revisions', 'thumbnail'),
+			'hierarchical' => true,
+			'supports' => array('title', 'editor', 'revisions', 'thumbnail', 'page-attributes'),
 			'has_archive' => false,
 			'rewrite' => array('slug' => 'portfolio/project', 'with_front' => false),
 			'query_var' => true,
@@ -1818,10 +1836,30 @@ class mp_options
 			'project_url' => 'URL',
 			'client_name' => 'Client Name',
 			'client_location' => 'Client Location',			
-			'date' => 'Date'
+			'date' => 'Date',
+			'order' => 'Order'
 		);
 		
-		#RETURN TESTIMONIAL COLUMNS
+		#RETURN PROJECT COLUMNS
+		return $columns;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE SORTABLE PROJECT COLUMNS
+	function mp_project_sortable_columns()
+	{
+		#INITIALISE SORTABLE PROJECT COLUMNS
+		$columns = 
+		array
+		(
+			'title' => 'Title',
+			'project_category' => 'Category',
+			'client_name' => 'Client Name',
+			'client_location' => 'Client Location',			
+			'date' => 'Date',
+			'order' => 'Order'
+		);
+		
+		#RETURN SORTABLE PROJECT COLUMNS
 		return $columns;
 	}
 	
@@ -1922,9 +1960,17 @@ class mp_options
 				}
 				
 				break;
+				
+			#ORDER
+			case 'order':
+				
+				#DISPLAY ORDER
+				echo $post->menu_order;
+				
+				break;
 		}
 	}
-	
+		
 	#THIS FUNCTION CREATES THE PROJECT BOX
 	function mp_meta_boxes_project()
 	{
@@ -2487,6 +2533,25 @@ class mp_options
 		);
 		
 		#RETURN TESTIMONIAL COLUMNS
+		return $columns;
+	}
+	
+	#THIS FUNCTION DISPLAYS THE SORTABLE TESTIMONIAL COLUMNS
+	function mp_testimonial_sortable_columns()
+	{
+		#INITIALISE SORTABLE TESTIMONIAL COLUMNS
+		$columns = 
+		array
+		(
+			'title' => 'Title',
+			'project' => 'Project',
+			'name' => 'Name',
+			'location' => 'Location',
+			'feature' => 'Feature',
+			'date' => 'Date'
+		);
+		
+		#RETURN SORTABLE TESTIMONIAL COLUMNS
 		return $columns;
 	}
 	

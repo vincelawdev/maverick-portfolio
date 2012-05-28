@@ -13,7 +13,7 @@ get_header();
 			?>
 			<h1 class="page_title"><?php the_title(); ?></h1>
 			<div class="page_content"><?php the_content(); ?></div>
-			<?php mp_options::mp_display_projects('', mp_options::mp_get_page()); ?>
+			<?php mp_options::mp_display_projects('', mp_options::mp_get_page(), true, 'projects', 15); ?>
 		<?php
 		}
 		?>

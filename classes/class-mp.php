@@ -1674,7 +1674,7 @@ class mp_options
 			'edit_item' => __('Edit Project'),
 			'new_item' => __('New Project'),
 			'all_items' => __('All Projects'),
-			'view_item' => __('View Projects'),
+			'view_item' => __('View Project'),
 			'search_items' => __('Search Projects'),
 			'not_found' =>  __('No Projects found'),
 			'not_found_in_trash' => __('No Projects found in Trash'), 
@@ -2112,7 +2112,7 @@ class mp_options
 			global $wpdb;
 			
 			#RETREIVE ALL NEXTGEN GALLERIES
-			$galleries = $wpdb->get_results("SELECT gid, title FROM $wpdb->prefix" . "ngg_gallery ORDER BY gid ASC");
+			$galleries = $wpdb->get_results("SELECT gid, title FROM $wpdb->prefix" . "ngg_gallery ORDER BY title ASC");
 		
 			#INITIALISE SELECT LIST HTML
 			$select_list = '<select name="' . $select_id . '" id="' . $select_id . '" class="postform">' . "\n";
@@ -2124,12 +2124,12 @@ class mp_options
 				#DISPLAY SELECTED NEXTGEN GALLERY
 				if($selected_gallery == $gallery->gid)
 				{
-					$select_list .= '<option class="level-0" selected="selected" value="' . $gallery->gid . '">' . $gallery->title . '</option>' . "\n";
+					$select_list .= '<option class="level-0" selected="selected" value="' . $gallery->gid . '">' . stripslashes($gallery->title) . '</option>' . "\n";
 				}
 				#DISPLAY UNSELECTED NEXTGEN GALLERY
 				else
 				{
-					$select_list .= '<option class="level-0" value="' . $gallery->gid . '">' . $gallery->title . '</option>' . "\n";
+					$select_list .= '<option class="level-0" value="' . $gallery->gid . '">' . stripslashes($gallery->title) . '</option>' . "\n";
 				}
 			}
 			
@@ -2171,7 +2171,7 @@ class mp_options
 				'posts_per_page' => get_option('posts_per_page'),
 				'paged' => $page,
 				'order' => 'DESC',
-				'orderby' => 'date'
+				'orderby' => 'menu_order'
 			);
 		}
 		#INITIALISE PROJECT ARGUMENTS OF PROJECT CATEGORIES
@@ -2185,7 +2185,7 @@ class mp_options
 				'posts_per_page' => get_option('posts_per_page'),
 				'paged' => $page,
 				'order' => 'DESC',
-				'orderby' => 'date',
+				'orderby' => 'menu_order',
 				'tax_query' =>
 				array
 				(

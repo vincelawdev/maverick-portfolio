@@ -3914,7 +3914,7 @@ class mp_options
 		}
 		
 		#DISPLAY RSS FEED SUBSCRIPTION TEXT
-		echo '<p><a href="' . $mp_rss . '" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-rss-small.png" class="rss" /></a>Subscribe to my blog via ' . $mp_email . ' or <a href="' . $mp_rss . '" rel="nofollow">RSS</a></p>';
+		echo '<p><a href="' . $mp_rss . '" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-rss-small.png" alt="RSS" class="rss" /></a>Subscribe to my blog via ' . $mp_email . ' or <a href="' . $mp_rss . '" rel="nofollow">RSS</a></p>';
 	}
 
 	#THIS FUNCTION DISPLAYS THE RSS FEEDS WITH A SHORTCODE [RSS]

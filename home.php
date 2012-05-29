@@ -11,7 +11,7 @@ get_header();
 		<!-- FEATURED WORK SLIDER - START -->
 		<h3 class="sub_heading">Featured Work</h3>
 		<div class="home_previous" title="Previous"></div>
-		<div id="featured_work_wrapper"><?php mp_options::mp_display_projects('', mp_options::mp_get_page(), false, 'featured_work', 17); ?></div>
+		<div id="featured_work_wrapper"><?php mp_options::mp_display_projects('', mp_options::mp_get_page(), false, 'featured_work', true, 15); ?></div>
 		<div class="home_next" title="Next"></div>
 		<!-- FEATURED WORK SLIDER - END -->
 		

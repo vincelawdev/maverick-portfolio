@@ -133,8 +133,8 @@ body
 {
 	width: 22px;
 	height: 19px;
-	margin: 0px;
-	padding: 3px 0px 2px 0px;
+	margin: 4px 0px -3px 0px;
+	padding: 0px;
 }
 
 #menu ul.sf-menu > li span.arrow_down_off, #menu ul.sf-menu > li span.arrow_down_on

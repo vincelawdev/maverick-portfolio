@@ -2155,7 +2155,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE PROJECTS
-	function mp_display_projects($category, $page, $pagination = true, $list_id = 'projects', $max_words = 20)
+	function mp_display_projects($category, $page, $pagination = true, $list_id = 'projects', $strip_line_breaks = true, $max_words = 20)
 	{		
 		#RETRIEVE THE POST
 		global $post;
@@ -2256,7 +2256,7 @@ class mp_options
 				#DISPLAY EXCERPT VIA THE CLASS FUNCTION
 				else
 				{
-					echo mp_options::mp_get_excerpt($max_words, true);
+					echo mp_options::mp_get_excerpt($max_words, true, $strip_line_breaks);
 				}
 				
 				#CLOSE PROJECT LIST ITEM
@@ -3754,7 +3754,7 @@ class mp_options
 	}	
 
 	#THIS FUNCTION RETURNS THE POST EXCERPT WITH A MAXIMUM NUMBER OF WORDS
-	function mp_get_excerpt($max_words, $strip_tags = false)
+	function mp_get_excerpt($max_words, $strip_tags = false, $strip_line_breaks = false)
 	{
 		#INITIALISE CONTENT
 		$content = get_the_content();
@@ -3778,6 +3778,13 @@ class mp_options
 			if($strip_tags)
 			{
 				$content = trim(strip_tags($content));
+			}
+			
+			#REMOVE LINE BREAKS FROM CONTENT
+			if($strip_line_breaks)
+			{
+				$content = ereg_replace("\n", ' ', $content);
+				$content = ereg_replace("\r", ' ', $content);
 			}
 			
 			#TRUNCATE CONTENT INTO THE MAXIMUM NUMBER OF WORDS

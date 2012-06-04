@@ -105,13 +105,13 @@ class mp_options
 	**************************************************************************/
 	
 	#THIS FUNCTION ADDS THE THEME OPTIONS MENU ITEM TO THE APPEARANCE MENU
-	function mp_admin_menu()
+	public function mp_admin_menu()
 	{
 		add_theme_page('Options', 'Options', 'administrator', 'mp_options', array('mp_options', 'mp_options_page'));
 	}
 	
 	#THIS FUNCTION REGISTERS THE THEME OPTION SETTINGS
-	function mp_theme_settings()
+	public function mp_theme_settings()
 	{
 		register_setting('mp_settings_author', 'mp_author');
 		register_setting('mp_settings_rss', 'mp_feedburner_rss');
@@ -131,7 +131,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION RESETS THE THEME OPTION SETTINGS
-	function mp_reset_options($option)
+	public function mp_reset_options($option)
 	{
 		#RESET OPTIONS
 		switch($option)
@@ -178,7 +178,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE THEME'S OPTIONS PAGE
-	function mp_options_page()
+	public function mp_options_page()
 	{
 		#INITIALISE SUB PAGE
 		$sub_page = $_REQUEST['sub_page'];
@@ -483,7 +483,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE THEME'S OPTIONS PAGE FIELDS
-	function mp_option_field($h3_title = '', $below_h3_title = '', $open_table = false, $close_table = false, $column_name, $input_type, $input_id, $input_option, $input_description, $input_default, $save_button = false, $min_width = '', $max_width = '')
+	public function mp_option_field($h3_title = '', $below_h3_title = '', $open_table = false, $close_table = false, $column_name, $input_type, $input_id, $input_option, $input_description, $input_default, $save_button = false, $min_width = '', $max_width = '')
 	{
 		#INITIALISE OPTION
 		$mp_option = get_option($input_option);
@@ -586,7 +586,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS A TEXT FIELD
-	function mp_display_text($text_id, $entered_text)
+	protected function mp_display_text($text_id, $entered_text)
 	{
 		#INITIALISE TEXT FIELD HTML
 		$text_box = "<input name=\"$text_id\" id=\"$text_id\" type=\"text\" value=\"$entered_text\" class=\"regular-text\" />";
@@ -596,7 +596,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS A TEXTAREA
-	function mp_display_textarea($text_id, $entered_text)
+	protected function mp_display_textarea($text_id, $entered_text)
 	{
 		#INITIALISE TEXTAREA
 		$textarea = "<textarea name=\"$text_id\" id=\"$text_id\" rows=\"10\" cols=\"50\" class=\"large-text code\">$entered_text</textarea>";
@@ -606,7 +606,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE LIST OF YES & NO OPTIONS
-	function mp_display_yes_no_list($select_id, $selected_option)
+	protected function mp_display_yes_no_list($select_id, $selected_option)
 	{		
 		#INITIALISE SELECT LIST HTML
 		$select_list = '<select name="' . $select_id . '" id="' . $select_id . '" class="postform">' . "\n";
@@ -638,10 +638,10 @@ class mp_options
 		
 		#DISPLAY SELECT LIST
 		echo $select_list;
-	}	
+	}
 	
 	#THIS FUNCTION DISPLAYS THE NUMBER OF LIST ITEMS OF SIDEBAR LISTS
-	function mp_display_sidebar_list($select_id, $selected_number_of_items, $default_number_of_items = 5, $number_of_items)
+	public function mp_display_sidebar_list($select_id, $selected_number_of_items, $default_number_of_items = 5, $number_of_items)
 	{
 		#SELECT DEFAULT NUMBER OF ITEMS IF NO NUMBER OF ITEMS WAS SELECTED
 		if(empty($selected_number_of_items) && !empty($default_number_of_items))
@@ -675,7 +675,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE TRACKING CODE JUST BEFORE THE </BODY> TAG
-	function mp_tracking()
+	public function mp_tracking()
 	{
 		#INITIALISE TRACKING SETTINGS
 		$mp_tracking = get_option('mp_tracking');
@@ -688,7 +688,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION INCLUDES THE JQUERY LIBRARY INTO NON-ADMIN WORDPRESS PAGES
-	function mp_jquery()
+	public function mp_jquery()
 	{
 		#PAGE IS NON-ADMIN
 		if(!is_admin())
@@ -705,7 +705,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION INCLUDES THE JAVASCRIPT & CSS FILES INTO ADMIN WORDPRESS PAGES
-	function mp_admin_head()
+	public function mp_admin_head()
 	{
 		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . '/css/admin.php" type="text/css" />' . "\n";
 		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . '/css/colorbox.php" type="text/css" />' . "\n";
@@ -724,7 +724,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION SAVES THE META BOX FORM CONTENTS
-	function mp_meta_boxes_save($post_id, $nonce, $field_name, $type, $url_encode = false)
+	protected function mp_meta_boxes_save($post_id, $nonce, $field_name, $type, $url_encode = false)
 	{		
 		#FORMATTING FORM DID NOT SUBMIT FROM THE RIGHT PLACE
 		if(!wp_verify_nonce($_POST[$nonce], __FILE__))
@@ -792,7 +792,7 @@ class mp_options
 	**************************************************************************/
 	
 	#THIS FUNCTION CREATES THE ARTICLE CUSTOM POST TYPE
-	function mp_custom_posts_articles()
+	public function mp_custom_posts_articles()
 	{
 		#INITIALISE ARTICLE CUSTOM POST TYPE LABELS
 		$labels = array
@@ -839,7 +839,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION CREATES THE ARTICLE DIRECTORIES CUSTOM TAXONOMY
-	function mp_custom_taxonomies_article_directories()
+	public function mp_custom_taxonomies_article_directories()
 	{
 		#INITIALISE ARTICLE DIRECTORIES CUSTOM TAXONOMY LABELS
 		$labels = array
@@ -876,7 +876,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE ARTICLE COLUMNS
-	function mp_article_edit_columns($columns)
+	public function mp_article_edit_columns($columns)
 	{
 		#INITIALISE ARTICLE COLUMNS
 		$columns = 
@@ -894,7 +894,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE SORTABLE ARTICLE COLUMNS
-	function mp_article_sortable_columns()
+	public function mp_article_sortable_columns()
 	{
 		#INITIALISE SORTABLE ARTICLE COLUMNS
 		$columns = 
@@ -910,7 +910,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE ARTICLE COLUMN VALUES
-	function mp_article_custom_columns($column)
+	public function mp_article_custom_columns($column)
 	{
 		#RETRIEVE THE ARTICLE
 		global $post;
@@ -941,7 +941,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION CREATES THE ARTICLE BOX
-	function mp_meta_boxes_article()
+	public function mp_meta_boxes_article()
 	{
 		#ADD ARTICLE BOX TO ARTICLE CUSTOM POSTS
 		add_meta_box('article_box', 'Article Information', array('mp_options', 'mp_meta_boxes_article_form'), 'article', 'normal', 'high');
@@ -951,7 +951,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION CREATES THE ARTICLE BOX FORM
-	function mp_meta_boxes_article_form()
+	public function mp_meta_boxes_article_form()
 	{
 		#RETRIEVE THE POST
 		global $post;
@@ -1015,7 +1015,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION SAVES THE ARTICLE BOX FORM CONTENTS
-	function mp_meta_boxes_article_form_save($post_id) 
+	public function mp_meta_boxes_article_form_save($post_id) 
 	{
 		#SAVE ARTICLE BOX FORM CONTENTS
 		mp_options::mp_meta_boxes_save($post_id, 'article_nonce', 'article_url', 'post');
@@ -1025,7 +1025,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE ARTICLES
-	function mp_display_articles($category, $page, $pagination = true, $max_words = 20)
+	public function mp_display_articles($category, $page, $pagination = true, $max_words = 20)
 	{		
 		#RETRIEVE THE POST
 		global $post;
@@ -1121,7 +1121,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE RECENT ARTICLES ON THE HOME PAGE
-	function mp_display_recent_articles_home()
+	public function mp_display_recent_articles_home()
 	{
 		#RETRIEVE THE DATABASE
 		global $wpdb;
@@ -1165,7 +1165,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE ARTICLE DIRECTORIES IN THE SIDEBAR
-	function mp_display_article_directories($current_directory)
+	public function mp_display_article_directories($current_directory)
 	{
 		#CUSTOM TAXONOMY SORT PLUGIN ACTIVATED
 		if(class_exists('CustomTaxonomySort'))
@@ -1205,7 +1205,7 @@ class mp_options
 	**************************************************************************/
 	
 	#THIS FUNCTION CREATES THE SLIDE CUSTOM POST TYPE
-	function mp_custom_posts_slides()
+	public function mp_custom_posts_slides()
 	{
 		#INITIALISE SLIDE CUSTOM POST TYPE LABELS
 		$labels = array
@@ -1252,7 +1252,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE SLIDE COLUMNS
-	function mp_slide_edit_columns($columns)
+	public function mp_slide_edit_columns($columns)
 	{
 		#INITIALISE SLIDE COLUMNS
 		$columns = 
@@ -1270,7 +1270,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE SLIDE COLUMN VALUES
-	function mp_slide_custom_columns($column)
+	public function mp_slide_custom_columns($column)
 	{
 		#RETRIEVE THE POST
 		global $post;
@@ -1309,7 +1309,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION CREATES THE SLIDE BOX
-	function mp_meta_boxes_slide()
+	public function mp_meta_boxes_slide()
 	{
 		#ADD SLIDE BOX TO SLIDE CUSTOM POSTS
 		add_meta_box('slide_box', 'Slide Information', array('mp_options', 'mp_meta_boxes_slide_form'), 'slide', 'normal', 'high');
@@ -1319,7 +1319,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION CREATES THE SLIDE BOX FORM
-	function mp_meta_boxes_slide_form()
+	public function mp_meta_boxes_slide_form()
 	{
 		#RETRIEVE THE POST
 		global $post;
@@ -1414,7 +1414,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE LIST OF SLIDE IN ANIMATIONS
-	function mp_display_slide_animation_in_list($selected_animation)
+	private function mp_display_slide_animation_in_list($selected_animation)
 	{		
 		#INITIALISE DEFAULT ANIMATION
 		$default_animation = 'bounceInLeft';
@@ -1454,7 +1454,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE LIST OF SLIDE OUT ANIMATIONS
-	function mp_display_slide_animation_out_list($selected_animation)
+	private function mp_display_slide_animation_out_list($selected_animation)
 	{
 		#INITIALISE DEFAULT ANIMATION
 		$default_animation = 'bounceOutRight';
@@ -1494,7 +1494,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE SLIDE TYPE RADIO BUTTONS
-	function mp_display_slide_type_radio_button($selected_slide_type)
+	private function mp_display_slide_type_radio_button($selected_slide_type)
 	{
 		#INITIALISE DEFAULT SLIDE TYPE
 		$default_slide_type = 'text_image';
@@ -1530,7 +1530,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION SAVES THE SLIDE BOX FORM CONTENTS
-	function mp_meta_boxes_slide_form_save($post_id) 
+	public function mp_meta_boxes_slide_form_save($post_id) 
 	{
 		#SAVE SLIDE BOX FORM CONTENTS
 		mp_options::mp_meta_boxes_save($post_id, 'slide_nonce', 'slide_image', 'post');
@@ -1544,7 +1544,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE SLIDES
-	function mp_display_slides()
+	public function mp_display_slides()
 	{
 		#RETRIEVE THE POST
 		global $post;
@@ -1623,7 +1623,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE SLIDE TITLES
-	function mp_display_slide_titles()
+	public function mp_display_slide_titles()
 	{
 		#RETRIEVE THE DATABASE
 		global $wpdb;
@@ -1662,7 +1662,7 @@ class mp_options
 	**************************************************************************/
 	
 	#THIS FUNCTION CREATES THE PROJECT CUSTOM POST TYPE
-	function mp_custom_posts_project()
+	public function mp_custom_posts_project()
 	{
 		#INITIALISE PROJECT CUSTOM POST TYPE LABELS
 		$labels = array
@@ -1709,7 +1709,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION CREATES THE PROJECT CATEGORIES CUSTOM TAXONOMY
-	function mp_custom_taxonomies_project_categories()
+	public function mp_custom_taxonomies_project_categories()
 	{
 		#INITIALISE PROJECT CATEGORIES CUSTOM TAXONOMY LABELS
 		$labels = array
@@ -1746,7 +1746,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION CREATES THE PROJECT SCOPE CUSTOM TAXONOMY
-	function mp_custom_taxonomies_project_scope()
+	public function mp_custom_taxonomies_project_scope()
 	{
 		#INITIALISE PROJECT SCOPE CUSTOM TAXONOMY LABELS
 		$labels = array
@@ -1783,7 +1783,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION CREATES THE PROJECT SKILLS CUSTOM TAXONOMY
-	function mp_custom_taxonomies_project_skills()
+	public function mp_custom_taxonomies_project_skills()
 	{
 		#INITIALISE PROJECT SKILLS CUSTOM TAXONOMY LABELS
 		$labels = array
@@ -1820,7 +1820,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE PROJECT COLUMNS
-	function mp_project_edit_columns($columns)
+	public function mp_project_edit_columns($columns)
 	{
 		#INITIALISE PROJECT COLUMNS
 		$columns = 
@@ -1845,7 +1845,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE SORTABLE PROJECT COLUMNS
-	function mp_project_sortable_columns()
+	public function mp_project_sortable_columns()
 	{
 		#INITIALISE SORTABLE PROJECT COLUMNS
 		$columns = 
@@ -1864,7 +1864,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE PROJECT COLUMN VALUES
-	function mp_project_custom_columns($column)
+	public function mp_project_custom_columns($column)
 	{
 		#RETRIEVE THE POST
 		global $post;
@@ -1972,7 +1972,7 @@ class mp_options
 	}
 		
 	#THIS FUNCTION CREATES THE PROJECT BOX
-	function mp_meta_boxes_project()
+	public function mp_meta_boxes_project()
 	{
 		#ADD PROJECT BOX TO PROJECT CUSTOM POSTS
 		add_meta_box('portfolio_box', 'Project Information', array('mp_options', 'mp_meta_boxes_portfolio_form'), 'project', 'normal', 'high');
@@ -1982,7 +1982,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION CREATES THE PROJECT BOX FORM
-	function mp_meta_boxes_portfolio_form()
+	public function mp_meta_boxes_portfolio_form()
 	{
 		#RETRIEVE THE POST
 		global $post;
@@ -2051,7 +2051,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE LIST OF PROJECTS
-	function mp_display_project_list($select_id, $selected_project)
+	public function mp_display_project_list($select_id, $selected_project)
 	{
 		#RETRIEVE THE POST
 		global $post;
@@ -2103,7 +2103,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE LIST OF GALLERIES
-	function mp_display_gallery_list($select_id, $selected_gallery)
+	public function mp_display_gallery_list($select_id, $selected_gallery)
 	{
 		#NEXTGEN GALLERY PLUGIN IS ACTIVATED
 		if(function_exists('nggShowSlideshow'))
@@ -2142,7 +2142,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION SAVES THE PROJECT BOX FORM CONTENTS
-	function mp_meta_boxes_portfolio_form_save($post_id)
+	public function mp_meta_boxes_portfolio_form_save($post_id)
 	{		
 		#SAVE PROJECT BOX FORM CONTENTS
 		mp_options::mp_meta_boxes_save($post_id, 'portfolio_nonce', 'portfolio_client_name', 'post');
@@ -2155,7 +2155,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE PROJECTS
-	function mp_display_projects($category, $page, $pagination = true, $list_id = 'projects', $strip_line_breaks = true, $max_words = 20)
+	public function mp_display_projects($category, $page, $pagination = true, $list_id = 'projects', $strip_line_breaks = true, $max_words = 20)
 	{		
 		#RETRIEVE THE POST
 		global $post;
@@ -2287,7 +2287,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE PROJECT THUMBNAILS
-	function mp_display_project_thumbnails()
+	public function mp_display_project_thumbnails()
 	{
 		#NEXTGEN GALLERY PLUGIN IS ACTIVATED
 		if(function_exists('nggShowSlideshow'))
@@ -2342,7 +2342,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE PROJECT DETAILS
-	function mp_display_project_details()
+	public function mp_display_project_details()
 	{
 		#INITIALISE PROJECT DETAILS
 		$portfolio_client_name = get_post_meta(get_the_ID(), 'portfolio_client_name', true);
@@ -2427,7 +2427,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION TRIMS THE PROJECT URL TO FIX INTO THE PROJECT DETAILS BOX
-	function mp_trim_project_url($project_url, $max_characters)
+	public function mp_trim_project_url($project_url, $max_characters)
 	{
 		#PROJECT URL IS OVER THE MAXIMUM NUMBER OF CHARACTERS
 		if(strlen($project_url) > $max_characters)
@@ -2440,7 +2440,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE PROJECT CATEGORIES IN THE SIDEBAR
-	function mp_display_portfolio_categories($current_category)
+	public function mp_display_portfolio_categories($current_category)
 	{
 		#CUSTOM TAXONOMY SORT PLUGIN ACTIVATED
 		if(class_exists('CustomTaxonomySort'))
@@ -2480,7 +2480,7 @@ class mp_options
 	**************************************************************************/
 	
 	#THIS FUNCTION CREATES THE TESTIMONIALS CUSTOM POST TYPE
-	function mp_custom_posts_testimonials()
+	public function mp_custom_posts_testimonials()
 	{
 		#INITIALISE TESTIMONIAL CUSTOM POST TYPE LABELS
 		$labels = array
@@ -2527,7 +2527,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE TESTIMONIAL COLUMNS
-	function mp_testimonial_edit_columns($columns)
+	public function mp_testimonial_edit_columns($columns)
 	{
 		#INITIALISE TESTIMONIAL COLUMNS
 		$columns = 
@@ -2550,7 +2550,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE SORTABLE TESTIMONIAL COLUMNS
-	function mp_testimonial_sortable_columns()
+	public function mp_testimonial_sortable_columns()
 	{
 		#INITIALISE SORTABLE TESTIMONIAL COLUMNS
 		$columns = 
@@ -2569,7 +2569,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE TESTIMONIAL COLUMN VALUES
-	function mp_testimonial_custom_columns($column)
+	public function mp_testimonial_custom_columns($column)
 	{
 		#RETRIEVE THE POST
 		global $post;
@@ -2682,7 +2682,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION CREATES THE TESTIMONIAL BOX
-	function mp_meta_boxes_testimonial()
+	public function mp_meta_boxes_testimonial()
 	{
 		#ADD TESTIMONIAL BOX TO TESTIMONIAL CUSTOM POSTS
 		add_meta_box('testimonial_box', 'Testimonial Information', array('mp_options', 'mp_meta_boxes_testimonial_form'), 'testimonial', 'normal', 'high');
@@ -2692,7 +2692,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION CREATES THE TESTIMONIAL BOX FORM
-	function mp_meta_boxes_testimonial_form()
+	public function mp_meta_boxes_testimonial_form()
 	{
 		#RETRIEVE THE POST
 		global $post;
@@ -2790,7 +2790,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION SAVES THE TESTIMONIAL BOX FORM CONTENTS
-	function mp_meta_boxes_testimonial_form_save($post_id) 
+	public function mp_meta_boxes_testimonial_form_save($post_id) 
 	{
 		#SAVE TESTIMONIAL BOX FORM CONTENTS
 		mp_options::mp_meta_boxes_save($post_id, 'testimonial_nonce', 'testimonial_project', 'post');
@@ -2806,7 +2806,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE TESTIMONIALS
-	function mp_display_testimonials($scope, $page, $pagination = true, $max_words = 100)
+	public function mp_display_testimonials($scope, $page, $pagination = true, $max_words = 100)
 	{
 		#RETRIEVE THE POST
 		global $post;
@@ -2960,7 +2960,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS A SINGLE TESTIMONIAL
-	function mp_display_testimonial()
+	public function mp_display_testimonial()
 	{
 		#RETRIEVE THE POST
 		global $post;
@@ -3008,7 +3008,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION ADDS CONTENT TO A TESTIMONIAL BOX
-	function mp_testimonial_shortcode($parameters, $content = null)
+	public function mp_testimonial_shortcode($parameters, $content = null)
 	{
 		#ADD CONTENT TO TESTIMONIAL BOX
 		$content = '<div class="testimonial_box"><div class="testimonial">' . wpautop($content) . '</div></div>';
@@ -3022,7 +3022,7 @@ class mp_options
 	**************************************************************************/
 			
 	#THIS FUNCTION REPLACES THE "BIOGRAPHICAL INFO" FIELD IN THE USER PROFILE WITH A TINYMCE EDITOR
-	function mp_tinymce_biography($user)
+	public function mp_tinymce_biography($user)
 	{
 		?>
 		<table class="form-table">
@@ -3035,7 +3035,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION UPDATES THE USER PROFILE CONTACT INFO FIELDS
-	function mp_contact_info($contact_fields)
+	public function mp_contact_info($contact_fields)
 	{
 		#DELETE AIM, YIM & JABBER FIELDS
 		unset($contact_fields['aim']);
@@ -3058,7 +3058,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION RETURNS THE AUTHOR ID
-	function mp_get_author_id()
+	public function mp_get_author_id()
 	{
 		#INITIALISE AUTHOR ID
 		$mp_author = get_option('mp_author');
@@ -3074,7 +3074,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE LIST OF AUTHORS
-	function mp_display_author_list($select_id, $selected_author, $default_author = 1)
+	private function mp_display_author_list($select_id, $selected_author, $default_author = 1)
 	{
 		#RETRIEVE THE DATABASE
 		global $wpdb;
@@ -3118,7 +3118,7 @@ class mp_options
 	**************************************************************************/
 	
 	#THIS FUNCTION DISPLAYS THE INSTAGRAM THUMBNAILS
-	function mp_display_instagram_thumbnails()
+	public function mp_display_instagram_thumbnails()
 	{	
 		#INITIALISE INSTAGRAM RSS FEED
 		$instagram_rss = get_user_meta(mp_options::mp_get_author_id(), 'instagram_rss', true);
@@ -3161,7 +3161,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE DRIBBBLE THUMBNAILS
-	function mp_display_dribbble_thumbnails()
+	public function mp_display_dribbble_thumbnails()
 	{
 		#INITIALISE DRIBBBLE RSS FEED
 		$dribbble_rss = get_user_meta(mp_options::mp_get_author_id(), 'dribbble_rss', true);
@@ -3206,7 +3206,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE SOCIAL MEDIA BUTTONS IN THE SIDEBAR
-	function mp_display_social_buttons()
+	public function mp_display_social_buttons()
 	{
 		#INITIALISE AUTHOR ID
 		$author_id = mp_options::mp_get_author_id();
@@ -3277,7 +3277,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE FACEBOOK LIKE BOX IN THE SIDEBAR
-	function mp_display_facebook_like_box()
+	public function mp_display_facebook_like_box()
 	{
 		#INITIALISE FACEBOOK LIKE BOX CODE
 		$facebook_code = get_option('mp_facebook_like_box');
@@ -3294,7 +3294,7 @@ class mp_options
 	**************************************************************************/
 	
 	#THIS FUNCTION DISPLAYS THE BLOG POSTS
-	function mp_display_blog_posts($page)
+	public function mp_display_blog_posts($page)
 	{		
 		#RETRIEVE THE POST
 		global $post;
@@ -3349,7 +3349,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE BLOG CATEGORIES IN THE SIDEBAR
-	function mp_display_blog_categories()
+	public function mp_display_blog_categories()
 	{
 		#INITIALISE CATEGORIES WITH NAME SORT ORDER
 		$categories = wp_list_categories('orderby=name&order=ASC&show_count=1&hierarchical=0&title_li=&echo=0&hide_empty=1');	
@@ -3363,7 +3363,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE RECENT BLOG POSTS ON THE HOME PAGE
-	function mp_display_recent_posts_home()
+	public function mp_display_recent_posts_home()
 	{
 		#RETRIEVE THE DATABASE
 		global $wpdb;
@@ -3389,7 +3389,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE RECENT BLOG POSTS
-	function mp_display_recent_posts()
+	public function mp_display_recent_posts()
 	{
 		#RETRIEVE THE DATABASE
 		global $wpdb;
@@ -3424,7 +3424,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE MOST COMMENTED BLOG POSTS
-	function mp_display_most_commented_posts()
+	public function mp_display_most_commented_posts()
 	{
 		#RETRIEVE THE DATABASE
 		global $wpdb;
@@ -3459,7 +3459,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE RECENT COMMENTS
-	function mp_display_recent_comments()
+	public function mp_display_recent_comments()
 	{
 		#RETRIEVE THE DATABASE
 		global $wpdb;
@@ -3504,7 +3504,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE TOP COMMENTERS
-	function mp_display_top_commenters()
+	public function mp_display_top_commenters()
 	{
 		#RETRIEVE THE DATABASE
 		global $wpdb;
@@ -3601,7 +3601,7 @@ class mp_options
 	
 	#THIS FUNCTION RETURNS THE COMMENT TYPE COUNT
 	#ACCEPTS: 'comment', 'trackback', 'pingback' for $comment_type
-	function mp_get_comment_type_count($post_id, $comment_type)
+	public function mp_get_comment_type_count($post_id, $comment_type)
 	{
 		#RETRIEVE THE DATABASE
 		global $wpdb;
@@ -3631,7 +3631,7 @@ class mp_options
 	#THIS FUNCTION DISPLAYS THE COMMENT TYPE COUNT LABELS
 	#REPLACES THE comments_number() FUNCTION
 	#mp_display_comment_counter(139, 'comment', '0 Comments', '1 Comments', 'Comments')
-	function mp_display_comment_counter($post_id, $comment_type, $label_zero, $label_single, $label_multiple)
+	public function mp_display_comment_counter($post_id, $comment_type, $label_zero, $label_single, $label_multiple)
 	{
 		#INITIALISE COMMENT TYPE COUNT
 		$comment_type_count = mp_options::mp_get_comment_type_count($post_id, $comment_type);
@@ -3660,7 +3660,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE COMMENTS
-	function mp_display_comment_list($comment, $args, $depth)
+	public function mp_display_comment_list($comment, $args, $depth)
 	{
 		#RETRIEVE THE COMMENT
    		$GLOBALS['comment'] = $comment;
@@ -3709,7 +3709,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE TRACKBACKS & PINGBACKS
-	function mp_display_ping_list($comment)
+	public function mp_display_ping_list($comment)
 	{
 		#RETRIEVE THE COMMENT
    		$GLOBALS["comment"] = $comment;
@@ -3722,7 +3722,7 @@ class mp_options
 	}
 
 	#THIS FUNCTION DISPLAYS THE SEARCH RESULTS TITLE
-	function mp_display_search_results_title()
+	public function mp_display_search_results_title()
 	{
 		#RETRIEVE THE QUERY
 		global $wp_query;
@@ -3751,10 +3751,10 @@ class mp_options
 			
 			return;
 		}
-	}	
+	}
 
 	#THIS FUNCTION RETURNS THE POST EXCERPT WITH A MAXIMUM NUMBER OF WORDS
-	function mp_get_excerpt($max_words, $strip_tags = false, $strip_line_breaks = false)
+	public function mp_get_excerpt($max_words, $strip_tags = false, $strip_line_breaks = false)
 	{
 		#INITIALISE CONTENT
 		$content = get_the_content();
@@ -3799,7 +3799,7 @@ class mp_options
 	}
 
 	#THIS FUNCTION RETURNS THE PAGINATION PAGE
-	function mp_get_page()
+	public function mp_get_page()
 	{
 		#INITIALISE PAGE VIA PAGED VARIABLE
 		if(get_query_var('paged'))
@@ -3819,14 +3819,14 @@ class mp_options
 		
 		#RETURN PAGE
 		return $page;	
-	}	
+	}
 	
 	/**************************************************************************
 	#RSS FUNCTIONS
 	**************************************************************************/
 
 	#THIS FUNCTION DISPLAYS THE RSS FEEDS IN THE HEADER
-	function mp_display_rss_feeds_header()
+	public function mp_display_rss_feeds_header()
 	{
 		#INITIALISE SITE NAME
 		$mp_site_name = get_bloginfo('name');
@@ -3880,7 +3880,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE RSS FEED IN THE SIDEBAR
-	function mp_display_rss_feed_sidebar()
+	public function mp_display_rss_feed_sidebar()
 	{		
 		#INITIALISE FEEDBURNER RSS FEED
 		$mp_feedburner_rss = get_option('mp_feedburner_rss');
@@ -3918,7 +3918,7 @@ class mp_options
 	}
 
 	#THIS FUNCTION DISPLAYS THE RSS FEEDS WITH A SHORTCODE [RSS]
-	function mp_rss_shortcode($parameters, $content = null)
+	public function mp_rss_shortcode($parameters, $content = null)
 	{
 		#INITIALISE SITE NAME
 		$mp_site_name = get_bloginfo('name');

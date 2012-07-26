@@ -68,7 +68,7 @@ class mp_options
 		add_action('init', array('mp_options', 'mp_custom_posts_testimonials'));
 		add_filter('manage_edit-testimonial_columns', array('mp_options', 'mp_testimonial_edit_columns'));
 		add_filter('manage_edit-testimonial_sortable_columns', array('mp_options', 'mp_testimonial_sortable_columns'));
-		add_action('manage_testimonial_posts_custom_column',  array('mp_options', 'mp_testimonial_custom_columns'));		
+		add_action('manage_testimonial_posts_custom_column',  array('mp_options', 'mp_testimonial_custom_columns'));
 		
 		#INITIALISE TESTIMONIAL META BOX
 		add_action('admin_init', array('mp_options', 'mp_meta_boxes_testimonial'));
@@ -94,7 +94,7 @@ class mp_options
 		
 		#INITIALISE SHORTCODES
 		add_shortcode('testimonial', array('mp_options', 'mp_testimonial_shortcode'));
-		add_shortcode('rss', array('mp_options', 'mp_rss_shortcode'));		
+		add_shortcode('rss', array('mp_options', 'mp_rss_shortcode'));
 		
 		#INITIALISE TRACKING CODE IN FOOTER
 		add_action('wp_footer', array('mp_options', 'mp_tracking'));

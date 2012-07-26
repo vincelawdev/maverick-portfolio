@@ -135,12 +135,6 @@ if(is_front_page())
 			</div>
 			<!-- ADDTHIS BUTTON - END -->
 			
-			<!-- PINTEREST BUTTON - START -->
-			<div class="social_pinterest_right">
-				<a href="http://pinterest.com/pin/create/button/?url=<?php bloginfo('url'); ?>" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" alt="Pin It" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
-			</div>
-			<!-- PINTEREST BUTTON - END -->	
-			
 			<!-- GOOGLE + BUTTON - START -->
 			<div class="social_google_right">				
 				<div class="g-plusone" data-size="medium" data-href="<?php bloginfo('url'); ?>"></div>

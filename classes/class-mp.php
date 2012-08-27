@@ -197,11 +197,11 @@ class mp_options
 			<h2>Options</h2>
 			
 			<ul style="display: block">
-				<li style="display: inline"><?php if($sub_page == 'author' || empty($sub_page)) { echo '<strong>Author</strong>'; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=author">Author</a><?php } ?></li>
-				<li style="display: inline"><?php if($sub_page == 'sidebar') { echo '<strong>Sidebar</strong>'; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=sidebar">Sidebar</a><?php } ?></li>
-				<li style="display: inline"><?php if($sub_page == 'rss') { echo '<strong>RSS</strong>'; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=rss">RSS</a><?php } ?></li>
-				<li style="display: inline"><?php if($sub_page == 'tracking') { echo '<strong>Tracking</strong>'; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=tracking">Tracking</a><?php } ?></li>
-				<li style="display: inline"><?php if($sub_page == 'reset') { echo '<strong>Reset</strong>'; } else { ?><a href="/wp-admin/themes.php?page=mp_options&sub_page=reset">Reset</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == 'author' || empty($sub_page)) { echo '<strong>Author</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=author">Author</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == 'sidebar') { echo '<strong>Sidebar</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=sidebar">Sidebar</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == 'rss') { echo '<strong>RSS</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=rss">RSS</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == 'tracking') { echo '<strong>Tracking</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=tracking">Tracking</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == 'reset') { echo '<strong>Reset</strong>'; } else { ?><a href=<?php bloginfo('wpurl'); ?>"/wp-admin/themes.php?page=mp_options&sub_page=reset">Reset</a><?php } ?></li>
 				<li style="display: inline"><a href="http://www.employvince.com/contact/" target="_blank">Support</a></li>			
 			</ul>
 			
@@ -3261,7 +3261,7 @@ class mp_options
 		}
 		
 		#DISPLAY DRIBBBLE BUTTON
-		if(!empty($github))
+		if(!empty($dribbble))
 		{
 			echo '<li><a href="' . $dribbble . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-dribbble.png" alt="Dribbble" title="Dribbble" /></a></li>';
 		}

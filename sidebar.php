@@ -124,11 +124,11 @@
 		<!-- POST TABS TITLES - END -->
 		 
 		<!-- RECENT POSTS - START -->
-		<?php if(function_exists('recent_posts')) { recent_posts(); } else { mp_options::mp_display_recent_posts(); } ?>
+		<?php mp_options::mp_display_recent_posts(); ?>
 		<!-- RECENT POSTS - END -->
 		 
 		<!-- POPULAR POSTS - START -->
-		<?php if(function_exists('popular_posts')) { popular_posts(); } ?>
+		<?php if(function_exists('popular_posts')) { mp_options::mp_display_popular_posts(); } ?>
 		<!-- POPULAR POSTS - END -->
 		 
 		<!-- MOST COMMENTED POSTS - START -->

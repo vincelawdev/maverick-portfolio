@@ -177,7 +177,7 @@ if(is_front_page())
 		<!-- TOP MENU - END -->
 		
 		<!-- SEARCH - START -->
-		<form method="get" id="searchform" action="<?php echo $_SERVER['PHP_SELF']; ?>"><input type="submit" id="search_button" value="" /><input type="text" value="Search" name="s" id="search_box" onfocus="if(this.value != '') { this.value = ''; }" onblur="if(this.value == '') { this.value = 'Search'; }" /></form>
+		<form method="get" id="searchform" action="<?php echo $_SERVER['PHP_SELF']; ?>"><input type="submit" id="search_button" value="" /><input type="text" value="Search" name="s" id="search_box" onFocus="if(this.value != '') { this.value = ''; }" onBlur="if(this.value == '') { this.value = 'Search'; }" /></form>
 		<!-- SEARCH - END -->
 	
 	</div>

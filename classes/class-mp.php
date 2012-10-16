@@ -107,7 +107,7 @@ class mp_options
 	#THIS FUNCTION ADDS THE THEME OPTIONS MENU ITEM TO THE APPEARANCE MENU
 	public function mp_admin_menu()
 	{
-		add_theme_page('Options', 'Options', 'administrator', 'mp_options', array('mp_options', 'mp_options_page'));
+		add_theme_page('Maverick Portfolio Options', 'Options', 'administrator', 'mp_options', array('mp_options', 'mp_options_page'));
 	}
 	
 	#THIS FUNCTION REGISTERS THE THEME OPTION SETTINGS
@@ -124,6 +124,7 @@ class mp_options
 		register_setting('mp_settings_rss', 'mp_rss_comments');
 		register_setting('mp_settings_sidebar', 'mp_facebook_like_box');
 		register_setting('mp_settings_sidebar', 'mp_posts_recent_number');
+		register_setting('mp_settings_sidebar', 'mp_posts_popular_number');
 		register_setting('mp_settings_sidebar', 'mp_posts_comments_number');
 		register_setting('mp_settings_sidebar', 'mp_comments_recent_number');
 		register_setting('mp_settings_sidebar', 'mp_comments_commenters_number');
@@ -162,6 +163,7 @@ class mp_options
 			
 				update_option('mp_facebook_like_box', '');
 				update_option('mp_posts_recent_number', 5);
+				update_option('mp_posts_popular_number', 5);
 				update_option('mp_posts_comments_number', 5);
 				update_option('mp_comments_recent_number', 5);
 				update_option('mp_comments_commenters_number', 5);
@@ -194,7 +196,7 @@ class mp_options
 			
 			<div class="icon32" id="icon-tools"><br /></div>
 			
-			<h2>Options</h2>
+			<h2>Maverick Portfolio Options</h2>
 			
 			<ul style="display: block">
 				<li style="display: inline"><?php if($sub_page == 'author' || empty($sub_page)) { echo '<strong>Author</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=author">Author</a><?php } ?></li>
@@ -348,6 +350,9 @@ class mp_options
 				
 				#DISPLAY RECENT POSTS SELECT LIST
 				mp_options::mp_option_field('Posts', '', true, false, 'Recent Posts', 'sidebar_lists', 'mp_posts_recent_number', 'mp_posts_recent_number', 'Select the number of posts to display in the Recent Posts list', 5, false, 20);
+				
+				#DISPLAY POPULAR POSTS SELECT LIST
+				mp_options::mp_option_field('', '', false, false, 'Popular Posts', 'sidebar_lists', 'mp_posts_popular_number', 'mp_posts_popular_number', 'Select the number of posts to display in the Popular Posts list', 5, false, 20);
 				
 				#DISPLAY MOST COMMENTS SELECT LIST
 				mp_options::mp_option_field('', '', false, true, 'Most Comments', 'sidebar_lists', 'mp_posts_comments_number', 'mp_posts_comments_number', 'Select the number of posts to display in the Most Comments list', 5, true, 20);
@@ -3406,21 +3411,93 @@ class mp_options
 		#RETREIVE POSTS
 		$posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC LIMIT $number_of_posts");
 		
+		#OPEN UNORDERED LIST
+		echo '<ul id="recent_posts" class="sidebar_posts">';
+		
 		#POSTS EXIST
 		if(!empty($posts))
-		{
-			#OPEN UNORDERED LIST
-			echo '<ul id="recent_posts" class="sidebar">';
-			
+		{			
 			#DISPLAY POSTS
 			foreach($posts as $post)
 			{
-				echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $post->post_title . '</a></li>';
+				#POST THUMBNAIL EXISTS
+				if(has_post_thumbnail($post->ID))
+				{
+					#INITIALISE POST THUMBNAIL URL
+					$thumbnail_image_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'thumbnail');
+				
+					#DISPLAY POST THUMBNAIL & POST TITLE
+					echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . $thumbnail_image_url[0] . '" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '" />' . $post->post_title . '</a></li>';
+				}
+				#POST THUMBNAIL DOES NOT EXIST
+				else
+				{
+					#DISPLAY DEFAULT POST THUMBNAIL & POST TITLE
+					echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . get_bloginfo('template_directory') . '/images/post-thumbnail-default.png" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '" />' . $post->post_title . '</a></li>';
+				}
+			}
+		}
+		
+		#CLOSE UNORDERED LIST
+		echo '</ul>' . "\n";
+	}
+	
+	#THIS FUNCTION DISPLAYS THE POPULAR BLOG POSTS
+	public function mp_display_popular_posts()
+	{
+		#POPULAR POSTS PLUGIN HAS BEEN ACTIVATED
+		if(function_exists('popular_posts'))
+		{
+			#RETRIEVE THE DATABASE
+			global $wpdb;
+			
+			#INITIALISE NUMBER OF POSTS
+			$number_of_posts = get_option('mp_posts_popular_number');
+			
+			#INITIALISE DEFAULT NUMBER OF POSTS
+			if(empty($number_of_posts))
+			{
+				$number_of_posts = 5;
+			}
+			
+			#RETREIVE POSTS
+			$posts = $wpdb->get_results("SELECT ID, post_title, meta_value + 0 AS viewcount FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON post_id = ID WHERE meta_key = 'pvc_views' AND post_status = 'publish' AND post_type ='post' AND post_password = '' ORDER BY viewcount DESC LIMIT $number_of_posts");
+			
+			#OPEN UNORDERED LIST
+			echo '<ul id="popular_posts" class="sidebar_posts hide">';
+			
+			#POSTS EXIST
+			if(!empty($posts))
+			{
+				#DISPLAY POSTS
+				foreach($posts as $post)
+				{
+					#POST THUMBNAIL EXISTS
+					if(has_post_thumbnail($post->ID))
+					{
+						#INITIALISE POST THUMBNAIL URL
+						$thumbnail_image_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'thumbnail');
+					
+						#DISPLAY POST THUMBNAIL & POST TITLE
+						echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . $thumbnail_image_url[0] . '" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '" />' . $post->post_title . '</a></li>';
+					}
+					#POST THUMBNAIL DOES NOT EXIST
+					else
+					{
+						#DISPLAY DEFAULT POST THUMBNAIL & POST TITLE
+						echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . get_bloginfo('template_directory') . '/images/post-thumbnail-default.png" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '" />' . $post->post_title . '</a></li>';
+					}
+				}
 			}
 			
 			#CLOSE UNORDERED LIST
 			echo '</ul>' . "\n";
 		}
+		#POPULAR POSTS PLUGIN HAS NOT BEEN ACTIVATED
+		else
+		{
+			return;
+		}	
 	}
 	
 	#THIS FUNCTION DISPLAYS THE MOST COMMENTED BLOG POSTS
@@ -3441,21 +3518,35 @@ class mp_options
 		#RETREIVE POSTS
 		$posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE comment_count > 0 AND post_status = 'publish' AND post_type = 'post' ORDER BY comment_count DESC LIMIT $number_of_posts");
 		
+		#OPEN UNORDERED LIST
+		echo '<ul id="most_comments" class="sidebar_posts hide">';
+		
 		#POSTS EXIST
 		if(!empty($posts))
-		{
-			#OPEN UNORDERED LIST
-			echo '<ul id="most_comments" class="sidebar hide">';
-			
+		{			
 			#DISPLAY POSTS
 			foreach($posts as $post)
 			{
-				echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $post->post_title . ' (' . mp_options::mp_get_comment_type_count($post->ID, "comment") . ')</a></li>';
+				#POST THUMBNAIL EXISTS
+				if(has_post_thumbnail($post->ID))
+				{
+					#INITIALISE POST THUMBNAIL URL
+					$thumbnail_image_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'thumbnail');
+				
+					#DISPLAY POST THUMBNAIL & POST TITLE
+					echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . $thumbnail_image_url[0] . '" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '" />' . $post->post_title . ' (' . mp_options::mp_get_comment_type_count($post->ID, "comment") . ')</a></li>';
+				}
+				#POST THUMBNAIL DOES NOT EXIST
+				else
+				{
+					#DISPLAY DEFAULT POST THUMBNAIL & POST TITLE
+					echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . get_bloginfo('template_directory') . '/images/post-thumbnail-default.png" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '" />' . $post->post_title . ' (' . mp_options::mp_get_comment_type_count($post->ID, "comment") . ')</a></li>';
+				}
 			}
-			
-			#CLOSE UNORDERED LIST
-			echo '</ul>' . "\n";
 		}
+		
+		#CLOSE UNORDERED LIST
+		echo '</ul>' . "\n";
 	}
 	
 	#THIS FUNCTION DISPLAYS THE RECENT COMMENTS
@@ -3485,22 +3576,22 @@ class mp_options
 		#RETREIVE COMMENTS
 		$comments = $wpdb->get_results($sql);
 		
+		#OPEN UNORDERED LIST
+		echo '<ul id="recent_comments" class="sidebar">';
+		
 		#COMMENTS EXIST
 		if(!empty($comments))
 		{
-			#OPEN UNORDERED LIST
-			echo '<ul id="recent_comments" class="sidebar">';
-			
 			#DISPLAY COMMENTS
 			foreach($comments as $comment)
 			{
 				echo '<li><a href="' . get_permalink($comment->ID) . '#comment-' . $comment->comment_ID . '" title="' . $comment->post_title . '">' . strip_tags($comment->comment_author) . ': ' . strip_tags($comment->com_excerpt) . '… ' . get_the_time("j F Y", $comment->comment_ID) . '</a></li>';
 
-			}
-			
-			#CLOSE UNORDERED LIST
-			echo '</ul>' . "\n";
-		}		
+			}		
+		}
+		
+		#CLOSE UNORDERED LIST
+		echo '</ul>' . "\n";	
 	}
 	
 	#THIS FUNCTION DISPLAYS THE TOP COMMENTERS
@@ -3596,6 +3687,12 @@ class mp_options
 			
 			#DISPLAY ORDERED LIST
 			echo $html;
+		}
+		#COMMENTERS DO NOT EXIST
+		else
+		{
+			#OPEN & CLOSE ORDERED LIST
+			echo '<ol id="top_commenters" class="sidebar hide"></ol>' . "\n";
 		}
 	}
 	

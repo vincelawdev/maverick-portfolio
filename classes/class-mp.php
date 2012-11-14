@@ -2326,7 +2326,7 @@ class mp_options
 				#DISPLAY PROJECT GALLERY THUMBNAILS
 				foreach($project_thumbnails as $project_thumbnail)
 				{
-					echo '<li><a href="' . $project_thumbnail->imageURL . '" class="thumb" title="' . $project_thumbnail->alttext . ': ' . $project_thumbnail->description . '"><img src="' . $project_thumbnail->thumbURL . '" alt="' . $project_thumbnail->alttext . '" /></a><div class="caption"><p>' . $project_thumbnail->alttext . ': ' . $project_thumbnail->description . '</p></div></li>';
+					echo '<li><a href="' . $project_thumbnail->imageURL . '" class="thumb" title="' . $project_thumbnail->alttext . ': ' . $project_thumbnail->description . '"><img src="' . $project_thumbnail->thumbURL . '" alt="' . $project_thumbnail->alttext . '" /></a><div class="caption"><p>' . stripslashes($project_thumbnail->alttext) . ': ' . stripslashes($project_thumbnail->description) . '</p></div></li>';
 				}
 				
 				#CLOSE UNORDERED LIST

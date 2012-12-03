@@ -4,7 +4,7 @@ class mp_options
 {
 	#THIS CONSTRUCTOR FUNCTION INITIALISES THE THEME OPTIONS
 	function __construct()
-	{	
+	{
 		#REMOVE UNNECESSARY META DATA FROM WORDPRESS HEAD
 		remove_action('wp_head', 'wp_generator');
 		remove_action('wp_head', 'start_post_rel_link');
@@ -203,8 +203,8 @@ class mp_options
 				<li style="display: inline"><?php if($sub_page == 'sidebar') { echo '<strong>Sidebar</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=sidebar">Sidebar</a><?php } ?></li>
 				<li style="display: inline"><?php if($sub_page == 'rss') { echo '<strong>RSS</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=rss">RSS</a><?php } ?></li>
 				<li style="display: inline"><?php if($sub_page == 'tracking') { echo '<strong>Tracking</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=tracking">Tracking</a><?php } ?></li>
-				<li style="display: inline"><?php if($sub_page == 'reset') { echo '<strong>Reset</strong>'; } else { ?><a href=<?php bloginfo('wpurl'); ?>"/wp-admin/themes.php?page=mp_options&sub_page=reset">Reset</a><?php } ?></li>
-				<li style="display: inline"><a href="http://www.employvince.com/contact/" target="_blank">Support</a></li>			
+				<li style="display: inline"><?php if($sub_page == 'reset') { echo '<strong>Reset</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=reset">Reset</a><?php } ?></li>
+				<li style="display: inline"><a href="http://www.vincelaw.com.au/contact/" target="_blank">Support</a></li>			
 			</ul>
 			
 		</div>

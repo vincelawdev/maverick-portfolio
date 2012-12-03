@@ -7,7 +7,7 @@
 		<!-- ABOUT - START -->
 		<div id="footer_column1">
 		
-			<h5>About <?php the_author_meta('first_name', mp_options::mp_get_author_id()); ?></h5>			
+			<h5>About <?php the_author_meta('first_name', mp_options::mp_get_author_id()); ?></h5>
 			<?php echo wpautop(get_the_author_meta('user_description', mp_options::mp_get_author_id())); ?>
 			
 		</div>

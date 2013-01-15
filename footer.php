@@ -13,14 +13,13 @@
 		</div>
 		<!-- ABOUT - END -->
 		
-		<!-- DRIBBBLE - START -->
+		<!-- TWITTER/DRIBBBLE - START -->
 		<div id="footer_column2">
 		
-			<h5>Dribbble</h5>
-			<?php mp_options::mp_display_dribbble_thumbnails(); ?>
+			<?php mp_options::mp_display_dribbble_or_twitter(); ?>
 			
 		</div>
-		<!-- DRIBBBLE - END -->
+		<!-- TWITTER/DRIBBBLE - END -->
 		
 		<!-- INSTAGRAM - START -->
 		<div id="footer_column3">

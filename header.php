@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" class="no-js">
 <head>
 <title><?php the_title(); ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -32,6 +32,7 @@ if(is_front_page())
 <?php mp_options::mp_display_rss_feeds_header(); ?>
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 <?php wp_head(); ?>
+<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/modernizr-custom2.6.2.js"></script>
 <?php
 #LOAD THREADED COMMENTS
 if(is_single())
@@ -105,7 +106,6 @@ if(is_front_page())
 }
 ?>
 <!--[if IE]><script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-fix-iframes.js"></script><![endif]-->
-<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 
 <?php flush(); ?>
@@ -119,10 +119,7 @@ if(is_front_page())
 	<div class="header_wrapper">
 	
 		<!-- TITLE & DESCRIPTION - START -->
-		<div id="header_title_description">
-			<p class="logo"><a href="<?php bloginfo('url'); ?>"><?php bloginfo('name'); ?></a></p>
-			<p class="description"><?php bloginfo('description'); ?><img src="<?php bloginfo('template_directory'); ?>/images/icon-australia.png" alt="" width="25" height="17" class="country" /></p>
-		</div>
+		<div id="header_title_description"><?php mp_options::mp_display_logo(); ?></div>
 		<!-- TITLE & DESCRIPTION - END -->
 	
 		<!-- SOCIAL - START -->
@@ -131,7 +128,7 @@ if(is_front_page())
 			<!-- ADDTHIS BUTTON - START -->
 			<div class="social_addthis_right">
 				<div class="addthis_toolbox addthis_default_style" addthis:title="<?php bloginfo('name'); ?>" addthis:url="<?php bloginfo('url'); ?>"><a class="addthis_counter addthis_pill_style"></a></div>
-				<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4dbe7917029ad5b1"></script>
+				<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=<?php mp_options::mp_display_addthis_profile_id(); ?>"></script>
 			</div>
 			<!-- ADDTHIS BUTTON - END -->
 			
@@ -154,7 +151,7 @@ if(is_front_page())
 			<!-- TWITTER BUTTON - END -->
 			
 			<!-- FACEBOOK BUTTON - START -->
-			<div class="social_facebook_right"><iframe src="//www.facebook.com/plugins/like.php?href=<?php bloginfo('url'); ?>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=355386687829880" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe></div>
+			<div class="social_facebook_right"><iframe src="//www.facebook.com/plugins/like.php?href=<?php mp_options::mp_display_facebook_like_url(); ?>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe></div>
 			<!-- FACEBOOK BUTTON - END -->
 	
 		</div>

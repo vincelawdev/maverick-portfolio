@@ -1,8 +1,30 @@
 <?php
+/**************************************************************************
+
+TABLE OF CONTENTS
+
+1. CONSTRUCTOR FUNCTION
+2. THEME OPTION FUNCTIONS
+3. LOGO FUNCTIONS
+4. ARTICLE FUNCTIONS
+5. SLIDE FUNCTIONS
+6. PROJECT FUNCTIONS
+7. TESTIMONIAL FUNCTIONS
+8. AUTHOR FUNCTIONS
+9. SOCIAL FUNCTIONS
+10. BLOG & COMMENT FUNCTIONS
+11. RSS FUNCTIONS
+
+**************************************************************************/
+
 #THIS CLASS INITIALISES THE THEME OPTIONS
 class mp_options
 {
-	#THIS CONSTRUCTOR FUNCTION INITIALISES THE THEME OPTIONS
+	/**************************************************************************
+	1. CONSTRUCTOR FUNCTION
+	**************************************************************************/
+	
+	#THIS FUNCTION INITIALISES THE THEME OPTIONS
 	function __construct()
 	{
 		#REMOVE UNNECESSARY META DATA FROM WORDPRESS HEAD
@@ -101,7 +123,7 @@ class mp_options
 	}
 	
 	/**************************************************************************
-	#THEME OPTION FUNCTIONS
+	2. THEME OPTION FUNCTIONS
 	**************************************************************************/
 	
 	#THIS FUNCTION ADDS THE THEME OPTIONS MENU ITEM TO THE APPEARANCE MENU
@@ -114,6 +136,12 @@ class mp_options
 	public function mp_theme_settings()
 	{
 		register_setting('mp_settings_author', 'mp_author');
+		register_setting('mp_settings_header', 'mp_logo');
+		register_setting('mp_settings_header', 'mp_logo_image');
+		register_setting('mp_settings_header', 'mp_facebook_like_url');
+		register_setting('mp_settings_header', 'mp_addthis_profile_id');		
+		register_setting('mp_settings_footer', 'mp_footer_dribbble');
+		register_setting('mp_settings_footer', 'mp_footer_twitter');
 		register_setting('mp_settings_rss', 'mp_feedburner_rss');
 		register_setting('mp_settings_rss', 'mp_feedburner_email');
 		register_setting('mp_settings_rss', 'mp_rss_articles');
@@ -144,6 +172,22 @@ class mp_options
 				
 				break;
 				
+			#FOOTER
+			case 'header':
+			
+				update_option('mp_logo', 0);
+				update_option('mp_logo_image', '');
+				update_option('mp_facebook_like_url', '');
+				update_option('mp_addthis_profile_id', '');
+				
+			#FOOTER
+			case 'footer':
+			
+				update_option('mp_footer_dribbble', 0);
+				update_option('mp_footer_twitter', 1);
+				
+				break;
+				
 			#RSS
 			case 'rss':
 				
@@ -166,7 +210,7 @@ class mp_options
 				update_option('mp_posts_popular_number', 5);
 				update_option('mp_posts_comments_number', 5);
 				update_option('mp_comments_recent_number', 5);
-				update_option('mp_comments_commenters_number', 5);
+				update_option('mp_comments_commenters_number', 10);
 				
 				break;
 				
@@ -185,10 +229,10 @@ class mp_options
 		#INITIALISE SUB PAGE
 		$sub_page = $_REQUEST['sub_page'];
 		
-		#SET DEFAULT SUB PAGE TO AUTHOR
+		#SET DEFAULT SUB PAGE TO HEADER
 		if(empty($sub_page))
 		{
-			$sub_page = 'author';
+			$sub_page = 'header';
 		}
 		
 		?>
@@ -199,8 +243,10 @@ class mp_options
 			<h2>Maverick Portfolio Options</h2>
 			
 			<ul style="display: block">
-				<li style="display: inline"><?php if($sub_page == 'author' || empty($sub_page)) { echo '<strong>Author</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=author">Author</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == 'header') { echo '<strong>Header</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=header">Header</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == 'footer') { echo '<strong>Footer</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=footer">Footer</a><?php } ?></li>
 				<li style="display: inline"><?php if($sub_page == 'sidebar') { echo '<strong>Sidebar</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=sidebar">Sidebar</a><?php } ?></li>
+				<li style="display: inline"><?php if($sub_page == 'author' || empty($sub_page)) { echo '<strong>Author</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=author">Author</a><?php } ?></li>
 				<li style="display: inline"><?php if($sub_page == 'rss') { echo '<strong>RSS</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=rss">RSS</a><?php } ?></li>
 				<li style="display: inline"><?php if($sub_page == 'tracking') { echo '<strong>Tracking</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=tracking">Tracking</a><?php } ?></li>
 				<li style="display: inline"><?php if($sub_page == 'reset') { echo '<strong>Reset</strong>'; } else { ?><a href="<?php bloginfo('wpurl'); ?>/wp-admin/themes.php?page=mp_options&sub_page=reset">Reset</a><?php } ?></li>
@@ -233,6 +279,157 @@ class mp_options
 				?>
 			
 				</form>
+			
+				<?php
+				break;
+				
+			#HEADER
+				case 'header':
+				
+				#DISPLAY UPDATE MESSAGE
+				if(isset($_GET['settings-updated']) && ($_GET['settings-updated'] == true))
+				{
+				?>
+				<div class="updated fade"><p><strong><?php _e('Your Header options have been saved.'); ?></strong></p></div>
+				<?php
+				}
+				?>
+				
+				<div id="mp_header_errors" class="mp_errors error"></div>
+				
+				<form id="mp_header" method="post" action="options.php">
+				<?php
+				settings_fields('mp_settings_header');
+
+				#INITIALISE LOGO DESCRIPTION
+				$logo_description = '<p>For best results, please use a logo image with a transparent background. If the logo is disabled, your <a href="' . get_bloginfo('siteurl') . '/wp-admin/options-general.php" target="_blank">Site Title and Tagline</a> will be displayed instead.</p>';
+
+				#INITIALISE LOGO IMAGE
+				$mp_logo_image = get_option('mp_logo_image');
+				
+				#PREPEND LOGO DESCRIPTION WITH LOGO IMAGE
+				if(!empty($mp_logo_image))
+				{
+					$logo_description = '<p><img src="' . $mp_logo_image . '" alt="" /></p>' . $logo_description;
+				}
+				
+				#DISPLAY LOGO STATUS
+				mp_options::mp_option_field('Logo', $logo_description, true, false, 'Enable', 'yes_no', 'mp_logo', 'mp_logo', 'Select whether you wish to enable the logo', 'No', false);
+
+				#DISPLAY LOGO IMAGE
+				mp_options::mp_option_field('', '', true, true, 'Logo Image', 'media_upload', 'mp_logo_image', 'mp_logo_image', 'Enter the URL of the logo image', '', true);
+				
+				
+				#INITIALISE FACEBOOK LIKE BUTTON DESCRIPTION
+				$facebook_description = '<p>the Facebook Like Button will use your Site Address (URL): <a href="' . get_bloginfo('siteurl') . '" target="_blank">' . get_bloginfo('siteurl') . '</a> by default unless you specify a different Like URL.</p>';
+				
+				#DISPLAY FACEBOOK LIKE BUTTON
+				mp_options::mp_option_field('Facebook Like Button', $facebook_description, true, true, 'Like URL', 'text', 'mp_facebook_like_url', 'mp_facebook_like_url', 'Enter the Like URL of the Facebook Like button', '', true);
+				
+				#INITIALISE ADDTHIS PROFILE ID DESCRIPTION
+				$addthis_description = '<p>Register an <a href="http://www.addthis.com/" target="_blank">AddThis account</a> and login to your <a href="https://www.addthis.com/settings/publisher" target="_blank">AddThis Profiles</a> to get your Profile ID.</p>';
+				
+				#DISPLAY FACEBOOK LIKE BUTTON
+				mp_options::mp_option_field('AddThis Share Button', $addthis_description, true, true, 'Profile ID', 'text', 'mp_addthis_profile_id', 'mp_addthis_profile_id', 'Enter the Profile ID of your AddThis account', '', true);
+				?>
+				
+				</form>
+				
+				<script type="text/javascript">
+				jQuery(document).ready(function()
+				{
+					//VALIDATE FORM FIELDS
+					jQuery('#mp_header').validate(
+					{
+						errorLabelContainer: jQuery('#mp_header_errors'),
+						errorElement: 'p',
+						errorClass: 'mp_error_field',
+						rules:
+						{
+							mp_logo_image:
+							{
+								url2: true
+							},
+							mp_facebook_like_url:
+							{
+								url2: true
+							}
+						},
+						messages:
+						{
+							mp_logo_image:
+							{
+								url2: 'Please enter a valid Logo Image.'
+							},
+							mp_facebook_like_url:
+							{
+								url2: 'Please enter a valid Like URL.'
+							}
+						}
+					});
+				});
+				</script>
+			
+				<?php
+				break;
+				
+			#FOOTER
+			case 'footer':
+				
+				#DISPLAY UPDATE MESSAGE
+				if(isset($_GET['settings-updated']) && ($_GET['settings-updated'] == true))
+				{
+				?>
+				<div class="updated fade"><p><strong><?php _e('Your Footer options have been saved.'); ?></strong></p></div>
+				<?php
+				}
+				?>
+				
+				<form id="mp_footer" method="post" action="options.php">
+				<?php
+				settings_fields('mp_settings_footer');
+				
+				#INITIALISE TWITTER DESCRIPTION
+				$twitter_description = '<p>Enter your Twitter RSS feed on your <a href="' . get_bloginfo('siteurl') . '/wp-admin/profile.php" target="_blank">Profle</a> to display the Twitter tweets. Please note that you may only display either your Dribbble thumbnails or Twitter tweets in the footer.</p>';
+				
+				#DISPLAY TWITTER
+				mp_options::mp_option_field('Twitter', $twitter_description, true, true, 'Twitter', 'yes_no', 'mp_footer_twitter', 'mp_footer_twitter', 'Select whether you wish to enable the Twitter tweets', 'Yes', true);
+				
+				#INITIALISE DRIBBBLE DESCRIPTION
+				$dribbble_description = '<p>Enter your Dribbble RSS feed on your <a href="' . get_bloginfo('siteurl') . '/wp-admin/profile.php" target="_blank">Profle</a> to display the Dribbble thumbnails. Please note that you may only display either your Dribbble thumbnails or Twitter tweets in the footer.</p>';
+				
+				#DISPLAY DRIBBBLE
+				mp_options::mp_option_field('Dribbble', $dribbble_description, true, true, 'Dribbble', 'yes_no', 'mp_footer_dribbble', 'mp_footer_dribbble', 'Select whether you wish to enable the Dribbble thumbnails', 'No', true);		
+				?>
+			
+				</form>
+				
+				<script type="text/javascript">
+				jQuery(document).ready(function()
+				{
+					//TWITTER OPTION SELECTED
+					jQuery('#mp_footer_twitter').change(function()
+					{
+						//TWITTER ENABLED
+						if(jQuery("#mp_footer_twitter option[value='1']").attr('selected'))
+						{
+							//DISABLE DRIBBBLE
+							jQuery('#mp_footer_dribbble').val('0');
+						}
+					});
+					
+					//DRIBBBLE OPTION SELECTED
+					jQuery('#mp_footer_dribbble').change(function()
+					{
+						//DRIBBBLE ENABLED
+						if(jQuery("#mp_footer_dribbble option[value='1']").attr('selected'))
+						{
+							//DISABLE TWITTER
+							jQuery('#mp_footer_twitter').val('0');
+						}
+					});
+				});
+				</script>
 			
 				<?php
 				break;
@@ -361,7 +558,7 @@ class mp_options
 				mp_options::mp_option_field('Comments', '', true, false, 'Recent Comments', 'sidebar_lists', 'mp_comments_recent_number', 'mp_comments_recent_number', 'Select the number of comments to display in the Recent Comments list', 5, false, 20);
 				
 				#DISPLAY TOP COMMENTERS SELECT LIST
-				mp_options::mp_option_field('', '', false, true, 'Top Commenters', 'sidebar_lists', 'mp_comments_commenters_number', 'mp_comments_commenters_number', 'Select the number of commenters to display in the Top Commenters list', 5, true, 20);
+				mp_options::mp_option_field('', '', false, true, 'Top Commenters', 'sidebar_lists', 'mp_comments_commenters_number', 'mp_comments_commenters_number', 'Select the number of commenters to display in the Top Commenters list', 10, true, 20);
 				?>
 			
 				</form>
@@ -411,15 +608,26 @@ class mp_options
 						<div class="updated fade"><p><strong><?php _e('Your Author options have been reset.'); ?></strong></p></div>
 						<?php
 					}
-					#RSS RESET SECURITY CHECK PASSED
-					if(!empty($_POST['rss_reset']) && check_admin_referer('rss_reset_check'))
+					#HEADER RESET SECURITY CHECK PASSED
+					if(!empty($_POST['header_reset']) && check_admin_referer('header_reset_check'))
 					{
-						#RESET RSS OPTIONS
-						mp_options::mp_reset_options('rss');
+						#RESET HEADER OPTIONS
+						mp_options::mp_reset_options('header');
 						
 						#DISPLAY RESET MESSAGE
 						?>
-						<div class="updated fade"><p><strong><?php _e('Your RSS options have been reset.'); ?></strong></p></div>
+						<div class="updated fade"><p><strong><?php _e('Your Header options have been reset.'); ?></strong></p></div>
+						<?php
+					}
+					#FOOTER RESET SECURITY CHECK PASSED
+					if(!empty($_POST['footer_reset']) && check_admin_referer('footer_reset_check'))
+					{
+						#RESET FOOTER OPTIONS
+						mp_options::mp_reset_options('footer');
+						
+						#DISPLAY RESET MESSAGE
+						?>
+						<div class="updated fade"><p><strong><?php _e('Your Footer options have been reset.'); ?></strong></p></div>
 						<?php
 					}
 					#SIDEBAR RESET SECURITY CHECK PASSED
@@ -431,6 +639,17 @@ class mp_options
 						#DISPLAY RESET MESSAGE
 						?>
 						<div class="updated fade"><p><strong><?php _e('Your Sidebar options have been reset.'); ?></strong></p></div>
+						<?php
+					}
+					#RSS RESET SECURITY CHECK PASSED
+					if(!empty($_POST['rss_reset']) && check_admin_referer('rss_reset_check'))
+					{
+						#RESET RSS OPTIONS
+						mp_options::mp_reset_options('rss');
+						
+						#DISPLAY RESET MESSAGE
+						?>
+						<div class="updated fade"><p><strong><?php _e('Your RSS options have been reset.'); ?></strong></p></div>
 						<?php
 					}
 					#TRACKING RESET SECURITY CHECK PASSED
@@ -446,12 +665,21 @@ class mp_options
 					}
 					?>
 					
-					<h3 class="title">Author</h3>
+					<h3 class="title">Header</h3>
 					
-					<form name="author_reset_form" method="post">
-					<?php wp_nonce_field('author_reset_check'); ?>
+					<form name="header_reset_form" method="post">
+					<?php wp_nonce_field('header_reset_check'); ?>
 					
-					<input type="submit" name="author_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Author options to default settings?', 'author_reset'); ?>'); if(check == false) { return false; }" />
+					<input type="submit" name="header_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Header options to default settings?', 'header_reset'); ?>'); if(check == false) { return false; }" />
+					
+					</form>
+					
+					<h3 class="title">Footer</h3>
+					
+					<form name="footer_reset_form" method="post">
+					<?php wp_nonce_field('footer_reset_check'); ?>
+					
+					<input type="submit" name="footer_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Footer options to default settings?', 'footer_reset'); ?>'); if(check == false) { return false; }" />
 					
 					</form>
 					
@@ -461,6 +689,15 @@ class mp_options
 					<?php wp_nonce_field('sidebar_reset_check'); ?>
 					
 					<input type="submit" name="sidebar_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Sidebar options to default settings?', 'sidebar_reset'); ?>'); if(check == false) { return false; }" />
+					
+					</form>
+					
+					<h3 class="title">Author</h3>
+					
+					<form name="author_reset_form" method="post">
+					<?php wp_nonce_field('author_reset_check'); ?>
+					
+					<input type="submit" name="author_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Author options to default settings?', 'author_reset'); ?>'); if(check == false) { return false; }" />
 					
 					</form>
 					
@@ -522,7 +759,13 @@ class mp_options
 		
 		#DISPLAY INPUT TYPE
 		switch($input_type)
-		{		
+		{
+			#MEDIA UPLOAD
+			case 'media_upload':
+
+				mp_options::mp_display_media_upload($input_id, $mp_option);
+				break;
+			
 			#TEXT BOX
 			case 'text':
 			
@@ -590,11 +833,21 @@ class mp_options
 		}
 	}
 	
+	#THIS FUNCTION DISPLAYS A MEDIA UPLOAD FIELD
+	protected function mp_display_media_upload($media_upload_id, $media_upload_url)
+	{
+		#INITIALISE MEDIA UPLOAD FIELD HTML
+		$media_upload_box = '<input name="' . $media_upload_id . '" id="' . $media_upload_id . '" type="text" value="' . $media_upload_url . '" class="regular-text" /> <input id="' . $media_upload_id . '_button" class="button" type="button" value="Upload" />';
+			
+		#DISPLAY MEDIA UPLOAD FIELD
+		echo $media_upload_box;
+	}
+	
 	#THIS FUNCTION DISPLAYS A TEXT FIELD
 	protected function mp_display_text($text_id, $entered_text)
 	{
 		#INITIALISE TEXT FIELD HTML
-		$text_box = "<input name=\"$text_id\" id=\"$text_id\" type=\"text\" value=\"$entered_text\" class=\"regular-text\" />";
+		$text_box = '<input name="' . $text_id . '" id="' . $text_id . '" type="text" value="' . $entered_text . '" class="regular-text" />';
 		
 		#DISPLAY TEXT FIELD
 		echo $text_box;
@@ -604,7 +857,7 @@ class mp_options
 	protected function mp_display_textarea($text_id, $entered_text)
 	{
 		#INITIALISE TEXTAREA
-		$textarea = "<textarea name=\"$text_id\" id=\"$text_id\" rows=\"10\" cols=\"50\" class=\"large-text code\">$entered_text</textarea>";
+		$textarea = '<textarea name="' . $text_id . '" id="' . $text_id . '" rows="10" cols="50" class="large-text code">'. $entered_text . '</textarea>';
 		
 		#DISPLAY TEXTAREA
 		echo $textarea;
@@ -702,7 +955,7 @@ class mp_options
 			wp_deregister_script('jquery');	
 	
 			#LOAD THE GOOGLE API JQUERY INCLUDES
-			wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', false, '1.7.2', false);
+			wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js', false, '1.8.2', false);
 	
 			#REGISTER CUSTOM JQUERY INCLUDES
 			wp_enqueue_script('jquery');
@@ -721,11 +974,26 @@ class mp_options
 		echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-validate-additional-methods.js"></script>' . "\n";
 		echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-preload-admin.php"></script>' . "\n";
 		
+		
 		#LOAD JAVASCRIPT FOR TINYMCE EDITOR FOR USER BIOGRAPHY IN WORDPRESS 3.3 +
 		if(function_exists('wp_editor'))
 		{
 			echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-tinymce-biography.js"></script>' . "\n";
 		}
+		
+		#LOAD JAVASCRIPT FOR MEDIA UPLOADER FOR WORDPRESS 3.5 +
+		if(function_exists('wp_enqueue_media'))
+		{
+			echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-media-upload3.5.js"></script>' . "\n";
+			wp_enqueue_media();
+		}
+		#LOAD JAVASCRIPT FOR MEDIA UPLOADER FOR WORDPRESS 3.5 & BELOW
+		else
+		{
+			echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-media-upload-old.js"></script>' . "\n";
+			wp_enqueue_script('media-upload');
+			wp_enqueue_script('thickbox');
+		}	
 	}
 	
 	#THIS FUNCTION SAVES THE META BOX FORM CONTENTS
@@ -793,7 +1061,43 @@ class mp_options
 	}
 	
 	/**************************************************************************
-	#ARTICLE FUNCTIONS
+	3. LOGO FUNCTIONS
+	**************************************************************************/
+	
+	#THIS FUNCTION DISPLAYS THE LOGO IN EITHER IMAGE OR TEXT FORM
+	public function mp_display_logo()
+	{		
+		#INITIALISE LOGO
+		$mp_logo = get_option('mp_logo');
+		$mp_logo_text = false;
+		
+		#LOGO ENABLED
+		if(!empty($mp_logo))
+		{
+			#INITIALISE LOGO IMAGE
+			$mp_logo_image = get_option('mp_logo_image');
+		
+			#DISPLAY LOGO
+			if(!empty($mp_logo_image))
+			{
+				echo '<a href="' . get_bloginfo('url') . '"><img src="' . $mp_logo_image . '" alt="' . get_bloginfo('name') . ' - ' . get_bloginfo('description') . '" title="' . get_bloginfo('name') . ' - ' . get_bloginfo('description') . '" class="logo_image" /></a>';
+				
+			}
+			#DISPLAY TEXT LOGO
+			else
+			{
+				$mp_logo_text = true;
+			}
+		}
+		#DISPLAY TEXT LOGO
+		elseif(empty($mp_logo) || !empty($mp_logo_text))
+		{
+			echo '<p class="logo"><a href="' . get_bloginfo('url') . '">' . get_bloginfo('name') . '</a></p><p class="description">' . get_bloginfo('description') . '</p>';
+		}
+	}
+	
+	/**************************************************************************
+	4. ARTICLE FUNCTIONS
 	**************************************************************************/
 	
 	#THIS FUNCTION CREATES THE ARTICLE CUSTOM POST TYPE
@@ -1206,7 +1510,7 @@ class mp_options
 	}
 	
 	/**************************************************************************
-	#SLIDE FUNCTIONS
+	5. SLIDE FUNCTIONS
 	**************************************************************************/
 	
 	#THIS FUNCTION CREATES THE SLIDE CUSTOM POST TYPE
@@ -1663,7 +1967,7 @@ class mp_options
 	}
 	
 	/**************************************************************************
-	#PROJECT FUNCTIONS
+	6. PROJECT FUNCTIONS
 	**************************************************************************/
 	
 	#THIS FUNCTION CREATES THE PROJECT CUSTOM POST TYPE
@@ -2481,7 +2785,7 @@ class mp_options
 	}
 	
 	/**************************************************************************
-	#TESTIMONIAL FUNCTIONS
+	7. TESTIMONIAL FUNCTIONS
 	**************************************************************************/
 	
 	#THIS FUNCTION CREATES THE TESTIMONIALS CUSTOM POST TYPE
@@ -2721,10 +3025,10 @@ class mp_options
 		echo '<p><strong>Project:</strong><br />'; mp_options::mp_display_project_list("testimonial_project", $testimonial_project); echo '</p><p>Select the project of the testimonial.</p>';
 		echo '<p><strong>Name:</strong><br /><input name="testimonial_name" id="testimonial_name" type="text" size="80" value="' . $testimonial_name . '" /></p><p>Enter the name of the person who wrote the testimonial.</p>';
 		echo '<p><strong>Location:</strong><br /><input name="testimonial_location" id="testimonial_location" type="text" size="80" value="' . $testimonial_location . '" /></p><p>Enter the location of the person who wrote the testimonial.</p>';
-		echo '<p><strong>Photo:</strong><br /><input name="testimonial_photo" id="testimonial_photo" type="text" size="80" value="' . urldecode($testimonial_photo) . '" /></p><p>Enter the photo URL of the person who wrote the testimonial.</p>';
+		echo '<p><strong>Photo:</strong><br />'; mp_options::mp_display_media_upload('testimonial_photo', urldecode($testimonial_photo)); echo '</p><p>Enter the photo URL of the person who wrote the testimonial.</p>';		
 		echo '<p><strong>URL:</strong><br /><input name="testimonial_url" id="testimonial_url" type="text" size="80" value="' . urldecode($testimonial_url) . '" /></p><p>Enter the URL of the person who wrote the testimonial.</p>';
 		echo '<p><strong>PDF:</strong><br /><input name="testimonial_pdf" id="testimonial_pdf" type="text" size="80" value="' . urldecode($testimonial_pdf) . '" /></p><p>Enter the URL of the PDF document of the testimonial.</p>';
-		echo '<p><strong>Feature on Home Page:</strong><br />'; mp_options::mp_display_yes_no_list("testimonial_feature", $testimonial_feature); echo '</p><p>Select whether you wish to display this testimonial on the home page.</p>';
+		echo '<p><strong>Feature on Home Page:</strong><br />'; mp_options::mp_display_yes_no_list('testimonial_feature', $testimonial_feature); echo '</p><p>Select whether you wish to display this testimonial on the home page.</p>';
 		?>
 		<script type="text/javascript">
 		jQuery(document).ready(function()
@@ -3023,7 +3327,7 @@ class mp_options
 	}
 	
 	/**************************************************************************
-	#AUTHOR FUNCTIONS
+	8. AUTHOR FUNCTIONS
 	**************************************************************************/
 			
 	#THIS FUNCTION REPLACES THE "BIOGRAPHICAL INFO" FIELD IN THE USER PROFILE WITH A TINYMCE EDITOR
@@ -3047,9 +3351,10 @@ class mp_options
 		unset($contact_fields['jabber']);
 		unset($contact_fields['yim']);
 		
-		#ADD FACEBOOK, TWITTER, GOOGLE+, PINTEREST, LINKEDIN, GITHUB, DRIBBLE, INSTAGRAM, INSTAGRAM RSS FEED
+		#ADD FACEBOOK, TWITTER, TWITTER RSS FEED, GOOGLE+, PINTEREST, LINKEDIN, GITHUB, DRIBBLE, INSTAGRAM, INSTAGRAM RSS FEED
 		$contact_fields['facebook'] = 'Facebook';
 		$contact_fields['twitter'] = 'Twitter';
+		$contact_fields['twitter_rss'] = 'Twitter RSS Feed';
 		$contact_fields['google_plus'] = 'Google+';
 		$contact_fields['pinterest'] = 'Pinterest';
 		$contact_fields['linkedin'] = 'LinkedIn';
@@ -3119,7 +3424,7 @@ class mp_options
 	}
 	
 	/**************************************************************************
-	#SOCIAL FUNCTIONS
+	9. SOCIAL FUNCTIONS
 	**************************************************************************/
 	
 	#THIS FUNCTION DISPLAYS THE INSTAGRAM THUMBNAILS
@@ -3157,7 +3462,7 @@ class mp_options
 				$instagram_thumbnail = str_replace('" />', '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '" />', $instagram_thumbnail);
 				
 				#DISPLAY INSTAGRAM THUMBNAIL
-				echo '<li><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" class="instagram_iframe"><span class="magnify"></span>' . $instagram_thumbnail . '</a></li>' . "\n";
+				echo '<li><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" rel="nofollow" class="instagram_iframe"><span class="magnify"></span>' . $instagram_thumbnail . '</a></li>' . "\n";
 			}
 			
 			#CLOSE UNORDERED LIST
@@ -3165,48 +3470,138 @@ class mp_options
 		}
 	}
 	
+	#THIS FUNCTION DISPLAYS THE TWITTER TWEETS
+	public function mp_display_twitter_tweets()
+	{
+		#INITIALISE TWITTER TWEETS
+		$mp_footer_twitter = get_option('mp_footer_twitter');
+		
+		#TWITTER TWEETS ENABLED
+		if(!empty($mp_footer_twitter))
+		{
+			#DISPLAY TWITTER HEADING
+			echo '<h5>Twitter</h5>';
+		
+			#INITIALISE TWITTER RSS FEED
+			$twitter_rss = get_user_meta(mp_options::mp_get_author_id(), 'twitter_rss', true);
+			
+			#TWITTER RSS FEED EXISTS
+			if(!empty($twitter_rss))
+			{
+				#INCLUDE SIMPLEPIE RSS PARSER
+				include_once(ABSPATH.WPINC . '/class-simplepie.php');
+				
+				#INITIALISE SIMPLEPIE OBJECT
+				$feed = new SimplePie();
+				 
+				#INITIALISE SIMPLEPIE FEED
+				$feed->set_feed_url($twitter_rss);
+					
+				#INITIALISE SIMPLEPIE CACHE LOCATION
+				$feed->set_cache_location(dirname(dirname(__FILE__)) . '/cache');
+				 
+				#RUN SIMPLEPIE FEED
+				$feed->init();
+				
+				#OPEN UNORDERED LIST
+				echo '<ul class="twitter">';
+				
+				#DISPLAY TWITTER TWEETS
+				foreach($feed->get_items(0, 5) as $item)
+				{
+					#FORMAT TWITTER TWEETS WITHOUT USERNAME
+					$colon = strpos($item->get_description(), ':');					
+					$tweet = substr($item->get_description(), $colon + 2);
+					
+					#FORMAT TWITTER TWEETS WITH LINKS
+					$tweet = preg_replace("#(^|[\n ])([\w]+?://[\w]+[^ \"\n\r\t< ]*)#", "\\1<a href=\"\\2\" target=\"_blank\" rel=\"nofollow\">\\2</a>", $tweet);
+					$tweet = preg_replace("#(^|[\n ])((www|ftp)\.[^ \"\t\n\r< ]*)#", "\\1<a href=\"http://\\2\" target=\"_blank\" rel=\"nofollow\">\\2</a>", $tweet);
+					$tweet = preg_replace("/@(\w+)/", "<a href=\"http://www.twitter.com/\\1\" target=\"_blank\" rel=\"nofollow\">@\\1</a>", $tweet);
+					$tweet = preg_replace("/#(\w+)/", "<a href=\"http://search.twitter.com/search?q=\\1\" target=\"_blank\" rel=\"nofollow\">#\\1</a>", $tweet);
+					
+					#DISPLAY TWITTER TWEET
+					echo '<li>' . $tweet . '<br />' . $item->get_date('j F Y g:i A') . ' &middot; <a href="' . $item->get_permalink() . '" target="_blank" rel="nofollow" class="tweet">Twitter</a></li>' . "\n";
+				}
+				
+				#CLOSE UNORDERED LIST
+				echo '</ul>';
+			}
+		}
+	}
+	
 	#THIS FUNCTION DISPLAYS THE DRIBBBLE THUMBNAILS
 	public function mp_display_dribbble_thumbnails()
 	{
-		#INITIALISE DRIBBBLE RSS FEED
-		$dribbble_rss = get_user_meta(mp_options::mp_get_author_id(), 'dribbble_rss', true);
+		#INITIALISE DRIBBBLE THUMBNAILS
+		$mp_footer_dribbble = get_option('mp_footer_dribbble');
 		
-		#DRIBBBLE RSS FEED EXISTS
-		if(!empty($dribbble_rss))
+		#DRIBBBLE THUMBNAILS ENABLED
+		if(!empty($mp_footer_dribbble))
 		{
-			#INCLUDE SIMPLEPIE RSS PARSER
-			include_once(ABSPATH.WPINC . '/class-simplepie.php');
+			#DISPLAY DRIBBBLE HEADING
+			echo '<h5>Dribbble</h5>';
+		
+			#INITIALISE DRIBBBLE RSS FEED
+			$dribbble_rss = get_user_meta(mp_options::mp_get_author_id(), 'dribbble_rss', true);
 			
-			#INITIALISE SIMPLEPIE OBJECT
-			$feed = new SimplePie();
-			 
-			#INITIALISE SIMPLEPIE FEED
-			$feed->set_feed_url($dribbble_rss);
-			
-			#INITIALISE SIMPLEPIE CACHE LOCATION
-			$feed->set_cache_location(dirname(dirname(__FILE__)) . '/cache');
-			 
-			#RUN SIMPLEPIE FEED
-			$feed->init();
-			
-			#OPEN UNORDERED LIST
-			echo '<ul>';
-			
-			#DISPLAY DRIBBBLE THUMBNAILS
-			foreach($feed->get_items(0, 4) as $item)
+			#DRIBBBLE RSS FEED EXISTS
+			if(!empty($dribbble_rss))
 			{
-				#FORMAT DRIBBBLE THUMBNAIL WITHOUT HYPERLINK & IMAGE TITLE IN ALT/TITLE ATTRIBUTE
-				if(preg_match('#<img alt="(.+?)" height="300" src="(.+?)" width="400" />#i', $item->get_description(), $dribbble_thumbnail_url))
+				#INCLUDE SIMPLEPIE RSS PARSER
+				include_once(ABSPATH.WPINC . '/class-simplepie.php');
+				
+				#INITIALISE SIMPLEPIE OBJECT
+				$feed = new SimplePie();
+				 
+				#INITIALISE SIMPLEPIE FEED
+				$feed->set_feed_url($dribbble_rss);
+				
+				#INITIALISE SIMPLEPIE CACHE LOCATION
+				$feed->set_cache_location(dirname(dirname(__FILE__)) . '/cache');
+				 
+				#RUN SIMPLEPIE FEED
+				$feed->init();
+				
+				#OPEN UNORDERED LIST
+				echo '<ul class="dribbble">';
+				
+				#DISPLAY DRIBBBLE THUMBNAILS
+				foreach($feed->get_items(0, 4) as $item)
 				{
-					$dribbble_thumbnail = '<img src="' . $dribbble_thumbnail_url[2] . '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '" />';
+					#FORMAT DRIBBBLE THUMBNAIL WITHOUT HYPERLINK & IMAGE TITLE IN ALT/TITLE ATTRIBUTE
+					if(preg_match('#<img alt="(.+?)" height="300" src="(.+?)" width="400" />#i', $item->get_description(), $dribbble_thumbnail_url))
+					{
+						$dribbble_thumbnail = '<img src="' . $dribbble_thumbnail_url[2] . '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '" />';
+					}
+					
+					#DISPLAY DRIBBBLE THUMBNAIL
+					echo '<li><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" rel="nofollow" class="dribbble_iframe"><span class="magnify"></span>' . $dribbble_thumbnail . '</a></li>' . "\n";
 				}
 				
-				#DISPLAY DRIBBBLE THUMBNAIL
-				echo '<li><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" class="dribbble_iframe"><span class="magnify"></span>' . $dribbble_thumbnail . '</a></li>' . "\n";
+				#CLOSE UNORDERED LIST
+				echo '</ul>';
 			}
-			
-			#CLOSE UNORDERED LIST
-			echo '</ul>';
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE TWITTER TWEETS OR DRIBBBLE THUMBNAILS
+	public function mp_display_dribbble_or_twitter()
+	{
+		#INITIALISE TWITTER TWEETS
+		$mp_footer_twitter = get_option('mp_footer_twitter');
+	
+		#INITIALISE DRIBBBLE THUMBNAILS
+		$mp_footer_dribbble = get_option('mp_footer_dribbble');
+		
+		#DISPLAY TWITTER TWEETS
+		if(!empty($mp_footer_twitter) && empty($mp_footer_dribbble))
+		{
+			mp_options::mp_display_twitter_tweets();
+		}
+		#DISPLAY DRIBBBLE THUMBNAILS
+		if(!empty($mp_footer_dribbble) && empty($mp_footer_twitter))
+		{
+			mp_options::mp_display_dribbble_thumbnails();
 		}
 	}
 	
@@ -3294,8 +3689,39 @@ class mp_options
 		}
 	}
 	
+	#THIS FUNCTION DISPLAYS THE FACEBOOK LIKE URL IN THE HEADER
+	public function mp_display_facebook_like_url()
+	{
+		#INITIALISE FACEBOOK LIKE URL
+		$mp_facebook_like_url = get_option('mp_facebook_like_url');
+		
+		#DISPLAY FACEBOOK LIKE URL
+		if(!empty($mp_facebook_like_url))
+		{
+			echo $mp_facebook_like_url;
+		}
+		#DISPLAY SITE URL
+		else
+		{
+			bloginfo('url');
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE ADDTHIS PROFILE ID IN THE HEADER
+	public function mp_display_addthis_profile_id()
+	{
+		#INITIALISE ADDTHIS PROFILE ID
+		$mp_addthis_profile_id = get_option('mp_addthis_profile_id');
+		
+		#DISPLAY ADDTHIS PROFILE ID
+		if(!empty($mp_addthis_profile_id))
+		{
+			echo $mp_addthis_profile_id;
+		}
+	}
+	
 	/**************************************************************************
-	#BLOG & COMMENT FUNCTIONS
+	10. BLOG & COMMENT FUNCTIONS
 	**************************************************************************/
 	
 	#THIS FUNCTION DISPLAYS THE BLOG POSTS
@@ -3615,7 +4041,7 @@ class mp_options
 		WHERE comment_approved = '1'
 		AND comment_type = ''
 		AND comment_author != ''
-		GROUP BY user_id
+		GROUP BY comment_author_email
 		ORDER BY total_comments DESC
 		LIMIT $number_of_commenters";
 	
@@ -3919,7 +4345,7 @@ class mp_options
 	}
 	
 	/**************************************************************************
-	#RSS FUNCTIONS
+	11. RSS FUNCTIONS
 	**************************************************************************/
 
 	#THIS FUNCTION DISPLAYS THE RSS FEEDS IN THE HEADER

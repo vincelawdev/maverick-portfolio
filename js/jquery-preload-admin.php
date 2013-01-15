@@ -30,7 +30,7 @@ require($wp_include_path);
 header('content-type: application/x-javascript');
 ?>
 //WAIT FOR PAGE TO LOAD
-$(document).ready(function() 
+jQuery(document).ready(function() 
 {
 	//PRELOAD IMAGES
 	preload1 = new Image();

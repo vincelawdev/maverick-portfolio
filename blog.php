@@ -17,7 +17,7 @@ get_header();
 		<?php
 		}
 		?>
-		<!-- BLOG POSTS - END -->	
+		<!-- BLOG POSTS - END -->
 	
 	</div>
 	<!-- CONTENT - END -->

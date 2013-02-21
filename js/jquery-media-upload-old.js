@@ -9,6 +9,15 @@ jQuery(document).ready(function()
 		return false;
 	});
 	
+	//UPLOAD SLIDE IMAGE BUTTON CLICKED
+	jQuery('#slide_image_button').click(function()
+	{
+		//LAUNCH TESTIMONIAL PHOTO THICKBOX
+		tb_show('Slide Image', 'media-upload.php?type=image&amp;TB_iframe=true');
+		
+		return false;
+	});
+	
 	//UPLOAD TESTIMONIAL PHOTO BUTTON CLICKED
 	jQuery('#testimonial_photo_button').click(function()
 	{
@@ -18,6 +27,7 @@ jQuery(document).ready(function()
 		return false;
 	});
 
+	//SEND URL TO WORDPRESS FORM FIELD
 	window.send_to_editor = function(html)
 	{
 		//INITIALISE IMAGE URL
@@ -26,17 +36,27 @@ jQuery(document).ready(function()
 		//LOGO IMAGE IMAGE EXISTS
 		if(jQuery('#mp_logo_image').length)
 		{
-			//ADD IMAGE URL TO LOGO IMAGE FIELD
+			//ADD LOGO IMAGE URL TO LOGO IMAGE FIELD
 			jQuery('#mp_logo_image').val(mp_image_url);
 			
 			//CLOSE LOGO IMAGE THICKBOX
 			tb_remove();
 		}
 		
+		//SLIDE IMAGE EXISTS
+		if(jQuery('#slide_image').length)
+		{
+			//ADD SLIDE IMAGE URL TO SLIDE IMAGE FIELD
+			jQuery('#slide_image').val(mp_image_url);
+			
+			//CLOSE SLIDE IMAGE THICKBOX
+			tb_remove();
+		}
+		
 		//TESTIMONIAL PHOTO EXISTS
 		if(jQuery('#testimonial_photo').length)
 		{
-			//ADD IMAGE URL TO TESTIMONIAL PHOTO FIELD
+			//ADD TESTIMONIAL PHOTO URL TO TESTIMONIAL PHOTO FIELD
 			jQuery('#testimonial_photo').val(mp_image_url);
 			
 			//CLOSE TESTIMONIAL PHOTO THICKBOX

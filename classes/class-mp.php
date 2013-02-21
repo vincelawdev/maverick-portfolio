@@ -120,6 +120,12 @@ class mp_options
 		
 		#INITIALISE TRACKING CODE IN FOOTER
 		add_action('wp_footer', array('mp_options', 'mp_tracking'));
+		
+		#INITIALISE POST EXCERPT READ THE REST LINKS
+		if(!function_exists('the_advanced_excerpt'))
+		{
+			add_filter('excerpt_more', array('mp_options', 'mp_excerpt_more'));
+		}
 	}
 	
 	/**************************************************************************
@@ -138,6 +144,7 @@ class mp_options
 		register_setting('mp_settings_author', 'mp_author');
 		register_setting('mp_settings_header', 'mp_logo');
 		register_setting('mp_settings_header', 'mp_logo_image');
+		register_setting('mp_settings_header', 'mp_social_button_size');
 		register_setting('mp_settings_header', 'mp_facebook_like_url');
 		register_setting('mp_settings_header', 'mp_addthis_profile_id');		
 		register_setting('mp_settings_footer', 'mp_footer_dribbble');
@@ -177,6 +184,7 @@ class mp_options
 			
 				update_option('mp_logo', 0);
 				update_option('mp_logo_image', '');
+				update_option('mp_social_button_size', 'small');
 				update_option('mp_facebook_like_url', '');
 				update_option('mp_addthis_profile_id', '');
 				
@@ -317,11 +325,16 @@ class mp_options
 				mp_options::mp_option_field('Logo', $logo_description, true, false, 'Enable', 'yes_no', 'mp_logo', 'mp_logo', 'Select whether you wish to enable the logo', 'No', false);
 
 				#DISPLAY LOGO IMAGE
-				mp_options::mp_option_field('', '', true, true, 'Logo Image', 'media_upload', 'mp_logo_image', 'mp_logo_image', 'Enter the URL of the logo image', '', true);
+				mp_options::mp_option_field('', '', true, true, 'Logo Image', 'media_upload', 'mp_logo_image', 'mp_logo_image', 'Enter the logo image', '', true);				
 				
+				#INITIALISE SOCIAL BUTTON SIZE DESCRIPTION
+				$social_button_description = '<p><img src="' . get_bloginfo('template_directory') . '/images/theme-options-social-buttons.jpg" width="335" height="92" alt="" /></p>';
+				
+				#DISPLAY SOCIAL BUTTON SIZE
+				mp_options::mp_option_field('Social Buttons', $social_button_description, true, true, 'Size', 'small_large', 'mp_social_button_size', 'mp_social_button_size', 'Select the size of the social buttons', 'small', true);
 				
 				#INITIALISE FACEBOOK LIKE BUTTON DESCRIPTION
-				$facebook_description = '<p>the Facebook Like Button will use your Site Address (URL): <a href="' . get_bloginfo('siteurl') . '" target="_blank">' . get_bloginfo('siteurl') . '</a> by default unless you specify a different Like URL.</p>';
+				$facebook_description = '<p>The Facebook Like Button will use your Site Address (URL): <a href="' . get_bloginfo('siteurl') . '" target="_blank">' . get_bloginfo('siteurl') . '</a> by default unless you specify a different Like URL.</p>';
 				
 				#DISPLAY FACEBOOK LIKE BUTTON
 				mp_options::mp_option_field('Facebook Like Button', $facebook_description, true, true, 'Like URL', 'text', 'mp_facebook_like_url', 'mp_facebook_like_url', 'Enter the Like URL of the Facebook Like button', '', true);
@@ -329,8 +342,8 @@ class mp_options
 				#INITIALISE ADDTHIS PROFILE ID DESCRIPTION
 				$addthis_description = '<p>Register an <a href="http://www.addthis.com/" target="_blank">AddThis account</a> and login to your <a href="https://www.addthis.com/settings/publisher" target="_blank">AddThis Profiles</a> to get your Profile ID.</p>';
 				
-				#DISPLAY FACEBOOK LIKE BUTTON
-				mp_options::mp_option_field('AddThis Share Button', $addthis_description, true, true, 'Profile ID', 'text', 'mp_addthis_profile_id', 'mp_addthis_profile_id', 'Enter the Profile ID of your AddThis account', '', true);
+				#DISPLAY ADDTHIS PROFILE ID
+				mp_options::mp_option_field('AddThis Share Button', $addthis_description, true, false, 'Profile ID', 'text', 'mp_addthis_profile_id', 'mp_addthis_profile_id', 'Enter the Profile ID of your AddThis account', '', true);
 				?>
 				
 				</form>
@@ -784,6 +797,12 @@ class mp_options
 				mp_options::mp_display_yes_no_list($input_id, $mp_option);
 				break;
 				
+			#SMALL/LARGE:
+			case 'small_large':
+				
+				mp_options::mp_display_small_large_list($input_id, $mp_option);
+				break;
+				
 			#AUTHOR SELECT LIST:
 			case 'author':
 				
@@ -898,6 +917,41 @@ class mp_options
 		echo $select_list;
 	}
 	
+	#THIS FUNCTION DISPLAYS THE LIST OF SMALL & LARGE OPTIONS
+	protected function mp_display_small_large_list($select_id, $selected_option)
+	{		
+		#INITIALISE SELECT LIST HTML
+		$select_list = '<select name="' . $select_id . '" id="' . $select_id . '" class="postform">' . "\n";
+		
+		#INITIALISE OPTIONS
+		$options = array
+		(
+			'Small' => 'small',
+			'Large' => 'large'
+		);
+		
+		#DISPLAY OPTIONS
+		foreach($options as $option_key => $option_value)
+		{
+			#SELECTED OPTION
+			if($selected_option == $option_value)
+			{
+				$select_list .= '<option class="level-0" selected="selected" value="' . $option_value . '">' . $option_key . '</option>' . "\n";
+			}
+			#UNSELECTED OPTION
+			else
+			{
+				$select_list .= '<option class="level-0" value="' . $option_value . '">' . $option_key . '</option>' . "\n";
+			}
+		}
+		
+		#CLOSE SELECT LIST HTML
+		$select_list .= '</select>';
+		
+		#DISPLAY SELECT LIST
+		echo $select_list;
+	}
+	
 	#THIS FUNCTION DISPLAYS THE NUMBER OF LIST ITEMS OF SIDEBAR LISTS
 	public function mp_display_sidebar_list($select_id, $selected_number_of_items, $default_number_of_items = 5, $number_of_items)
 	{
@@ -955,7 +1009,7 @@ class mp_options
 			wp_deregister_script('jquery');	
 	
 			#LOAD THE GOOGLE API JQUERY INCLUDES
-			wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js', false, '1.8.2', false);
+			wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', false, '1.8.3', false);
 	
 			#REGISTER CUSTOM JQUERY INCLUDES
 			wp_enqueue_script('jquery');
@@ -1275,7 +1329,7 @@ class mp_options
 		echo '<input name="article_nonce" id="article_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
 		
 		#DISPLAY ARTICLE URL FIELD
-		echo '<p><strong>Article URL:</strong><br /><input name="article_url" id="article_url" type="text" size="80" value="' . urldecode($article_url) . '" /></p><p>Enter the URL of the article.</p>';
+		echo '<p><strong>Article URL:</strong><br /><input name="article_url" id="article_url" type="text" size="80" value="' . urldecode($article_url) . '" /></p><p>Enter the article URL.</p>';
 		?>
 		<script type="text/javascript">
 		jQuery(document).ready(function()
@@ -1650,10 +1704,11 @@ class mp_options
 		echo '<p><strong>Slide Type:</strong><br />'; mp_options::mp_display_slide_type_radio_button($slide_type); echo '</p><p>Select the type of slide you wish to create.</p>';
 				
 		#DISPLAY SLIDE IMAGE FIELD
-		echo '<p><strong>Slide Image:</strong><br /><input name="slide_image" id="slide_image" type="text" size="80" value="' . urldecode($slide_image) . '" /></p><p>Enter the URL of the slide image.</p>';
+		echo '<p><strong>Slide Image:</strong><br />'; mp_options::mp_display_media_upload('slide_image', urldecode($slide_image)); echo '</p><p>Enter the slide image URL.</p>';
 		
 		#DISPLAY SLIDE URL FIELD
-		echo '<p><strong>Slide URL:</strong><br /><input name="slide_url" id="slide_url" type="text" size="80" value="' . urldecode($slide_url) . '" /></p><p>Enter the URL of the slide.</p>';
+		echo '<p><strong>Slide URL:</strong><br /><input name="slide_url" id="slide_url" type="text" size="80" value="' . urldecode($slide_url) . '" /></p><p>Enter the slide URL.</p>';
+		
 		#DISPLAY SLIDE IN ANIMATION FIELD
 		echo '<p><strong>Slide In Animation:</strong><br />'; mp_options::mp_display_slide_animation_in_list($slide_animation_in); echo '</p><p>Select the animation of the slide when it enters the slider. Please refer to the <a href="http://daneden.me/animate/" target="_blank">Animate.css</a> page to preview the animations.</p>';
 		
@@ -1886,7 +1941,7 @@ class mp_options
 				#INITIALISE THE SLIDE DETAILS
 				$slide_title = get_the_title($post->ID);
 				$slide_image = get_post_meta($post->ID, 'slide_image', true);
-				$slide_url = get_post_meta($post->ID, 'slide_url', true);				
+				$slide_url = get_post_meta($post->ID, 'slide_url', true);
 				$slide_animation_in = get_post_meta($post->ID, 'slide_animation_in', true);
 				$slide_animation_out = get_post_meta($post->ID, 'slide_animation_out', true);
 				$slide_type = get_post_meta($post->ID, 'slide_type', true);
@@ -2311,8 +2366,8 @@ class mp_options
 		#DISPLAY TESTIMONIAL FIELDS
 		echo '<p><strong>Client Name:</strong><br /><input name="portfolio_client_name" id="portfolio_client_name" type="text" size="80" value="' . $portfolio_client_name . '" /></p><p>Enter the name of the client.</p>';
 		echo '<p><strong>Client Location:</strong><br /><input name="portfolio_client_location" id="portfolio_client_location" type="text" size="80" value="' . $portfolio_client_location . '" /></p><p>Enter the location of the client.</p>';
-		echo '<p><strong>Project URL:</strong><br /><input name="portfolio_project_url" id="portfolio_project_url" type="text" size="80" value="' . urldecode($portfolio_project_url) . '" /></p><p>Enter the URL of the project.</p>';
-		echo '<p><strong>Project Gallery:</strong><br />'; mp_options::mp_display_gallery_list("portfolio_project_gallery", $portfolio_project_gallery); echo '</p><p>Select the gallery of the project.</p>';		
+		echo '<p><strong>Project URL:</strong><br /><input name="portfolio_project_url" id="portfolio_project_url" type="text" size="80" value="' . urldecode($portfolio_project_url) . '" /></p><p>Enter the project URL.</p>';
+		echo '<p><strong>Project Gallery:</strong><br />'; mp_options::mp_display_gallery_list("portfolio_project_gallery", $portfolio_project_gallery); echo '</p><p>Select the gallery of the project.</p>';
 		
 		?>
 		<script type="text/javascript">
@@ -3025,9 +3080,9 @@ class mp_options
 		echo '<p><strong>Project:</strong><br />'; mp_options::mp_display_project_list("testimonial_project", $testimonial_project); echo '</p><p>Select the project of the testimonial.</p>';
 		echo '<p><strong>Name:</strong><br /><input name="testimonial_name" id="testimonial_name" type="text" size="80" value="' . $testimonial_name . '" /></p><p>Enter the name of the person who wrote the testimonial.</p>';
 		echo '<p><strong>Location:</strong><br /><input name="testimonial_location" id="testimonial_location" type="text" size="80" value="' . $testimonial_location . '" /></p><p>Enter the location of the person who wrote the testimonial.</p>';
-		echo '<p><strong>Photo:</strong><br />'; mp_options::mp_display_media_upload('testimonial_photo', urldecode($testimonial_photo)); echo '</p><p>Enter the photo URL of the person who wrote the testimonial.</p>';		
+		echo '<p><strong>Photo:</strong><br />'; mp_options::mp_display_media_upload('testimonial_photo', urldecode($testimonial_photo)); echo '</p><p>Enter the photo URL of the person who wrote the testimonial.</p>';
 		echo '<p><strong>URL:</strong><br /><input name="testimonial_url" id="testimonial_url" type="text" size="80" value="' . urldecode($testimonial_url) . '" /></p><p>Enter the URL of the person who wrote the testimonial.</p>';
-		echo '<p><strong>PDF:</strong><br /><input name="testimonial_pdf" id="testimonial_pdf" type="text" size="80" value="' . urldecode($testimonial_pdf) . '" /></p><p>Enter the URL of the PDF document of the testimonial.</p>';
+		echo '<p><strong>PDF:</strong><br /><input name="testimonial_pdf" id="testimonial_pdf" type="text" size="80" value="' . urldecode($testimonial_pdf) . '" /></p><p>Enter the PDF document URL of the testimonial.</p>';
 		echo '<p><strong>Feature on Home Page:</strong><br />'; mp_options::mp_display_yes_no_list('testimonial_feature', $testimonial_feature); echo '</p><p>Select whether you wish to display this testimonial on the home page.</p>';
 		?>
 		<script type="text/javascript">
@@ -3350,6 +3405,7 @@ class mp_options
 		unset($contact_fields['aim']);
 		unset($contact_fields['jabber']);
 		unset($contact_fields['yim']);
+		unset($contact_fields['googleplus']);
 		
 		#ADD FACEBOOK, TWITTER, TWITTER RSS FEED, GOOGLE+, PINTEREST, LINKEDIN, GITHUB, DRIBBLE, INSTAGRAM, INSTAGRAM RSS FEED
 		$contact_fields['facebook'] = 'Facebook';
@@ -3725,7 +3781,7 @@ class mp_options
 	**************************************************************************/
 	
 	#THIS FUNCTION DISPLAYS THE BLOG POSTS
-	public function mp_display_blog_posts($page)
+	public function mp_display_blog_posts($page, $cat = '', $search = '', $year = '', $month = '', $author = '')
 	{		
 		#RETRIEVE THE POST
 		global $post;
@@ -3734,15 +3790,56 @@ class mp_options
 		$args = array
 		(
 			'posts_per_page' => get_option('posts_per_page'),
-			'post_type'  => 'post',
 			'post_status' => 'publish',
 			'paged' => $page,
 			'order' => 'DESC',
 			'orderby' => 'date'
 		);
 		
+		#APPEND SEARCH TERMS & ALL POST TYPES TO BLOG POST ARGUMENTS
+		if(is_search())
+		{
+			$args['s'] = $search;
+			$args['post_type'] = 'any';	
+		}
+		#APPEND BLOG POST TYPE TO BLOG POST ARGUMENTS
+		else
+		{
+			$args['post_type'] = 'post';
+		}
+		
+		#APPEND CATEGORY TO BLOG POST ARGUMENTS
+		if(!empty($cat))
+		{
+			$args['cat'] = $cat;
+		}
+		
+		#APPEND YEAR TO BLOG POST ARGUMENTS
+		if(!empty($year))
+		{
+			$args['year'] = $year;
+		}
+		
+		#APPEND MONTH TO BLOG POST ARGUMENTS
+		if(!empty($month))
+		{
+			$args['monthnum'] = $month;
+		}
+		
+		#APPEND AUTHOR ID TO BLOG POST ARGUMENTS
+		if(!empty($author))
+		{
+			$args['author'] = $author;
+		}
+		
 		#RETRIEVE BLOG POSTS
 		$blog_posts = new WP_Query($args);
+		
+		#DISPLAY SEARCH TITLE
+		if(is_search())
+		{
+			echo '<h1 class="page_title">' . mp_options::mp_display_search_results_title($blog_posts->found_posts) . ' for &quot;' . $search . '&quot;</h1>';
+		}
 		
 		#BLOG POSTS EXISTS
 		if($blog_posts->have_posts())
@@ -4245,34 +4342,22 @@ class mp_options
 	}
 
 	#THIS FUNCTION DISPLAYS THE SEARCH RESULTS TITLE
-	public function mp_display_search_results_title()
-	{
-		#RETRIEVE THE QUERY
-		global $wp_query;
-		
-		#INITIALISE NUMBER OF SEARCH RESULTS
-		$search_results = sizeof($wp_query->posts);
-		
+	public function mp_display_search_results_title($search_results)
+	{		
 		#NO SEARCH RESULTS
 		if($search_results == 0)
 		{
-			echo 'No Search Results';
-			
-			return;
+			return 'No Search Results';
 		}
 		#1 SEARCH RESULT
 		elseif($search_results == 1)
 		{
-			echo '1 Search Result';
-			
-			return;
+			return '1 Search Result';
 		}
 		#MORE THAN 1 SEARCH RESULT
 		elseif($search_results > 1)
 		{
-			echo $search_results . ' Search Results';
-			
-			return;
+			return $search_results . ' Search Results';
 		}
 	}
 
@@ -4282,43 +4367,57 @@ class mp_options
 		#INITIALISE CONTENT
 		$content = get_the_content();
 		
-		#DISPLAY SHORTCODE IN CONTENT
-		$content = do_shortcode($content);
-		$content = apply_filters('the_content', $content);
-		
-		#INITIALISE CONTENT WORD COUNT
-		$content_word_count = str_word_count($content);
-		
-		#CONTENT CONTAINS LESS WORDS THAN MAXIMUM NUMBER OF WORDS
-		if($content_word_count < $max_words)
+		#CONTENT EXISTS
+		if(!empty($content))
 		{
-			return $content;
-		}
-		#CONTENT CONTAINS MORE WORDS THAN MAXIMUM NUMBER OF WORDS
-		else
-		{
-			#REMOVE TAGS FROM CONTENT
-			if($strip_tags)
+			#DISPLAY SHORTCODE IN CONTENT
+			$content = do_shortcode($content);
+			$content = apply_filters('the_content', $content);
+			
+			#INITIALISE CONTENT WORD COUNT
+			$content_word_count = str_word_count($content);
+			
+			#CONTENT CONTAINS LESS WORDS THAN MAXIMUM NUMBER OF WORDS
+			if($content_word_count < $max_words)
 			{
-				$content = trim(strip_tags($content));
+				return $content;
 			}
-			
-			#REMOVE LINE BREAKS FROM CONTENT
-			if($strip_line_breaks)
+			#CONTENT CONTAINS MORE WORDS THAN MAXIMUM NUMBER OF WORDS
+			else
 			{
-				$content = ereg_replace("\n", ' ', $content);
-				$content = ereg_replace("\r", ' ', $content);
+				#REMOVE TAGS FROM CONTENT
+				if($strip_tags)
+				{
+					$content = trim(strip_tags($content));
+				}
+				
+				#REMOVE LINE BREAKS FROM CONTENT
+				if($strip_line_breaks)
+				{
+					$content = ereg_replace("\n", ' ', $content);
+					$content = ereg_replace("\r", ' ', $content);
+				}
+				
+				#TRUNCATE CONTENT INTO THE MAXIMUM NUMBER OF WORDS
+				preg_match("/(\S+\s*){0,$max_words}/", $content, $excerpt);
+				
+				#INITIALISE TRUNCATED CONTENT
+				$content_excerpt = trim($excerpt[0]) . '... <a href="' . get_permalink() . '" title="' . get_the_title() . '">Read the rest</a>';
+				
+				#RETURN TRUNCATED CONTENT
+				return wpautop($content_excerpt);
 			}
-			
-			#TRUNCATE CONTENT INTO THE MAXIMUM NUMBER OF WORDS
-			preg_match("/(\S+\s*){0,$max_words}/", $content, $excerpt);
-			
-			#INITIALISE TRUNCATED CONTENT
-			$content_excerpt = trim($excerpt[0]) . '... <a href="' . get_permalink() . '" title="' . get_the_title() . '">Read the rest</a>';
-			
-			#RETURN TRUNCATED CONTENT
-			return wpautop($content_excerpt);
 		}
+	}
+
+	#THIS FUNCTION RETURNS THE POST EXCERPT READ THE REST LINK
+	public function mp_excerpt_more($more)
+	{
+		#RETRIEVE THE POST
+		global $post;
+		
+		#RETURN READ THE REST LINK
+		return '... <a href="'. get_permalink($post->ID) . '"> Read the rest</a>';
 	}
 
 	#THIS FUNCTION RETURNS THE PAGINATION PAGE

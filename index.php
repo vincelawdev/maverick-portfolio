@@ -2,53 +2,36 @@
 
 		<!-- INDEX - START -->
 		<?php
-		#RETRIEVE BLOG POSTS
-		if(!is_search())
+		#SEARCH
+		if(is_search())
 		{
-			#INITIALISE PAGE
-			$page = mp_options::mp_get_page();
-			
-			#RETRIEVE POSTS
-			query_posts('paged=$page');
+			mp_options::mp_display_blog_posts(mp_options::mp_get_page(), '', trim($_REQUEST['s']));
 		}
-		#SEARCH RESULTS
-		else
+		#CATEGORY
+		elseif(is_category())
 		{
-			#RETRIEVE SEARCH TERM
-			$search_term = trim($_REQUEST['s']);
-			?>
-			<h1 class="page_title"><?php mp_options::mp_display_search_results_title(); ?> for &quot;<?php echo $search_term; ?>&quot;</h1>
-			<?php
+		?>
+		<h1 class="page_title"><?php echo single_cat_title(); ?></h1>
+		<?php mp_options::mp_display_blog_posts(mp_options::mp_get_page(), get_query_var('cat')); ?>
+		<?php
 		}
-		
-		#POSTS EXISTS
-		if(have_posts())
-		{			
-			#DISPLAY POSTS
-			while(have_posts())
-			{
-				the_post();
-				
-				#INCLUDE BLOG POST TEMPLATE
-				include(TEMPLATEPATH . '/includes/inc-blog-post.php');
-			}
-			
-			#INCLUDE BLOG POST NAVIGATION TEMPLATE
-			include(TEMPLATEPATH . '/includes/inc-blog-post-navigation.php');
-		}
-		#NO POSTS EXIST
-		else
+		#MONTHLY ARCHIVE
+		elseif(is_month())
 		{
-			#NO BLOG POSTS
-			if(!is_search())
-			{
-				echo '<p>Sorry, no posts matched your criteria.</p>';
-			}
-			#NO SEARCH RESULTS
-			else
-			{
-				echo '<p>Sorry, no results matched your search criteria.</p>';
-			}
+		?>
+		<h1 class="page_title">Archive for <?php the_time('F Y'); ?></h1>
+		<?php mp_options::mp_display_blog_posts(mp_options::mp_get_page(), '', '', get_query_var('year'), get_query_var('monthnum')); ?>
+		<?php
+		}
+		#AUTHOR
+		elseif(is_author())
+		{
+			#INITIALISE AUTHOR OBJECT
+			$author = get_userdata(get_query_var('author'));
+		?>
+		<h1 class="page_title">Archive for <?php echo $author->display_name; ?></h1>
+		<?php mp_options::mp_display_blog_posts(mp_options::mp_get_page(), '', '', '', '', $author->ID); ?>
+		<?php
 		}
 		?>
 		<!-- INDEX - END -->

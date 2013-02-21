@@ -3,7 +3,7 @@
 Theme Name: Maverick Portfolio: A WordPress Portfolio Theme for Web Designers & Developers
 Theme URI: http://www.VinceLaw.com.au
 Description: WordPress Portfolio Theme for Web Designers & Developers. Optimised for WordPress 3.5.
-Version: 1.0.5
+Version: 1.0.7
 Author: Vince Law
 Author URI: http://www.VinceLaw.com.au
 
@@ -46,6 +46,7 @@ TABLE OF CONTENTS
 /**************************************************************************
 1. BODY
 **************************************************************************/
+
 body
 {
 	margin: 0px; 
@@ -57,7 +58,8 @@ body
 /**************************************************************************
 2. HEADER
 **************************************************************************/
-#header_row1
+
+#header_row1_small
 {
 	width: 100%;
 	height: 40px;
@@ -67,22 +69,34 @@ body
 	border-bottom: 1px solid #000000;
 }
 
-#header_row1 #header_title_description
+#header_row1_large
+{
+	width: 100%;
+	height: 80px;
+	margin: 0px;
+	padding: 0px;
+	background-color: #5e5e5e;
+	border-bottom: 1px solid #000000;
+}
+
+#header_row1_small #header_title_description,
+#header_row1_large #header_title_description
 {
 	margin: 0px;
 	padding: 0px;
 	float: left;
 }
 
-#header_row1 #header_title_description img.logo_image
+#header_row1_small #header_title_description img.logo_image,
+#header_row1_large #header_title_description img.logo_image
 {
 	margin: 0px;
 	padding: 0px;
-	max-height: 40px;
 	float: left;
 }
 
-#header_row1 #header_title_description p.logo
+#header_row1_small #header_title_description p.logo,
+#header_row1_large #header_title_description p.logo
 {
 	margin: 9px 0px 0px 0px;
 	padding: 0px;
@@ -94,7 +108,8 @@ body
 	float: left;
 }
 
-#header_row1 #header_title_description p.description
+#header_row1_small #header_title_description p.description,
+#header_row1_large #header_title_description p.description
 {
 	margin: 12px 0px 0px 13px;
 	padding: 0px;
@@ -107,18 +122,22 @@ body
 	float: left;
 }
 
-#header_row1 #header_title_description a:link,
-#header_row1 #header_title_description a:visited,
-#header_row1 #header_title_description a:active,
-#header_row1 #header_title_description a:hover
+#header_row1_small #header_title_description a:link,
+#header_row1_small #header_title_description a:visited,
+#header_row1_small #header_title_description a:active,
+#header_row1_small #header_title_description a:hover,
+#header_row1_large #header_title_description a:link,
+#header_row1_large #header_title_description a:visited,
+#header_row1_large #header_title_description a:active,
+#header_row1_large #header_title_description a:hover
 {
 	color: #ffffff;
 	text-decoration: none;
 }
 
-#header_row1 #header_social
+#header_row1_small #header_social,
+#header_row1_large #header_social
 {
-	height: 20px;
 	margin: 10px 0px 0px 0px;
 	padding: 0px;
 	float: right;
@@ -134,7 +153,8 @@ body
 	border-bottom: 1px solid #000000;
 }
 
-#header_row1 .header_wrapper,
+#header_row1_small .header_wrapper,
+#header_row1_large .header_wrapper,
 #header_row2 .header_wrapper
 {
 	width: 1000px;
@@ -145,6 +165,7 @@ body
 /**************************************************************************
 3. MENUS
 **************************************************************************/
+
 #menu
 {
 	margin: 0px;
@@ -256,6 +277,7 @@ body
 /**************************************************************************
 4. SEARCH
 **************************************************************************/
+
 #search_box
 {
 	width: 127px;
@@ -309,7 +331,9 @@ body
 /**************************************************************************
 5. SOCIAL MEDIA BUTTONS
 **************************************************************************/
-.social_facebook_left, .social_facebook_right
+
+.social_facebook_left_small,
+.social_facebook_right_small
 {
 	width: 83px;
 	margin: 0px;
@@ -318,17 +342,29 @@ body
 	/*background-color: #FF0000;*/
 }
 
-.social_facebook_left
+.social_facebook_left_large,
+.social_facebook_right_large
+{
+	margin: 0px 4px 0px 0px;
+	padding: 0px;
+	overflow: hidden;
+	/*background-color: #FF0000;*/
+}
+
+.social_facebook_left_small,
+.social_facebook_left_large
 {
 	float: left;
 }
 
-.social_facebook_right
+.social_facebook_right_small,
+.social_facebook_right_large
 {
 	float: right;	
 }
 
-.social_twitter_left, .social_twitter_right
+.social_twitter_left_small,
+.social_twitter_right_small
 {
 	width: 90px;
 	margin: 0px;
@@ -337,17 +373,29 @@ body
 	/*background-color: #FFFF00;*/
 }
 
-.social_twitter_left
+.social_twitter_left_large,
+.social_twitter_right_large
+{	
+	margin: 0px 10px 0px 0px;
+	padding: 0px;
+	overflow: hidden;
+	/*background-color: #FFFF00;*/
+}
+
+.social_twitter_left_small,
+.social_twitter_left_large
 {
 	float: left;	
 }
 
-.social_twitter_right
+.social_twitter_right_small,
+.social_twitter_right_large
 {
 	float: right;	
 }
 
-.social_google_left, .social_google_right
+.social_google_left_small,
+.social_google_right_small
 {
 	width: 71px;
 	margin: 0px;
@@ -356,17 +404,29 @@ body
 	/*background-color: #0099FF;*/
 }
 
-.social_google_left
+.social_google_left_large,
+.social_google_right_large
+{
+	margin: 0px 10px 0px 0px;
+	padding: 0px;
+	overflow: hidden;
+	/*background-color: #0099FF;*/
+}
+
+.social_google_left_small,
+.social_google_left_large
 {
 	float: left;	
 }
 
-.social_google_right
+.social_google_right_small,
+.social_google_right_large
 {
 	float: right;	
 }
 
-.social_pinterest_left, .social_pinterest_right
+.social_pinterest_left_small,
+.social_pinterest_right_small
 {
 	width: 73px;
 	margin: 0px;
@@ -375,29 +435,54 @@ body
 	/*background-color: #CC66CC;*/
 }
 
-.social_pinterest_left
+.social_pinterest_left_large,
+.social_pinterest_right_large
+{
+
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+	/*background-color: #CC66CC;*/
+}
+
+.social_pinterest_left_small,
+.social_pinterest_left_large
 {
 	float: left;	
 }
 
-.social_pinterest_right
+.social_pinterest_right_small,
+.social_pinterest_right_large
 {
 	float: right;
 }
 
-.social_addthis_left, .social_addthis_right
+.social_addthis_left_small,
+.social_addthis_right_small
 {
 	margin: 0px;
 	padding: 0px;
 	overflow: hidden;
 }
 
-.social_addthis_left
+.social_addthis_left_large,
+.social_addthis_right_large
+{
+	width: 50px;
+	height: 60px;
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+}
+
+.social_addthis_left_small,
+.social_addthis_left_large
 {
 	float: left;	
 }
 
-.social_addthis_right
+.social_addthis_right_small,
+.social_addthis_right_large
 {
 	float: right;	
 }
@@ -405,6 +490,7 @@ body
 /**************************************************************************
 6. PAGES, BLOG POSTS & CUSTOM POST TYPES
 **************************************************************************/
+
 #content_wrapper
 {
 	width: 1010px;
@@ -561,6 +647,14 @@ body
 	-webkit-font-smoothing: antialiased;
 }
 
+#content .page_content,
+#content .post_content
+{
+	margin: 0px;
+	padding: 0px 0px 11px 0px;
+	overflow: hidden;
+}
+
 #content .page_content p,
 #content .page_content ul li,
 #content .page_content ol li,
@@ -701,6 +795,7 @@ body
 /**************************************************************************
 7. BREAD CRUMBS
 **************************************************************************/
+
 #bread_crumbs
 {
 	margin: -5px 0px 3px 0px;
@@ -741,6 +836,7 @@ body
 /**************************************************************************
 8. COMMENTS, TRACKBACKS & PINGBACKS
 **************************************************************************/
+
 #content ul.comments
 {
 	margin: 0px;
@@ -982,6 +1078,7 @@ body
 /**************************************************************************
 9. HOME PAGE
 **************************************************************************/
+
 #content #anythingslider_wrapper
 {
 	margin: 0px 0px 12px 0px;
@@ -1252,6 +1349,7 @@ body
 /**************************************************************************
 10. PORTFOLIO
 **************************************************************************/
+
 #content ul#projects
 {
 	margin: 10px 0px 0px 0px;
@@ -1553,6 +1651,7 @@ body
 /**************************************************************************
 11. TESTIMONIALS
 **************************************************************************/
+
 #content div.testimonial_box
 {
 	width: 610px;
@@ -1602,6 +1701,7 @@ body
 /**************************************************************************
 12. SIDEBAR
 **************************************************************************/
+
 #sidebar
 {
 	width: 300px;
@@ -1917,6 +2017,7 @@ body
 /**************************************************************************
 13. FOOTER
 **************************************************************************/
+
 #footer_row1
 {
 	position: relative;
@@ -2227,6 +2328,7 @@ body
 /**************************************************************************
 14. FORMS
 **************************************************************************/
+
 form
 {
 	margin: 0px;
@@ -2328,6 +2430,7 @@ form
 /**************************************************************************
 15. IMAGES
 **************************************************************************/
+
 img.alignnone 
 {
 	margin: 0px;
@@ -2363,6 +2466,7 @@ a img
 /**************************************************************************
 16. CAPTIONS
 **************************************************************************/
+
 .wp-caption.alignnone
 {
 	margin: 10px 0px 10px 0px;
@@ -2418,6 +2522,7 @@ a img
 /**************************************************************************
 17. BLOCK QUOTES
 **************************************************************************/
+
 blockquote
 {
 	margin: 10px 0px 10px 0px;
@@ -2444,6 +2549,7 @@ blockquote p
 /**************************************************************************
 18. FONTS
 **************************************************************************/
+
 @font-face
 {
     font-family: 'CodeProDemoRegular';
@@ -2483,6 +2589,7 @@ blockquote p
 /**************************************************************************
 19. PLUGIN: DAGON GATE SITEMAP GENERATOR
 **************************************************************************/
+
 .ddsg-wrapper h2
 {
 	margin: 10px 0px 10px 0px;
@@ -2497,6 +2604,7 @@ blockquote p
 /**************************************************************************
 20. PLUGIN: WP-PAGENAVI PLUGIN PAGING NAVIGATION LINKS
 **************************************************************************/
+
 .wp-pagenavi
 {
 	margin: 0px;
@@ -2523,6 +2631,7 @@ blockquote p
 /**************************************************************************
 21. PLUGIN: WP-TABLE RELOADED TABLES
 **************************************************************************/
+
 .wp-table-reloaded th
 {
 	padding: 4px;
@@ -2550,6 +2659,7 @@ blockquote p
 /**************************************************************************
 22. PLUGIN: CONTACT FORM 7
 **************************************************************************/
+
 .wpcf7-not-valid-tip-no-ajax
 {
 	color: #F00;
@@ -2571,6 +2681,7 @@ blockquote p
 /**************************************************************************
 23. PLUGIN: SI CAPTCHA
 **************************************************************************/
+
 div#captchaImgDiv
 {
 	margin: 10px 0px 10px 0px;
@@ -2637,6 +2748,6 @@ input#captcha_code
 
 
 /**************************************************************************
-27. MEDIA QUERIES: TABLET - LANDSCAPE & DESKTOPS - 1024 & GREATER
+27. MEDIA QUERIES: TABLET - LANDSCAPE & DESKTOPS - 1024 & 1366
 **************************************************************************/
 

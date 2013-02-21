@@ -16,6 +16,21 @@ jQuery(document).ready(function()
 		return false;
 	});
 	
+	//SLIDE IMAGE UPLOAD BUTTON CLICKED
+	jQuery('#slide_image_button').click(function()
+	{
+		//ADD UPLOADED SLIDE IMAGE TO SLIDE IMAGE FIELD
+		wp.media.editor.send.attachment = function(props, attachment)
+		{
+	 		jQuery('#slide_image').val(attachment.url);
+	  	}
+	
+		//OPEN WORDPRESS MEDIA UPLOADER
+		wp.media.editor.open(this);
+	
+		return false;
+	});
+	
 	//LOGO IMAGE UPLOAD BUTTON CLICKED
 	jQuery('#testimonial_photo_button').click(function()
 	{
@@ -29,5 +44,5 @@ jQuery(document).ready(function()
 		wp.media.editor.open(this);
 	
 		return false;
-	});	
+	});
 });

@@ -12,12 +12,12 @@ if(has_post_thumbnail())
 #DISPLAY EXCERPT VIA THE ADVANCED EXCERPT PLUGIN
 if(function_exists('the_advanced_excerpt'))
 {
-	the_excerpt();
+	the_advanced_excerpt();
 }
-#DISPLAY EXCERPT VIA THE CLASS FUNCTION
+#DISPLAY EXCERPT VIA THE DEFAULT WORDPRESS EXCERPT FUNCTION
 else
 {
-	echo mp_options::mp_get_excerpt(100);
+	the_excerpt();
 }
 ?>
 </div>

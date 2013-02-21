@@ -112,8 +112,13 @@ if(is_front_page())
 
 <body>
 
+<?php
+#INITIALISE SOCIAL BUTTON SIZE
+$mp_social_button_size = get_option('mp_social_button_size');
+?>
+
 <!-- HEADER - ROW 1 - START -->
-<div id="header_row1">
+<div id="header_row1_<?php echo $mp_social_button_size; ?>">
 
 	<!-- HEADER - ROW 1 - WRAPPER - START -->
 	<div class="header_wrapper">
@@ -125,15 +130,20 @@ if(is_front_page())
 		<!-- SOCIAL - START -->
 		<div id="header_social">
 		
+			<?php			
+			#DISPLAY SMALL SOCIAL BUTTONS
+			if($mp_social_button_size == 'small')
+			{
+			?>
 			<!-- ADDTHIS BUTTON - START -->
-			<div class="social_addthis_right">
+			<div class="social_addthis_right_small">
 				<div class="addthis_toolbox addthis_default_style" addthis:title="<?php bloginfo('name'); ?>" addthis:url="<?php bloginfo('url'); ?>"><a class="addthis_counter addthis_pill_style"></a></div>
 				<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=<?php mp_options::mp_display_addthis_profile_id(); ?>"></script>
 			</div>
 			<!-- ADDTHIS BUTTON - END -->
 			
 			<!-- GOOGLE + BUTTON - START -->
-			<div class="social_google_right">				
+			<div class="social_google_right_small">
 				<div class="g-plusone" data-size="medium" data-href="<?php bloginfo('url'); ?>"></div>
 				<script type="text/javascript">
 				  (function() {
@@ -146,14 +156,51 @@ if(is_front_page())
 			<!-- GOOGLE + BUTTON - END -->
 			
 			<!-- TWITTER BUTTON - START -->
-			<div class="social_twitter_right"><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="<?php bloginfo('url'); ?>">Tweet</a>
+			<div class="social_twitter_right_small"><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="<?php bloginfo('url'); ?>">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></div>
 			<!-- TWITTER BUTTON - END -->
 			
 			<!-- FACEBOOK BUTTON - START -->
-			<div class="social_facebook_right"><iframe src="//www.facebook.com/plugins/like.php?href=<?php mp_options::mp_display_facebook_like_url(); ?>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe></div>
+			<div class="social_facebook_right_small"><iframe src="//www.facebook.com/plugins/like.php?href=<?php mp_options::mp_display_facebook_like_url(); ?>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe></div>
 			<!-- FACEBOOK BUTTON - END -->
-	
+			<?php
+			}
+			#DISPLAY LARGE SOCIAL BUTTONS
+			elseif($mp_social_button_size == 'large')
+			{
+			?>			
+			<!-- ADDTHIS BUTTON - START -->
+			<div class="social_addthis_right_large">
+				<div class="addthis_toolbox addthis_counter_style" addthis:title="<?php bloginfo('name'); ?>" addthis:url="<?php bloginfo('url'); ?>"><a class="addthis_counter"></a></div>
+				<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=<?php mp_options::mp_display_addthis_profile_id(); ?>"></script>
+			</div>
+			<!-- ADDTHIS BUTTON - END -->
+			
+			<!-- GOOGLE + BUTTON - START -->
+			<div class="social_google_right_large">
+				<div class="g-plusone" data-size="tall" data-href="<?php bloginfo('url'); ?>"></div>
+				<script type="text/javascript">
+				  (function() {
+					var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+					po.src = 'https://apis.google.com/js/plusone.js';
+					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+				  })();
+				</script>
+			</div>
+			<!-- GOOGLE + BUTTON - END -->
+			
+			<!-- TWITTER BUTTON - START -->
+			<div class="social_twitter_right_large"><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-count="vertical" data-url="<?php bloginfo('url'); ?>">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></div>
+			<!-- TWITTER BUTTON - END -->
+			
+			<!-- FACEBOOK BUTTON - START -->
+			<div class="social_facebook_right_large"><iframe src="//www.facebook.com/plugins/like.php?href=<?php mp_options::mp_display_facebook_like_url(); ?>&amp;send=false&amp;layout=box_count&amp;width=50&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:60px;" allowTransparency="true"></iframe></div>
+			<!-- FACEBOOK BUTTON - END -->
+			<?php
+			}
+			?>
+			
 		</div>
 		<!-- SOCIAL - END -->
 	

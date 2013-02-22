@@ -105,6 +105,11 @@
 	<!-- SOCIAL - END -->
 	
 	<?php
+	#DISPLAY SIDEBAR ADS
+	mp_options::mp_display_ads_sidebar();
+	?>
+	
+	<?php
 	#DISPLAY BLOG POSTS, COMMENTS & ARCHIVES
 	if((!is_page() || is_page('blog')) && !is_tax() && !is_singular(array('project', 'testimonial', 'article')))
 	{

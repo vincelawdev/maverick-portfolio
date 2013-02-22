@@ -1141,6 +1141,15 @@ body
 	text-align: center;
 }
 
+#content ul#anythingslider li img
+{
+	max-width: 660px;
+	min-height: 410px;
+	height: auto;
+	margin: 0px;
+	padding: 0px;
+}
+
 #content ul#anythingslider li p
 {
 	margin: 0px 0px 10px 0px;
@@ -2012,6 +2021,60 @@ body
 	color: #FFFFFF;
 	background-color: #CCCCCC;
 	text-decoration: none;
+}
+
+#sidebar .square_button1
+{
+	width: 125px;
+	height: 125px;
+	margin: 10px 10px 10px 0px;
+	padding: 0px;
+	float: left;
+}
+
+#sidebar .square_button2
+{
+	width: 125px;
+	height: 125px;
+	margin: 10px 0px 10px 0px;
+	padding: 0px;
+	float: right;
+}
+
+#sidebar .square_button3
+{
+	width: 125px;
+	height: 125px;
+	margin: 0px 10px 10px 0px;
+	padding: 0px;
+	float: left;
+}
+
+#sidebar .square_button4
+{
+	width: 125px;
+	height: 125px;
+	margin: 0px 0px 10px 0px;
+	padding: 0px;
+	float: right;
+}
+
+#sidebar .square_button5
+{
+	width: 125px;
+	height: 125px;
+	margin: 0px 10px 0px 0px;
+	padding: 0px;
+	float: left;
+}
+
+#sidebar .square_button6
+{
+	width: 125px;
+	height: 125px;
+	margin: 0px;
+	padding: 0px;
+	float: right;
 }
 
 /**************************************************************************

@@ -14,6 +14,7 @@ TABLE OF CONTENTS
 9. SOCIAL FUNCTIONS
 10. BLOG & COMMENT FUNCTIONS
 11. RSS FUNCTIONS
+12. AD FUNCTIONS
 
 **************************************************************************/
 
@@ -157,6 +158,13 @@ class mp_options
 		register_setting('mp_settings_rss', 'mp_rss_testimonials');
 		register_setting('mp_settings_rss', 'mp_rss_external');
 		register_setting('mp_settings_rss', 'mp_rss_comments');
+		register_setting('mp_settings_sidebar', 'mp_sidebar_ads');
+		register_setting('mp_settings_sidebar', 'mp_sidebar_ads_square1');
+		register_setting('mp_settings_sidebar', 'mp_sidebar_ads_square2');
+		register_setting('mp_settings_sidebar', 'mp_sidebar_ads_square3');
+		register_setting('mp_settings_sidebar', 'mp_sidebar_ads_square4');
+		register_setting('mp_settings_sidebar', 'mp_sidebar_ads_square5');
+		register_setting('mp_settings_sidebar', 'mp_sidebar_ads_square6');
 		register_setting('mp_settings_sidebar', 'mp_facebook_like_box');
 		register_setting('mp_settings_sidebar', 'mp_posts_recent_number');
 		register_setting('mp_settings_sidebar', 'mp_posts_popular_number');
@@ -179,7 +187,7 @@ class mp_options
 				
 				break;
 				
-			#FOOTER
+			#HEADER
 			case 'header':
 			
 				update_option('mp_logo', 0);
@@ -212,7 +220,14 @@ class mp_options
 				
 			#SIDEBAR
 			case 'sidebar':
-			
+				
+				update_option('mp_sidebar_ads', 0);
+				update_option('mp_sidebar_ads_square1', '');
+				update_option('mp_sidebar_ads_square2', '');
+				update_option('mp_sidebar_ads_square3', '');
+				update_option('mp_sidebar_ads_square4', '');
+				update_option('mp_sidebar_ads_square5', '');
+				update_option('mp_sidebar_ads_square6', '');				
 				update_option('mp_facebook_like_box', '');
 				update_option('mp_posts_recent_number', 5);
 				update_option('mp_posts_popular_number', 5);
@@ -551,6 +566,30 @@ class mp_options
 				<form method="post" action="options.php">
 				<?php
 				settings_fields('mp_settings_sidebar');
+				
+				#INITIALISE ADS DESCRIPTION
+				$ads_description = '<p>There are 6 allocated square buttons (125 x 125) in the sidebar. You may use a WordPress plugin that generates HTML code or WordPress shortcode like the <a href="http://www.adrotateplugin.com/" target="_blank">AdRotate Plugin</a> for the square button HTML codes below.</p>';
+				
+				#DISPLAY ADS STATUS
+				mp_options::mp_option_field('Ads', $ads_description, true, false, 'Enable', 'yes_no', 'mp_sidebar_ads', 'mp_sidebar_ads', 'Select whether you wish to enable the sidebar ads', 'No', false);
+				
+				#DISPLAY SQUARE BUTTON 1
+				mp_options::mp_option_field('', '', false, false, 'Square Button 1 Code', 'textarea', 'mp_sidebar_ads_square1', 'mp_sidebar_ads_square1', 'Enter the HTML code for Square button 1', '', false);
+				
+				#DISPLAY SQUARE BUTTON 2
+				mp_options::mp_option_field('', '', false, false, 'Square Button 2 Code', 'textarea', 'mp_sidebar_ads_square2', 'mp_sidebar_ads_square2', 'Enter the HTML code for Square button 2', '', false);
+				
+				#DISPLAY SQUARE BUTTON 3
+				mp_options::mp_option_field('', '', false, false, 'Square Button 3 Code', 'textarea', 'mp_sidebar_ads_square3', 'mp_sidebar_ads_square3', 'Enter the HTML code for Square button 3', '', false);
+				
+				#DISPLAY SQUARE BUTTON 4
+				mp_options::mp_option_field('', '', false, false, 'Square Button 4 Code', 'textarea', 'mp_sidebar_ads_square4', 'mp_sidebar_ads_square4', 'Enter the HTML code for Square button 4', '', false);
+				
+				#DISPLAY SQUARE BUTTON 5
+				mp_options::mp_option_field('', '', false, false, 'Square Button 5 Code', 'textarea', 'mp_sidebar_ads_square5', 'mp_sidebar_ads_square5', 'Enter the HTML code for Square button 5', '', false);
+				
+				#DISPLAY SQUARE BUTTON 6
+				mp_options::mp_option_field('', '', false, true, 'Square Button 6 Code', 'textarea', 'mp_sidebar_ads_square6', 'mp_sidebar_ads_square6', 'Enter the HTML code for Square button 6', '', true);
 				
 				#INITIALISE FACEBOOK LIKE BOX DESCRIPTION
 				$facebook_description = '<p>Generate a <a href="https://developers.facebook.com/docs/reference/plugins/like-box/" target="_blank">Facebook Like Box</a> Iframe social plugin code from Facebook. For best results, please enter 260 for the Width, select the Dark colour scheme, uncheck "Show header" and enter #333333 for the Border Color.</p>';
@@ -4628,6 +4667,45 @@ class mp_options
 			
 			#CLOSE UNORDERED LIST
 			echo '</ul>';
+		}
+	}
+	
+	/**************************************************************************
+	12. AD FUNCTIONS
+	**************************************************************************/
+	
+	#THIS FUNCTION DISPLAYS THE SIDEBAR ADS
+	public function mp_display_ads_sidebar()
+	{
+		#INITIALISE SIDEBAR ADS
+		$mp_sidebar_ads = get_option('mp_sidebar_ads');
+		
+		#SIDEBAR ADS ENABLED
+		if(!empty($mp_sidebar_ads))
+		{
+			#INITIALISE SIDEBAR SQUARE BUTTONS
+			$mp_sidebar_ads_square1 = get_option('mp_sidebar_ads_square1');
+			$mp_sidebar_ads_square2 = get_option('mp_sidebar_ads_square2');
+			$mp_sidebar_ads_square3 = get_option('mp_sidebar_ads_square3');
+			$mp_sidebar_ads_square4 = get_option('mp_sidebar_ads_square4');
+			$mp_sidebar_ads_square5 = get_option('mp_sidebar_ads_square5');
+			$mp_sidebar_ads_square6 = get_option('mp_sidebar_ads_square6');
+			
+			?>
+			<!-- SPONSORS - START -->
+			<div class="sidebar_box">
+			
+				<h4>Sponsors</h4>
+				<div class="square_button1"><?php echo trim(do_shortcode($mp_sidebar_ads_square1)); ?></div>
+				<div class="square_button2"><?php echo trim(do_shortcode($mp_sidebar_ads_square2)); ?></div>
+				<div class="square_button3"><?php echo trim(do_shortcode($mp_sidebar_ads_square3)); ?></div>
+				<div class="square_button4"><?php echo trim(do_shortcode($mp_sidebar_ads_square4)); ?></div>
+				<div class="square_button5"><?php echo trim(do_shortcode($mp_sidebar_ads_square5)); ?></div>
+				<div class="square_button6"><?php echo trim(do_shortcode($mp_sidebar_ads_square6)); ?></div>
+				
+			</div>
+			<!-- SPONSORS - END -->
+			<?php
 		}
 	}
 }

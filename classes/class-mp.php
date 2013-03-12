@@ -340,7 +340,7 @@ class mp_options
 				mp_options::mp_option_field('Logo', $logo_description, true, false, 'Enable', 'yes_no', 'mp_logo', 'mp_logo', 'Select whether you wish to enable the logo', 'No', false);
 
 				#DISPLAY LOGO IMAGE
-				mp_options::mp_option_field('', '', true, true, 'Logo Image', 'media_upload', 'mp_logo_image', 'mp_logo_image', 'Enter the logo image', '', true);				
+				mp_options::mp_option_field('', '', true, true, 'Logo Image', 'media_upload', 'mp_logo_image', 'mp_logo_image', 'Enter the logo image URL', '', true);				
 				
 				#INITIALISE SOCIAL BUTTON SIZE DESCRIPTION
 				$social_button_description = '<p><img src="' . get_bloginfo('template_directory') . '/images/theme-options-social-buttons.jpg" width="335" height="92" alt="" /></p>';
@@ -3664,9 +3664,11 @@ class mp_options
 				foreach($feed->get_items(0, 4) as $item)
 				{
 					#FORMAT DRIBBBLE THUMBNAIL WITHOUT HYPERLINK & IMAGE TITLE IN ALT/TITLE ATTRIBUTE
-					if(preg_match('#<img alt="(.+?)" height="300" src="(.+?)" width="400" />#i', $item->get_description(), $dribbble_thumbnail_url))
+					//<img alt="" height="" src="" width="">
+					//<img alt="" height="" src="" width="" /> --> NOTE THAT THE LATEST DRIBBBLE RSS DOES NOT COME WITH A CLOSING SLASH
+					if(preg_match('#<img alt="(.+?)" height="(.+?)" src="(.+?)" width="(.+?)">#i', $item->get_description(), $dribbble_thumbnail_url))
 					{
-						$dribbble_thumbnail = '<img src="' . $dribbble_thumbnail_url[2] . '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '" />';
+						$dribbble_thumbnail = '<img src="' . $dribbble_thumbnail_url[3] . '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '" />';
 					}
 					
 					#DISPLAY DRIBBBLE THUMBNAIL

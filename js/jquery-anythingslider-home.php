@@ -32,6 +32,20 @@ header('content-type: application/x-javascript');
 //WAIT FOR PAGE TO LOAD
 jQuery(document).ready(function()
 {
+	//INITIALISE WINDOW SIZE
+	window_size = jQuery(window).width();
+	
+	/* TABLETS - PORTRAIT & MOBILE DEVICES BELOW 1024 PIXEL WIDTH */
+	if(window_size < 1024)
+	{
+		navigation_enable = false;
+	}
+	/* TABLETS - LANDSCAPE & DESKTOPS FROM 1024 PIXEL WIDTH */
+	else
+	{
+		navigation_enable = true;
+	}
+
 	jQuery('#anythingslider').anythingSlider(
 	{
 		//APPEARANCE 
@@ -51,7 +65,7 @@ jQuery(document).ready(function()
 		},										// Format navigation labels with text
 		navigationSize      : 5,				// Set this to the maximum number of visible navigation tabs; false to disable
 		buildArrows         : false,      		// If true, builds the forwards and backwards buttons 
-  		buildNavigation     : true,     		// If true, builds a list of anchor links to link to each panel 
+  		buildNavigation     : navigation_enable,// If true, builds a list of anchor links to link to each panel 
   		buildStartStop      : true,      		// If true, builds the start/stop button
 		
 		//SLIDESHOW 
@@ -78,20 +92,59 @@ jQuery(document).ready(function()
     {
 		dataAnimate: 'data-animate'
     });
-	
-	jQuery('#featured_work_wrapper').jCarouselLite(
+});
+
+//DO NOT WAIT FOR PAGE TO LOAD
+jQuery(window).load(function()
+{
+	//THIS FUNCTION INTIALISES JQUERY CAROUSEL LITE
+    function initialise_carousel()
 	{
-		btnPrev	: '.home_previous',
-        btnNext	: '.home_next',
-		auto	: null,
-		speed	: 500,
-		easing	: 'swing',
-		vertical: false,
-		circular: true,
-		visible	: 2,
-		start	: 0,
-		scroll	: 1        
-    });
+		//INITIALISE WINDOW SIZE
+		window_size = jQuery(window).width();
+		
+		/* TABLETS - PORTRAIT & MOBILE DEVICES BELOW 1024 PIXEL WIDTH */
+		if(window_size < 1024)
+		{
+			jQuery('#featured_work_wrapper').jCarouselLite(
+			{
+				btnPrev	: '.home_previous',
+				btnNext	: '.home_next',
+				auto	: null,
+				speed	: 500,
+				easing	: 'swing',
+				vertical: false,
+				circular: true,
+				visible	: 1,
+				start	: 0,
+				scroll	: 1        
+			});
+		}
+		
+		/* TABLETS - LANDSCAPE & DESKTOPS FROM 1024 PIXEL WIDTH */
+		else if(window_size >= 1024)
+		{
+			jQuery('#featured_work_wrapper').jCarouselLite(
+			{
+				btnPrev	: '.home_previous',
+				btnNext	: '.home_next',
+				auto	: null,
+				speed	: 500,
+				easing	: 'swing',
+				vertical: false,
+				circular: true,
+				visible	: 2,
+				start	: 0,
+				scroll	: 1        
+			});
+		}
+	}
+		
+	//LAUNCH JQUERY CAROUSEL LITE ON PAGE LOAD
+	initialise_carousel();
+	
+	//LAUNCH JQUERY CAROUSEL LITE ON WINDOWS RESIZE
+	jQuery(window).resize(initialise_carousel);
 });
 <?php
 #SEND THE OUTPUT BUFFER AND TURN OFF OUTPUT BUFFERING 

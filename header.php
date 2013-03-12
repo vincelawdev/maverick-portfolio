@@ -89,6 +89,8 @@ if(!is_front_page())
 <script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-superfish-initialise.php"></script>
 <script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-colorbox-min.js"></script>
 <script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-colorbox-initialise.js"></script>
+<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-tinynav-min.js"></script>
+<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-tinynav-initialise.js"></script>
 <?php
 #LOAD ANYTHING SLIDER
 if(is_front_page())

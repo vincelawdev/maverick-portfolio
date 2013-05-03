@@ -4,7 +4,7 @@ jQuery(document).ready(function($)
 	//INTIALISES JQUERY TINYNAV
    	jQuery("ul.sf-menu").tinyNav(
 	{
-		header: 'Navigation'
+		header: 'Menu'
 	});
 	
 	//INITILIASE HOME OPTION TEXT

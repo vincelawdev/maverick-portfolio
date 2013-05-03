@@ -1044,14 +1044,20 @@ class mp_options
 		#PAGE IS NON-ADMIN
 		if(!is_admin())
 		{
-			#DEREGISTER DEFAULT JQUERY INCLUDES
+			#DEREGISTER DEFAULT JQUERY INCLUDE
 			wp_deregister_script('jquery');	
 	
-			#LOAD THE GOOGLE API JQUERY INCLUDES
-			wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', false, '1.8.3', false);
+			#LOAD THE GOOGLE API JQUERY INCLUDE
+			wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', false, '1.9.1', false);
 	
-			#REGISTER CUSTOM JQUERY INCLUDES
+			#REGISTER GOOGLE API JQUERY INCLUDE
 			wp_enqueue_script('jquery');
+			
+			#LOAD THE JQUERY MIGRATE INCLUDE
+			wp_register_script('jquery-migrate', 'http://code.jquery.com/jquery-migrate-1.2.0.js', false, '1.2.0', false);
+			
+			#REGISTER JQUERY MIGRATE INCLUDE
+			wp_enqueue_script('jquery-migrate');
 		}
 	}
 	

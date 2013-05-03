@@ -1,11 +1,14 @@
 //WAIT FOR PAGE TO LOAD
-jQuery(document).ready(function($)
+$(document).ready(function()
 {
 	//THIS FUNCTION INTIALISES GALLERIFFIC
     function initialise_gallerific()
 	{
+		//INITIALISE OPACITY LEVELS
+		opacity_level = 0.67;
+		
 		//INITIALISE WINDOW SIZE
-		window_size = jQuery(window).width();
+		window_size = $(window).width();
 		
 		/* MOBILE - PORTRAIT */
 		if(window_size >= 320 && window_size < 480)
@@ -96,37 +99,53 @@ jQuery(document).ready(function($)
 				});
 			}
 		});
-	}
-
-	//LAUNCH GALLERIFFIC ON PAGE LOAD
-	initialise_gallerific();
-	
-	//INITIALISE OPACITY LEVELS
-	opacity_level = 0.67;
 		
-	//INITIALISE OPACITY LEVELS OF THUMBNAILS, PREVIOUS BUTTON & NEXT BUTTON
-	$('#project_gallery_thumbnails ul.thumbs li, #project_gallery_thumbnails a.previous, #project_gallery_thumbnails a.next').opacityrollover(
-	{
-		mouseOutOpacity:			opacity_level,
-		mouseOverOpacity:  			1.0,
-		fadeSpeed:         			'fast',
-		exemptionSelector: 			'.selected'
-	});
+		//INITIALISE OPACITY LEVELS OF THUMBNAILS, PREVIOUS BUTTON & NEXT BUTTON
+		$('#project_gallery_thumbnails ul.thumbs li, #project_gallery_thumbnails a.previous, #project_gallery_thumbnails a.next').opacityrollover(
+		{
+			mouseOutOpacity:			opacity_level,
+			mouseOverOpacity:  			1.0,
+			fadeSpeed:         			'fast',
+			exemptionSelector: 			'.selected'
+		});
+		
+		//INITIALISE PREVIOUS BUTTON
+		gallery.find('a.previous').click(function(e)
+		{
+			gallery.previousPage();
+			e.preventDefault();
+		});
 	
-	//INITIALISE PREVIOUS BUTTON
-	gallery.find('a.previous').click(function(e)
-	{
-		gallery.previousPage();
-		e.preventDefault();
-	});
-
-	//INITIALISE NEXT BUTTON
-	gallery.find('a.next').click(function(e)
-	{
-		gallery.nextPage();
-		e.preventDefault();
-	});
-
+		//INITIALISE NEXT BUTTON
+		gallery.find('a.next').click(function(e)
+		{
+			gallery.nextPage();
+			e.preventDefault();
+		});
+		
+		//INITIALISE HISTORY PLUGIN
+		$.historyInit(pageload, 'advanced.html');
+	
+		//INITIALISE BACK BUTTON
+		$('a[rel="history"]').live('click', function(e)
+		{
+			//BUTTON NOT CLICKED
+			if(e.button != 0)
+			{
+				return true;
+			}
+			
+			//INITIALISE HASH
+			hash = this.href;
+			hash = hash.replace(/^.*#/, '');
+	
+			//MOVE TO NEW PAGE
+			$.historyLoad(hash);
+	
+			return false;
+		});
+	}
+	
 	//THIS FUNCTION SELECTS THE IMAGE OF THE GALLERY
 	function pageload(hash)
 	{
@@ -140,30 +159,11 @@ jQuery(document).ready(function($)
 		{
 			gallery.gotoIndex(0);
 		}
-	}
+	}	
 
-	//INITIALISE HISTORY PLUGIN
-	$.historyInit(pageload, 'advanced.html');
-
-	//INITIALISE BACK BUTTON
-	$('a[rel="history"]').live('click', function(e)
-	{
-		//BUTTON NOT CLICKED
-		if(e.button != 0)
-		{
-			return true;
-		}
-		
-		//INITIALISE HASH
-		hash = this.href;
-		hash = hash.replace(/^.*#/, '');
-
-		//MOVE TO NEW PAGE
-		$.historyLoad(hash);
-
-		return false;
-	});
+	//LAUNCH GALLERIFFIC ON PAGE LOAD
+	initialise_gallerific();	
 	
 	//LAUNCH GALLERIFFIC ON WINDOWS RESIZE
-	jQuery(window).resize(initialise_gallerific);
+	$(window).resize(initialise_gallerific);
 });

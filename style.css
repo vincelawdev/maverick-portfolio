@@ -3,7 +3,7 @@
 Theme Name: Maverick Portfolio: A WordPress Portfolio Theme for Web Designers & Developers
 Theme URI: http://www.VinceLaw.com.au
 Description: WordPress Portfolio Theme for Web Designers & Developers. Optimised for WordPress 3.5.
-Version: 1.0.8
+Version: 1.1.0
 Author: Vince Law
 Author URI: http://www.VinceLaw.com.au
 
@@ -2299,7 +2299,8 @@ form
 	background-image: linear-gradient(top, #F3F3F3 0%, #FDFDFD 100%);
 }
 
-#content input[type=text]
+#content input[type="text"],
+#content input[type="email"]
 {
 	margin: 0px;
 	padding: 8px 10px 8px 10px;
@@ -2333,7 +2334,8 @@ form
 	overflow: hidden;
 }
 
-#content input[type=text]:focus,
+#content input[type="text"]:focus,
+#content input[type="email"]:focus,
 #content textarea:focus
 {
 	-webkit-box-shadow: 3px 3px 5px rgba(50, 50, 50, 0.2);
@@ -2342,7 +2344,7 @@ form
 	border: 1px solid #ebc308;
 }
 
-#content input[type=submit]
+#content input[type="submit"]
 {
 	margin: 0px;
 	padding: 7px 27px 7px 27px;
@@ -2363,7 +2365,8 @@ form
 	cursor: pointer;
 }
 
-#content input[type=submit]:hover, #content input[type=submit]:active
+#content input[type="submit"]:hover,
+#content input[type="submit"]:active
 {
 	background-image: -ms-linear-gradient(top, #e4e4e4 0%, #898989 100%);
 	background-image: -moz-linear-gradient(top, #e4e4e4 0%, #898989 100%);
@@ -2829,7 +2832,8 @@ input#captcha_code
 		height: 200px;
 	}
 	
-	#content input[type=text]
+	#content input[type="text"],
+	#content input[type="email"]
 	{
 		width: 238px;
 	}

@@ -3452,17 +3452,16 @@ class mp_options
 		unset($contact_fields['yim']);
 		unset($contact_fields['googleplus']);
 		
-		#ADD FACEBOOK, TWITTER, TWITTER RSS FEED, GOOGLE+, PINTEREST, LINKEDIN, GITHUB, DRIBBLE, INSTAGRAM, INSTAGRAM RSS FEED
-		$contact_fields['facebook'] = 'Facebook';
-		$contact_fields['twitter'] = 'Twitter';
-		$contact_fields['twitter_rss'] = 'Twitter RSS Feed';
-		$contact_fields['google_plus'] = 'Google+';
-		$contact_fields['pinterest'] = 'Pinterest';
-		$contact_fields['linkedin'] = 'LinkedIn';
-		$contact_fields['github'] = 'Github';
-		$contact_fields['dribbble'] = 'Dribbble';
+		#ADD FACEBOOK, TWITTER, GOOGLE+, PINTEREST, LINKEDIN, GITHUB, DRIBBLE, INSTAGRAM, INSTAGRAM RSS FEED
+		$contact_fields['facebook'] = 'Facebook URL';
+		$contact_fields['twitter'] = 'Twitter Username';
+		$contact_fields['google_plus'] = 'Google+ URL';
+		$contact_fields['pinterest'] = 'Pinterest Username';
+		$contact_fields['linkedin'] = 'LinkedIn URL';
+		$contact_fields['github'] = 'Github Username';
+		$contact_fields['dribbble'] = 'Dribbble Username';
 		$contact_fields['dribbble_rss'] = 'Dribbble RSS Feed';
-		$contact_fields['instagram'] = 'Instagram';
+		$contact_fields['instagram'] = 'Instagram URL';
 		$contact_fields['instagram_rss'] = 'Instagram RSS Feed';
 		
 		return $contact_fields;
@@ -3571,6 +3570,36 @@ class mp_options
 		}
 	}
 	
+	function oauth_base_string($baseURI, $method, $params)
+	{
+		$r = array();
+		
+		ksort($params);
+		
+		foreach($params as $key=>$value)
+		{
+			$r[] = "$key=" . rawurlencode($value);
+		}
+		
+		return $method."&" . rawurlencode($baseURI) . '&' . rawurlencode(implode('&', $r));
+	}
+	
+	function oauth_authorization_header($oauth)
+	{
+		$r = 'Authorization: OAuth ';
+		
+		$values = array();
+		
+		foreach($oauth as $key=>$value)
+		{
+			$values[] = "$key=\"" . rawurlencode($value) . "\"";
+		}
+		
+		$r .= implode(', ', $values);
+		
+		return $r;
+	}
+	
 	#THIS FUNCTION DISPLAYS THE TWITTER TWEETS
 	public function mp_display_twitter_tweets()
 	{
@@ -3583,37 +3612,71 @@ class mp_options
 			#DISPLAY TWITTER HEADING
 			echo '<h5>Twitter</h5>';
 		
-			#INITIALISE TWITTER RSS FEED
-			$twitter_rss = get_user_meta(mp_options::mp_get_author_id(), 'twitter_rss', true);
+			#INITIALISE TWITTER USERNAME
+			$twitter = get_user_meta(mp_options::mp_get_author_id(), 'twitter', true);
 			
-			#TWITTER RSS FEED EXISTS
-			if(!empty($twitter_rss))
+			#INITIALISE TWITTER API URL
+			$twitter_api_url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
+
+			#INITIALISE TWITTER OAUTH SETTINGS
+			$oauth_access_token = '17037036-IlRoBHMrxAVe83fGf1rrhkF1nTTxhxaXICG0TOMXo';
+			$oauth_access_token_secret = 'smHXAcXEqjmeR2bxRe90Qqfzp9mDbQEs9KJAAP4AU';
+			$consumer_key = 'gvU14iYCg6NlITv6AcGWw';
+			$consumer_secret = 'GTl4kl9gUgJ3Ao2gZQDfm4TVTEcfrSA1buiP35j4YM';
+			$oauth = array
+			(
+				'screen_name' => $twitter,
+        		'count' => 5,
+				'oauth_consumer_key' => $consumer_key,
+				'oauth_nonce' => time(),
+				'oauth_signature_method' => 'HMAC-SHA1',
+				'oauth_token' => $oauth_access_token,
+				'oauth_timestamp' => time(),
+				'oauth_version' => '1.0'
+			);
+			
+			#INITIALISE TWITTER OATH API URL
+			$base_info = mp_options::oauth_base_string($twitter_api_url, 'GET', $oauth);
+			$composite_key = rawurlencode($consumer_secret) . '&' . rawurlencode($oauth_access_token_secret);
+			
+			#INITIALISE TWITTER OATH SIGNATURE
+			$oauth_signature = base64_encode(hash_hmac('sha1', $base_info, $composite_key, true));
+			$oauth['oauth_signature'] = $oauth_signature;
+			
+			#INITIALISE CURL SETTINGS
+			$header = array(mp_options::oauth_authorization_header($oauth), 'Expect:');
+			$options = array
+			(
+				CURLOPT_HTTPHEADER => $header,
+				CURLOPT_HEADER => false,
+				CURLOPT_URL => $twitter_api_url . '?screen_name=' . $twitter . '&count=5',
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_SSL_VERIFYPEER => false
+			);
+			
+			#INITIALISE CURL REQUEST
+			$feed = curl_init();			
+			curl_setopt_array($feed, $options);			
+			$json = curl_exec($feed);			
+			curl_close($feed);
+			
+			#INITIALISE TWITTER DATA
+			$twitter_data = json_decode($json);
+			
+			#TWITTER TWEETS EXIST
+			if(count($twitter_data) > 0)
 			{
-				#INCLUDE SIMPLEPIE RSS PARSER
-				include_once(ABSPATH.WPINC . '/class-simplepie.php');
-				
-				#INITIALISE SIMPLEPIE OBJECT
-				$feed = new SimplePie();
-				 
-				#INITIALISE SIMPLEPIE FEED
-				$feed->set_feed_url($twitter_rss);
-					
-				#INITIALISE SIMPLEPIE CACHE LOCATION
-				$feed->set_cache_location(dirname(dirname(__FILE__)) . '/cache');
-				 
-				#RUN SIMPLEPIE FEED
-				$feed->init();
-				
 				#OPEN UNORDERED LIST
 				echo '<ul class="twitter">';
 				
 				#DISPLAY TWITTER TWEETS
-				foreach($feed->get_items(0, 5) as $item)
+				for($tweet_counter = 0; $tweet_counter < count($twitter_data); $tweet_counter ++)
 				{
-					#FORMAT TWITTER TWEETS WITHOUT USERNAME
-					$colon = strpos($item->get_description(), ':');					
-					$tweet = substr($item->get_description(), $colon + 2);
-					
+					#INITIALISE TWITTER TWEET, DATE & URL
+					$tweet = $twitter_data[$tweet_counter]->text;
+					$tweet_date = date('j F Y g:i A', strtotime($twitter_data[$tweet_counter]->created_at));
+					$tweet_url = $twitter_data[$tweet_counter]->entities->urls[0]->url;
+										
 					#FORMAT TWITTER TWEETS WITH LINKS
 					$tweet = preg_replace("#(^|[\n ])([\w]+?://[\w]+[^ \"\n\r\t< ]*)#", "\\1<a href=\"\\2\" target=\"_blank\" rel=\"nofollow\">\\2</a>", $tweet);
 					$tweet = preg_replace("#(^|[\n ])((www|ftp)\.[^ \"\t\n\r< ]*)#", "\\1<a href=\"http://\\2\" target=\"_blank\" rel=\"nofollow\">\\2</a>", $tweet);
@@ -3621,7 +3684,7 @@ class mp_options
 					$tweet = preg_replace("/#(\w+)/", "<a href=\"http://search.twitter.com/search?q=\\1\" target=\"_blank\" rel=\"nofollow\">#\\1</a>", $tweet);
 					
 					#DISPLAY TWITTER TWEET
-					echo '<li>' . $tweet . '<br />' . $item->get_date('j F Y g:i A') . ' &middot; <a href="' . $item->get_permalink() . '" target="_blank" rel="nofollow" class="tweet">Twitter</a></li>' . "\n";
+					echo '<li>' . $tweet . '<br />' . $tweet_date . ' &middot; <a href="' . $tweet_url . '" target="_blank" rel="nofollow" class="tweet">Twitter</a></li>' . "\n";
 				}
 				
 				#CLOSE UNORDERED LIST
@@ -3736,7 +3799,7 @@ class mp_options
 		#DISPLAY TWITTER BUTTON
 		if(!empty($twitter))
 		{
-			echo '<li><a href="' . $twitter . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-twitter.png" alt="Twitter" title="Twitter" /></a></li>';
+			echo '<li><a href="http://twitter.com/' . $twitter . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-twitter.png" alt="Twitter" title="Twitter" /></a></li>';
 		}
 		
 		#DISPLAY GOOGLE+ BUTTON
@@ -3748,7 +3811,7 @@ class mp_options
 		#DISPLAY PINTEREST BUTTON
 		if(!empty($pinterest))
 		{
-			echo '<li><a href="' . $pinterest . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-pinterest.png" alt="Pinterest" title="Pinterest" /></a></li>';
+			echo '<li><a href="http://pinterest.com/' . $pinterest . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-pinterest.png" alt="Pinterest" title="Pinterest" /></a></li>';
 		}
 		
 		#DISPLAY LINKEDIN BUTTON
@@ -3760,13 +3823,13 @@ class mp_options
 		#DISPLAY GITHUB BUTTON
 		if(!empty($github))
 		{
-			echo '<li><a href="' . $github . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-github.png" alt="GitHub" title="GitHub" /></a></li>';
+			echo '<li><a href="http://github.com/' . $github . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-github.png" alt="GitHub" title="GitHub" /></a></li>';
 		}
 		
 		#DISPLAY DRIBBBLE BUTTON
 		if(!empty($dribbble))
 		{
-			echo '<li><a href="' . $dribbble . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-dribbble.png" alt="Dribbble" title="Dribbble" /></a></li>';
+			echo '<li><a href="http://dribbble.com/' . $dribbble . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-dribbble.png" alt="Dribbble" title="Dribbble" /></a></li>';
 		}
 		
 		#DISPLAY INSTAGRAM BUTTON

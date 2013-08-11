@@ -43,6 +43,7 @@ class mp_options
 		#INITIALISE MENUS
 		register_nav_menu('menu_top', 'Top Menu');
 		register_nav_menu('menu_footer', 'Footer Menu');
+		add_filter('nav_menu_css_class', array('mp_options', 'mp_menu_fix'), 10, 2);
 		
 		#ENABLE SIDEBAR WIDGETS
 		register_sidebar(array('before_widget' => '<div class="sidebar_box">','after_widget' => '</div>', 'before_title' => '<h4>', 'after_title' => '</h4>',));
@@ -137,6 +138,46 @@ class mp_options
 	public function mp_admin_menu()
 	{
 		add_theme_page('Maverick Portfolio Options', 'Options', 'administrator', 'mp_options', array('mp_options', 'mp_options_page'));
+	}
+	
+	#THIS FUNCTION ADDS A CURRENT MENU ITEM CLASS TO THE CURRENT MENU ITEM
+	public function mp_menu_fix($classes, $item)
+	{
+		#RETRIEVE THE POST
+		global $post;
+		
+		#BLOG PAGE OR CHILD
+		if((!is_page($post->ID) || is_page('blog')) && !is_tax() && !is_singular(array('project', 'testimonial', 'article')))
+		{
+			#ADD CURRENT MENU ITEM CLASS TO BLOG MENU ITEM
+			if($classes[0] == 'blog')
+			{
+				$classes[] = 'current-menu-item';
+			}
+		}
+		
+		#ARTICLES OR CHILD
+		if(is_page_template('articles.php') || is_tax('article-directories') || is_singular('article'))
+		{
+			#ADD CURRENT MENU ITEM CLASS TO ARTICLES MENU ITEM
+			if($classes[0] == 'articles')
+			{
+				$classes[] = 'current-menu-item';
+			}
+		}
+		
+		#PORTFOLIO OR CHILD
+		if(is_page_template('portfolio.php') || is_tax('portfolio-categories') || is_singular('project'))
+		{
+			#ADD CURRENT MENU ITEM CLASS TO PORTFOLIO MENU ITEM
+			if($classes[0] == 'portfolio')
+			{
+				$classes[] = 'current-menu-item';
+			}
+		}
+		
+		#RETURN MENU ITEM CLASSES
+		return $classes;
 	}
 	
 	#THIS FUNCTION REGISTERS THE THEME OPTION SETTINGS

@@ -174,13 +174,13 @@ var mp_module = function()
 		//THIS METHOD INITIALISES THE ORGANIC TABS
 		organic_tabs_init : function()
 		{
-			//INITIALISE ORGANIC TABS FOR POST TABS
+			//POST TABS EXISTS
 			if($('#sidebar').find('#post_tabs').length > 0)
 			{			
 				$('#post_tabs').organicTabs({'speed': 200});
 			}
 			
-			//INITIALISE ORGANIC TABS FOR COMMENT TABS
+			//COMMENT TABS EXISTS
 			if($('#sidebar').find('#comment_tabs').length > 0)
 			{			
 				$('#comment_tabs').organicTabs({'speed': 200});
@@ -608,7 +608,7 @@ var mp_module = function()
 	return{
 		
 		//LAUNCH ALL THE FOLLOWING METHODS AT PAGE LOAD
-		run_at_load: function()
+		run_at_load : function()
 		{
 			navigation.init();
 			sliders.init();
@@ -616,7 +616,7 @@ var mp_module = function()
 		},
 		
 		//LAUNCH ALL THE FOLLOWING METHODS AFTER PAGE LOAD
-		run_after_load: function()
+		run_after_load : function()
 		{
 			page.init();
 		}

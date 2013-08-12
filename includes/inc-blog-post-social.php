@@ -13,7 +13,7 @@
 	<!-- GOOGLE + BUTTON - START -->
 	<div class="social_google_left_small">				
 		<div class="g-plusone" data-size="medium" data-href="<?php the_permalink(); ?>"></div>
-		<script type="text/javascript">
+		<script>
 		  (function() {
 			var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
 			po.src = 'https://apis.google.com/js/plusone.js';
@@ -25,14 +25,14 @@
 	
 	<!-- PINTEREST BUTTON - START -->
 	<div class="social_pinterest_left_small">
-		<a href="http://pinterest.com/pin/create/button/?url=<?php the_permalink(); ?>" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" alt="Pin It" title="Pin It" /></a><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+		<a href="http://pinterest.com/pin/create/button/?url=<?php the_permalink(); ?>" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" alt="Pin It" title="Pin It" /></a><script src="//assets.pinterest.com/js/pinit.js"></script>
 	</div>
 	<!-- PINTEREST BUTTON - END -->	
 			
 	<!-- ADDTHIS BUTTON - START -->
 	<div class="social_addthis_left_small">
 		<div class="addthis_toolbox addthis_default_style" addthis:title="<?php the_title(); ?>" addthis:url="<?php the_permalink(); ?>"><a class="addthis_counter addthis_pill_style"></a></div>
-		<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4dbe7917029ad5b1"></script>
+		<script src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4dbe7917029ad5b1"></script>
 	</div>
 	<!-- ADDTHIS BUTTON - END -->
 

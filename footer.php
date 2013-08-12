@@ -58,39 +58,39 @@ if(is_single())
 if((!is_page() || is_page('blog')) && !is_tax() && !is_singular(array('project', 'testimonial', 'article')))
 {
 ?>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-organic-tabs.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-organic-tabs.js"></script>
 <?php
 }
 #LOAD GALLERIFIC
 if(is_singular('project'))
 {
 ?>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-galleriffic.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-history.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-opacityrollover.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-galleriffic.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-history.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-opacityrollover.js"></script>
 <?php
 }
 ?>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-hover-intent.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-superfish.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-supersubs.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-colorbox-min.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-tinynav-min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-hover-intent.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-superfish.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-supersubs.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-colorbox-min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-tinynav-min.js"></script>
 <?php
 #LOAD ANYTHING SLIDER
 if(is_front_page())
 {
 ?>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-anythingslider-min.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-anythingslider-fx-min.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-anythingslider-video-min.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-easing1.2.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-jcarousel-lite-min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-anythingslider-min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-anythingslider-fx-min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-anythingslider-video-min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-easing1.2.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-jcarousel-lite-min.js"></script>
 <?php
 }
 ?>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/mp-module.php"></script>
-<!--[if IE]><script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-fix-iframes.js"></script><![endif]-->
+<script src="<?php bloginfo('template_directory'); ?>/js/mp-module.php"></script>
+<!--[if IE]><script src="<?php bloginfo('template_directory'); ?>/js/jquery-fix-iframes.js"></script><![endif]-->
 
 </body>
 

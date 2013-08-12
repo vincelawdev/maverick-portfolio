@@ -33,7 +33,7 @@ if(is_front_page())
 <?php mp_options::mp_display_rss_feeds_header(); ?>
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 <?php wp_head(); ?>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/modernizr-custom2.6.2.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/modernizr-custom2.6.2.js"></script>
 <?php
 #LOAD ANYTHING SLIDER
 if(is_front_page())
@@ -76,14 +76,14 @@ $mp_social_button_size = get_option('mp_social_button_size');
 			<!-- ADDTHIS BUTTON - START -->
 			<div class="social_addthis_right_small">
 				<div class="addthis_toolbox addthis_default_style" addthis:title="<?php bloginfo('name'); ?>" addthis:url="<?php bloginfo('url'); ?>"><a class="addthis_counter addthis_pill_style"></a></div>
-				<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=<?php mp_options::mp_display_addthis_profile_id(); ?>"></script>
+				<script src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=<?php mp_options::mp_display_addthis_profile_id(); ?>"></script>
 			</div>
 			<!-- ADDTHIS BUTTON - END -->
 			
 			<!-- GOOGLE + BUTTON - START -->
 			<div class="social_google_right_small">
 				<div class="g-plusone" data-size="medium" data-href="<?php bloginfo('url'); ?>"></div>
-				<script type="text/javascript">
+				<script>
 				  (function() {
 					var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
 					po.src = 'https://apis.google.com/js/plusone.js';
@@ -110,14 +110,14 @@ $mp_social_button_size = get_option('mp_social_button_size');
 			<!-- ADDTHIS BUTTON - START -->
 			<div class="social_addthis_right_large">
 				<div class="addthis_toolbox addthis_counter_style" addthis:title="<?php bloginfo('name'); ?>" addthis:url="<?php bloginfo('url'); ?>"><a class="addthis_counter"></a></div>
-				<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=<?php mp_options::mp_display_addthis_profile_id(); ?>"></script>
+				<script src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=<?php mp_options::mp_display_addthis_profile_id(); ?>"></script>
 			</div>
 			<!-- ADDTHIS BUTTON - END -->
 			
 			<!-- GOOGLE + BUTTON - START -->
 			<div class="social_google_right_large">
 				<div class="g-plusone" data-size="tall" data-href="<?php bloginfo('url'); ?>"></div>
-				<script type="text/javascript">
+				<script>
 				  (function() {
 					var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
 					po.src = 'https://apis.google.com/js/plusone.js';

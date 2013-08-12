@@ -404,7 +404,7 @@ class mp_options
 				
 				</form>
 				
-				<script type="text/javascript">
+				<script>
 				jQuery(document).ready(function()
 				{
 					//VALIDATE FORM FIELDS
@@ -473,7 +473,7 @@ class mp_options
 			
 				</form>
 				
-				<script type="text/javascript">
+				<script>
 				jQuery(document).ready(function()
 				{
 					//TWITTER OPTION SELECTED
@@ -554,7 +554,7 @@ class mp_options
 			
 				</form>
 				
-				<script type="text/javascript">
+				<script>
 				jQuery(document).ready(function()
 				{
 					//VALIDATE FORM FIELDS
@@ -1107,28 +1107,28 @@ class mp_options
 	{
 		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . '/css/admin.php" type="text/css" />' . "\n";
 		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . '/css/colorbox.php" type="text/css" />' . "\n";
-		echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-colorbox-min.js"></script>' . "\n";
-		echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-metadata.js"></script>' . "\n";
-		echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-validate.js"></script>' . "\n";
-		echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-validate-additional-methods.js"></script>' . "\n";
-		echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/mp-module-admin.php"></script>' . "\n";	
+		echo '<script src="' . get_bloginfo('template_url') . '/js/jquery-colorbox-min.js"></script>' . "\n";
+		echo '<script src="' . get_bloginfo('template_url') . '/js/jquery-metadata.js"></script>' . "\n";
+		echo '<script src="' . get_bloginfo('template_url') . '/js/jquery-validate.js"></script>' . "\n";
+		echo '<script src="' . get_bloginfo('template_url') . '/js/jquery-validate-additional-methods.js"></script>' . "\n";
+		echo '<script src="' . get_bloginfo('template_url') . '/js/mp-module-admin.php"></script>' . "\n";	
 		
 		#LOAD JAVASCRIPT FOR TINYMCE EDITOR FOR USER BIOGRAPHY IN WORDPRESS 3.3 +
 		if(function_exists('wp_editor'))
 		{
-			echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-tinymce-biography.js"></script>' . "\n";
+			echo '<script>jQuery(document).ready(function() { mp_module_admin.run_biography(); });</script>' . "\n";
 		}
 		
 		#LOAD JAVASCRIPT FOR MEDIA UPLOADER FOR WORDPRESS 3.5 +
 		if(function_exists('wp_enqueue_media'))
 		{
-			echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-media-upload3.5.js"></script>' . "\n";
+			echo '<script>jQuery(document).ready(function() { mp_module_admin.run_uploader_new(); });</script>' . "\n";
 			wp_enqueue_media();
 		}
-		#LOAD JAVASCRIPT FOR MEDIA UPLOADER FOR WORDPRESS 3.5 & BELOW
+		#LOAD JAVASCRIPT FOR MEDIA UPLOADER FOR WORDPRESS 3.4 & BELOW
 		else
 		{
-			echo '<script type="text/javascript" src="' . get_bloginfo('template_url') . '/js/jquery-media-upload-old.js"></script>' . "\n";
+			echo '<script>jQuery(document).ready(function() { mp_module_admin.run_uploader_old(); });</script>' . "\n";
 			wp_enqueue_script('media-upload');
 			wp_enqueue_script('thickbox');
 		}	
@@ -1415,7 +1415,7 @@ class mp_options
 		#DISPLAY ARTICLE URL FIELD
 		echo '<p><strong>Article URL:</strong><br /><input name="article_url" id="article_url" type="text" size="80" value="' . urldecode($article_url) . '" /></p><p>Enter the article URL.</p>';
 		?>
-		<script type="text/javascript">
+		<script>
 		jQuery(document).ready(function()
 		{			
 			jQuery('div.wrap').after('<div id="<?php echo $article_error_box; ?>" class="mp_errors error"></div>');
@@ -1799,7 +1799,7 @@ class mp_options
 		#DISPLAY SLIDE OUT ANIMATION FIELD
 		echo '<p><strong>Slide Out Animation:</strong><br />'; mp_options::mp_display_slide_animation_out_list($slide_animation_out); echo '</p><p>Select the animation of the slide when it exits the slider. Please refer to the <a href="http://daneden.me/animate/" target="_blank">Animate.css</a> page to preview the animations.</p>';
 		?>
-		<script type="text/javascript">
+		<script>
 		jQuery(document).ready(function()
 		{			
 			jQuery('div.wrap').after('<div id="<?php echo $slide_error_box; ?>" class="mp_errors error"></div>');
@@ -2454,7 +2454,7 @@ class mp_options
 		echo '<p><strong>Project Gallery:</strong><br />'; mp_options::mp_display_gallery_list("portfolio_project_gallery", $portfolio_project_gallery); echo '</p><p>Select the gallery of the project.</p>';
 		
 		?>
-		<script type="text/javascript">
+		<script>
 		jQuery(document).ready(function()
 		{
 			jQuery('div.wrap').after('<div id="<?php echo $portfolio_error_box; ?>" class="mp_errors error"></div>');
@@ -3169,7 +3169,7 @@ class mp_options
 		echo '<p><strong>PDF:</strong><br /><input name="testimonial_pdf" id="testimonial_pdf" type="text" size="80" value="' . urldecode($testimonial_pdf) . '" /></p><p>Enter the PDF document URL of the testimonial.</p>';
 		echo '<p><strong>Feature on Home Page:</strong><br />'; mp_options::mp_display_yes_no_list('testimonial_feature', $testimonial_feature); echo '</p><p>Select whether you wish to display this testimonial on the home page.</p>';
 		?>
-		<script type="text/javascript">
+		<script>
 		jQuery(document).ready(function()
 		{
 			jQuery('div.wrap').after('<div id="<?php echo $testimonial_error_box; ?>" class="mp_errors error"></div>');
@@ -3476,7 +3476,7 @@ class mp_options
 		<table class="form-table">
 		<tr>
 			<th><label for="description"><?php _e('Biographical Info'); ?></label></th>
-			<td><?php wp_editor(get_user_meta($user->ID, 'description', true), 'description', array('textarea_rows' => 15)); ?><p class="description"><?php _e('Share a little biographical information to fill out your profile. This may be shown publicly.'); ?></p></td>
+			<td><?php wp_editor(get_user_meta($user->ID, 'description', true), 'description', array('textarea_rows' => 20)); ?><p class="description"><?php _e('Share a little biographical information to fill out your profile. This may be shown publicly.'); ?></p></td>
 		</tr>
 		</table>
 		<?php

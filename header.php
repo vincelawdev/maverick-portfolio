@@ -29,11 +29,6 @@ if(is_front_page())
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('stylesheet_url'); ?>" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/superfish.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/colorbox.php" />
-<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/ie.css" /><![endif]-->
-<?php mp_options::mp_display_rss_feeds_header(); ?>
-<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
-<?php wp_head(); ?>
-<script src="<?php bloginfo('template_directory'); ?>/js/modernizr-custom2.6.2.js"></script>
 <?php
 #LOAD ANYTHING SLIDER
 if(is_front_page())
@@ -44,6 +39,11 @@ if(is_front_page())
 <?php
 }
 ?>
+<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/ie.css" /><![endif]-->
+<?php mp_options::mp_display_rss_feeds_header(); ?>
+<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
+<?php wp_head(); ?>
+<script src="<?php bloginfo('template_directory'); ?>/js/modernizr-custom2.6.2.js"></script>
 </head>
 
 <?php flush(); ?>

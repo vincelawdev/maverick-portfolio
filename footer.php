@@ -70,13 +70,6 @@ if(is_singular('project'))
 <script src="<?php bloginfo('template_directory'); ?>/js/jquery-opacityrollover.js"></script>
 <?php
 }
-?>
-<script src="<?php bloginfo('template_directory'); ?>/js/jquery-hover-intent.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/jquery-superfish.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/jquery-supersubs.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/jquery-colorbox-min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/jquery-tinynav-min.js"></script>
-<?php
 #LOAD ANYTHING SLIDER
 if(is_front_page())
 {
@@ -89,6 +82,11 @@ if(is_front_page())
 <?php
 }
 ?>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-hover-intent.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-superfish.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-supersubs.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-colorbox-min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-tinynav-min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/mp-module.php"></script>
 <!--[if IE]><script src="<?php bloginfo('template_directory'); ?>/js/jquery-fix-iframes.js"></script><![endif]-->
 

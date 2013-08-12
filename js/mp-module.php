@@ -80,7 +80,7 @@ var mp_module = function()
 		}
 	},
 	
-	//NAVIGATION - SUPERFISH, TINYNAV, BLOG MENU FIX & ORGANIC TABS
+	//NAVIGATION - SUPERFISH, TINYNAV & ORGANIC TABS
 	navigation =
 	{
 		//INITIALISE SUPERFISH LEVEL 1 HOME MENU ITEM
@@ -248,8 +248,8 @@ var mp_module = function()
 			//THIS METHOD INITIALISES THE ANYTHING SLIDER
 			init : function()
 			{
-				console.log('Anything Slider Options:');
-				console.dir(sliders.anything_slider.anything_slider_options);
+				//console.log('Anything Slider Options:');
+				//console.dir(sliders.anything_slider.anything_slider_options);
 			
 				//ANYTHING SLIDER WRAPPER EXISTS
 				if($('#content').find('#anythingslider_wrapper').length > 0)
@@ -361,7 +361,7 @@ var mp_module = function()
 	//IMAGES - PRELOAD, GALLERIFIC & COLORBOX
 	images = 
 	{
-		//THIS METHOD LAUNCHES THE preloader() & colorbox_init() METHODS
+		//THIS METHOD LAUNCHES THE preload.init(), gallerific.init() & colorbox_init() METHODS
 		init : function()
 		{
 			this.preload.init();

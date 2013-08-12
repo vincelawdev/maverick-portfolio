@@ -35,51 +35,15 @@ if(is_front_page())
 <?php wp_head(); ?>
 <script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/modernizr-custom2.6.2.js"></script>
 <?php
-#LOAD THREADED COMMENTS
-if(is_single())
-{
-	wp_enqueue_script('comment-reply');
-}
-#LOAD ORGANIC TABS
-if((!is_page() || is_page('blog')) && !is_tax() && !is_singular(array('project', 'testimonial', 'article')))
-{
-?>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-organic-tabs.js"></script>
-<?php
-}
-#LOAD GALLERIFIC
-if(is_singular('project'))
-{
-?>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-galleriffic.js"></script>
-
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-history.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-opacityrollover.js"></script>
-<?php
-}
-?>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-hover-intent.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-superfish.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-supersubs.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-colorbox-min.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-tinynav-min.js"></script>
-<?php
 #LOAD ANYTHING SLIDER
 if(is_front_page())
 {
 ?>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-anythingslider-min.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-anythingslider-fx-min.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-anythingslider-video-min.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-easing1.2.js"></script>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-jcarousel-lite-min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/anythingslider.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/animate.css" />
 <?php
 }
 ?>
-<script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/mp-module.php"></script>
-<!--[if IE]><script type="text/javascript" src="<?php bloginfo('template_directory'); ?>/js/jquery-fix-iframes.js"></script><![endif]-->
 </head>
 
 <?php flush(); ?>
@@ -195,7 +159,7 @@ $mp_social_button_size = get_option('mp_social_button_size');
 		<!-- TOP MENU - END -->
 		
 		<!-- SEARCH - START -->
-		<form method="get" id="searchform" action="<?php echo $_SERVER['PHP_SELF']; ?>"><input type="submit" id="search_button" value="" /><input type="text" value="Search" name="s" id="search_box" onFocus="if(this.value != '') { this.value = ''; }" onBlur="if(this.value == '') { this.value = 'Search'; }" /></form>
+		<form method="get" id="searchform" action="<?php echo $_SERVER['PHP_SELF']; ?>"><input type="submit" id="search_button" value="" /><input type="text" value="" name="s" id="search_box" placeholder="Search" /></form>
 		<!-- SEARCH - END -->
 	
 	</div>

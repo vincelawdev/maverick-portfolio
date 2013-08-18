@@ -299,6 +299,8 @@ class mp_options
 			$sub_page = 'header';
 		}
 		
+		#LAUNCH VALIDATOR
+		echo '<script>jQuery(document).ready(function() { mp_module_admin.run_validator_options(); });</script>';		
 		?>
 		<div id="mp-options" class="wrap">
 			
@@ -403,41 +405,6 @@ class mp_options
 				?>
 				
 				</form>
-				
-				<script>
-				jQuery(document).ready(function()
-				{
-					//VALIDATE FORM FIELDS
-					jQuery('#mp_header').validate(
-					{
-						errorLabelContainer: jQuery('#mp_header_errors'),
-						errorElement: 'p',
-						errorClass: 'mp_error_field',
-						rules:
-						{
-							mp_logo_image:
-							{
-								url2: true
-							},
-							mp_facebook_like_url:
-							{
-								url2: true
-							}
-						},
-						messages:
-						{
-							mp_logo_image:
-							{
-								url2: 'Please enter a valid Logo Image.'
-							},
-							mp_facebook_like_url:
-							{
-								url2: 'Please enter a valid Like URL.'
-							}
-						}
-					});
-				});
-				</script>
 			
 				<?php
 				break;
@@ -468,37 +435,10 @@ class mp_options
 				$dribbble_description = '<p>Enter your Dribbble RSS feed on your <a href="' . get_bloginfo('siteurl') . '/wp-admin/profile.php" target="_blank">Profle</a> to display the Dribbble thumbnails. Please note that you may only display either your Dribbble thumbnails or Twitter tweets in the footer.</p>';
 				
 				#DISPLAY DRIBBBLE
-				mp_options::mp_option_field('Dribbble', $dribbble_description, true, true, 'Dribbble', 'yes_no', 'mp_footer_dribbble', 'mp_footer_dribbble', 'Select whether you wish to enable the Dribbble thumbnails', 'No', true);		
+				mp_options::mp_option_field('Dribbble', $dribbble_description, true, true, 'Dribbble', 'yes_no', 'mp_footer_dribbble', 'mp_footer_dribbble', 'Select whether you wish to enable the Dribbble thumbnails', 'No', true);
 				?>
 			
 				</form>
-				
-				<script>
-				jQuery(document).ready(function()
-				{
-					//TWITTER OPTION SELECTED
-					jQuery('#mp_footer_twitter').change(function()
-					{
-						//TWITTER ENABLED
-						if(jQuery("#mp_footer_twitter option[value='1']").attr('selected'))
-						{
-							//DISABLE DRIBBBLE
-							jQuery('#mp_footer_dribbble').val('0');
-						}
-					});
-					
-					//DRIBBBLE OPTION SELECTED
-					jQuery('#mp_footer_dribbble').change(function()
-					{
-						//DRIBBBLE ENABLED
-						if(jQuery("#mp_footer_dribbble option[value='1']").attr('selected'))
-						{
-							//DISABLE TWITTER
-							jQuery('#mp_footer_twitter').val('0');
-						}
-					});
-				});
-				</script>
 			
 				<?php
 				break;
@@ -553,41 +493,6 @@ class mp_options
 				?>
 			
 				</form>
-				
-				<script>
-				jQuery(document).ready(function()
-				{
-					//VALIDATE FORM FIELDS
-					jQuery('#mp_rss').validate(
-					{
-						errorLabelContainer: jQuery('#mp_rss_errors'),
-						errorElement: 'p',
-						errorClass: 'mp_error_field',
-						rules:
-						{
-							mp_feedburner_rss:
-							{
-								url2: true
-							},
-							mp_feedburner_email:
-							{
-								url2: true
-							}
-						},
-						messages:
-						{
-							mp_feedburner_rss:
-							{
-								url2: 'Please enter a valid FeedBurner Feed Address.'
-							},
-							mp_feedburner_email:
-							{
-								url2: 'Please enter a valid FeedBurner Subscription Address.'
-							}
-						}
-					});
-				});
-				</script>
 			
 				<?php
 				break;
@@ -1403,9 +1308,6 @@ class mp_options
 		#RETRIEVE THE POST
 		global $post;
 	
-		#INITIALISE ARTICLE ERROR BOX ID
-		$article_error_box = 'article_errors' . $post->ID;
-	
 		#INITIALISE ARTICLE OPTIONS
 		$article_url = get_post_meta($post->ID, 'article_url', true);
 		
@@ -1414,51 +1316,9 @@ class mp_options
 		
 		#DISPLAY ARTICLE URL FIELD
 		echo '<p><strong>Article URL:</strong><br /><input name="article_url" id="article_url" type="text" size="80" value="' . urldecode($article_url) . '" /></p><p>Enter the article URL.</p>';
-		?>
-		<script>
-		jQuery(document).ready(function()
-		{			
-			jQuery('div.wrap').after('<div id="<?php echo $article_error_box; ?>" class="mp_errors error"></div>');
-			
-			jQuery('form#post').validate(
-			{
-				//VALIDATION CONTAINER & ERROR MESSAGES
-				errorLabelContainer: jQuery('#<?php echo $article_error_box; ?>'),
-				errorElement: 'p',
-				errorClass: 'mp_error_field',
-				
-				//VALIDATION RULES
-				rules:
-				{
-					article_url:
-					{
-						required: true,
-						url2: true
-					}
-				},
-				//VALIDATION MESSAGES
-				messages:
-				{
-					article_url:
-					{
-						required: 'Please enter an Article URL.',
-						url2: 'Please enter a valid Article URL.'
-					}
-				}
-			});
-			
-			jQuery('#publish').click(function()
-			{
-				form_check = jQuery('#post').valid();
-				
-				if(!form_check)
-				{
-					return false;
-				}
-			});
-		});
-		</script>
-		<?php
+		
+		#LAUNCH VALIDATOR
+		echo '<script>jQuery(document).ready(function() { mp_module_admin.run_validator_articles(); });</script>';
 	}
 	
 	#THIS FUNCTION SAVES THE ARTICLE BOX FORM CONTENTS
@@ -1771,9 +1631,6 @@ class mp_options
 		#RETRIEVE THE POST
 		global $post;
 	
-		#INITIALISE SLIDE ERROR BOX ID
-		$slide_error_box = 'slide_errors' . $post->ID;
-	
 		#INITIALISE SLIDE OPTIONS
 		$slide_image = get_post_meta($post->ID, 'slide_image', true);
 		$slide_url = get_post_meta($post->ID, 'slide_url', true);
@@ -1798,67 +1655,9 @@ class mp_options
 		
 		#DISPLAY SLIDE OUT ANIMATION FIELD
 		echo '<p><strong>Slide Out Animation:</strong><br />'; mp_options::mp_display_slide_animation_out_list($slide_animation_out); echo '</p><p>Select the animation of the slide when it exits the slider. Please refer to the <a href="http://daneden.me/animate/" target="_blank">Animate.css</a> page to preview the animations.</p>';
-		?>
-		<script>
-		jQuery(document).ready(function()
-		{			
-			jQuery('div.wrap').after('<div id="<?php echo $slide_error_box; ?>" class="mp_errors error"></div>');
-			
-			jQuery('form#post').validate(
-			{
-				//VALIDATION CONTAINER & ERROR MESSAGES
-				errorLabelContainer: jQuery('#<?php echo $slide_error_box; ?>'),
-				errorElement: 'p',
-				errorClass: 'mp_error_field',
-				
-				//VALIDATION RULES
-				rules:
-				{
-					slide_image:
-					{
-						required: function(element)
-						{
-        					return jQuery('input[name=slide_type]:checked').val() == 'image';
-      					},
-						url2: true
-					},
-					slide_url:
-					{
-						required: function(element)
-						{
-        					return jQuery('input[name=slide_type]:checked').val() == 'image';
-      					},
-						url2: true
-					}
-				},
-				//VALIDATION MESSAGES
-				messages:
-				{
-					slide_image:
-					{
-						required: 'Please enter a Slide Image.',
-						url2: 'Please enter a valid Slide Image.'
-					},
-					slide_url:
-					{
-						required: 'Please enter a Slide URL.',
-						url2: 'Please enter a valid Slide URL.'
-					}
-				}
-			});
-			
-			jQuery('#publish').click(function()
-			{
-				form_check = jQuery('#post').valid();
-				
-				if(!form_check)
-				{
-					return false;
-				}
-			});
-		});
-		</script>
-		<?php
+		
+		#LAUNCH VALIDATOR
+		echo '<script>jQuery(document).ready(function() { mp_module_admin.run_validator_slides(); });</script>';
 	}
 	
 	#THIS FUNCTION DISPLAYS THE LIST OF SLIDE IN ANIMATIONS
@@ -2435,9 +2234,6 @@ class mp_options
 		#RETRIEVE THE POST
 		global $post;
 	
-		#INITIALISE PROJECT ERROR BOX ID
-		$portfolio_error_box = 'portfolio_errors' . $post->ID;
-	
 		#INITIALISE PROJECT OPTIONS
 		$portfolio_client_name = get_post_meta($post->ID, 'portfolio_client_name', true);
 		$portfolio_client_location = get_post_meta($post->ID, 'portfolio_client_location', true);
@@ -2447,55 +2243,17 @@ class mp_options
 		#DISPLAY PROJECT NONCE FIELD
 		echo '<input name="portfolio_nonce" id="portfolio_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
 				
-		#DISPLAY TESTIMONIAL FIELDS
+		#DISPLAY PROJECT FIELDS
 		echo '<p><strong>Client Name:</strong><br /><input name="portfolio_client_name" id="portfolio_client_name" type="text" size="80" value="' . $portfolio_client_name . '" /></p><p>Enter the name of the client.</p>';
+		
 		echo '<p><strong>Client Location:</strong><br /><input name="portfolio_client_location" id="portfolio_client_location" type="text" size="80" value="' . $portfolio_client_location . '" /></p><p>Enter the location of the client.</p>';
+		
 		echo '<p><strong>Project URL:</strong><br /><input name="portfolio_project_url" id="portfolio_project_url" type="text" size="80" value="' . urldecode($portfolio_project_url) . '" /></p><p>Enter the project URL.</p>';
+		
 		echo '<p><strong>Project Gallery:</strong><br />'; mp_options::mp_display_gallery_list("portfolio_project_gallery", $portfolio_project_gallery); echo '</p><p>Select the gallery of the project.</p>';
 		
-		?>
-		<script>
-		jQuery(document).ready(function()
-		{
-			jQuery('div.wrap').after('<div id="<?php echo $portfolio_error_box; ?>" class="mp_errors error"></div>');
-			
-			jQuery('form#post').validate(
-			{
-				//VALIDATION CONTAINER & ERROR MESSAGES
-				errorLabelContainer: jQuery('#<?php echo $portfolio_error_box; ?>'),
-				errorElement: 'p',
-				errorClass: 'mp_error_field',
-				
-				//VALIDATION RULES
-				rules:
-				{
-					portfolio_project_url:
-					{
-						url2: true
-					}
-				},
-				//VALIDATION MESSAGES
-				messages:
-				{
-					portfolio_project_url:
-					{
-						url2: 'Please enter a valid URL.'
-					}
-				}
-			});
-			
-			jQuery('#publish').click(function()
-			{
-				form_check = jQuery('#post').valid();
-				
-				if(!form_check)
-				{
-					return false;
-				}
-			});
-		});
-		</script>
-		<?php
+		#LAUNCH VALIDATOR
+		echo '<script>jQuery(document).ready(function() { mp_module_admin.run_validator_projects(); });</script>';		
 	}
 	
 	#THIS FUNCTION DISPLAYS THE LIST OF PROJECTS
@@ -3144,10 +2902,7 @@ class mp_options
 	{
 		#RETRIEVE THE POST
 		global $post;
-	
-		#INITIALISE TESTIMONIAL ERROR BOX ID
-		$testimonial_error_box = 'testimonial_errors' . $post->ID;
-	
+		
 		#INITIALISE TESTIMONIAL OPTIONS
 		$testimonial_project = get_post_meta($post->ID, 'testimonial_project', true);
 		$testimonial_name = get_post_meta($post->ID, 'testimonial_name', true);
@@ -3162,79 +2917,21 @@ class mp_options
 				
 		#DISPLAY TESTIMONIAL FIELDS
 		echo '<p><strong>Project:</strong><br />'; mp_options::mp_display_project_list("testimonial_project", $testimonial_project); echo '</p><p>Select the project of the testimonial.</p>';
+		
 		echo '<p><strong>Name:</strong><br /><input name="testimonial_name" id="testimonial_name" type="text" size="80" value="' . $testimonial_name . '" /></p><p>Enter the name of the person who wrote the testimonial.</p>';
+		
 		echo '<p><strong>Location:</strong><br /><input name="testimonial_location" id="testimonial_location" type="text" size="80" value="' . $testimonial_location . '" /></p><p>Enter the location of the person who wrote the testimonial.</p>';
+		
 		echo '<p><strong>Photo:</strong><br />'; mp_options::mp_display_media_upload('testimonial_photo', urldecode($testimonial_photo)); echo '</p><p>Enter the photo URL of the person who wrote the testimonial.</p>';
+		
 		echo '<p><strong>URL:</strong><br /><input name="testimonial_url" id="testimonial_url" type="text" size="80" value="' . urldecode($testimonial_url) . '" /></p><p>Enter the URL of the person who wrote the testimonial.</p>';
+		
 		echo '<p><strong>PDF:</strong><br /><input name="testimonial_pdf" id="testimonial_pdf" type="text" size="80" value="' . urldecode($testimonial_pdf) . '" /></p><p>Enter the PDF document URL of the testimonial.</p>';
+		
 		echo '<p><strong>Feature on Home Page:</strong><br />'; mp_options::mp_display_yes_no_list('testimonial_feature', $testimonial_feature); echo '</p><p>Select whether you wish to display this testimonial on the home page.</p>';
-		?>
-		<script>
-		jQuery(document).ready(function()
-		{
-			jQuery('div.wrap').after('<div id="<?php echo $testimonial_error_box; ?>" class="mp_errors error"></div>');
-			
-			jQuery('form#post').validate(
-			{
-				//VALIDATION CONTAINER & ERROR MESSAGES
-				errorLabelContainer: jQuery('#<?php echo $testimonial_error_box; ?>'),
-				errorElement: 'p',
-				errorClass: 'mp_error_field',
-				
-				//VALIDATION RULES
-				rules:
-				{
-					testimonial_name:
-					{
-						required: true
-					},
-					testimonial_location:
-					{
-						required: true
-					},
-					testimonial_photo:
-					{
-						url2: true
-					},
-					testimonial_url:
-					{
-						url2: true
-					}
-				},
-				//VALIDATION MESSAGES
-				messages:
-				{
-					testimonial_name:
-					{
-						required: 'Please enter a Name.'
-					},
-					testimonial_location:
-					{
-						required: 'Please enter a Location.'
-					},
-					testimonial_photo:
-					{
-						url2: 'Please enter a valid Photo URL.'
-					},
-					testimonial_url:
-					{
-						url2: 'Please enter a valid URL.'
-					}
-				}
-			});
-			
-			jQuery('#publish').click(function()
-			{
-				form_check = jQuery('#post').valid();
-				
-				if(!form_check)
-				{
-					return false;
-				}
-			});
-		});
-		</script>
-		<?php
+		
+		#LAUNCH VALIDATOR
+		echo '<script>jQuery(document).ready(function() { mp_module_admin.run_validator_testimonials(); });</script>';
 	}
 	
 	#THIS FUNCTION SAVES THE TESTIMONIAL BOX FORM CONTENTS

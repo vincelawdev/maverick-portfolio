@@ -88,7 +88,6 @@ if(is_front_page())
 <script src="<?php bloginfo('template_directory'); ?>/js/jquery-colorbox-min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/jquery-tinynav-min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/mp-module.php"></script>
-<!--[if IE]><script src="<?php bloginfo('template_directory'); ?>/js/jquery-fix-iframes.js"></script><![endif]-->
 
 </body>
 

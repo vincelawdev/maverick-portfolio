@@ -26,6 +26,7 @@ if(is_front_page())
 }
 ?>
 <link rel="shortcut icon" href="/favicon.ico" />
+<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/normalise.min.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('stylesheet_url'); ?>" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/superfish.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/colorbox.php" />
@@ -44,6 +45,11 @@ if(is_front_page())
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 <?php wp_head(); ?>
 <script src="<?php bloginfo('template_directory'); ?>/js/modernizr-custom2.6.2.js"></script>
+<!--[if lt IE 9]>
+<script src="<?php bloginfo('template_directory'); ?>/js/jquery-fix-iframes.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/css3-mediaqueries.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/selectivizr-min.js"></script>
+<![endif]-->
 </head>
 
 <?php flush(); ?>

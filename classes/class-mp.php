@@ -3306,7 +3306,7 @@ class mp_options
 		}
 	}
 	
-	function oauth_base_string($baseURI, $method, $params)
+	public function oauth_base_string($baseURI, $method, $params)
 	{
 		$r = array();
 		
@@ -3320,7 +3320,7 @@ class mp_options
 		return $method."&" . rawurlencode($baseURI) . '&' . rawurlencode(implode('&', $r));
 	}
 	
-	function oauth_authorization_header($oauth)
+	public function oauth_authorization_header($oauth)
 	{
 		$r = 'Authorization: OAuth ';
 		

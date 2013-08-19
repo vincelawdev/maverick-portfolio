@@ -33,7 +33,7 @@ header('content-type: application/x-javascript');
 var mp_module_admin = function()
 {
 	//VALIDATORS - ARTICLES, SLIDES, LOGO IMAGE & TESTIMONIAL PHOTOS
-	validators =
+	var validators =
 	{
 		//THIS METHOD LAUNCHES THE VALIDATION METHODS OF THE THEME OPTIONS PAGE
 		options : function()
@@ -493,10 +493,10 @@ var mp_module_admin = function()
 			init : function()
 			{
 				//INITIALISE PRELOADER IMAGE OBJECT
-				preloader_image = new Image();
+				var preloader_image = new Image();
 				
 				//PRELOAD LIST OF IMAGES
-				for(var image_counter = 0; image_counter  < images.preload.preload_images.length; image_counter ++) 
+				for(var image_counter = 0, max_image_counter = images.preload.preload_images.length; image_counter < max_image_counter; image_counter ++)
 				{			
 					preloader_image.src = images.preload.preload_images[image_counter];
 				}

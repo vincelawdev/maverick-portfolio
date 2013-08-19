@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" class="no-js">
+<html class="no-js">
 <head>
 <title><?php the_title(); ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -40,15 +40,15 @@ if(is_front_page())
 <?php
 }
 ?>
-<!--[if gte IE 7]><link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/ie.css" /><![endif]-->
 <?php mp_options::mp_display_rss_feeds_header(); ?>
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 <?php wp_head(); ?>
 <script src="<?php bloginfo('template_directory'); ?>/js/modernizr-custom2.6.2.js"></script>
 <!--[if lt IE 9]>
-<script src="<?php bloginfo('template_directory'); ?>/js/jquery-fix-iframes.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/mp-module-ie.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/css3-mediaqueries.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/selectivizr-min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/ie.css" />
 <![endif]-->
 </head>
 

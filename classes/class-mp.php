@@ -3295,10 +3295,10 @@ class mp_options
 			{
 				#FORMAT INSTAGRAM THUMBNAIL WITH THUMBNAIL IMAGE & IMAGE TITLE IN ALT/TITLE ATTRIBUTE
 				$instagram_thumbnail = str_replace('_7.jpg', '_5.jpg', $item->get_description());
-				$instagram_thumbnail = str_replace('" />', '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '" />', $instagram_thumbnail);
+				//$instagram_thumbnail = str_replace('" />', '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '" />', $instagram_thumbnail);
 				
 				#DISPLAY INSTAGRAM THUMBNAIL
-				echo '<li><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" rel="nofollow" class="instagram_iframe"><span class="magnify"></span>' . $instagram_thumbnail . '</a></li>' . "\n";
+				echo '<li><a href="' . $item->get_permalink() . '" rel="nofollow" class="instagram_iframe"><span class="magnify"></span>' . $instagram_thumbnail . '</a></li>' . "\n";
 			}
 			
 			#CLOSE UNORDERED LIST

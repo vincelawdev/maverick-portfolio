@@ -392,10 +392,10 @@ var mp_module = function()
 			init : function()
 			{
 				//INITIALISE PRELOADER IMAGE OBJECT
-				preloader_image = new Image();
+				var preloader_image = new Image();
 				
 				//PRELOAD LIST OF IMAGES
-				for(var image_counter = 0; image_counter  < images.preload.preload_images.length; image_counter ++) 
+				for(var image_counter = 0, max_image_counter = images.preload.preload_images.length; image_counter < max_image_counter; image_counter ++)
 				{			
 					preloader_image.src = images.preload.preload_images[image_counter];
 				}
@@ -438,13 +438,12 @@ var mp_module = function()
 				},
 				onPageTransitionIn: function()
 				{
-					//INITIALISE PREVIOUS & NEXT BUTTONS
-					previous_button = this.find('a.previous').css('visibility', 'hidden');
-					previous_blank_button = this.find('a.previous_blank').css('visibility', 'hidden');
-					next_button = this.find('a.next').css('visibility', 'hidden');
-					
-					//INITIALISE LAST PAGE
+					//INITIALISE PREVIOUS, NEXT BUTTONS & LAST PAGE
+					var previous_button = this.find('a.previous').css('visibility', 'hidden'),
+					previous_blank_button = this.find('a.previous_blank').css('visibility', 'hidden'),
+					next_button = this.find('a.next').css('visibility', 'hidden'),
 					last_page = this.getNumPages() - 1;
+					
 					
 					//DISPLAY PREVIOUS BUTTON
 					if(this.displayedPage > 0)
@@ -487,7 +486,7 @@ var mp_module = function()
 					images.gallerific.gallerific_number_of_thumbnails();
 					
 					//INITIALISE GALLERIFFIC
-					gallery = $('#project_gallery_thumbnails').galleriffic(images.gallerific.gallerific_options);
+					var gallery = $('#project_gallery_thumbnails').galleriffic(images.gallerific.gallerific_options);
 					
 					//UPDATE GALLERIFFIC OPTIONS ON PAGE RESIZE
 					$(window).resize(function()
@@ -535,7 +534,7 @@ var mp_module = function()
 						}
 						
 						//INITIALISE HASH
-						hash = this.href;
+						var hash = this.href;
 						hash = hash.replace(/^.*#/, '');
 				
 						//MOVE TO NEW PAGE

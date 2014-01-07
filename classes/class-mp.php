@@ -1011,12 +1011,12 @@ class mp_options
 	public function mp_admin_head()
 	{
 		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . '/css/admin.php" type="text/css" />' . "\n";
-		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . '/css/colorbox.php" type="text/css" />' . "\n";
-		echo '<script src="' . get_bloginfo('template_url') . '/js/jquery-colorbox-min.js"></script>' . "\n";
-		echo '<script src="' . get_bloginfo('template_url') . '/js/jquery-metadata.js"></script>' . "\n";
-		echo '<script src="' . get_bloginfo('template_url') . '/js/jquery-validate.js"></script>' . "\n";
-		echo '<script src="' . get_bloginfo('template_url') . '/js/jquery-validate-additional-methods.js"></script>' . "\n";
-		echo '<script src="' . get_bloginfo('template_url') . '/js/mp-module-admin.php"></script>' . "\n";	
+		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . '/css/vendor/colorbox.php" type="text/css" />' . "\n";
+		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/jquery-colorbox-min.js"></script>' . "\n";
+		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/jquery-metadata.js"></script>' . "\n";
+		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/jquery-validate.js"></script>' . "\n";
+		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/jquery-validate-additional-methods.js"></script>' . "\n";
+		echo '<script src="' . get_bloginfo('template_url') . '/js/modules/mp-module-admin.php"></script>' . "\n";
 		
 		#LOAD JAVASCRIPT FOR TINYMCE EDITOR FOR USER BIOGRAPHY IN WORDPRESS 3.3 +
 		if(function_exists('wp_editor'))

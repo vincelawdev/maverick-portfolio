@@ -26,28 +26,28 @@ if(is_front_page())
 }
 ?>
 <link rel="shortcut icon" href="/favicon.ico" />
-<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/normalise.min.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('stylesheet_url'); ?>" />
-<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/superfish.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/colorbox.php" />
+<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/main.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/vendor/superfish.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/vendor/colorbox.php" />
 <?php
 #LOAD ANYTHING SLIDER
 if(is_front_page())
 {
 ?>
-<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/anythingslider.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/animate.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/vendor/anythingslider.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/vendor/animate.css" />
 <?php
 }
 ?>
 <?php mp_options::mp_display_rss_feeds_header(); ?>
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 <?php wp_head(); ?>
-<script src="<?php bloginfo('template_directory'); ?>/js/modernizr-custom2.6.2.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/modernizr-custom2.6.2.js"></script>
 <!--[if lt IE 9]>
-<script src="<?php bloginfo('template_directory'); ?>/js/mp-module-ie.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/css3-mediaqueries.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/selectivizr-min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/modules/mp-module-ie.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/css3-mediaqueries.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/selectivizr-min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/ie.css" />
 <![endif]-->
 </head>

@@ -1964,11 +1964,6 @@ input#captcha_code
 		margin: 5px 0px 0px 0px;
 	}
 	
-	#bread_crumbs p
-	{
-		font-size: 14px;
-	}
-	
 	#content_wrapper
 	{
 		width: 310px;
@@ -2221,11 +2216,6 @@ input#captcha_code
 	{
 		margin: 5px 12px 0px 0px;
 	}
-		
-	#bread_crumbs p
-	{
-		font-size: 16px;
-	}
 	
 	#content_wrapper
 	{
@@ -2472,11 +2462,6 @@ input#captcha_code
 	#search_button
 	{
 		margin: 5px 0px 0px 0px;
-	}
-	
-	#bread_crumbs p
-	{
-		font-size: 16px;
 	}
 	
 	#content_wrapper
@@ -2731,11 +2716,6 @@ input#captcha_code
 	#search_button
 	{
 		margin: 7px 0px 0px 0px;
-	}
-	
-	#bread_crumbs p
-	{
-		font-size: 16px;
 	}
 	
 	#content_wrapper

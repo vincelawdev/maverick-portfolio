@@ -500,8 +500,8 @@ HEADER
   padding: 0;
   display: block;
   font-family: 'CodeProDemoRegular', Georgia;
-  font-style: normal;
   font-weight: normal;
+  font-style: normal;
   color: #ffffff;
   -webkit-font-smoothing: antialiased;
 }
@@ -510,9 +510,9 @@ HEADER
   padding: 0;
   display: block;
   font-family: 'CodeProDemoRegular', Georgia;
+  font-weight: normal;
   font-style: normal;
   font-size: 16px;
-  font-weight: normal;
   color: #ffffff;
   -webkit-font-smoothing: antialiased;
 }
@@ -619,9 +619,9 @@ FOOTER
   padding: 0 0 0.5% 0;
   display: block;
   font-family: 'CodeProDemoRegular', Georgia;
+  font-weight: normal;
   font-style: normal;
   font-size: 20px;
-  font-weight: normal;
   color: #ccc;
   -webkit-font-smoothing: antialiased;
   border-bottom: 2px solid #ccc;
@@ -635,9 +635,9 @@ FOOTER
   margin: 0 0 15px 0;
   padding: 0;
   font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: normal;
   font-style: normal;
   font-size: 15px;
-  font-weight: normal;
   color: #ccc;
 }
 @media only screen and (max-width: 767px) {
@@ -769,9 +769,9 @@ FOOTER
   margin: 0;
   padding: 0;
   font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: normal;
   font-style: normal;
   font-size: 15px;
-  font-weight: normal;
   color: #ccc;
   list-style-type: none;
 }
@@ -916,9 +916,9 @@ FOOTER
   float: left;
   display: inline-block;
   font-family: 'ExpresswayRegular', Georgia;
+  font-weight: normal;
   font-style: normal;
   font-size: 14px;
-  font-weight: normal;
   color: #aaa;
   -webkit-font-smoothing: antialiased;
   list-style-type: none;
@@ -973,9 +973,9 @@ MENU - SUPERFISH 1.7.4 - ESSENTIAL STYLES ONLY
   margin: 0;
   padding: 0;
   font-family: 'ExpresswayRegular', Georgia;
+  font-weight: normal;
   font-style: normal;
   font-size: 20px;
-  font-weight: normal;
   color: #ccc;
   -webkit-font-smoothing: antialiased;
   list-style-type: none;
@@ -1001,9 +1001,9 @@ MENU - SUPERFISH 1.7.4 - ESSENTIAL STYLES ONLY
   display: none;
   background-color: #d8d8d8;
   font-family: 'ExpresswayRegular', Georgia;
+  font-weight: normal;
   font-style: normal;
   font-size: 16px;
-  font-weight: normal;
   -webkit-font-smoothing: antialiased;
 }
 #menu .sf-menu li {
@@ -1165,6 +1165,8 @@ BREAD CRUMBS
   padding: 0;
   font-family: 'ExpresswayRegular', Georgia;
   font-weight: normal;
+  font-style: normal;
+  font-size: 16px;
   color: #333333;
   -webkit-font-smoothing: antialiased;
 }

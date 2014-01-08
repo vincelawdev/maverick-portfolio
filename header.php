@@ -28,7 +28,6 @@ if(is_front_page())
 <link rel="shortcut icon" href="/favicon.ico" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('stylesheet_url'); ?>" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/main.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/vendor/superfish.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/vendor/colorbox.php" />
 <?php
 #LOAD ANYTHING SLIDER
@@ -62,17 +61,17 @@ $mp_social_button_size = get_option('mp_social_button_size');
 ?>
 
 <!-- HEADER - ROW 1 - START -->
-<div id="header_row1_<?php echo $mp_social_button_size; ?>">
+<header id="header-row1" class="<?php echo $mp_social_button_size; ?>">
 
 	<!-- HEADER - ROW 1 - WRAPPER - START -->
-	<div class="header_wrapper">
+	<div class="header-wrapper wrapper">
 	
-		<!-- TITLE & DESCRIPTION - START -->
-		<div id="header_title_description"><?php mp_options::mp_display_logo(); ?></div>
-		<!-- TITLE & DESCRIPTION - END -->
+		<!-- LOGO / TITLE & DESCRIPTION - START -->
+		<div class="header-logo"><?php mp_options::mp_display_logo(); ?></div>
+		<!-- LOGO / TITLE & DESCRIPTION - END -->
 	
 		<!-- SOCIAL - START -->
-		<div id="header_social">
+		<div class="header-social">
 		
 			<?php			
 			#DISPLAY SMALL SOCIAL BUTTONS
@@ -80,14 +79,14 @@ $mp_social_button_size = get_option('mp_social_button_size');
 			{
 			?>
 			<!-- ADDTHIS BUTTON - START -->
-			<div class="social_addthis_right_small">
+			<div class="social-button right addthis-small">
 				<div class="addthis_toolbox addthis_default_style" addthis:title="<?php bloginfo('name'); ?>" addthis:url="<?php bloginfo('url'); ?>"><a class="addthis_counter addthis_pill_style"></a></div>
 				<script src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=<?php mp_options::mp_display_addthis_profile_id(); ?>"></script>
 			</div>
 			<!-- ADDTHIS BUTTON - END -->
 			
 			<!-- GOOGLE + BUTTON - START -->
-			<div class="social_google_right_small">
+			<div class="social-button right google-small">
 				<div class="g-plusone" data-size="medium" data-href="<?php bloginfo('url'); ?>"></div>
 				<script>
 				  (function() {
@@ -100,12 +99,12 @@ $mp_social_button_size = get_option('mp_social_button_size');
 			<!-- GOOGLE + BUTTON - END -->
 			
 			<!-- TWITTER BUTTON - START -->
-			<div class="social_twitter_right_small"><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="<?php bloginfo('url'); ?>">Tweet</a>
+			<div class="social-button right twitter-small"><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="<?php bloginfo('url'); ?>">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></div>
 			<!-- TWITTER BUTTON - END -->
 			
 			<!-- FACEBOOK BUTTON - START -->
-			<div class="social_facebook_right_small"><iframe src="//www.facebook.com/plugins/like.php?href=<?php mp_options::mp_display_facebook_like_url(); ?>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe></div>
+			<div class="social-button right facebook-small"><iframe src="//www.facebook.com/plugins/like.php?href=<?php mp_options::mp_display_facebook_like_url(); ?>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe></div>
 			<!-- FACEBOOK BUTTON - END -->
 			<?php
 			}
@@ -114,14 +113,14 @@ $mp_social_button_size = get_option('mp_social_button_size');
 			{
 			?>			
 			<!-- ADDTHIS BUTTON - START -->
-			<div class="social_addthis_right_large">
+			<div class="social-button right addthis-large">
 				<div class="addthis_toolbox addthis_counter_style" addthis:title="<?php bloginfo('name'); ?>" addthis:url="<?php bloginfo('url'); ?>"><a class="addthis_counter"></a></div>
 				<script src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=<?php mp_options::mp_display_addthis_profile_id(); ?>"></script>
 			</div>
 			<!-- ADDTHIS BUTTON - END -->
 			
 			<!-- GOOGLE + BUTTON - START -->
-			<div class="social_google_right_large">
+			<div class="social-button right google-large">
 				<div class="g-plusone" data-size="tall" data-href="<?php bloginfo('url'); ?>"></div>
 				<script>
 				  (function() {
@@ -134,12 +133,12 @@ $mp_social_button_size = get_option('mp_social_button_size');
 			<!-- GOOGLE + BUTTON - END -->
 			
 			<!-- TWITTER BUTTON - START -->
-			<div class="social_twitter_right_large"><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-count="vertical" data-url="<?php bloginfo('url'); ?>">Tweet</a>
+			<div class="social-button right twitter-large"><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-count="vertical" data-url="<?php bloginfo('url'); ?>">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></div>
 			<!-- TWITTER BUTTON - END -->
 			
 			<!-- FACEBOOK BUTTON - START -->
-			<div class="social_facebook_right_large"><iframe src="//www.facebook.com/plugins/like.php?href=<?php mp_options::mp_display_facebook_like_url(); ?>&amp;send=false&amp;layout=box_count&amp;width=50&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:60px;" allowTransparency="true"></iframe></div>
+			<div class="social-button right facebook-large"><iframe src="//www.facebook.com/plugins/like.php?href=<?php mp_options::mp_display_facebook_like_url(); ?>&amp;send=false&amp;layout=box_count&amp;width=50&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:60px;" allowTransparency="true"></iframe></div>
 			<!-- FACEBOOK BUTTON - END -->
 			<?php
 			}
@@ -151,27 +150,27 @@ $mp_social_button_size = get_option('mp_social_button_size');
 	</div>
 	<!-- HEADER - ROW 1 - WRAPPER - END -->
 
-</div>
+</header>
 <!-- HEADER - ROW 1 - END -->
 
 <!-- HEADER - ROW 2 - START -->
-<div id="header_row2">
+<header id="header-row2">
 
 	<!-- HEADER - ROW 2 - WRAPPER - START -->
-	<div class="header_wrapper">
+	<div class="header-wrapper wrapper">
 	
 		<!-- TOP MENU - START -->
-		<div id="menu"><?php wp_nav_menu(array('theme_location' => 'menu_top', 'container' => 'none', 'menu_class' => 'sf-menu',  'fallback_cb' => '')); ?></div>
+		<nav id="menu"><?php wp_nav_menu(array('theme_location' => 'menu_top', 'container' => 'none', 'menu_class' => 'sf-menu',  'fallback_cb' => '')); ?></nav>
 		<!-- TOP MENU - END -->
 		
 		<!-- SEARCH - START -->
-		<form method="get" id="searchform" action="<?php echo $_SERVER['PHP_SELF']; ?>"><input type="submit" id="search_button" value="" /><input type="text" value="" name="s" id="search_box" placeholder="Search" /></form>
+		<!--<form method="get" id="searchform" action="<?php echo $_SERVER['PHP_SELF']; ?>"><input type="submit" id="search_button" value="" /><input type="text" value="" name="s" id="search_box" placeholder="Search" /></form>-->
 		<!-- SEARCH - END -->
 	
 	</div>
 	<!-- HEADER - ROW 2 - WRAPPER - END -->
 
-</div>
+</header>
 <!-- HEADER - ROW 2 - END -->
 
 <!-- CONTENT WRAPPER - START -->

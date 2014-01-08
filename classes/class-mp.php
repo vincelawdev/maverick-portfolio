@@ -1135,7 +1135,7 @@ class mp_options
 		#DISPLAY TEXT LOGO
 		elseif(empty($mp_logo) || !empty($mp_logo_text))
 		{
-			echo '<p class="logo"><a href="' . get_bloginfo('url') . '">' . get_bloginfo('name') . '</a></p><p class="description">' . get_bloginfo('description') . '</p>';
+			echo '<p class="title"><a href="' . get_bloginfo('url') . '">' . get_bloginfo('name') . '</a></p><p class="description">' . get_bloginfo('description') . '</p>';
 		}
 	}
 	

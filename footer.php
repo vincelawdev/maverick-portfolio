@@ -1,5 +1,5 @@
 <!-- FOOTER - ROW 1 - START -->
-<div id="footer-row1">
+<footer id="footer-row1">
 
 	<!-- FOOTER - ROW 1 - WRAPPER - START -->
 	<div class="footer-wrapper wrapper">
@@ -45,17 +45,17 @@
 	</div>
 	<!-- FOOTER - ROW 1 - WRAPPER - END -->
 
-</div>
+</footer>
 <!-- FOOTER - ROW 1 - END -->
 
 <!-- FOOTER - ROW 2 - START -->
-<div id="footer-row2">
+<footer id="footer-row2">
 
 	<!-- FOOTER - ROW 2 - WRAPPER - START -->
 	<div class="footer-wrapper wrapper"><?php wp_nav_menu(array('theme_location' => 'menu_footer', 'container' => 'none', 'menu_class' => '',  'fallback_cb' => '')); ?></div>
 	<!-- FOOTER - ROW 2 - WRAPPER - END -->
 
-</div>
+</footer>
 <!-- FOOTER - ROW 2 - END -->
 
 <?php wp_footer(); ?>
@@ -98,7 +98,6 @@ if(is_front_page())
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-superfish.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-supersubs.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-colorbox-min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-tinynav-min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/modules/mp-module.php"></script>
 
 </body>

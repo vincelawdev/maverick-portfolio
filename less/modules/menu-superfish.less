@@ -1,0 +1,183 @@
+/**************************************************************************
+MENU - SUPERFISH 1.7.4 - ESSENTIAL STYLES ONLY
+**************************************************************************/
+
+#menu
+{
+	margin: 0;
+	padding: 0;
+		
+	/* SUPERFISH MENU */
+	.sf-menu
+	{
+		margin: 0;
+		padding: 0;
+				
+		.font-ExpresswayRegular();
+		font-size: 20px;
+		font-weight: normal;
+		color: #ccc;
+		-webkit-font-smoothing: antialiased;
+		
+		list-style-type: none;
+		
+		a
+		{
+			position: relative;
+			display: block;
+		}
+		
+		ul
+		{
+			position: absolute;
+			top: 100%;
+			left: 0;
+			z-index: 99;
+			display: none;
+			
+			background-color: #d8d8d8;
+			
+			.font-ExpresswayRegular();
+			font-size: 16px;
+			font-weight: normal;
+			-webkit-font-smoothing: antialiased;
+		}
+		
+		li
+		{
+			position: relative;
+			
+			&:hover > ul,
+			&.sfHover > ul
+			{
+				display: block;
+			}
+		}
+		
+		/* SUPERFISH MENU - LEVEL 1 */
+		> li
+		{
+			margin: 0 4px 0 0;
+			padding: 0;
+			float: left;
+			
+			.transitions(background-color, 200ms, linear, 0ms);
+			
+			/* MENU ITEM LINK */
+			a
+			{
+				margin: 0;
+				padding: 7px 9px 9px 9px;
+				float: left;
+				
+				color: #ccc;
+				text-decoration: none;				
+			}
+			
+			/* HOVER & SELECTED STATES */
+			&:hover,
+			&.current-menu-item,
+			&.current-menu-ancestor,
+			&.current-menu-parent,
+			&.current-page-ancestor,
+			&.current_page_parent
+			{
+				background-color: #d8d8d8;
+			}
+			
+			&:hover a,
+			&.current-menu-item a,
+			&.current-menu-ancestor a,
+			&.current-menu-parent a,
+			&.current-page-ancestor a,
+			&.current_page_parent a
+			{
+				color: #333;
+			}
+			
+			/* HOME */
+			&.home img
+			{
+				width: 22px;
+				height: 19px;
+				margin: 4px 0px -3px 0px;
+				padding: 0px;
+			}
+			
+			/* DOWN ARROW */
+			.arrow-down
+			{
+				width: 11px;
+				height: 9px;
+				margin: 18px 10px 0px -5px;
+				padding: 0;
+				float: left;
+				
+				background-image: url('../images/arrow-menu-down-off.png');
+				background-repeat: no-repeat;
+				background-position: top left;
+				
+				&.on
+				{
+					background-image: url('../images/arrow-menu-down-on.png');
+				}
+			}
+		}
+		
+		/* SUPERFISH MENU - LEVEL 2 */
+		ul
+		{
+			margin: 0;
+			padding: 0;
+			
+			list-style-type: none;
+			
+			li
+			{
+				&:hover
+				{
+					background-color: #1a58ad;
+				}
+				
+				/* RIGHT ARROW */
+				.arrow-right
+				{
+					width: 9px;
+					height: 11px;
+					margin: 5px 0 0 0;
+					padding: 0;
+					float: right;
+					
+					background-image: url('../images/arrow-menu-right-off.png');
+					background-repeat: no-repeat;
+					background-position: top left;
+					
+					&.on
+					{
+						background-image: url('../images/arrow-menu-right-on.png');
+					}
+				}
+				
+				a
+				{
+					margin: 0;
+					padding: 0 9px 2px 9px;
+					color: #333;
+					
+					&:hover,
+					&.on
+					{
+						color: #fff;
+					}
+				}
+			}
+			
+			/* SUPERFISH MENU - LEVEL 3 */
+			ul
+			{
+				top: 0;
+				left: 100%;
+			}			
+		}
+	}
+}

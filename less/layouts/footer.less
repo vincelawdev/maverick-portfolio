@@ -14,13 +14,13 @@ FOOTER
 	
 	@media only screen and (max-width: 767px)
 	{
-		width: 100%;		
+		width: 100%;
 		padding: 0;
 	}
 	
 	@media only screen and (min-width: 768px)
 	{
-		width: 95%;		
+		width: 95%;
 		padding: 0 5% 0 0;
 	}
 }
@@ -32,7 +32,7 @@ FOOTER
 	#footer-row1 #footer-column2,
 	#footer-row1 #footer-column3
 	{
-		width: 100% !important;	
+		width: 100% !important;
 	}	
 }
 
@@ -41,7 +41,7 @@ FOOTER
 	position: relative;
 	width: 100%;
 	margin: 0 auto;
-	padding: 0;
+	padding: 1% 0 0 0;
 	overflow: hidden;
 	
 	background-color: #222;
@@ -50,7 +50,7 @@ FOOTER
 	
 	h5
 	{
-		margin: 3% 0 2% 0;
+		margin: 0 0 2% 0;
 		padding: 0 0 0.5% 0;
 		display: block;
 		
@@ -138,30 +138,98 @@ FOOTER
 		
 		list-style-type: none;
 		
+		@media only screen and (max-width: 767px)
+		{			
+			text-align: center;			
+		}
+		
 		li
 		{
-			margin: 0 20px 6px 0;
+			width: 45%;
+			margin: 0 0 2.5% 0;
 			padding: 0;
-			float: left;
+			overflow: hidden;
 			
-			&:nth-child(even)
+			border: 3px solid #ccc;
+			
+			.transitions(border-color, 300ms, ease-in-out, 0ms);
+			
+			@media only screen and (max-width: 767px)
 			{
-				margin: 0 0 6px 0;
-				padding: 0;
+				margin-right: 2%;
+				display: inline-block;
+			}
+			
+			@media only screen and (min-width: 768px)
+			{
+				display: inline;
+				float: left;
+			}
+			
+			@media only screen and (min-width: 768px) and (max-width: 1023px)
+			{
+				margin-right: 4.7%;
+			}
+			
+			@media only screen and (min-width: 1024px) and (max-width: 1399px)
+			{
+				margin-right: 6%;
+			}
+			
+			@media only screen and (min-width: 1400px)
+			{
+				margin-right: 7.1%;
+			}
+			
+			/* EVERY 2ND DRIBBBLE THUMBNAIL */
+			&:nth-child(2n)
+			{
+				margin-right: 0;
+			}
+			
+			&:hover
+			{
+				border: 3px solid #ebc308;
+				
+				/* MAGNIFYING GLASS OVERLAY */	
+				span.magnify
+				{
+					position: absolute;
+					width: 16px;
+					height: 25px;
+					
+					background-image: url('../images/icon-magnifier.png');
+					background-repeat: no-repeat;
+					background-position: center;					
+					
+					opacity: 0.8;
+					
+					@media only screen and (max-width: 767px)
+					{
+						display: none;
+					}
+					
+					@media only screen and (min-width: 768px) and (max-width: 1023px)
+					{
+						margin: 28px 0 0 41px;
+					}
+					
+					@media only screen and (min-width: 1024px) and (max-width: 1399px)
+					{
+						margin: 42px 0 0 60px;
+					}
+					
+					@media only screen and (min-width: 1400px)
+					{
+						margin: 64px 0 0 86px;
+					}
+				}
 			}
 			
 			img
 			{
-				overflow: hidden;
-				
-				border: 3px solid #ccc;
-				
-				.transitions(border-color, 300ms, ease-in-out, 0ms);
-								
-				&:hover
-				{
-					border: 3px solid #ebc308;
-				}
+				width: 100%;
+				display: block;
 			}
 		}
 	}
@@ -223,29 +291,6 @@ FOOTER
 			}
 		}
 	}
-	
-	/* MAGNIFYING GLASS OVERLAY */
-	span.magnify
-	{
-		position: absolute;
-		z-index: 10;
-		
-		background-image: url('images/icon-magnifier.png');
-		background-repeat: no-repeat;
-		background-position: 4px 4px;
-		
-		border: 3px solid #ccc;		
-		
-		.transitions(all, 300ms, ease-in-out, 0ms);
-		opacity: 0;
-		cursor: pointer;
-		
-		&:hover
-		{
-			border: 3px solid #ebc308;
-			opacity: 0.8;
-		}
-	}
 }
 
 #footer-row1 #footer-column3
@@ -273,11 +318,8 @@ FOOTER
 			height: 20%;
 			margin: 0 0 2.5% 0;
 			padding: 0;
-			display: inline;
 			overflow: hidden;
-			
-			background-color: #1D4CAC;
-			
+						
 			border: 2px solid #ccc;
 			
 			.transitions(border-color, 300ms, ease-in-out, 0ms);
@@ -312,7 +354,7 @@ FOOTER
 			/* EVERY 4TH INSTAGRAM THUMBNAIL */
 			&:nth-child(4n)
 			{
-				margin: 0 0 2.5% 0;
+				margin-right: 0;
 			}
 			
 			&:hover
@@ -323,7 +365,6 @@ FOOTER
 				span.magnify
 				{
 					position: absolute;
-					z-index: 10;
 					width: 16px;
 					height: 25px;
 					
@@ -357,7 +398,6 @@ FOOTER
 			
 			img
 			{
-				z-index: 9;
 				width: 100%;
 				display: block;
 			}

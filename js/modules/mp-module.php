@@ -80,18 +80,17 @@ var mp_module = function()
 		}
 	},
 	
-	//NAVIGATION - SUPERFISH, TINYNAV & ORGANIC TABS
+	//NAVIGATION - SUPERFISH & ORGANIC TABS
 	navigation =
 	{
 		//INITIALISE SUPERFISH LEVEL 1 HOME MENU ITEM
 		home_button_on  : '<img src="<?php bloginfo('template_directory'); ?>/images/menu-home-on.png" alt="" />',
 		home_button_off : '<img src="<?php bloginfo('template_directory'); ?>/images/menu-home-off.png" alt="" />',
 		
-		//THIS METHOD LAUNCHES THE superfish_init(), tinynav_init() & organic_tabs_init() METHODS
+		//THIS METHOD LAUNCHES THE superfish_init() & organic_tabs_init() METHODS
 		init : function()
 		{
 			this.superfish_init();
-			this.tinynav_init();
 			this.organic_tabs_init();
 		},
 		
@@ -99,76 +98,53 @@ var mp_module = function()
 		superfish_init: function()
 		{
 			//DISPLAY SUPERFISH LEVEL 1 HOME MENU ITEM
-			$('ul.sf-menu > li.home a').html(navigation.home_button_off);
-			$('ul.sf-menu > li.home.current-menu-item a').html(navigation.home_button_on);
+			$('.sf-menu > li.home a').html(navigation.home_button_off);
+			$('.sf-menu > li.home.current-menu-item a').html(navigation.home_button_on);
 			
 			//HOVER SUPERFISH LEVEL 1 HOME MENU ITEM
-			$('ul.sf-menu > li.home').not('ul.sf-menu > li.home.current-menu-item').hover(
-			function()
+			$('.sf-menu > li.home').not('.sf-menu > li.home.current-menu-item').hover(function()
 			{
 				//DISPLAY HOVER HOME ICON
-				$('ul.sf-menu > li.home a').html(navigation.home_button_on);
+				$('.sf-menu > li.home a').html(navigation.home_button_on);
 			},
 			function()
 			{
 				//DISPLAY NORMAL HOME ICON
-				$('ul.sf-menu > li.home a').html(navigation.home_button_off);
+				$('.sf-menu > li.home a').html(navigation.home_button_off);
 			});
 			
 			//DISPLAY SUPERFISH LEVEL 1 MENU DOWN ARROWS
-			$('ul.sf-menu > li:has(ul.sub-menu)').append('<span class="arrow_down_off"></span>');
-			$('ul.sf-menu > li.current-menu-item:has(ul.sub-menu)').find('span.arrow_down_off').replaceWith('<span class="arrow_down_on"></span>');
-			$('ul.sf-menu > li.current-page-ancestor, ul.sf-menu > li.current-menu-ancestor, ul.sf-menu > li.current-menu-parent').find('span.arrow_down_off').replaceWith('<span class="arrow_down_on"></span>');
+			$('.sf-menu > li:has(.sub-menu)').append('<span class="arrow-down"></span>');
+			$('.sf-menu > li.current-menu-item:has(.sub-menu)').find('.arrow-down').addClass('on');
+			$('.sf-menu > li.current-page-ancestor, .sf-menu > li.current-menu-ancestor, .sf-menu > li.current-menu-parent').find('.arrow-down').addClass('on');
 			
 			//HOVER SUPERFISH LEVEL 1 MENU DOWN ARROWS
-			$('ul.sf-menu > li:has(ul.sub-menu)').not('ul.sf-menu > li.current-page-ancestor, ul.sf-menu > li.current-menu-ancestor, ul.sf-menu > li.current-menu-parent, ul.sf-menu > li.current-menu-item').hover(
-			function()
+			$('.sf-menu > li:has(.sub-menu)').not('.sf-menu > li.current-page-ancestor, .sf-menu > li.current-menu-ancestor, .sf-menu > li.current-menu-parent, .sf-menu > li.current-menu-item').hover(function()
 			{
 				//DISPLAY HOVER ARROW
-				$(this).find('span.arrow_down_off').replaceWith('<span class="arrow_down_on"></span>');
-			},
-			function()
-			{
-				//DISPLAY NORMAL ARROW
-				$(this).find('span.arrow_down_on').replaceWith('<span class="arrow_down_off"></span>');
+				$(this).find('.arrow-down').toggleClass('on');
 			});
 			
 			//DISPLAY SUPERFISH LEVEL 2 MENU RIGHT ARROWS
-			$('ul.sub-menu > li:has(ul.sub-menu)').find('a:first').append('<span class="arrow_right_off"></span>');
+			$('.sub-menu > li:has(.sub-menu)').find('a:first').append('<span class="arrow-right"></span>');
 			
 			//HOVER SUPERFISH LEVEL 2 MENU RIGHT ARROWS
-			$('ul.sub-menu > li:has(ul.sub-menu)').hover(
-			function()
+			$('.sub-menu > li:has(.sub-menu)').hover(function()
 			{
 				//DISPLAY HOVER ARROW
-				$(this).find('span.arrow_right_off').replaceWith('<span class="arrow_right_on"></span>');
-			},
-			function()
-			{
-				//DISPLAY NORMAL ARROW
-				$(this).find('span.arrow_right_on').replaceWith('<span class="arrow_right_off"></span>');
+				$(this).find('.arrow-right').toggleClass('on');
+                
+                //DISPLAY HOVER LINK COLOUR
+                $(this).find('.sf-with-ul').toggleClass('on');
 			});
 				
 			//INITIALISE SUPERFISH MENUS
-			$('ul.sf-menu').supersubs(
+			$('.sf-menu').supersubs(
 			{ 
 				minWidth: 15,
 				maxWidth: 100,
 				extraWidth: 1
 			}).superfish();	
-		},
-		
-		//THIS METHOD INITIALISES THE TINYNAV MENU
-		tinynav_init : function()
-		{
-			//INTIALISE TINYNAV MENU
-			$('ul.sf-menu').tinyNav(
-			{
-				header: 'Menu'
-			});
-			
-			//INITILIASE HOME OPTION TEXT
-			$('select.tinynav option[value="/"]').text('Home');
 		},
 		
 		//THIS METHOD INITIALISES THE ORGANIC TABS
@@ -177,13 +153,13 @@ var mp_module = function()
 			//POST TABS EXISTS
 			if($('#sidebar').find('#post_tabs').length > 0)
 			{			
-				$('#post_tabs').organicTabs({'speed': 200});
+				$('#post_tabs').organicTabs({ 'speed' : 200 });
 			}
 			
 			//COMMENT TABS EXISTS
 			if($('#sidebar').find('#comment_tabs').length > 0)
 			{			
-				$('#comment_tabs').organicTabs({'speed': 200});
+				$('#comment_tabs').organicTabs({ 'speed' : 200 });
 			}
 		}
 	},

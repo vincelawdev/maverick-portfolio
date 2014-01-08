@@ -15,11 +15,15 @@ MENU - SUPERFISH 1.7.4 - ESSENTIAL STYLES ONLY
 				
 		.font-ExpresswayRegular();
 		font-size: 20px;
-		font-weight: normal;
 		color: #ccc;
 		-webkit-font-smoothing: antialiased;
 		
 		list-style-type: none;
+		
+		@media only screen and (max-width: 767px)
+		{
+			display: none;
+		}
 		
 		a
 		{
@@ -39,7 +43,6 @@ MENU - SUPERFISH 1.7.4 - ESSENTIAL STYLES ONLY
 			
 			.font-ExpresswayRegular();
 			font-size: 16px;
-			font-weight: normal;
 			-webkit-font-smoothing: antialiased;
 		}
 		

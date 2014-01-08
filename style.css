@@ -13,7 +13,6 @@ TABLE OF CONTENTS
 
 4. SEARCH
 6. PAGES, BLOG POSTS & CUSTOM POST TYPES
-7. BREAD CRUMBS
 8. COMMENTS, TRACKBACKS & PINGBACKS
 9. HOME PAGE
 10. PORTFOLIO
@@ -388,46 +387,6 @@ TABLE OF CONTENTS
 {
 	float: left;
 	padding: 0px;
-}
-
-/**************************************************************************
-7. BREAD CRUMBS
-**************************************************************************/
-
-#bread_crumbs
-{
-	margin: -5px 0px 3px 0px;
-	padding: 0px;
-	display: block; 
-	overflow: hidden;
-}
-
-#bread_crumbs p
-{
-	margin: 0px;
-	padding: 0px;
-	font-family: 'ExpresswayRegular', Georgia;
-	font-weight: normal;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-}
-
-#bread_crumbs a:link
-{
-	color: #1a58ad;
-	text-decoration: underline;
-}
-
-#bread_crumbs a:visited
-{
-	color: #320682;
-	text-decoration: underline;
-}
-
-#bread_crumbs a:active, #bread_crumbs a:hover
-{
-	color: #ebc308;
-	text-decoration: underline;
 }
 
 /**************************************************************************

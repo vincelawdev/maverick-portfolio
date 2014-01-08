@@ -5,7 +5,7 @@
 	<div class="footer-wrapper wrapper">
 	
 		<!-- ABOUT - START -->
-		<div id="footer-column1" class="col4">
+		<div id="footer-column1" class="footer-column col4">
 		
         	<div class="footer-column-wrapper">
             
@@ -18,7 +18,7 @@
 		<!-- ABOUT - END -->
 		
 		<!-- TWITTER/DRIBBBLE - START -->
-		<div id="footer-column2" class="col4">
+		<div id="footer-column2" class="footer-column col4">
 		
         	<div class="footer-column-wrapper">
         
@@ -30,7 +30,7 @@
 		<!-- TWITTER/DRIBBBLE - END -->
 		
 		<!-- INSTAGRAM - START -->
-		<div id="footer-column3" class="col4">
+		<div id="footer-column3" class="footer-column col4">
 		
         	<div class="footer-column-wrapper">
             

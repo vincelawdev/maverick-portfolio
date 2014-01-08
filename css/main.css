@@ -577,6 +577,11 @@ FOOTER
   margin: 0 auto;
   padding: 0;
 }
+.footer-column {
+  margin: 0;
+  padding: 0;
+  float: left;
+}
 .footer-column-wrapper {
   margin: 0;
 }
@@ -641,11 +646,6 @@ FOOTER
     padding-right: 2%;
   }
 }
-#footer-row1 #footer-column1 {
-  margin: 0;
-  padding: 0;
-  float: left;
-}
 #footer-row1 #footer-column1 img {
   border: 3px solid #aaa;
   -webkit-transition: border-color 300ms ease-in-out 0ms;
@@ -670,9 +670,6 @@ FOOTER
   text-decoration: none;
 }
 #footer-row1 #footer-column2 {
-  margin: 0;
-  padding: 0;
-  float: left;
   /* DRIBBBLE THUMBNAIL LIST */
 
   /* TWITTER TWEETS LIST */
@@ -810,9 +807,6 @@ FOOTER
   text-decoration: underline;
 }
 #footer-row1 #footer-column3 {
-  margin: 0;
-  padding: 0;
-  float: left;
   /* INSTAGRAM THUMBNAIL LIST */
 
 }
@@ -990,6 +984,11 @@ MENU - SUPERFISH 1.7.4 - ESSENTIAL STYLES ONLY
   /* SUPERFISH MENU - LEVEL 2 */
 
 }
+@media only screen and (max-width: 767px) {
+  #menu .sf-menu {
+    display: none;
+  }
+}
 #menu .sf-menu a {
   position: relative;
   display: block;
@@ -1151,4 +1150,34 @@ SOCIAL MEDIA BUTTONS
 }
 .social-button.right {
   float: right;
+}
+/**************************************************************************
+BREAD CRUMBS
+**************************************************************************/
+#bread_crumbs {
+  margin: -5px 0 3px 0;
+  padding: 0;
+  display: block;
+  overflow: hidden;
+}
+#bread_crumbs p {
+  margin: 0;
+  padding: 0;
+  font-family: 'ExpresswayRegular', Georgia;
+  font-weight: normal;
+  color: #333333;
+  -webkit-font-smoothing: antialiased;
+}
+#bread_crumbs a {
+  text-decoration: underline;
+}
+#bread_crumbs a:link {
+  color: #1a58ad;
+}
+#bread_crumbs a:visited {
+  color: #320682;
+}
+#bread_crumbs a:active,
+#bread_crumbs a:hover {
+  color: #ebc308;
 }

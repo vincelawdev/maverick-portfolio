@@ -57,13 +57,10 @@ template {
 html {
   font-family: sans-serif;
   /* 1 */
-
   -ms-text-size-adjust: 100%;
   /* 2 */
-
   -webkit-text-size-adjust: 100%;
   /* 2 */
-
 }
 /**
  * Remove default margin.
@@ -224,10 +221,8 @@ fieldset {
 legend {
   border: 0;
   /* 1 */
-
   padding: 0;
   /* 2 */
-
 }
 /**
  * 1. Correct font family not being inherited in all browsers.
@@ -240,13 +235,10 @@ select,
 textarea {
   font-family: inherit;
   /* 1 */
-
   font-size: 100%;
   /* 2 */
-
   margin: 0;
   /* 3 */
-
 }
 /**
  * Address Firefox 4+ setting `line-height` on `input` using `!important` in
@@ -279,10 +271,8 @@ input[type="reset"],
 input[type="submit"] {
   -webkit-appearance: button;
   /* 2 */
-
   cursor: pointer;
   /* 3 */
-
 }
 /**
  * Re-set default cursor for disabled elements.
@@ -299,10 +289,8 @@ input[type="checkbox"],
 input[type="radio"] {
   box-sizing: border-box;
   /* 1 */
-
   padding: 0;
   /* 2 */
-
 }
 /**
  * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
@@ -312,11 +300,9 @@ input[type="radio"] {
 input[type="search"] {
   -webkit-appearance: textfield;
   /* 1 */
-
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
   /* 2 */
-
   box-sizing: content-box;
 }
 /**
@@ -342,10 +328,8 @@ input::-moz-focus-inner {
 textarea {
   overflow: auto;
   /* 1 */
-
   vertical-align: top;
   /* 2 */
-
 }
 /* ==========================================================================
    Tables
@@ -436,13 +420,9 @@ WRAPPER
 **************************************************************************/
 .wrapper {
   /* MOBILE - 767 & SMALLER */
-
   /* TABLET - PORTRAIT - 768 TO 1023 */
-
   /* TABLET - LANDSCAPE & DESKTOPS - 1024 TO 1399  */
-
   /* DESKTOPS - 1400 & GREATER */
-
 }
 @media only screen and (max-width: 767px) {
   .wrapper {
@@ -671,9 +651,7 @@ FOOTER
 }
 #footer-row1 #footer-column2 {
   /* DRIBBBLE THUMBNAIL LIST */
-
   /* TWITTER TWEETS LIST */
-
 }
 #footer-row1 #footer-column2 ul.dribbble {
   margin: 0;
@@ -696,7 +674,6 @@ FOOTER
   -o-transition: border-color 300ms ease-in-out 0ms;
   -transition: border-color 300ms ease-in-out 0ms;
   /* EVERY 2ND DRIBBBLE THUMBNAIL */
-
 }
 @media only screen and (max-width: 767px) {
   #footer-row1 #footer-column2 ul.dribbble li {
@@ -808,7 +785,6 @@ FOOTER
 }
 #footer-row1 #footer-column3 {
   /* INSTAGRAM THUMBNAIL LIST */
-
 }
 #footer-row1 #footer-column3 ul {
   margin: 0;
@@ -832,7 +808,6 @@ FOOTER
   -o-transition: border-color 300ms ease-in-out 0ms;
   -transition: border-color 300ms ease-in-out 0ms;
   /* EVERY 4TH INSTAGRAM THUMBNAIL */
-
 }
 @media only screen and (max-width: 767px) {
   #footer-row1 #footer-column3 ul li {
@@ -960,6 +935,140 @@ FOOTER
   color: #fff;
   text-decoration: underline;
 }
+/***********************************************************************************
+MENU - MEANMENU 2.0.6 by Chris Wharton (http://www.meanthemes.com/plugins/meanmenu/)
+***********************************************************************************/
+.mean-container {
+  /* MEANMENU BAR */
+  /* MEANMENU REVEAL BUTTON */
+  /* MEANMENU NAVIGATION */
+}
+.mean-container .mean-bar {
+  position: relative;
+  z-index: 999999;
+  width: 100%;
+  float: left;
+}
+.mean-container a.meanmenu-reveal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 22px;
+  height: 22px;
+  padding: 10px 13px;
+  display: block;
+  font-family: Arial;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ccc;
+  text-decoration: none;
+  text-indent: -9999em;
+  line-height: 22px;
+  cursor: pointer;
+  /* HAMBURGER ICON LINES */
+}
+.mean-container a.meanmenu-reveal span {
+  height: 3px;
+  margin-top: 3px;
+  display: block;
+  background-color: #ccc;
+}
+.mean-container .mean-nav {
+  width: 100%;
+  margin-top: 41px;
+  float: left;
+  background-color: #222;
+}
+.mean-container .mean-nav .wrapper {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.mean-container .mean-nav ul {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.mean-container .mean-nav ul li {
+  position: relative;
+  width: 100%;
+  float: left;
+}
+.mean-container .mean-nav ul li.mean-last a {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+.mean-container .mean-nav ul li a {
+  width: 90%;
+  margin: 0;
+  padding: 1em 5%;
+  display: block;
+  border-top: 1px solid #ccc;
+  font-family: 'ExpresswayRegular', Georgia;
+  font-weight: normal;
+  font-style: normal;
+  color: #ccc;
+  text-align: left;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.mean-container .mean-nav ul li a:hover {
+  background-color: #d8d8d8;
+  color: #333;
+}
+.mean-container .mean-nav ul li a.mean-expand {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  padding: 16px !important;
+  border: none;
+  font-family: Georgia;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ccc;
+  text-align: center;
+}
+.mean-container .mean-nav ul li a.mean-expand:hover {
+  background-color: transparent;
+}
+.mean-container .mean-nav ul li li a {
+  width: 80%;
+  padding: 1em 10%;
+  overflow: hidden;
+  border-top: 1px solid #f1f1f1;
+  text-shadow: none !important;
+  visibility: visible;
+}
+.mean-container .mean-nav ul li li li a {
+  width: 70%;
+  padding: 1em 15%;
+}
+.mean-container .mean-nav ul li li li li a {
+  width: 60%;
+  padding: 1em 20%;
+}
+.mean-container .mean-nav ul li li li li li a {
+  width: 50%;
+  padding: 1em 25%;
+}
+.mean-container .mean-push {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  float: left;
+  clear: both;
+}
+/* hide the link until viewport size is reached */
+a.meanmenu-reveal {
+  display: none;
+}
+.mean-remove {
+  display: none !important;
+}
 /**************************************************************************
 MENU - SUPERFISH 1.7.4 - ESSENTIAL STYLES ONLY
 **************************************************************************/
@@ -967,7 +1076,6 @@ MENU - SUPERFISH 1.7.4 - ESSENTIAL STYLES ONLY
   margin: 0;
   padding: 0;
   /* SUPERFISH MENU */
-
 }
 #menu .sf-menu {
   margin: 0;
@@ -980,9 +1088,7 @@ MENU - SUPERFISH 1.7.4 - ESSENTIAL STYLES ONLY
   -webkit-font-smoothing: antialiased;
   list-style-type: none;
   /* SUPERFISH MENU - LEVEL 1 */
-
   /* SUPERFISH MENU - LEVEL 2 */
-
 }
 @media only screen and (max-width: 767px) {
   #menu .sf-menu {
@@ -1022,13 +1128,9 @@ MENU - SUPERFISH 1.7.4 - ESSENTIAL STYLES ONLY
   -o-transition: background-color 200ms linear 0ms;
   -transition: background-color 200ms linear 0ms;
   /* MENU ITEM LINK */
-
   /* HOVER & SELECTED STATES */
-
   /* HOME */
-
   /* DOWN ARROW */
-
 }
 #menu .sf-menu > li a {
   margin: 0;
@@ -1077,11 +1179,9 @@ MENU - SUPERFISH 1.7.4 - ESSENTIAL STYLES ONLY
   padding: 0;
   list-style-type: none;
   /* SUPERFISH MENU - LEVEL 3 */
-
 }
 #menu .sf-menu ul li {
   /* RIGHT ARROW */
-
 }
 #menu .sf-menu ul li:hover {
   background-color: #1a58ad;

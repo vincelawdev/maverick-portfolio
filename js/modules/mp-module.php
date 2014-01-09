@@ -80,72 +80,65 @@ var mp_module = function()
 		}
 	},
 	
-	//NAVIGATION - SUPERFISH & ORGANIC TABS
+	//NAVIGATION - SUPERFISH, MEANMENU & ORGANIC TABS
 	navigation =
 	{
-		//INITIALISE SUPERFISH LEVEL 1 HOME MENU ITEM
-		home_button_on  : '<img src="<?php bloginfo('template_directory'); ?>/images/menu-home-on.png" alt="" />',
-		home_button_off : '<img src="<?php bloginfo('template_directory'); ?>/images/menu-home-off.png" alt="" />',
-		
-		//THIS METHOD LAUNCHES THE superfish_init() & organic_tabs_init() METHODS
+		//THIS METHOD LAUNCHES THE superfish_init(), meanmenu_init() & organic_tabs_init() METHODS
 		init : function()
 		{
 			this.superfish_init();
+            this.meanmenu_init();
 			this.organic_tabs_init();
 		},
 		
 		//THIS METHOD INITIALISES THE SUPERFISH MENU
 		superfish_init: function()
-		{
-			//DISPLAY SUPERFISH LEVEL 1 HOME MENU ITEM
-			$('.sf-menu > li.home a').html(navigation.home_button_off);
-			$('.sf-menu > li.home.current-menu-item a').html(navigation.home_button_on);
-			
-			//HOVER SUPERFISH LEVEL 1 HOME MENU ITEM
-			$('.sf-menu > li.home').not('.sf-menu > li.home.current-menu-item').hover(function()
-			{
-				//DISPLAY HOVER HOME ICON
-				$('.sf-menu > li.home a').html(navigation.home_button_on);
-			},
-			function()
-			{
-				//DISPLAY NORMAL HOME ICON
-				$('.sf-menu > li.home a').html(navigation.home_button_off);
-			});
-			
-			//DISPLAY SUPERFISH LEVEL 1 MENU DOWN ARROWS
-			$('.sf-menu > li:has(.sub-menu)').append('<span class="arrow-down"></span>');
-			$('.sf-menu > li.current-menu-item:has(.sub-menu)').find('.arrow-down').addClass('on');
-			$('.sf-menu > li.current-page-ancestor, .sf-menu > li.current-menu-ancestor, .sf-menu > li.current-menu-parent').find('.arrow-down').addClass('on');
-			
-			//HOVER SUPERFISH LEVEL 1 MENU DOWN ARROWS
-			$('.sf-menu > li:has(.sub-menu)').not('.sf-menu > li.current-page-ancestor, .sf-menu > li.current-menu-ancestor, .sf-menu > li.current-menu-parent, .sf-menu > li.current-menu-item').hover(function()
-			{
-				//DISPLAY HOVER ARROW
-				$(this).find('.arrow-down').toggleClass('on');
-			});
-			
-			//DISPLAY SUPERFISH LEVEL 2 MENU RIGHT ARROWS
-			$('.sub-menu > li:has(.sub-menu)').find('a:first').append('<span class="arrow-right"></span>');
-			
-			//HOVER SUPERFISH LEVEL 2 MENU RIGHT ARROWS
-			$('.sub-menu > li:has(.sub-menu)').hover(function()
-			{
-				//DISPLAY HOVER ARROW
-				$(this).find('.arrow-right').toggleClass('on');
+		{        	
+            //DISPLAY SUPERFISH LEVEL 1 MENU DOWN ARROWS - THIS BREAKS MEANMENU
+            //$('.sf-menu > li:has(.sub-menu)').append('<span class="arrow-down"></span>');
+            $('.sf-menu > li.current-menu-item:has(.sub-menu)').find('.arrow-down').addClass('on');
+            $('.sf-menu > li.current-page-ancestor, .sf-menu > li.current-menu-ancestor, .sf-menu > li.current-menu-parent').find('.arrow-down').addClass('on');
+            
+            //HOVER SUPERFISH LEVEL 1 MENU DOWN ARROWS
+            $('.sf-menu > li:has(.sub-menu)').not('.sf-menu > li.current-page-ancestor, .sf-menu > li.current-menu-ancestor, .sf-menu > li.current-menu-parent, .sf-menu > li.current-menu-item').hover(function()
+            {
+                //DISPLAY HOVER ARROW
+                $(this).find('.arrow-down').toggleClass('on');
+            });
+            
+            //DISPLAY SUPERFISH LEVEL 2 MENU RIGHT ARROWS
+            $('.sub-menu > li:has(.sub-menu)').find('a:first').append('<span class="arrow-right"></span>');
+            
+            //HOVER SUPERFISH LEVEL 2 MENU RIGHT ARROWS
+            $('.sub-menu > li:has(.sub-menu)').hover(function()
+            {
+                //DISPLAY HOVER ARROW
+                $(this).find('.arrow-right').toggleClass('on');
                 
                 //DISPLAY HOVER LINK COLOUR
                 $(this).find('.sf-with-ul').toggleClass('on');
-			});
-				
-			//INITIALISE SUPERFISH MENUS
-			$('.sf-menu').supersubs(
-			{ 
-				minWidth: 15,
-				maxWidth: 100,
-				extraWidth: 1
-			}).superfish();	
+            });
+                
+            //INITIALISE SUPERFISH MENUS
+            $('.sf-menu').supersubs(
+            { 
+                minWidth: 15,
+                maxWidth: 100,
+                extraWidth: 1
+            }).superfish();
 		},
+        
+        //THIS METHOD INITIALISES THE MEANMENU
+        meanmenu_init : function()
+        {
+        	//INITIALISE MEAN MENU
+        	$('#header-row2 #menu').meanmenu(
+            {
+            	meanScreenWidth: '767',
+                meanMenuContainer: '#header-row2 .header-wrapper',
+                meanRevealPosition: 'left'
+            });
+        },
 		
 		//THIS METHOD INITIALISES THE ORGANIC TABS
 		organic_tabs_init : function()

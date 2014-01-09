@@ -1,0 +1,185 @@
+/***********************************************************************************
+MENU - MEANMENU 2.0.6 by Chris Wharton (http://www.meanthemes.com/plugins/meanmenu/)
+***********************************************************************************/
+
+.mean-container 
+{
+	/* MEANMENU BAR */
+	.mean-bar
+	{
+		position: relative;
+		z-index: 999999;
+		width: 100%;
+		float: left;	
+	}
+	
+	/* MEANMENU REVEAL BUTTON */
+	a.meanmenu-reveal
+	{
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 22px;
+		height: 22px;
+		padding: 10px 13px;
+		display: block;
+		
+		font-family: Arial;
+		font-size: 16px;
+		font-weight: bold;
+		color: #ccc;
+		text-decoration: none;
+		text-indent: -9999em;
+		line-height: 22px;
+		
+		cursor: pointer;
+		
+		/* HAMBURGER ICON LINES */
+		span
+		{
+			height: 3px;
+			margin-top: 3px;
+			display: block;
+			
+			background-color: #ccc;
+		}
+	}
+
+	/* MEANMENU NAVIGATION */
+	.mean-nav
+	{
+		width: 100%;
+		margin-top: 41px;
+		float: left;
+		
+		background-color: #222;
+		
+		.wrapper
+		{
+			width: 100%;
+			margin: 0;
+			padding: 0;	
+		}
+
+		ul
+		{
+			width: 100%;
+			margin: 0;
+			padding: 0;			
+			
+			list-style-type: none;
+			
+			li
+			{
+				position: relative;
+				width: 100%;
+				float: left;
+				
+				&.mean-last a
+				{
+					margin-bottom: 0;
+					
+					border-bottom: none;					
+				}
+				
+				a
+				{
+					width: 90%;
+					margin: 0;
+					padding: 1em 5%;
+					display: block;
+					
+					border-top: 1px solid #ccc;
+					
+					.font-ExpresswayRegular();
+					color: #ccc;
+					text-align: left;
+					text-decoration: none;
+					text-transform: uppercase;
+					
+					&:hover
+					{
+						background-color: #d8d8d8;
+						
+						color: #333;
+					}
+					
+					&.mean-expand
+					{
+						position: absolute;
+						top: 0;
+						right: 0;						
+						z-index: 2;
+						width: 20px;
+						height: 20px;						
+						padding: 16px !important;
+						
+						border: none;
+						
+						font-family: Georgia;						
+						font-size: 16px;	
+						font-weight: bold;
+						color: #ccc;
+						text-align: center;
+						
+						&:hover
+						{
+							background-color: transparent;
+						}				
+					}
+				}
+				
+				li a
+				{
+					width: 80%;
+					padding: 1em 10%;
+					overflow: hidden;
+					
+					border-top: 1px solid #f1f1f1;
+					
+					text-shadow: none !important;
+								
+					visibility: visible;
+				}
+				
+				li li a
+				{
+					width: 70%;
+					padding: 1em 15%;
+				}
+				
+				li li li a
+				{
+					width: 60%;
+					padding: 1em 20%;
+				}
+				
+				li li li li a
+				{
+					width: 50%;
+					padding: 1em 25%;
+				}
+			}
+		}	
+	}
+	
+	.mean-push
+	{
+		width: 100%;	
+		margin: 0;
+		padding: 0;
+		float: left;		
+		clear: both;
+	}
+}
+
+/* hide the link until viewport size is reached */
+a.meanmenu-reveal
+{
+	display: none;
+}
+
+.mean-remove
+{
+	display: none !important;
+}

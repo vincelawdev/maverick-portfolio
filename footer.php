@@ -89,14 +89,14 @@ if(is_front_page())
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-anythingslider-min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-anythingslider-fx-min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-anythingslider-video-min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-easing1.2.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-jcarousel-lite-min.js"></script>
 <?php
 }
 ?>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-hover-intent.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-superfish.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-supersubs.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-hover-intent.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-superfish.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-supersubs.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-meanmenu.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-colorbox-min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/modules/mp-module.php"></script>
 

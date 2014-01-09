@@ -1014,8 +1014,8 @@ class mp_options
 		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . '/css/vendor/colorbox.php" type="text/css" />' . "\n";
 		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/jquery-colorbox-min.js"></script>' . "\n";
 		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/jquery-metadata.js"></script>' . "\n";
-		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/jquery-validate.js"></script>' . "\n";
-		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/jquery-validate-additional-methods.js"></script>' . "\n";
+		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/min/jquery-validate.min.js"></script>' . "\n";
+		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/min/jquery-validate-additional-methods.min.js"></script>' . "\n";
 		echo '<script src="' . get_bloginfo('template_url') . '/js/modules/mp-module-admin.php"></script>' . "\n";
 		
 		#LOAD JAVASCRIPT FOR TINYMCE EDITOR FOR USER BIOGRAPHY IN WORDPRESS 3.3 +
@@ -1474,11 +1474,11 @@ class mp_options
 	#THIS FUNCTION DISPLAYS THE ARTICLE DIRECTORIES IN THE SIDEBAR
 	public function mp_display_article_directories($current_directory)
 	{
-		#CUSTOM TAXONOMY SORT PLUGIN ACTIVATED
-		if(class_exists('CustomTaxonomySort'))
+		#CUSTOM TAXONOMY ORDER NE PLUGIN ACTIVATED
+		if(function_exists('customtaxorder'))
 		{
 			#INITIALISE DIRECTORIES WITH CUSTOM SORT ORDER
-			$directories = get_terms('article-directories', 'orderby=custom_sort&order=ASC&hide_empty=1');
+			$directories = get_terms('article-directories', 'orderby=term_order&order=ASC&hide_empty=1');
 		}
 		#CUSTOM TAXONOMY SORT PLUGIN DEACTIVATED
 		else
@@ -2648,11 +2648,11 @@ class mp_options
 	#THIS FUNCTION DISPLAYS THE PROJECT CATEGORIES IN THE SIDEBAR
 	public function mp_display_portfolio_categories($current_category)
 	{
-		#CUSTOM TAXONOMY SORT PLUGIN ACTIVATED
-		if(class_exists('CustomTaxonomySort'))
+		#CUSTOM TAXONOMY ORDER NE PLUGIN ACTIVATED
+		if(function_exists('customtaxorder'))
 		{
 			#INITIALISE CATEGORIES WITH CUSTOM SORT ORDER
-			$categories = get_terms('portfolio-categories', 'orderby=custom_sort&order=ASC&hide_empty=1');
+			$categories = get_terms('portfolio-categories', 'orderby=term_order&order=ASC&hide_empty=1');
 		}
 		#CUSTOM TAXONOMY SORT PLUGIN DEACTIVATED
 		else

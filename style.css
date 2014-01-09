@@ -211,7 +211,7 @@ TABLE OF CONTENTS
 {
 	margin: 0px 0px 6px 0px;
 	padding: 0px;
-	border-bottom: 1px solid #efefef;
+	border-bottom: 1px solid #c4c4c4;
 	overflow: hidden;
 	clear: both;
 }
@@ -460,7 +460,7 @@ TABLE OF CONTENTS
 	height: 40px;
 	margin: 0px;
 	padding: 3px;
-	border: 1px solid #efefef;
+	border: 1px solid #c4c4c4;
 	-o-transition-duration: 0.5s;
 	-moz-transition-duration: 0.5s;
 	-webkit-transition: -webkit-transform 0.5s;
@@ -1618,7 +1618,7 @@ form
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F3F3F3), color-stop(1, #FDFDFD));
 	background-image: -webkit-linear-gradient(top, #F3F3F3 0%, #FDFDFD 100%);
 	background-image: linear-gradient(top, #F3F3F3 0%, #FDFDFD 100%);
-	border: 1px solid #efefef;
+	border: 1px solid #c4c4c4;
 	overflow: hidden;
 }
 
@@ -1635,7 +1635,7 @@ form
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FDFDFD), color-stop(1, #F3F3F3));
 	background-image: -webkit-linear-gradient(top, #FDFDFD 0%, #F3F3F3 100%);
 	background-image: linear-gradient(top, #FDFDFD 0%, #F3F3F3 100%);
-	border: 1px solid #efefef;
+	border: 1px solid #c4c4c4;
 	overflow: hidden;
 }
 

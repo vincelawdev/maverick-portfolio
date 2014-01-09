@@ -164,7 +164,17 @@ $mp_social_button_size = get_option('mp_social_button_size');
 		<!-- TOP MENU - END -->
 		
 		<!-- SEARCH - START -->
-		<!--<form method="get" id="searchform" action="<?php echo $_SERVER['PHP_SELF']; ?>"><input type="submit" id="search_button" value="" /><input type="text" value="" name="s" id="search_box" placeholder="Search" /></form>-->
+        <a href="#search" class="search-menu-button"></a>
+        
+        <div class="search-box">
+        
+            <form method="get" id="searchform" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            
+            	<input type="submit" class="search-box-button" value="" /><input type="text" value="" name="s" class="search-box-field" placeholder="Search" />
+            
+            </form>
+        
+        </div>
 		<!-- SEARCH - END -->
 	
 	</div>

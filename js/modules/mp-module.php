@@ -79,6 +79,46 @@ var mp_module = function()
 			//console.log('Max: ' + page.max_height);
 		}
 	},
+    
+    //SEARCH BOX
+    search =
+    {
+    	//THIS METHOD INITIALISES THE SEARCH BOX
+    	init : function()
+        {        
+        	//SEARCH BUTTON CLICKED
+        	$('.search-menu-button').click(function(event)
+            {
+            	event.preventDefault();
+                
+                //INITIALISE SEARCH BUTTON & BOX VARIABLES
+                var $search_button = $(this),
+                $search_box = $('.search-box');
+                
+                //SEARCH BUTTON IS INACTIVE
+                if(!$search_button.hasClass('active'))
+                {
+                	//ADD ACTIVE CLASS
+                	$search_button.addClass('active');
+                    
+                    //SLIDE DOWN SEARCH BOX
+                    $search_box.slideDown('fast');
+                    
+                    //FOCUS ON SEARCH BOX FIELD
+                    $('.search-box-field').focus();
+                }
+                //SEARCH BUTTON IS ACTIVE
+                else
+                {
+                	//REMOVE ACTIVE CLASS
+                	$search_button.removeClass('active');
+                    
+                    //SLIDE UP SEARCH BOX
+                    $search_box.slideUp('fast');
+                }
+            });
+        }
+    },
 	
 	//NAVIGATION - SUPERFISH, MEANMENU & ORGANIC TABS
 	navigation =
@@ -93,9 +133,17 @@ var mp_module = function()
 		
 		//THIS METHOD INITIALISES THE SUPERFISH MENU
 		superfish_init: function()
-		{        	
-            //DISPLAY SUPERFISH LEVEL 1 MENU DOWN ARROWS - THIS BREAKS MEANMENU
-            //$('.sf-menu > li:has(.sub-menu)').append('<span class="arrow-down"></span>');
+		{
+        	//APPEND SUPERFISH LEVEL 1 MENU DOWN ARROWS BY DEFAULT
+        	navigation.superfish_arrows();
+            
+            //APPEND OR REMOVE SUPERFISH LEVEL 1 MENU DOWN ARROWS ON PAGE RESIZE
+			$(window).resize(function()
+			{
+				navigation.superfish_arrows();
+			});
+        
+            //HIGHLIGHT SUPERFISH LEVEL 1 MENU DOWN ARROWS
             $('.sf-menu > li.current-menu-item:has(.sub-menu)').find('.arrow-down').addClass('on');
             $('.sf-menu > li.current-page-ancestor, .sf-menu > li.current-menu-ancestor, .sf-menu > li.current-menu-parent').find('.arrow-down').addClass('on');
             
@@ -127,6 +175,29 @@ var mp_module = function()
                 extraWidth: 1
             }).superfish();
 		},
+        
+        //THIS METHOD APPENDS & REMOVES THE SUPERFISH DOWN ARROWS
+        superfish_arrows : function()
+        {
+        	//APPEND SUPERFISH LEVEL 1 MENU DOWN ARROWS - THIS BREAKS MEANMENU
+        	if(page.window_width > 767)
+            {
+            	//SUPERFISH LEVEL 1 MENU DOWN ARROWS DO NOT EXIST
+            	if($('.arrow-down').length == 0)
+                {
+                	$('.sf-menu > li:has(.sub-menu)').append('<span class="arrow-down"></span>');
+                }
+            }
+            //REMOVE SUPERFISH LEVEL 1 MENU DOWN ARROWS
+            else
+            {
+            	//SUPERFISH LEVEL 1 MENU DOWN ARROWS EXIST
+            	if($('.arrow-down').length)
+                {
+                	$('.arrow-down').remove();
+                }
+            }
+        },
         
         //THIS METHOD INITIALISES THE MEANMENU
         meanmenu_init : function()
@@ -578,6 +649,7 @@ var mp_module = function()
 		//LAUNCH ALL THE FOLLOWING METHODS AT PAGE LOAD
 		run_at_load : function()
 		{
+        	search.init();
 			navigation.init();
 			sliders.init();
 			images.init();

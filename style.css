@@ -11,7 +11,6 @@ Author URI: http://www.VinceLaw.com.au
 
 TABLE OF CONTENTS
 
-4. SEARCH
 6. PAGES, BLOG POSTS & CUSTOM POST TYPES
 8. COMMENTS, TRACKBACKS & PINGBACKS
 9. HOME PAGE
@@ -34,57 +33,6 @@ TABLE OF CONTENTS
 
 **************************************************************************/
 
-
-/**************************************************************************
-4. SEARCH
-**************************************************************************/
-
-#search_box
-{
-	height: 25px;
-	padding: 0px 10px 0px 10px;	
-	font-family: 'ExpresswayRegular', Georgia;
-	font-size: 14px;
-	color: #333333;
-	-webkit-border-radius: 8px;
-	-webkit-border-top-right-radius: 0px;
-	-webkit-border-bottom-right-radius: 0px;
-	-moz-border-radius: 8px;
-	-moz-border-radius-topright: 0px;
-	-moz-border-radius-bottomright: 0px;
-	border-radius: 8px;
-	border-top-right-radius: 0px;
-	border-bottom-right-radius: 0px;
-	border-top-left-radius: 8px;
-	border-bottom-left-radius: 8px;
-	border-top: 1px solid #b5b5b5;
-	border-bottom: 1px solid #b5b5b5;
-	border-left: 1px solid #b5b5b5;
-	border-right: none;
-	overflow: hidden;
-	float: right;
-}
-
-#search_button
-{
-	width: 26px;
-	height: 27px;
-	padding: 0px;
-	background-image: url('images/button-search-off.png');
-	background-repeat: no-repeat;
-	background-position: top left;
-	background-color: #222222;
-	border: none;
-	float: right;
-	cursor: pointer;
-}
-
-#search_button:hover
-{
-	background-image: url('images/button-search-on.png');
-	background-repeat: no-repeat;
-	background-position: top left;
-}
 
 /**************************************************************************
 6. PAGES, BLOG POSTS & CUSTOM POST TYPES

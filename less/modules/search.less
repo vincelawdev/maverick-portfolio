@@ -1,0 +1,86 @@
+/**************************************************************************
+SEARCH
+**************************************************************************/
+
+.search-menu-button
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 1000000;
+	width: 24px;
+	height: 24px;
+	margin: 0;
+	padding: 8px 13px;
+	
+	background-image: url('../images/icon-search-off.png');
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	
+	cursor: pointer;
+	
+	&:hover,
+	&.active
+	{
+		background-color: #d8d8d8;
+		
+		background-image: url('../images/icon-search-on.png');
+	}
+}
+
+.search-box
+{
+	position: absolute;
+	top: 40px;
+	right: 0;
+	z-index: 1000000;
+	margin: 0;
+	padding: 10px 13px;
+	display: none;
+	
+	background-color: #d8d8d8;
+	
+	.search-box-field
+	{
+		height: 25px;
+		padding: 0 10px;
+		overflow: hidden;
+		float: right;
+		
+		.font-ExpresswayRegular();
+		font-size: 14px;
+		color: #333;
+		
+		border: 1px solid #b5b5b5;		
+		border-radius: 8px 0 0 8px;
+		-moz-border-radius: 8px 0 0 8px;
+		-webkit-border-radius: 8px 0 0 8px;
+		
+		outline: none;	
+	}
+	
+	.search-box-button
+	{
+		width: 26px;
+		height: 27px;
+		margin: 0;
+		padding: 0;
+		float: right;
+		
+		background-color: #b5b5b5;
+		background-image: url('../images/icon-search-button-arrow.png');
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+		
+		border: 1px solid #b5b5b5;		
+		border-radius: 0 8px 8px 0;
+		-moz-border-radius: 0 8px 8px 0;
+		-webkit-border-radius: 0 8px 8px 0;	
+		
+		outline: none;
+		cursor: pointer;
+	}
+}
+
+
+

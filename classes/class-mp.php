@@ -1013,7 +1013,6 @@ class mp_options
 		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . '/css/admin.php" type="text/css" />' . "\n";
 		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . '/css/vendor/colorbox.php" type="text/css" />' . "\n";
 		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/jquery-colorbox-min.js"></script>' . "\n";
-		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/jquery-metadata.js"></script>' . "\n";
 		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/min/jquery-validate.min.js"></script>' . "\n";
 		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/min/jquery-validate-additional-methods.min.js"></script>' . "\n";
 		echo '<script src="' . get_bloginfo('template_url') . '/js/modules/mp-module-admin.php"></script>' . "\n";

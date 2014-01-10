@@ -278,10 +278,10 @@ MENU - SUPERFISH 1.7.4 - ESSENTIAL STYLES ONLY
   left: 100%;
 }
 /***********************************************************************************
-COLORBOX - 1.3.20.2 by Jack Moore - (http://www.jacklmoore.com)
+COLORBOX - 1.4.33 by Jack Moore - (http://www.jacklmoore.com)
 ***********************************************************************************/
 /*
-    ColorBox Core Style:
+    Colorbox Core Style:
     The following CSS is consistent between example themes and should not be altered.
 */
 #colorbox,
@@ -292,6 +292,9 @@ COLORBOX - 1.3.20.2 by Jack Moore - (http://www.jacklmoore.com)
   left: 0;
   z-index: 9999;
   overflow: hidden;
+}
+#cboxWrapper {
+  max-width: none;
 }
 #cboxOverlay {
   position: fixed;
@@ -307,6 +310,7 @@ COLORBOX - 1.3.20.2 by Jack Moore - (http://www.jacklmoore.com)
 }
 #cboxLoadedContent {
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 #cboxTitle {
   margin: 0;
@@ -330,6 +334,8 @@ COLORBOX - 1.3.20.2 by Jack Moore - (http://www.jacklmoore.com)
   margin: auto;
   border: 0;
   display: block;
+  max-width: none;
+  -ms-interpolation-mode: bicubic;
 }
 .cboxIframe {
   width: 100%;
@@ -337,49 +343,59 @@ COLORBOX - 1.3.20.2 by Jack Moore - (http://www.jacklmoore.com)
   display: block;
   border: 0;
 }
+#colorbox,
+#cboxContent,
+#cboxLoadedContent {
+  box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+}
 /* 
     User Style:
-    Change the following styles to modify the appearance of ColorBox.  They are
+    Change the following styles to modify the appearance of Colorbox.  They are
     ordered & tabbed in a way that represents the nesting of the generated HTML.
 */
 #cboxOverlay {
   background: #000;
 }
+#colorbox {
+  outline: 0;
+}
 #cboxTopLeft {
   width: 14px;
   height: 14px;
-  background: url(../images/colorbox/colorbox-controls.png) no-repeat 0 0;
+  background: url(../images/colorbox/controls.png) no-repeat 0 0;
 }
 #cboxTopCenter {
   height: 14px;
-  background: url(../images/colorbox/colorbox-border.png) repeat-x top left;
+  background: url(../images/colorbox/border.png) repeat-x top left;
 }
 #cboxTopRight {
   width: 14px;
   height: 14px;
-  background: url(../images/colorbox/colorbox-controls.png) no-repeat -36px 0;
+  background: url(../images/colorbox/controls.png) no-repeat -36px 0;
 }
 #cboxBottomLeft {
   width: 14px;
   height: 43px;
-  background: url(../images/colorbox/colorbox-controls.png) no-repeat 0 -32px;
+  background: url(../images/colorbox/controls.png) no-repeat 0 -32px;
 }
 #cboxBottomCenter {
   height: 43px;
-  background: url(../images/colorbox/colorbox-border.png) repeat-x bottom left;
+  background: url(../images/colorbox/border.png) repeat-x bottom left;
 }
 #cboxBottomRight {
   width: 14px;
   height: 43px;
-  background: url(../images/colorbox/colorbox-controls.png) no-repeat -36px -32px;
+  background: url(../images/colorbox/controls.png) no-repeat -36px -32px;
 }
 #cboxMiddleLeft {
   width: 14px;
-  background: url(../images/colorbox/colorbox-controls.png) repeat-y -175px 0;
+  background: url(../images/colorbox/controls.png) repeat-y -175px 0;
 }
 #cboxMiddleRight {
   width: 14px;
-  background: url(../images/colorbox/colorbox-controls.png) repeat-y -211px 0;
+  background: url(../images/colorbox/controls.png) repeat-y -211px 0;
 }
 #cboxContent {
   background: #fff;
@@ -396,10 +412,10 @@ COLORBOX - 1.3.20.2 by Jack Moore - (http://www.jacklmoore.com)
   margin-bottom: 5px;
 }
 #cboxLoadingOverlay {
-  background: url(../images/colorbox/colorbox-loading-background.png) no-repeat center center;
+  background: url(../images/colorbox/loading_background.png) no-repeat center center;
 }
 #cboxLoadingGraphic {
-  background: url(../images/colorbox/colorbox-loading.gif) no-repeat center center;
+  background: url(../images/colorbox/loading.gif) no-repeat center center;
 }
 #cboxTitle {
   position: absolute;
@@ -418,19 +434,31 @@ COLORBOX - 1.3.20.2 by Jack Moore - (http://www.jacklmoore.com)
   left: 58px;
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 14px;
-  font-size: bold;
+  font-weight: bold;
   color: #7C7C7C;
 }
+/* these elements are buttons, and may need to have additional styles reset to avoid unwanted base styles */
 #cboxPrevious,
 #cboxNext,
-#cboxClose,
-#cboxSlideshow {
+#cboxSlideshow,
+#cboxClose {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
   position: absolute;
   bottom: -29px;
-  background: url(../images/colorbox/colorbox-controls.png) no-repeat 0px 0px;
+  background: url(../images/colorbox/controls.png) no-repeat 0px 0px;
   width: 23px;
   height: 23px;
   text-indent: -9999px;
+}
+/* avoid outlines on :active (mouseclick), but preserve outlines on :focus (tabbed navigating) */
+#cboxPrevious:active,
+#cboxNext:active,
+#cboxSlideshow:active,
+#cboxClose:active {
+  outline: 0;
 }
 #cboxPrevious {
   left: 0px;

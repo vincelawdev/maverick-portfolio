@@ -97,7 +97,7 @@ if(is_front_page())
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-superfish.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-supersubs.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-meanmenu.min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-colorbox-min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-colorbox.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/modules/mp-module.php"></script>
 
 </body>

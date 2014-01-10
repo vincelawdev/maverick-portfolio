@@ -1391,14 +1391,14 @@ class mp_options
 				#INITIALISE ARTICLE URL
 				$article_url = get_post_meta($post->ID, 'article_url', true);
 				
-				echo '<h3 class="post_title"><a href="' . $article_url . '" title="' . get_the_title(). '" class="post_title_link" rel="nofollow">' . get_the_title(). '</a></h3>';
-				echo '<p class="post_info">Published on ' . get_the_time(get_option('date_format')) . ' in ' . get_the_term_list($post->ID, "article-directories", "", ", ") . ' by ' . get_the_author() . '</p>';
-				echo '<div class="post_line">';
+				echo '<h3 class="post-title"><a href="' . $article_url . '" title="' . get_the_title(). '" rel="nofollow">' . get_the_title(). '</a></h3>';
+				echo '<p class="post-info">Published on ' . get_the_time(get_option('date_format')) . ' in ' . get_the_term_list($post->ID, "article-directories", "", ", ") . ' by ' . get_the_author() . '</p>';
+				echo '<div class="post-line">';
 
 				#DISPLAY ARTICLE THUMBNAIL
 				if(has_post_thumbnail())
 				{
-					echo '<a href="' . $article_url . '" title="' . get_the_title() . '" class="post_thumbnail" rel="nofollow">' . get_the_post_thumbnail($post->ID, "thumbnail") . '</a>';
+					echo '<a href="' . $article_url . '" title="' . get_the_title() . '" rel="nofollow">' . get_the_post_thumbnail($post->ID, "thumbnail") . '</a>';
 				}
 				
 				#DISPLAY ARTICLE EXCERPT
@@ -3026,7 +3026,7 @@ class mp_options
 			#DISPLAY TESTIMONIAL SUB HEADING
 			if($scope == 'project' || $scope == 'home')
 			{
-				echo '<h3 class="sub_heading">Testimonials</h3>';
+				echo '<h3 class="sub-heading">Testimonials</h3>';
 			}
 			
 			#DISPLAY TESTIMONIAL
@@ -3145,7 +3145,7 @@ class mp_options
 		#DISPLAY TESTIMONIAL PROJECT
 		if(!empty($testimonial_project))
 		{
-			echo '<h3 class="sub_heading">Project: <a href="' . get_permalink($testimonial_project) . '">' . get_the_title($testimonial_project) . '</a></h3>';
+			echo '<h3 class="sub-heading">Project: <a href="' . get_permalink($testimonial_project) . '">' . get_the_title($testimonial_project) . '</a></h3>';
 		}
 		
 		#DISPLAY TESTIMONIAL BOX
@@ -3684,7 +3684,7 @@ class mp_options
 		#DISPLAY SEARCH TITLE
 		if(is_search())
 		{
-			echo '<h1 class="page_title">' . mp_options::mp_display_search_results_title($blog_posts->found_posts) . ' for &quot;' . $search . '&quot;</h1>';
+			echo '<h1 class="page-title">' . mp_options::mp_display_search_results_title($blog_posts->found_posts) . ' for &quot;' . $search . '&quot;</h1>';
 		}
 		
 		#BLOG POSTS EXISTS

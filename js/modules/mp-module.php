@@ -61,10 +61,22 @@ var mp_module = function()
 		//THIS METHOD UPDATES THE PAGE MEASUREMENTS
 		page_measurements : function()
 		{
-			//INITIALISE CONTENT HEIGHT, SIDEBAR HEIGHT & MAXIMUM HEIGHT
-			page.content_height = $('#content').outerHeight(true),
-			page.sidebar_height = $('#sidebar').height(),
-			page.max_height = Math.max(page.content_height, page.sidebar_height);
+			//INITIALISE CONTENT HEIGHT
+			page.content_height = $('#content').outerHeight(true);		
+			
+            //INITIALISE SIDEBAR HEIGHT IF VISIBLE
+            if($('#sidebar').is(':visible'))
+            {
+            	page.sidebar_height = $('#sidebar').height();
+           	}
+            //INITIALISE SIDEBAR HEIGHT IF INVISIBLE
+            else
+            {
+            	page.sidebar_height = 0;
+            }
+            
+            //INITIALISE MAXIMUM HEIGHT
+            page.max_height = Math.max(page.content_height, page.sidebar_height);
 			
 			//CONTENT HEIGHT IS SHORTER THAN SIDEBAR HEIGHT
 			if(page.content_height < page.sidebar_height)
@@ -73,10 +85,10 @@ var mp_module = function()
 				$('#content').height(page.max_height);
 			}
 			
-			//console.log('Window: ' + page.window_width);
-			//console.log('Content: ' + page.content_height);
-			//console.log('Sidebar: ' + page.sidebar_height);
-			//console.log('Max: ' + page.max_height);
+			console.log('Window: ' + page.window_width);
+			console.log('Content: ' + page.content_height);
+			console.log('Sidebar: ' + page.sidebar_height);
+			console.log('Max: ' + page.max_height);
 		}
 	},
     

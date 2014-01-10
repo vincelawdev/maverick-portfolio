@@ -11,20 +11,12 @@ Author URI: http://www.VinceLaw.com.au
 
 TABLE OF CONTENTS
 
-6. PAGES, BLOG POSTS & CUSTOM POST TYPES
 8. COMMENTS, TRACKBACKS & PINGBACKS
 9. HOME PAGE
 10. PORTFOLIO
 11. TESTIMONIALS
 12. SIDEBAR
 14. FORMS
-15. IMAGES
-16. CAPTIONS
-17. BLOCK QUOTES
-19. PLUGIN: DAGON GATE SITEMAP GENERATOR
-20. PLUGIN: WP-PAGENAVI PLUGIN PAGING NAVIGATION LINKS
-21. PLUGIN: WP-TABLE RELOADED TABLES
-22. PLUGIN: CONTACT FORM 7
 23. PLUGIN: SI CAPTCHA
 24. MEDIA QUERIES: MOBILE - PORTRAIT - 320 TO 480
 25. MEDIA QUERIES: MOBILE - LANDSCAPE - 480 TO 768
@@ -33,309 +25,6 @@ TABLE OF CONTENTS
 
 **************************************************************************/
 
-
-/**************************************************************************
-6. PAGES, BLOG POSTS & CUSTOM POST TYPES
-**************************************************************************/
-
-#content_wrapper
-{
-	margin: 0px auto 0px auto;
-	padding: 0px 0px 0px 10px;
-	overflow: hidden;
-	text-align: left;
-}
-
-#content
-{
-	margin: 15px 0px 15px 0px;
-	padding: 15px 20px 15px 20px;
-	background-color: #FFFFFF;
-	-webkit-box-shadow: 0px 5px 10px rgba(50, 50, 50, 0.55);
-	-moz-box-shadow: 0px 5px 10px rgba(50, 50, 50, 0.55);
-	box-shadow: 0px 5px 10px rgba(50, 50, 50, 0.55);
-	overflow: hidden;
-}
-
-#content .page_title
-{
-	margin: 0px 0px 15px 0px;
-	padding: 0px;
-	font-family: 'ExpresswayRegular', Georgia;
-	font-size: 27px;
-	font-weight: normal;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-}
-
-#content .post_title
-{
-	margin: 0px 0px 5px 0px;
-	padding: 0px;
-	font-family: 'ExpresswayRegular', Georgia;
-	font-size: 27px;
-	font-weight: normal;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-}
-
-#content a.post_title_link:link
-{
-	color: #333333;
-	text-decoration: none;
-}
-
-#content a.post_title_link:visited
-{
-	color: #333333;
-	text-decoration: none;
-}
-
-#content a.post_title_link:hover,
-#content a.post_title_link:active
-{
-	color: #ebc308;
-	text-decoration: none;
-}
-
-#content .sub_heading
-{
-	margin: 0px 0px 10px 0px;
-	padding: 0px 0px 8px 0px;
-	font-family: 'ExpresswayRegular', Georgia;
-	font-size: 20px;
-	font-weight: normal;
-	color: #333333;
-	line-height: 18px;
-	border-bottom: 1px dotted #cccccc;
-	display: block;
-	clear: both;
-}
-
-#content .sub_heading span.rss
-{
-	margin: 2px 0px 0px 0px;
-	padding: 0px;
-	float: right;	
-}
-
-#content .sub_heading span.rss img
-{
-	width: 16px;
-	height: 16px;
-	margin: 0px;
-	padding: 0px;
-}
-
-#content p.post_info
-{
-	margin: 0px;
-	padding: 0px;
-	font-family: 'ExpresswayRegular', Georgia;
-	font-size: 13px;
-	font-weight: normal;
-	color: #adadad;
-	-webkit-font-smoothing: antialiased;
-}
-
-#content p.post_info a:link,
-#content p.post_info a:visited,
-#content p.post_info a:active,
-#content p.post_info a:hover
-{
-	text-decoration: none;
-}
-
-#content .social
-{
-	margin: 3px 0px 3px 0px;
-	padding: 5px 0px 4px 0px;
-	border-top: 1px dotted #cccccc;
-	border-bottom: 1px dotted #cccccc;
-	overflow: hidden;
-}
-
-#content .post_line
-{
-	margin: 0px 0px 6px 0px;
-	padding: 0px;
-	border-bottom: 1px solid #c4c4c4;
-	overflow: hidden;
-	clear: both;
-}
-
-#content .post_line img.wp-post-image
-{
-	margin: 10px 10px 10px 0px;
-	padding: 0px;
-	border: 2px solid #d2d2d2;
-	float: left;
-}
-
-#content h2
-{
-	font-family: 'ExpresswayRegular', Georgia;
-	font-size: 20px;
-	font-weight: normal;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-}
-
-#content p
-{
-	margin: 10px 0px 10px 0px;
-	padding: 0px;
-	font-family: Georgia, 'Times New Roman', Times, serif;
-	font-size: 14px;
-	font-weight: normal;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-}
-
-#content .page_content,
-#content .post_content
-{
-	margin: 0px;
-	padding: 0px 0px 11px 0px;
-	overflow: hidden;
-}
-
-#content .page_content p,
-#content .page_content ul li,
-#content .page_content ol li,
-#content .post_content p,
-#content .post_content ul li,
-#content .post_content ol li,
-#content .post_line p,
-#content .post_line ul li,
-#content .post_line ol li
-{
-	line-height: 22px;	
-}
-
-#content ol, #content ul
-{
-	margin: 10px 0px 0px 0px;
-	padding: 0px;
-	list-style-position: inside;
-	font-family: Georgia, 'Times New Roman', Times, serif;
-	font-size: 14px;
-	font-weight: normal;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-}
-
-#content ol li ol, #content ol li ul,
-#content ul li ul, #content ul li ol
-{
-	margin: 0px;
-	padding: 0px;
-	list-style-position: inside;
-	list-style-type: lower-roman;
-}
-
-#content ul li, #content ol li
-{
-	margin: 0px 0px 0px 20px;
-	padding: 0px 0px 10px 0px;
-}
-
-#content ul.similar_posts
-{
-	margin: 0px 0px 11px 0px;
-	padding: 0px;
-	font-family: Georgia, 'Times New Roman', Times, serif;
-	font-size: 14px;
-	font-weight: normal;
-	color: #333333;
-}
-
-#content ul.similar_posts li
-{
-	margin: 0px 0px 0px 2px;
-	padding: 0px;
-	list-style-position: inside;
-}
-
-#content ol li ul
-{
-	margin: 10px 0px 0px 20px;
-	padding: 0px;
-	list-style-position: inside;
-	list-style-type: circle;
-}
-
-#content ul li ol
-{
-	margin: 10px 0px 0px 20px;
-	padding: 0px;
-	list-style-position: outside;
-	list-style-type: decimal;
-}
-
-#content ul li ol li,
-#content ul li ul li
-{
-	margin: 0px 0px 0px 20px;
-	padding: 10px 0px 0px 0px;
-}
-
-#content ul li:last-child,
-#content ol li:last-child
-{
-	padding-bottom: 0px;
-}
-
-#content img.wp-post-image
-{
-	margin: 10px 10px 10px 0px;
-	padding: 0px;
-	border: 2px solid #d2d2d2;
-	-o-transition-duration: 0.5s;
-	-moz-transition-duration: 0.5s;
-	-webkit-transition: -webkit-transform 0.5s;
-	float: left;
-}
-
-#content img.wp-post-image:active,
-#content img.wp-post-image:hover
-{
-	border: 2px solid #ebc308;
-	-o-transition-duration: 0.5s;
-	-moz-transition-duration: 0.5s;
-	-webkit-transition: -webkit-transform 0.5s;	
-}
-
-#content a:link
-{
-	color: #1a58ad;
-	text-decoration: underline;
-}
-
-#content a:visited
-{
-	color: #320682;
-	text-decoration: underline;
-}
-
-#content a:active,
-#content a:hover
-{
-	color: #ebc308;
-	text-decoration: underline;
-}
-
-.right
-{
-	float: right;
-	padding: 0px;
-}
-
-.left
-{
-	float: left;
-	padding: 0px;
-}
 
 /**************************************************************************
 8. COMMENTS, TRACKBACKS & PINGBACKS
@@ -1163,13 +852,6 @@ TABLE OF CONTENTS
 12. SIDEBAR
 **************************************************************************/
 
-#sidebar
-{
-	margin: 30px 10px 0px 0px;
-	padding: 0px;
-	float: right;
-}
-
 #sidebar .sidebar_box
 {
 	margin: 0px 0px 15px 0px;
@@ -1238,7 +920,7 @@ TABLE OF CONTENTS
 #sidebar .facebook_like_box
 {
 	margin: 0px 0px 10px 0px;
-	padding: 0px;	
+	padding: 0px;
 }
 
 #sidebar ul.sidebar,
@@ -1630,324 +1312,11 @@ form
 }
 
 /**************************************************************************
-15. IMAGES
-**************************************************************************/
-
-img.alignnone 
-{
-	margin: 0px;
-	padding: 0px;
-	float: none;
-}
-
-img.alignleft
-{
-	margin: 0px 10px 0px 0px;
-	padding: 0px;
-	float: left;
-}
-
-img.alignright
-{
-	margin: 0px 0px 0px 10px;
-	padding: 0px;
-	float: right;
-}
-
-img.aligncenter
-{
-	margin: 0px auto 0px auto;
-	padding: 0px;
-}
-
-a img
-{
-	border: none;
-}
-
-/**************************************************************************
-16. CAPTIONS
-**************************************************************************/
-
-.wp-caption.alignnone
-{
-	margin: 10px 0px 10px 0px;
-	float: none;
-}
-
-.wp-caption.alignleft
-{
-	margin: 10px 10px 10px 0px;
-	float: left;
-}
-
-.wp-caption.alignright
-{
-	margin: 10px 0px 10px 10px;
-	float: right;
-}
-
-.wp-caption.aligncenter
-{
-	margin: 10px auto 10px auto;
-}
-
-.wp-caption
-{
-	padding: 10px 5px 0px 5px;
-	background-color: #f6f6f6;
-	border: 1px solid #cccccc;
-	text-align: center;
-	overflow: hidden;
-}
-
-.wp-caption img
-{
-	margin: 0px;
-	padding: 0px;
-	overflow: hidden;
-}
-
-.wp-caption.alignnone p.wp-caption-text,
-.wp-caption.alignleft p.wp-caption-text,
-.wp-caption.alignright p.wp-caption-text,
-.wp-caption.aligncenter p.wp-caption-text
-{
-	margin: 0px;
-	padding: 0px;
-	font-family: 'ExpresswayRegular';
-	font-size: 16px;
-	font-weight: normal;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-}
-
-/**************************************************************************
-17. BLOCK QUOTES
-**************************************************************************/
-
-blockquote
-{
-	margin: 10px 0px 10px 0px;
-	padding: 0px 15px 0px 30px;
-	border-top: 1px solid #cccccc;
-	border-left: 6px solid #cccccc;
-	border-right: 1px solid #cccccc;
-	border-bottom: 1px solid #cccccc;
-	background-color: #f6f6f6;
-}
-
-blockquote p
-{
-	margin: 10px 0px 10px 0px;
-	padding: 0px;
-	font-family: Georgia, 'Times New Roman', Times, serif;
-	font-size: 14px;
-	font-weight: normal;
-	font-style: italic;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-}
-
-/**************************************************************************
-19. PLUGIN: DAGON GATE SITEMAP GENERATOR
-**************************************************************************/
-
-.ddsg-wrapper h2
-{
-	margin: 10px 0px 10px 0px;
-	padding: 0px;
-	font-family: 'ExpresswayRegular', Georgia;
-	font-size: 20px;
-	font-weight: normal;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-}
-
-/**************************************************************************
-20. PLUGIN: WP-PAGENAVI PLUGIN PAGING NAVIGATION LINKS
-**************************************************************************/
-
-.wp-pagenavi
-{
-	margin: 0px;
-	padding: 0px;
-	font-family: Georgia, 'Times New Roman', Times, serif;
-	font-size: 15px;
-	font-style: normal;
-	color: #333333;
-	clear: both;
-}
-
-.wp-pagenavi a, .wp-pagenavi span
-{
-	margin: 0px 5px 0px 0px;
-	padding: 0px;
-	text-decoration: none;
-}
-
-.wp-pagenavi span.current
-{
-	font-weight: bold;
-}
-
-/**************************************************************************
-21. PLUGIN: WP-TABLE RELOADED TABLES
-**************************************************************************/
-
-.wp-table-reloaded th
-{
-	padding: 4px;
-	font-family: 'ExpresswayRegular', Georgia;
-	font-size: 16px;
-	font-weight: normal;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-	background-color: #E6EEEE;
-	border: 1px solid #FFFFFF;
-}
-
-.wp-table-reloaded td
-{
-	padding: 4px;
-	font-family: Georgia, 'Times New Roman', Times, serif;
-	font-size: 14px;
-	font-weight: normal;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-	background-color: #FFFFFF;
-	vertical-align: top;
-}
-
-/**************************************************************************
-22. PLUGIN: CONTACT FORM 7
-**************************************************************************/
-
-.wpcf7-not-valid-tip-no-ajax
-{
-	color: #F00;
-	display: block;
-}
-
-.wpcf7-response-output
-{
-	margin: 10px 0px 10px 0px;
-	padding: 0px;
-	font-family: Georgia, 'Times New Roman', Times, serif;
-	font-size: 14px;
-	font-weight: normal;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-	display: block;
-}
-
-/**************************************************************************
-23. PLUGIN: SI CAPTCHA
-**************************************************************************/
-
-div#captchaImgDiv
-{
-	margin: 10px 0px 10px 0px;
-	display: block;
-}
-
-.captchaSizeDivSmall
-{
-	width: 175px;
-	height: 45px;
-	margin: 0px 0px 10px 0px;
-	padding: 0px;
-}
-
-.captchaSizeDivLarge
-{
-	width: 250px;
-	height: 60px;
-	margin: 0px 0px 10px 0px;
-	padding: 0px;
-}
-
-img#si_image_com,
-#si_image_reg,
-#si_image_log,
-#si_image_side_login
-{
-	margin: 0px 5px 0px 0px;
-	padding: 0px;
-	border: none; 
-	float: left;
-}
-
-.captchaImgRefresh
-{
-	margin: 0px;
-	padding: 0px;
-}
-
-label#captcha_code_label
-{
-	margin: 0px;
-	padding: 0px;
-}
-
-input#captcha_code 
-{
-	width: 65px;
-}
-
-/**************************************************************************
 24. MEDIA QUERIES: MOBILE - PORTRAIT - 320 TO 480
 **************************************************************************/
 
 @media only screen and (min-width: 320px) and (min-width: 1px)
-{
-	#search_box
-	{
-		width: 45px;
-		margin: 5px 0px 0px 0px;
-	}
-
-	#search_button
-	{
-		margin: 5px 0px 0px 0px;
-	}
-	
-	#content_wrapper
-	{
-		width: 310px;
-	}
-	
-	#content
-	{
-		width: 260px;
-	}
-	
-	#content img
-	{
-		max-width: 260px;
-		height: auto;
-		overflow: hidden;
-	}
-	
-	#content .wp-caption
-	{
-		max-width: 248px;
-		height: auto;
-	}
-	
-	#content .wp-caption img
-	{
-		max-width: 238px;
-		height: auto;
-	}
-	
-	#content iframe,
-	#content object
-	{
-		max-width: 260px;
-		height: inherit;
-	}
-	
+{	
 	#content ul.comments li.depth-1 .comment_header
 	{
 		width: 260px;
@@ -2135,17 +1504,6 @@ input#captcha_code
 	{
 		width: 208px;
 	}
-	
-	.social_pinterest_left_small,
-	.social_addthis_left_small
-	{
-		display: none;
-	}
-	
-	#sidebar
-	{
-		display: none;
-	}
 }
 
 /**************************************************************************
@@ -2153,54 +1511,7 @@ input#captcha_code
 **************************************************************************/
 
 @media only screen and (min-width: 480px)
-{	
-	#search_box
-	{
-		width: 100px;
-		margin: 5px 0px 0px 0px;
-	}
-
-	#search_button
-	{
-		margin: 5px 12px 0px 0px;
-	}
-	
-	#content_wrapper
-	{
-		width: 470px;
-	}
-	
-	#content
-	{
-		width: 408px;
-	}
-	
-	#content img
-	{
-		max-width: 408px;
-		height: auto;
-		overflow: hidden;
-	}
-	
-	#content .wp-caption
-	{
-		max-width: 396px;
-		height: auto;
-	}
-	
-	#content .wp-caption img
-	{
-		max-width: 386px;
-		height: auto;
-	}
-	
-	#content iframe,
-	#content object
-	{
-		max-width: 408px;
-		height: inherit;
-	}
-	
+{		
 	#content ul.comments li.depth-1 .comment_header
 	{
 		width: 408px;
@@ -2381,17 +1692,6 @@ input#captcha_code
 	#content div.testimonial_box
 	{
 		width: 356px;
-	}
-	
-	.social_pinterest_left_small,
-	.social_addthis_left_small
-	{
-		display: inline;
-	}
-	
-	#sidebar
-	{
-		display: none;
 	}
 }
 
@@ -2400,54 +1700,7 @@ input#captcha_code
 **************************************************************************/
 
 @media only screen and (min-width: 768px)
-{	
-	#search_box
-	{
-		width: 60px;
-		margin: 5px 0px 0px 0px;
-	}
-
-	#search_button
-	{
-		margin: 5px 0px 0px 0px;
-	}
-	
-	#content_wrapper
-	{
-		width: 758px;
-	}
-	
-	#content
-	{
-		width: 408px;
-	}
-	
-	#content img
-	{
-		max-width: 408px;
-		height: auto;
-		overflow: hidden;
-	}
-	
-	#content .wp-caption
-	{
-		max-width: 396px;
-		height: auto;
-	}
-	
-	#content .wp-caption img
-	{
-		max-width: 386px;
-		height: auto;
-	}
-	
-	#content iframe,
-	#content object
-	{
-		max-width: 408px;
-		height: inherit;
-	}
-	
+{		
 	#content ul.comments li.depth-1 .comment_header
 	{
 		width: 408px;
@@ -2628,24 +1881,6 @@ input#captcha_code
 	#content div.testimonial_box
 	{
 		width: 356px;
-	}
-	
-	.social_pinterest_left_small,
-	.social_addthis_left_small
-	{
-		display: inline;
-	}
-	
-	#sidebar
-	{
-		width: 300px;
-		display: inline;
-	}
-	
-	#sidebar .sidebar_box,
-	#sidebar .facebook_like_box
-	{
-		width: 260px;
 	}
 }
 
@@ -2655,53 +1890,6 @@ input#captcha_code
 
 @media only screen and (min-width: 1024px)
 {	
-	#search_box
-	{
-		width: 127px;
-		margin: 7px 0px 0px 0px;
-	}
-
-	#search_button
-	{
-		margin: 7px 0px 0px 0px;
-	}
-	
-	#content_wrapper
-	{
-		width: 1010px;
-	}
-	
-	#content
-	{
-		width: 660px;
-	}
-	
-	#content img
-	{
-		max-width: 660px;
-		height: auto;
-		overflow: hidden;
-	}
-	
-	#content .wp-caption
-	{
-		max-width: 648px;
-		height: auto;
-	}
-	
-	#content .wp-caption img
-	{
-		max-width: 638px;
-		height: auto;
-	}
-	
-	#content iframe,
-	#content object
-	{
-		max-width: 660px;
-		height: inherit;
-	}
-	
 	#content ul.comments li.depth-1 .comment_header
 	{
 		width: 660px;
@@ -2883,18 +2071,7 @@ input#captcha_code
 	{
 		width: 608px;
 	}
-	
-	.social_pinterest_left_small,
-	.social_addthis_left_small
-	{
-		display: inline;
-	}
-	
-	#sidebar
-	{
-		width: 300px;
-	}
-	
+		
 	#sidebar .sidebar_box,
 	#sidebar .facebook_like_box
 	{

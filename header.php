@@ -28,7 +28,6 @@ if(is_front_page())
 <link rel="shortcut icon" href="/favicon.ico" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('stylesheet_url'); ?>" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/main.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/vendor/colorbox.php" />
 <?php
 #LOAD ANYTHING SLIDER
 if(is_front_page())
@@ -183,23 +182,26 @@ $mp_social_button_size = get_option('mp_social_button_size');
 </header>
 <!-- HEADER - ROW 2 - END -->
 
-<!-- CONTENT WRAPPER - START -->
-<div id="content_wrapper">
+<!-- PAGE WRAPPER - START -->
+<div class="page_wrapper">
 
 	<?php get_sidebar(); ?>
 
 	<!-- CONTENT - START -->
-	<div id="content">
+	<div id="content" class="col9">
+    
+    	<!-- CONTENT WRAPPER - START -->
+    	<div class="content-wrapper">
 	
-	<?php
-	#DISPLAY BREAD CRUMBS
-	if(!is_front_page())
-	{
-	?>
-	<!-- BREAD CRUMBS - START -->
-	<div id="bread_crumbs"><p><?php if(function_exists('bcn_display')) { bcn_display(); } ?></p></div>
-	<!-- BREAD CRUMBS - END -->
-	<?php
-	}
-	?>
+			<?php
+            #DISPLAY BREAD CRUMBS
+            if(!is_front_page())
+            {
+            ?>
+            <!-- BREAD CRUMBS - START -->
+            <div id="bread_crumbs"><p><?php if(function_exists('bcn_display')) { bcn_display(); } ?></p></div>
+            <!-- BREAD CRUMBS - END -->
+            <?php
+            }
+            ?>
 	

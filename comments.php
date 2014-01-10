@@ -25,7 +25,7 @@ if(comments_open())
 	{
 	?>
 		<!-- COMMENTS - START -->
-		<h3 class="sub_heading"><?php mp_options::mp_display_comment_counter(get_the_ID(), 'comment', '0 Comments', '1 Comment', 'Comments'); ?> On &#8220;<?php the_title(); ?>&#8221; <span class="rss"><a href="<?php echo get_post_comments_feed_link(); ?>" rel="nofollow"><img src="<?php echo get_bloginfo('template_directory'); ?>/images/icon-rss-small.png" alt="Subscribe to Comments via RSS" title="Subscribe to Comments via RSS" /></a></span></h3>
+		<h3 class="sub-heading"><?php mp_options::mp_display_comment_counter(get_the_ID(), 'comment', '0 Comments', '1 Comment', 'Comments'); ?> On &#8220;<?php the_title(); ?>&#8221; <span class="rss"><a href="<?php echo get_post_comments_feed_link(); ?>" rel="nofollow"><img src="<?php echo get_bloginfo('template_directory'); ?>/images/icon-rss-small.png" alt="Subscribe to Comments via RSS" title="Subscribe to Comments via RSS" /></a></span></h3>
 		<p>Trackback URL: <small><?php trackback_url(); ?></small></p>
 		<ul class="comments"><?php wp_list_comments('style=ul&type=comment&callback=mp_options::mp_display_comment_list'); ?></ul>
 		<!-- COMMENTS - END -->
@@ -59,7 +59,7 @@ if(pings_open())
 	{
 	?>
 		<!-- TRACKBACKS - START -->
-		<h3 class="sub_heading"><?php mp_options::mp_display_comment_counter(get_the_ID(), 'trackback', '0 Trackbacks', '1 Trackback', 'Trackbacks'); ?> On &#8220;<?php the_title(); ?>&#8221;</h3>
+		<h3 class="sub-heading"><?php mp_options::mp_display_comment_counter(get_the_ID(), 'trackback', '0 Trackbacks', '1 Trackback', 'Trackbacks'); ?> On &#8220;<?php the_title(); ?>&#8221;</h3>
 		<ol class="pings"><?php wp_list_comments('type=trackback&callback=mp_options::mp_display_ping_list'); ?></ol>
 		<!-- TRACKBACKS - END -->
 	<?php
@@ -70,7 +70,7 @@ if(pings_open())
 	{
 	?>
 		<!-- PINGBACKS - START -->
-		<h3 class="sub_heading"><?php mp_options::mp_display_comment_counter(get_the_ID(), 'pingback', '0 Pingbacks', '1 Pingback', 'Pingbacks'); ?> On &#8220;<?php the_title(); ?>&#8221;</h3>
+		<h3 class="sub-heading"><?php mp_options::mp_display_comment_counter(get_the_ID(), 'pingback', '0 Pingbacks', '1 Pingback', 'Pingbacks'); ?> On &#8220;<?php the_title(); ?>&#8221;</h3>
 		<ol class="pings"><?php wp_list_comments('type=pingback&callback=mp_options::mp_display_ping_list'); ?></ol>
 		<!-- PINGBACKS - END -->
 	<?php
@@ -84,7 +84,7 @@ if(comments_open())
 	<!-- COMMENT FORM - START -->
 	<div id="respond">
 	
-		<h3 class="sub_heading"><?php comment_form_title('Post a Comment', 'Post a Reply to %s / '); cancel_comment_reply_link('Cancel Reply'); ?></h3>
+		<h3 class="sub-heading"><?php comment_form_title('Post a Comment', 'Post a Reply to %s / '); cancel_comment_reply_link('Cancel Reply'); ?></h3>
 		
 		<form action="<?php echo get_settings('siteurl'); ?>/wp-comments-post.php" method="post" id="comment_form">
 			<?php comment_id_fields(); ?>

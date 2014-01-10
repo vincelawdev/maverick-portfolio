@@ -28,3 +28,42 @@ WRAPPER
 		width: 1400px;
 	}
 }
+
+/* PAGE WRAPPER HAS AN ADDITIONAL 10PX WIDTH FOR SHADOWS */
+.page_wrapper
+{
+	margin: 0 auto;
+	padding: 0;
+	overflow: hidden;
+	
+	text-align: left;
+	
+	@media only screen and (min-width: 768px)
+	{
+		padding-left: 10px;
+	}
+	
+	/* MOBILE - 767 & SMALLER */
+	@media only screen and (max-width: 767px)
+	{
+		width: 100%;
+	}
+	
+	/* TABLET - PORTRAIT - 768 TO 1023 */
+	@media only screen and (min-width: 768px) and (max-width: 1023px)
+	{
+		width: 758px;
+	}
+	
+	/* TABLET - LANDSCAPE & DESKTOPS - 1024 TO 1399  */
+	@media only screen and (min-width: 1024px) and (max-width: 1399px)
+	{
+		width: 1010px;
+	}
+	
+	/* DESKTOPS - 1400 & GREATER */
+	@media only screen and (min-width: 1400px)
+	{
+		width: 1410px;
+	}
+}

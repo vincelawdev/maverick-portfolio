@@ -43,12 +43,6 @@ if(is_front_page())
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 <?php wp_head(); ?>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/modernizr-custom2.6.2.js"></script>
-<!--[if lt IE 9]>
-<script src="<?php bloginfo('template_directory'); ?>/js/modules/mp-module-ie.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/css3-mediaqueries.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/selectivizr-min.js"></script>
-<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/ie.css" />
-<![endif]-->
 </head>
 
 <?php flush(); ?>

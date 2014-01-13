@@ -1838,7 +1838,7 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
   border-color: #ebc308;
 }
 #content .wp-caption {
-  max-width: 95%;
+  max-width: 98%;
   height: auto;
   padding: 0;
   overflow: hidden;
@@ -1847,7 +1847,7 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
   text-align: center;
 }
 #content .wp-caption.alignnone {
-  margin: 10px 0 10px 0;
+  margin: 10px 0;
   float: none;
 }
 #content .wp-caption.alignleft {
@@ -2000,11 +2000,277 @@ a img {
   margin: 30px 0 0 0;
   padding: 0;
   float: right;
+  /* TABS */
+  /* HEADINGS */
+  /* PARAGRAPHS */
+  /* RSS ICON */
+  /* SOCIAL MEDIA BUTTONS */
+  /* FACEBOOK LIKE BOX */
+  /* LISTS */
+  /* SELECT LISTS */
 }
 @media only screen and (max-width: 767px) {
   #sidebar {
     display: none;
   }
+}
+#sidebar .sidebar-box {
+  margin: 0 0 15px 0;
+  padding: 13px 20px 15px 20px;
+  overflow: hidden;
+  background-color: #222;
+  -webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.55);
+  -moz-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.55);
+  box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.55);
+}
+#sidebar .sidebar-tab-box {
+  display: block;
+  overflow: hidden;
+  border-bottom: 2px solid #ccc;
+}
+#sidebar .sidebar-tab-list {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  float: right;
+  list-style-type: none;
+}
+#sidebar .sidebar-tab-list li {
+  margin: 0 2px 0 0;
+  padding: 0;
+  float: left;
+}
+#sidebar .sidebar-tab-list lilast-child,
+#sidebar .sidebar-tab-list li.last {
+  margin-right: 0;
+}
+#sidebar .sidebar-tab-list li a {
+  margin: 0;
+  padding: 4px 5px;
+  float: left;
+  font-family: 'CodeProDemoRegular', Georgia;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 10px;
+  color: #333;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  background-color: #d8d8d8;
+}
+#sidebar .sidebar-tab-list li a:hover,
+#sidebar .sidebar-tab-list li a:focus,
+#sidebar .sidebar-tab-list li a.current {
+  padding: 4px 5px 5px 5px;
+  background-color: #ccc;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+#sidebar h4 {
+  margin: 0;
+  padding: 0;
+  font-family: 'CodeProDemoRegular', Georgia;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 18px;
+  color: #ccc;
+  -webkit-font-smoothing: antialiased;
+  border-bottom: 2px solid #ccc;
+  /* HEADINGS FOR TABS */
+}
+#sidebar h4.tabs {
+  float: left;
+  border-bottom: none;
+}
+#sidebar p {
+  margin: 0;
+  padding: 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 14px;
+  color: #ccc;
+  /* LINKS */
+}
+#sidebar p a {
+  text-decoration: underline;
+}
+#sidebar p a:link {
+  color: #ff6600;
+}
+#sidebar p a:visited {
+  color: #996699;
+}
+#sidebar p a:hover,
+#sidebar p a:active {
+  color: #ebc308;
+}
+#sidebar img.rss {
+  width: 16px;
+  heigh: 16px;
+  margin: 0 3px 0 0;
+  padding: 0;
+  vertical-align: text-top;
+  float: left;
+}
+#sidebar .social-buttons {
+  margin: 10px 0 5px 0;
+  padding: 0 2px;
+  overflow: hidden;
+}
+#sidebar .social-buttons > ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+#sidebar .social-buttons > ul li {
+  margin: 0 8px 0 0;
+  padding: 0;
+  float: left;
+}
+#sidebar .social-buttons > ul li:last-child {
+  margin: 0;
+}
+#sidebar .social-buttons > ul li img {
+  width: 25px;
+  height: 25px;
+  margin: 0;
+  padding: 0;
+}
+#sidebar .facebook-like-box {
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+#sidebar .sidebar-list {
+  margin: 0;
+  padding: 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-style: normal;
+  font-size: 14px;
+  font-weight: normal;
+  color: #ccc;
+  list-style-type: none;
+  /* CATEGORIES */
+  /* COMMENTS */
+  /* POSTS */
+  /* NUMBERED LISTS */
+}
+#sidebar .sidebar-list li {
+  margin: 1px 0;
+  padding: 0;
+  border-bottom: 1px dotted #ccc;
+}
+#sidebar .sidebar-list li:hover,
+#sidebar .sidebar-list li.current-cat,
+#sidebar .sidebar-list li.current_page_item,
+#sidebar .sidebar-list li.current {
+  background-color: #d8d8d8;
+}
+#sidebar .sidebar-list li:hover a,
+#sidebar .sidebar-list li.current-cat a,
+#sidebar .sidebar-list li.current_page_item a,
+#sidebar .sidebar-list li.current a {
+  color: #333;
+}
+#sidebar .sidebar-list li a {
+  margin: 0;
+  padding: 6px 0 6px 19px;
+  display: block;
+  color: #ccc;
+  text-decoration: none;
+}
+#sidebar .sidebar-list.categories li {
+  background-image: url('../images/arrow-sidebar-off.png');
+  background-repeat: no-repeat;
+  background-position: 3px 10px;
+}
+#sidebar .sidebar-list.categories li:hover,
+#sidebar .sidebar-list.categories li.current-cat,
+#sidebar .sidebar-list.categories li.current_page_item,
+#sidebar .sidebar-list.categories li.current {
+  background-image: url('../images/arrow-sidebar-on.png');
+}
+#sidebar .sidebar-list.comments li {
+  background-image: url('../images/arrow-sidebar-off.png');
+  background-repeat: no-repeat;
+  background-position: 3px 10px;
+}
+#sidebar .sidebar-list.comments li:hover {
+  background-image: url('../images/arrow-sidebar-on.png');
+}
+#sidebar .sidebar-list.posts li a {
+  padding-left: 3px;
+}
+#sidebar .sidebar-list.posts li img {
+  margin: 0 6px 0 0;
+  padding: 0;
+  vertical-align: text-top;
+}
+#sidebar .sidebar-list.numbered {
+  margin: 1px 0;
+  list-style-type: decimal;
+  list-style-position: inside;
+}
+#sidebar .sidebar-list.numbered li {
+  margin: 0;
+  padding: 6px 0 6px 2px;
+}
+#sidebar .sidebar-list.numbered li:hover {
+  color: #333;
+}
+#sidebar .sidebar-list.numbered li a {
+  padding: 6px 0;
+}
+#sidebar .sidebar-select {
+  margin: 10px 0 0 0;
+  padding: 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 14px;
+  color: #333;
+  background-color: #fff;
+}
+#sidebar .square_button1 {
+  width: 125px;
+  height: 125px;
+  margin: 10px 10px 10px 0px;
+  padding: 0px;
+  float: left;
+}
+#sidebar .square_button2 {
+  width: 125px;
+  height: 125px;
+  margin: 10px 0px 10px 0px;
+  padding: 0px;
+  float: right;
+}
+#sidebar .square_button3 {
+  width: 125px;
+  height: 125px;
+  margin: 0px 10px 10px 0px;
+  padding: 0px;
+  float: left;
+}
+#sidebar .square_button4 {
+  width: 125px;
+  height: 125px;
+  margin: 0px 0px 10px 0px;
+  padding: 0px;
+  float: right;
+}
+#sidebar .square_button5 {
+  width: 125px;
+  height: 125px;
+  margin: 0px 10px 0px 0px;
+  padding: 0px;
+  float: left;
+}
+#sidebar .square_button6 {
+  width: 125px;
+  height: 125px;
+  margin: 0px;
+  padding: 0px;
+  float: right;
 }
 /**************************************************************************
 SOCIAL MEDIA BUTTONS

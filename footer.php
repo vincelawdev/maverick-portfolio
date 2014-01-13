@@ -70,7 +70,7 @@ if(is_single())
 if((!is_page() || is_page('blog')) && !is_tax() && !is_singular(array('project', 'testimonial', 'article')))
 {
 ?>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-organic-tabs.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-organic-tabs.min.js"></script>
 <?php
 }
 #LOAD GALLERIFIC

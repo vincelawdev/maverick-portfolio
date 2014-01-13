@@ -4,7 +4,7 @@
     
         var base = this;
         base.$el = $(el);
-        base.$nav = base.$el.find(".nav");
+        base.$nav = base.$el.find(".sidebar-tab-list");
                 
         base.init = function() {
         
@@ -49,7 +49,7 @@
                         });
                         
                         // Remove highlighting - Add to just-clicked tab
-                        base.$el.find(".nav li a").removeClass("current");
+                        base.$el.find(".sidebar-tab-list li a").removeClass("current");
                         $newList.addClass("current");
                             
                     });

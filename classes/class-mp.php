@@ -46,7 +46,7 @@ class mp_options
 		add_filter('nav_menu_css_class', array('mp_options', 'mp_menu_fix'), 10, 2);
 		
 		#ENABLE SIDEBAR WIDGETS
-		register_sidebar(array('before_widget' => '<div class="sidebar_box">','after_widget' => '</div>', 'before_title' => '<h4>', 'after_title' => '</h4>',));
+		register_sidebar(array('before_widget' => '<div class="sidebar-box">','after_widget' => '</div>', 'before_title' => '<h4>', 'after_title' => '</h4>',));
 		
 		#INITIALISE JQUERY LIBRARY
 		add_action('init', array('mp_options', 'mp_jquery'));
@@ -3523,7 +3523,7 @@ class mp_options
 		$instagram = get_user_meta($author_id, 'instagram', true);
 		
 		#OPEN SOCIAL BOX & UNORDERED LIST
-		echo '<div class="social_buttons"><ul class="social_buttons_list">';
+		echo '<div class="social-buttons"><ul>';
 		
 		#DISPLAY FACEBOOK BUTTON
 		if(!empty($facebook))
@@ -3586,7 +3586,7 @@ class mp_options
 		#DISPLAY FACEBOOK LIKE BOX
 		if(!empty($facebook_code))
 		{
-			echo '<div class="facebook_like_box">' . $facebook_code . '</div>';
+			echo '<div class="facebook-like-box">' . $facebook_code . '</div>';
 		}
 	}
 	
@@ -3780,7 +3780,7 @@ class mp_options
 		$posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC LIMIT $number_of_posts");
 		
 		#OPEN UNORDERED LIST
-		echo '<ul id="recent_posts" class="sidebar_posts">';
+		echo '<ul id="recent-posts" class="sidebar-list posts">';
 		
 		#POSTS EXIST
 		if(!empty($posts))
@@ -3832,7 +3832,7 @@ class mp_options
 			$posts = $wpdb->get_results("SELECT ID, post_title, meta_value + 0 AS viewcount FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON post_id = ID WHERE meta_key = 'pvc_views' AND post_status = 'publish' AND post_type ='post' AND post_password = '' ORDER BY viewcount DESC LIMIT $number_of_posts");
 			
 			#OPEN UNORDERED LIST
-			echo '<ul id="popular_posts" class="sidebar_posts hide">';
+			echo '<ul id="popular-posts" class="sidebar-list posts hide">';
 			
 			#POSTS EXIST
 			if(!empty($posts))
@@ -3887,7 +3887,7 @@ class mp_options
 		$posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE comment_count > 0 AND post_status = 'publish' AND post_type = 'post' ORDER BY comment_count DESC LIMIT $number_of_posts");
 		
 		#OPEN UNORDERED LIST
-		echo '<ul id="most_comments" class="sidebar_posts hide">';
+		echo '<ul id="most-comments" class="sidebar-list posts hide">';
 		
 		#POSTS EXIST
 		if(!empty($posts))
@@ -3945,7 +3945,7 @@ class mp_options
 		$comments = $wpdb->get_results($sql);
 		
 		#OPEN UNORDERED LIST
-		echo '<ul id="recent_comments" class="sidebar">';
+		echo '<ul id="recent-comments" class="sidebar-list comments">';
 		
 		#COMMENTS EXIST
 		if(!empty($comments))
@@ -3994,7 +3994,7 @@ class mp_options
 		if(!empty($commenters))
 		{					
 			#OPEN ORDERED LIST
-			$html = '<ol id="top_commenters" class="sidebar hide">';
+			$html = '<ol id="top-commenters" class="sidebar-list numbered hide">';
 			
 			#DISPLAY COMMENTERS
 			foreach($commenters as $commenter)
@@ -4060,7 +4060,7 @@ class mp_options
 		else
 		{
 			#OPEN & CLOSE ORDERED LIST
-			echo '<ol id="top_commenters" class="sidebar hide"></ol>' . "\n";
+			echo '<ol id="top-commenters" class="sidebar-list hide"></ol>' . "\n";
 		}
 	}
 	
@@ -4499,7 +4499,7 @@ class mp_options
 			
 			?>
 			<!-- SPONSORS - START -->
-			<div class="sidebar_box">
+			<div class="sidebar-box">
 			
 				<h4>Sponsors</h4>
 				<div class="square_button1"><?php echo trim(do_shortcode($mp_sidebar_ads_square1)); ?></div>

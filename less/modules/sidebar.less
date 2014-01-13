@@ -12,4 +12,366 @@
 	{
 		display: none;	
 	}
+	
+	.sidebar-box
+	{
+		margin: 0 0 15px 0;
+		padding: 13px 20px 15px 20px;
+		overflow: hidden;
+		
+		background-color: #222;
+		
+		-webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.55);
+		-moz-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.55);
+		box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.55);	
+	}
+	
+	.sidebar-tab-box
+	{
+		display: block;		
+		overflow: hidden;
+		
+		border-bottom: 2px solid #ccc;
+	}
+	
+	/* TABS */
+	.sidebar-tab-list
+	{
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		float: right;
+		
+		list-style-type: none;
+		
+		li
+		{
+			margin: 0 2px 0 0;
+			padding: 0;
+			float: left;
+			
+			&last-child,
+			&.last
+			{
+				margin-right: 0;
+			}
+			
+			a
+			{
+				margin: 0;
+				padding: 4px 5px;
+				float: left;
+				
+				.font-CodeProDemoRegular();
+				font-size: 10px;
+				color: #333;
+				text-decoration: none;
+				-webkit-font-smoothing: antialiased;
+				
+				background-color: #d8d8d8;
+				
+				&:hover,
+				&:focus,
+				&.current
+				{
+					padding: 4px 5px 5px 5px;
+					
+					background-color: #ccc;
+					
+					color: #FFFFFF;
+					text-decoration: none;
+				}			
+			}
+		}
+	}
+	
+	/* HEADINGS */
+	h4
+	{
+		margin: 0;
+		padding: 0;
+		
+		.font-CodeProDemoRegular();
+		font-size: 18px;
+		color: #ccc;	
+		-webkit-font-smoothing: antialiased;
+		
+		border-bottom: 2px solid #ccc;
+		
+		/* HEADINGS FOR TABS */
+		&.tabs
+		{			
+			float: left;
+			
+			border-bottom: none;
+		}
+	}
+	
+	/* PARAGRAPHS */
+	p
+	{
+		margin: 0;
+		padding: 0;
+		
+		.font-Georgia();
+		font-size: 14px;
+		color: #ccc;
+		
+		/* LINKS */
+		a
+		{
+			text-decoration: underline;
+			
+			&:link
+			{
+				color: #ff6600;
+			}
+			
+			&:visited
+			{
+				color: #996699;
+			}
+			
+			&:hover,
+			&:active
+			{
+				color: #ebc308;				
+			}
+		}
+	}
+	
+	/* RSS ICON */
+	img.rss
+	{
+		width: 16px;
+		heigh: 16px;
+		margin: 0 3px 0 0;
+		padding: 0;
+		vertical-align: text-top;
+		float: left;		
+	}
+	
+	/* SOCIAL MEDIA BUTTONS */
+	.social-buttons
+	{
+		margin: 10px 0 5px 0;
+		padding: 0 2px;
+		overflow: hidden;
+		
+		> ul
+		{
+			margin: 0;
+			padding: 0;
+			
+			list-style-type: none;
+			
+			li
+			{
+				margin: 0 8px 0 0;
+				padding: 0;
+				float: left;
+				
+				&:last-child
+				{
+					margin: 0;
+				}
+				
+				img
+				{
+					width: 25px;
+					height: 25px;
+					margin: 0;
+					padding: 0;
+				}
+			}
+		}
+	}
+	
+	/* FACEBOOK LIKE BOX */
+	.facebook-like-box
+	{
+		margin: 0 0 10px 0;
+		padding: 0;
+	}
+	
+	/* LISTS */
+	.sidebar-list
+	{
+		margin: 0;
+		padding: 0;
+		
+		.font-Georgia();
+		font-size: 14px;
+		font-weight: normal;
+		color: #ccc;
+		
+		list-style-type: none;
+		
+		li
+		{
+			margin: 1px 0;
+			padding: 0;
+			border-bottom: 1px dotted #ccc;
+			
+			&:hover,
+			&.current-cat,
+			&.current_page_item,
+			&.current
+			{
+				background-color: #d8d8d8;
+				
+				a
+				{
+					color: #333;
+				}
+			}
+			
+			a
+			{
+				margin: 0;
+				padding: 6px 0 6px 19px;
+				display: block;
+				
+				color: #ccc;
+				text-decoration: none;
+			}
+		}
+		
+		/* CATEGORIES */
+		&.categories li
+		{
+			background-image: url('../images/arrow-sidebar-off.png');
+			background-repeat: no-repeat;
+			background-position: 3px 10px;
+			
+			&:hover,
+			&.current-cat,
+			&.current_page_item,
+			&.current
+			{
+				background-image: url('../images/arrow-sidebar-on.png');
+			}
+		}
+		
+		/* COMMENTS */
+		&.comments li
+		{
+			background-image: url('../images/arrow-sidebar-off.png');
+			background-repeat: no-repeat;
+			background-position: 3px 10px;
+			
+			&:hover
+			{
+				background-image: url('../images/arrow-sidebar-on.png');
+			}
+		}
+		
+		/* POSTS */
+		&.posts li
+		{
+			a
+			{
+				padding-left: 3px;
+			}
+			
+			img
+			{
+				margin: 0 6px 0 0;
+				padding: 0;
+				vertical-align: text-top;
+			}
+		}
+		
+		/* NUMBERED LISTS */
+		&.numbered
+		{
+			margin: 1px 0;		
+			
+			list-style-type: decimal;
+			list-style-position: inside;
+			
+			li
+			{
+				margin: 0;
+				padding: 6px 0 6px 2px;
+				
+				&:hover
+				{
+					color: #333;
+				}
+				
+				a
+				{
+					padding: 6px 0;
+				}
+			}
+		}
+	}
+	
+	/* SELECT LISTS */
+	.sidebar-select
+	{
+		margin: 10px 0 0 0;
+		padding: 0;
+		
+		.font-Georgia();
+		font-size: 14px;
+		color: #333;
+		
+		background-color: #fff;
+	}
+	
+	.square_button1
+	{
+		width: 125px;
+		height: 125px;
+		margin: 10px 10px 10px 0px;
+		padding: 0px;
+		float: left;
+	}
+	
+	.square_button2
+	{
+		width: 125px;
+		height: 125px;
+		margin: 10px 0px 10px 0px;
+		padding: 0px;
+		float: right;
+	}
+	
+	.square_button3
+	{
+		width: 125px;
+		height: 125px;
+		margin: 0px 10px 10px 0px;
+		padding: 0px;
+		float: left;
+	}
+	
+	.square_button4
+	{
+		width: 125px;
+		height: 125px;
+		margin: 0px 0px 10px 0px;
+		padding: 0px;
+		float: right;
+	}
+	
+	.square_button5
+	{
+		width: 125px;
+		height: 125px;
+		margin: 0px 10px 0px 0px;
+		padding: 0px;
+		float: left;
+	}
+	
+	.square_button6
+	{
+		width: 125px;
+		height: 125px;
+		margin: 0px;
+		padding: 0px;
+		float: right;
+	}
 }

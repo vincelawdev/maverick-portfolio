@@ -227,15 +227,15 @@ var mp_module = function()
 		organic_tabs_init : function()
 		{
 			//POST TABS EXISTS
-			if($('#sidebar').find('#post_tabs').length > 0)
+			if($('#sidebar').find('#post-tabs').length > 0)
 			{			
-				$('#post_tabs').organicTabs({ 'speed' : 200 });
+				$('#post-tabs').organicTabs({ 'speed' : 200 });
 			}
 			
 			//COMMENT TABS EXISTS
-			if($('#sidebar').find('#comment_tabs').length > 0)
+			if($('#sidebar').find('#comment-tabs').length > 0)
 			{			
-				$('#comment_tabs').organicTabs({ 'speed' : 200 });
+				$('#comment-tabs').organicTabs({ 'speed' : 200 });
 			}
 		}
 	},

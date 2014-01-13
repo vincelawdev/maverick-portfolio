@@ -10,10 +10,10 @@
 		{
 		?>
 			<!-- SUB PAGES - START -->
-			<div class="sidebar_box">
+			<div class="sidebar-box">
 			
 				<h4><?php wp_title(''); ?></h4>
-				<ul class="sidebar"><?php wp_list_pages('child_of=' . $post->ID . '&sort_column=menu_order&sort_order=ASC&depth=1&title_li='); ?></ul>
+				<ul class="sidebar-list"><?php wp_list_pages('child_of=' . $post->ID . '&sort_column=menu_order&sort_order=ASC&depth=1&title_li='); ?></ul>
 				
 			</div>
 			<!-- SUB PAGES - END -->
@@ -38,10 +38,10 @@
 			{
 			?>
 				<!-- SUB PAGES - START -->
-				<div class="sidebar_box">
+				<div class="sidebar-box">
 				
 					<h4><?php echo get_the_title($post->post_parent); ?></h4>
-					<ul class="sidebar"><?php echo $children; ?></ul>
+					<ul class="sidebar-list"><?php echo $children; ?></ul>
 					
 				</div>
 				<!-- SUB PAGES - END -->
@@ -54,10 +54,10 @@
 	{
 	?>
 	<!-- BLOG CATEGORIES - START -->
-	<div class="sidebar_box">
+	<div class="sidebar-box">
 	
 		<h4>Categories</h4>	
-		<ul class="sidebar"><?php mp_options::mp_display_blog_categories(); ?></ul>
+		<ul class="sidebar-list categories"><?php mp_options::mp_display_blog_categories(); ?></ul>
 		
 	</div>
 	<!-- BLOG CATEGORIES - END -->
@@ -68,10 +68,10 @@
 	{
 	?>
 	<!-- ARTICLE DIRECTORIES - START -->
-	<div class="sidebar_box">
+	<div class="sidebar-box">
 	
 		<h4>Directories</h4>	
-		<ul class="sidebar"><?php mp_options::mp_display_article_directories(get_query_var('term')); ?></ul>
+		<ul class="sidebar categories"><?php mp_options::mp_display_article_directories(get_query_var('term')); ?></ul>
 		
 	</div>
 	<!-- ARTICLE DIRECTORIES - END -->
@@ -82,10 +82,10 @@
 	{
 	?>
 	<!-- PORTFOLIO CATEGORIES - START -->
-	<div class="sidebar_box">
+	<div class="sidebar-box">
 	
 		<h4>Categories</h4>	
-		<ul class="sidebar"><?php mp_options::mp_display_portfolio_categories(get_query_var('term')); ?></ul>
+		<ul class="sidebar-list categories"><?php mp_options::mp_display_portfolio_categories(get_query_var('term')); ?></ul>
 		
 	</div>
 	<!-- PORTFOLIO CATEGORIES - END -->
@@ -94,7 +94,7 @@
 	?>
 	
 	<!-- SOCIAL - START -->
-	<div class="sidebar_box">
+	<div class="sidebar-box">
 	
 		<h4>Connect With <?php the_author_meta('first_name', mp_options::mp_get_author_id()); ?></h4>
 		<?php mp_options::mp_display_social_buttons(); ?>
@@ -115,15 +115,15 @@
 	{
 	?>
 	<!-- POST TABS - START -->
-	<div id="post_tabs" class="sidebar_box">
+	<div id="post-tabs" class="sidebar-box">
 	
 		<!-- POST TABS TITLES - START -->
-		<div class="tab_box">
+		<div class="sidebar-tab-box">
 			<h4 class="tabs">Posts</h4>
-			<ul class="nav">
-				<li><a href="#recent_posts" class="current">Recent</a></li>
-				<?php if(function_exists('popular_posts')) { ?><li><a href="#popular_posts">Popular</a></li><?php } ?>
-				<li class="last"><a href="#most_comments">Most Comments</a></li>
+			<ul class="sidebar-tab-list">
+				<li><a href="#recent-posts" class="current">Recent</a></li>
+				<?php if(function_exists('popular_posts')) { ?><li><a href="#popular-posts">Popular</a></li><?php } ?>
+				<li class="last"><a href="#most-comments">Most Comments</a></li>
 			</ul>
 		</div>
 		<!-- POST TABS TITLES - END -->
@@ -144,14 +144,14 @@
 	<!-- POST TABS - END -->
 		
 	<!-- COMMENT TABS - START -->
-	<div id="comment_tabs" class="sidebar_box">
+	<div id="comment-tabs" class="sidebar-box">
 	
 		<!-- COMMENT TABS TITLES - START -->
-		<div class="tab_box">
+		<div class="sidebar-tab-box">
 			<h4 class="tabs">Comments</h4>
-			<ul class="nav">
-				<li><a href="#recent_comments" class="current">Recent</a></li>
-				<li class="last"><a href="#top_commenters">Top Commenters</a></li>
+			<ul class="sidebar-tab-list">
+				<li><a href="#recent-comments" class="current">Recent</a></li>
+				<li class="last"><a href="#top-commenters">Top Commenters</a></li>
 			</ul>
 		</div>
 		<!-- COMMENT TABS TITLES - END -->
@@ -168,11 +168,14 @@
 	<!-- COMMENT TABS - END -->
 	
 	<!-- ARCHIVES - START -->
-	<div class="sidebar_box">
+	<div class="sidebar-box">
 	
 		<h4>Archives</h4>
 		<form action="" method="post">
-		<select name="archives" onchange="document.location.href=this.options[this.selectedIndex].value;"><option value="">Select Month</option><?php wp_get_archives('type=monthly&format=option'); ?></select>
+		<select name="archives" class="sidebar-select" onchange="document.location.href=this.options[this.selectedIndex].value;">
+        	<option value="">Select Month</option>
+			<?php wp_get_archives('type=monthly&format=option'); ?>
+        </select>
 		</form>
 	
 	</div>

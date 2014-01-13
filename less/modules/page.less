@@ -14,14 +14,15 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
 	padding: 0;
 	overflow: hidden;
 	
-	background-color: #FFFFFF;
+	background-color: #fff;
 	
-	/* EXTEND CONTENT FOR MOBILE SCREENS */
+	/* EXTEND ON MOBILE SCREENS */
 	@media only screen and (max-width: 767px)
 	{
 		width: 100% !important;
 	}
 	
+	/* ADD MARGIN & SHADOWS ON NON-MOBILE SCREENS */
 	@media only screen and (min-width: 768px)
 	{
 		margin: 15px 0;
@@ -29,6 +30,12 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
 		-webkit-box-shadow: 0 5px 10px rgba(50, 50, 50, 0.55);
 		-moz-box-shadow: 0 5px 10px rgba(50, 50, 50, 0.55);
 		box-shadow: 0 5px 10px rgba(50, 50, 50, 0.55);
+	}
+	
+	/* EXTEND (.col9) ON DESKTOPS - 1400 & GREATER */
+	@media only screen and (min-width: 1400px)
+	{
+		width: 75% !important;
 	}
 	
 	/* PAGE TITLES */

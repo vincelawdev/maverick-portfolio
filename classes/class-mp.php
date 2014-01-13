@@ -4502,14 +4502,19 @@ class mp_options
 			<div class="sidebar-box">
 			
 				<h4>Sponsors</h4>
-				<div class="square_button1"><?php echo trim(do_shortcode($mp_sidebar_ads_square1)); ?></div>
-				<div class="square_button2"><?php echo trim(do_shortcode($mp_sidebar_ads_square2)); ?></div>
-				<div class="square_button3"><?php echo trim(do_shortcode($mp_sidebar_ads_square3)); ?></div>
-				<div class="square_button4"><?php echo trim(do_shortcode($mp_sidebar_ads_square4)); ?></div>
-				<div class="square_button5"><?php echo trim(do_shortcode($mp_sidebar_ads_square5)); ?></div>
-				<div class="square_button6"><?php echo trim(do_shortcode($mp_sidebar_ads_square6)); ?></div>
-				
-			</div>
+                
+                <div class="sidebar-sponsor-wrapper">
+                
+                    <div class="sidebar-square-button"><?php echo trim(do_shortcode($mp_sidebar_ads_square1)); ?></div>
+                    <div class="sidebar-square-button"><?php echo trim(do_shortcode($mp_sidebar_ads_square2)); ?></div>
+                    <div class="sidebar-square-button"><?php echo trim(do_shortcode($mp_sidebar_ads_square3)); ?></div>
+                    <div class="sidebar-square-button"><?php echo trim(do_shortcode($mp_sidebar_ads_square4)); ?></div>
+                    <div class="sidebar-square-button"><?php echo trim(do_shortcode($mp_sidebar_ads_square5)); ?></div>
+                    <div class="sidebar-square-button"><?php echo trim(do_shortcode($mp_sidebar_ads_square6)); ?></div>
+                    
+                </div>
+                    
+        	</div>
 			<!-- SPONSORS - END -->
 			<?php
 		}

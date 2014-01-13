@@ -1,5 +1,5 @@
 <!-- SIDEBAR - START -->
-<div id="sidebar" class="col3">
+<div id="sidebar" class="col4">
 
 	<?php	
 	#DISPLAY SUB PAGES ON PAGE EXCEPT FOR THE PORTFOLIO PAGE

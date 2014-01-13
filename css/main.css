@@ -223,13 +223,13 @@ MENU - SUPERFISH 1.7.4 - ESSENTIAL STYLES ONLY
 #menu .sf-menu > li.home img {
   width: 22px;
   height: 19px;
-  margin: 4px 0px -3px 0px;
-  padding: 0px;
+  margin: 4px 0 -3px 0;
+  padding: 0;
 }
 #menu .sf-menu > li .arrow-down {
   width: 11px;
   height: 9px;
-  margin: 18px 10px 0px -5px;
+  margin: 18px 10px 0 -5px;
   padding: 0;
   float: left;
   background-image: url('../images/arrow-menu-down-off.png');
@@ -448,7 +448,7 @@ COLORBOX - 1.4.33 by Jack Moore - (http://www.jacklmoore.com)
   overflow: visible;
   position: absolute;
   bottom: -29px;
-  background: url(../images/colorbox/controls.png) no-repeat 0px 0px;
+  background: url(../images/colorbox/controls.png) no-repeat 0 0;
   width: 23px;
   height: 23px;
   text-indent: -9999px;
@@ -461,39 +461,39 @@ COLORBOX - 1.4.33 by Jack Moore - (http://www.jacklmoore.com)
   outline: 0;
 }
 #cboxPrevious {
-  left: 0px;
+  left: 0;
   background-position: -51px -25px;
 }
 #cboxPrevious:hover {
-  background-position: -51px 0px;
+  background-position: -51px 0;
 }
 #cboxNext {
   left: 27px;
   background-position: -75px -25px;
 }
 #cboxNext:hover {
-  background-position: -75px 0px;
+  background-position: -75px 0;
 }
 #cboxClose {
   right: 0;
   background-position: -100px -25px;
 }
 #cboxClose:hover {
-  background-position: -100px 0px;
+  background-position: -100px 0;
 }
 .cboxSlideshow_on #cboxSlideshow {
-  background-position: -125px 0px;
+  background-position: -125px 0;
   right: 27px;
 }
 .cboxSlideshow_on #cboxSlideshow:hover {
-  background-position: -150px 0px;
+  background-position: -150px 0;
 }
 .cboxSlideshow_off #cboxSlideshow {
   background-position: -150px -25px;
   right: 27px;
 }
 .cboxSlideshow_off #cboxSlideshow:hover {
-  background-position: -125px 0px;
+  background-position: -125px 0;
 }
 /**************************************************************************
 PLUGIN: WP-PAGENAVI PLUGIN PAGING NAVIGATION LINKS
@@ -560,7 +560,7 @@ PLUGIN: WP-TABLE RELOADED TABLES
   color: #333;
   -webkit-font-smoothing: antialiased;
   background-color: #E6EEEE;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #fff;
 }
 .wp-table-reloaded td {
   padding: 4px;
@@ -570,7 +570,7 @@ PLUGIN: WP-TABLE RELOADED TABLES
   font-size: 14px;
   color: #333;
   -webkit-font-smoothing: antialiased;
-  background-color: #FFFFFF;
+  background-color: #fff;
   vertical-align: top;
 }
 /**************************************************************************
@@ -956,8 +956,8 @@ table {
 BODY
 **************************************************************************/
 body {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   background-color: #c7c7c7;
   background-image: url('../images/bg-page.jpg');
 }
@@ -1130,7 +1130,7 @@ HEADER
   font-family: 'CodeProDemoRegular', Georgia;
   font-weight: normal;
   font-style: normal;
-  color: #ffffff;
+  color: #fff;
   -webkit-font-smoothing: antialiased;
 }
 .header-logo p.description {
@@ -1141,7 +1141,7 @@ HEADER
   font-weight: normal;
   font-style: normal;
   font-size: 16px;
-  color: #ffffff;
+  color: #fff;
   -webkit-font-smoothing: antialiased;
 }
 @media only screen and (max-width: 767px) {
@@ -1150,7 +1150,7 @@ HEADER
   }
 }
 .header-logo a {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
 }
 .header-social {
@@ -1222,7 +1222,7 @@ FOOTER
     padding-right: 5%;
   }
 }
-/* EXTEND FOOTER COLUMNS FOR MOBILE SCREENS */
+/* EXTEND FOOTER COLUMNS ON MOBILE SCREENS */
 @media only screen and (max-width: 767px) {
   #footer-row1 #footer-column1,
   #footer-row1 #footer-column2,
@@ -1593,8 +1593,10 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #FFFFFF;
-  /* EXTEND CONTENT FOR MOBILE SCREENS */
+  background-color: #fff;
+  /* EXTEND ON MOBILE SCREENS */
+  /* ADD MARGIN & SHADOWS ON NON-MOBILE SCREENS */
+  /* EXTEND (.col9) ON DESKTOPS - 1400 & GREATER */
   /* PAGE TITLES */
   /* POST TITLES */
   /* POST INFO - DATE, TIME, CATEGORY, AUTHOR, ETC */
@@ -1623,6 +1625,11 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
     -webkit-box-shadow: 0 5px 10px rgba(50, 50, 50, 0.55);
     -moz-box-shadow: 0 5px 10px rgba(50, 50, 50, 0.55);
     box-shadow: 0 5px 10px rgba(50, 50, 50, 0.55);
+  }
+}
+@media only screen and (min-width: 1400px) {
+  #content {
+    width: 75% !important;
   }
 }
 #content .page-title {
@@ -2000,6 +2007,8 @@ a img {
   margin: 30px 0 0 0;
   padding: 0;
   float: right;
+  /* HIDE ON MOBILE SCREENS */
+  /* EXTEND (.col3) ON DESKTOPS - 1400 & GREATER */
   /* TABS */
   /* HEADINGS */
   /* PARAGRAPHS */
@@ -2008,10 +2017,17 @@ a img {
   /* FACEBOOK LIKE BOX */
   /* LISTS */
   /* SELECT LISTS */
+  /* SPONSORS */
+  /* SPONSORS - SQUARE BUTTONS */
 }
 @media only screen and (max-width: 767px) {
   #sidebar {
     display: none;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  #sidebar {
+    width: 25% !important;
   }
 }
 #sidebar .sidebar-box {
@@ -2032,8 +2048,18 @@ a img {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  float: right;
   list-style-type: none;
+}
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  #sidebar .sidebar-tab-list {
+    margin-top: 6px;
+    float: left;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  #sidebar .sidebar-tab-list {
+    float: right;
+  }
 }
 #sidebar .sidebar-tab-list li {
   margin: 0 2px 0 0;
@@ -2062,7 +2088,7 @@ a img {
 #sidebar .sidebar-tab-list li a.current {
   padding: 4px 5px 5px 5px;
   background-color: #ccc;
-  color: #FFFFFF;
+  color: #fff;
   text-decoration: none;
 }
 #sidebar h4 {
@@ -2131,14 +2157,39 @@ a img {
   margin: 0;
 }
 #sidebar .social-buttons > ul li img {
-  width: 25px;
-  height: 25px;
   margin: 0;
   padding: 0;
+}
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  #sidebar .social-buttons > ul li img {
+    width: 18px;
+    height: 18px;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  #sidebar .social-buttons > ul li img {
+    width: 25px;
+    height: 25px;
+  }
 }
 #sidebar .facebook-like-box {
   margin: 0 0 10px 0;
   padding: 0;
+}
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  #sidebar .facebook-like-box > iframe {
+    width: 200px !important;
+  }
+}
+@media only screen and (min-width: 1024px) and (max-width: 1399px) {
+  #sidebar .facebook-like-box > iframe {
+    width: 280px !important;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  #sidebar .facebook-like-box > iframe {
+    width: 300px !important;
+  }
 }
 #sidebar .sidebar-list {
   margin: 0;
@@ -2230,47 +2281,22 @@ a img {
   color: #333;
   background-color: #fff;
 }
-#sidebar .square_button1 {
+#sidebar .sidebar-sponsor-wrapper {
+  margin: 10px 0 -10px 0;
+  padding: 0;
+  overflow: hidden;
+}
+#sidebar .sidebar-square-button {
   width: 125px;
   height: 125px;
-  margin: 10px 10px 10px 0px;
-  padding: 0px;
+  margin: 0 10px 10px 0;
+  padding: 0;
   float: left;
+  background-color: yellow;
 }
-#sidebar .square_button2 {
+#sidebar .sidebar-square-button img {
   width: 125px;
   height: 125px;
-  margin: 10px 0px 10px 0px;
-  padding: 0px;
-  float: right;
-}
-#sidebar .square_button3 {
-  width: 125px;
-  height: 125px;
-  margin: 0px 10px 10px 0px;
-  padding: 0px;
-  float: left;
-}
-#sidebar .square_button4 {
-  width: 125px;
-  height: 125px;
-  margin: 0px 0px 10px 0px;
-  padding: 0px;
-  float: right;
-}
-#sidebar .square_button5 {
-  width: 125px;
-  height: 125px;
-  margin: 0px 10px 0px 0px;
-  padding: 0px;
-  float: left;
-}
-#sidebar .square_button6 {
-  width: 125px;
-  height: 125px;
-  margin: 0px;
-  padding: 0px;
-  float: right;
 }
 /**************************************************************************
 SOCIAL MEDIA BUTTONS
@@ -2327,7 +2353,7 @@ BREAD CRUMBS
   font-weight: normal;
   font-style: normal;
   font-size: 16px;
-  color: #333333;
+  color: #333;
   -webkit-font-smoothing: antialiased;
 }
 #bread_crumbs a {

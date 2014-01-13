@@ -183,7 +183,7 @@ $mp_social_button_size = get_option('mp_social_button_size');
 	<?php get_sidebar(); ?>
 
 	<!-- CONTENT - START -->
-	<div id="content" class="col9">
+	<div id="content" class="col8">
     
     	<!-- CONTENT WRAPPER - START -->
     	<div class="content-wrapper">

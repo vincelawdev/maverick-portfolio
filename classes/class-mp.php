@@ -1122,7 +1122,7 @@ class mp_options
 			#DISPLAY LOGO
 			if(!empty($mp_logo_image))
 			{
-				echo '<a href="' . get_bloginfo('url') . '"><img src="' . $mp_logo_image . '" alt="' . get_bloginfo('name') . ' - ' . get_bloginfo('description') . '" title="' . get_bloginfo('name') . ' - ' . get_bloginfo('description') . '" class="logo_image" /></a>';
+				echo '<a href="' . get_bloginfo('url') . '"><img src="' . $mp_logo_image . '" alt="' . get_bloginfo('name') . ' - ' . get_bloginfo('description') . '" title="' . get_bloginfo('name') . ' - ' . get_bloginfo('description') . '" class="logo-image" /></a>';
 				
 			}
 			#DISPLAY TEXT LOGO
@@ -4142,17 +4142,17 @@ class mp_options
 				
 				<!-- COMMENT AVATAR, AUTHOR & DATE - START -->
 				<a name="comment-<?php comment_ID(); ?>"></a>
-				<div class="comment_header">
-					<div class="comment_avatar"><a href="<?php comment_author_url(); ?>" rel="nofollow"><img src="http://www.gravatar.com/avatar/<?php echo $gravatar_hash; ?>?s=80&r=g&d=<?php echo $gravatar_default; ?>" alt="<?php comment_author(); ?>" title="<?php comment_author(); ?>" /></a></div>
-					<div class="comment_author_date">
-						<p class="comment_author"><a href="<?php comment_author_url(); ?>" rel="nofollow"><?php comment_author(); ?></a></p>
-						<p class="comment_date"><?php comment_date(); ?> <?php comment_time() ?></p>
+				<div class="comment-header">
+					<div class="comment-avatar"><a href="<?php comment_author_url(); ?>" rel="nofollow"><img src="http://www.gravatar.com/avatar/<?php echo $gravatar_hash; ?>?s=80&r=g&d=<?php echo $gravatar_default; ?>" alt="<?php comment_author(); ?>" title="<?php comment_author(); ?>" /></a></div>
+					<div class="comment-author-date">
+						<p class="comment-author"><a href="<?php comment_author_url(); ?>" rel="nofollow"><?php comment_author(); ?></a></p>
+						<p class="comment-date"><?php comment_date(); ?><br> <?php comment_time() ?></p>
 					</div>
 				</div>
 				<!-- COMMENT AVATAR, AUTHOR & DATE - END -->				
 			
 				<!-- COMMENT TEXT - START -->
-				<div class="comment_text">
+				<div class="comment-text">
 					<?php
 					#DISPLAY COMMENT TEXT
 					comment_text();

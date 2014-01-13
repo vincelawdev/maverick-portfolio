@@ -190,7 +190,7 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
 	/* PARAGRAPHS */
 	p
 	{
-		margin: 10px 0;
+		margin: 15px 0;
 		padding: 0;
 		
 		.font-Georgia();
@@ -203,7 +203,7 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
 	ol,
 	ul
 	{
-		margin: 10px 0 0 0;
+		margin: 15px 0 0 0;
 		padding: 0;
 		
 		.font-Georgia();
@@ -214,14 +214,14 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
 		list-style-position: inside;
 		
 		/* SIMILAR POSTS */		
-		&.similar_posts
+		&.similar-posts
 		{
 			margin: 0 0 11px 0;
 			
 			li
 			{
 				margin: 0 0 0 2px;
-				padding: 0;	
+				padding: 0 0 5px 0;
 			}
 		}
 		
@@ -268,7 +268,7 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
 	/* BLOCK QUOTES */
 	blockquote
 	{
-		margin: 10px 0;
+		margin: 15px 0;
 		padding: 0 15px 0 30px;
 		
 		background-color: #f6f6f6;
@@ -295,7 +295,7 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
 	/* WORDPRESS POST IMAGES */
 	.wp-post-image
 	{
-		margin: 10px 10px 10px 0;
+		margin: 15px 10px 15px 0;
 		padding: 0;
 		float: left;
 		
@@ -397,16 +397,18 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
 			color: #ebc308;
 		}
 	}
-}
-
-.right
-{
-	padding: 0;
-	float: right;	
-}
-
-.left
-{	
-	padding: 0;
-	float: left;
+	
+	/* ALIGN LEFT */
+	.left
+	{	
+		padding: 0;
+		float: left;
+	}
+	
+	/* ALIGN RIGHT */
+	.right
+	{
+		padding: 0;
+		float: right;	
+	}
 }

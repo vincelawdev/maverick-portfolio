@@ -164,7 +164,7 @@ $mp_social_button_size = get_option('mp_social_button_size');
         
             <form method="get" id="searchform" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             
-            	<input type="submit" class="search-box-button" value="" /><input type="text" value="" name="s" class="search-box-field" placeholder="Search" />
+            	<input type="submit" class="search-box-button" value="" /><input type="search" value="" name="s" class="search-box-field" placeholder="Search" />
             
             </form>
         

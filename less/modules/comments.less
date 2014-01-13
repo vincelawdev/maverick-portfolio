@@ -1,0 +1,270 @@
+/**************************************************************************
+COMMENTS, TRACKBACKS & PINGBACKS
+**************************************************************************/
+
+#content ul.comments
+{
+	margin: 0;
+	padding: 0;
+	
+	list-style-type: none;
+	list-style-position: inside;
+	
+	li
+	{
+		margin: 0;
+		padding: 0;
+		
+		/* COMMENT HEADER */
+		.comment-header
+		{
+			width: 100%;
+			height: 68px;
+			margin: 0;
+			padding: 0;
+			
+			background-image: url('../images/bg-comments-user.png');
+			background-repeat: repeat;
+		}
+		
+		/* COMMENT HEADER - POST AUTHOR */
+		&.bypostauthor .comment-header
+		{
+			background-image: url('../images/bg-comments-author.png');
+		}
+		
+		/* COMMENT AVATAR */
+		.comment-avatar
+		{
+			width: 48px;
+			height: 48px;
+			margin: 10px;
+			padding: 0;			
+			float: left;
+			
+			background-color: #fff;
+			
+			img
+			{
+				width: 40px;
+				height: 40px;
+				margin: 0;
+				padding: 3px;
+				
+				border: 1px solid #c4c4c4;
+				
+				-o-transition-duration: 0.5s;
+				-moz-transition-duration: 0.5s;
+				-webkit-transition: -webkit-transform 0.5s;
+				
+				&:hover,
+				&:active
+				{
+					border: 1px solid #ebc308;
+					
+					-o-transition-duration: 0.5s;
+					-moz-transition-duration: 0.5s;
+					-webkit-transition: -webkit-transform 0.5s;
+				}
+			}
+		}
+		
+		/* COMMENT AUTHOR & DATE WRAPPER */
+		.comment-author-date
+		{
+			margin: 10px 0 0 0;
+			padding: 0;
+			float: left;
+		}
+		
+		/* COMMENT AUTHOR */
+		.comment-author
+		{
+			margin: 2px 0 3px 0;
+			padding: 0;
+			display: block;
+			
+			.font-ExpresswayRegular();
+			color: #333;
+			-webkit-font-smoothing: antialiased;
+			
+			@media only screen and (max-width: 767px)
+			{
+				font-size: 15px;
+				line-height: 14px;
+			}
+			
+			@media only screen and (min-width: 767px)
+			{
+				font-size: 18px;
+				line-height: 22px;
+			}
+			
+			/* LINKS */
+			a
+			{
+				text-decoration: none;
+				
+				&:link,
+				&:visited
+				{
+					color: #333;
+				}
+				
+				&:hover,
+				&:active
+				{
+					color: #ebc308;
+				}
+			}
+		}
+		
+		/* COMMENT AUTHOR - POST AUTHOR */
+		&.bypostauthor .comment-author
+		{
+			color: #fff;
+			
+			/* LINKS */
+			a
+			{
+				&:link,
+				&:visited
+				{
+					color: #fff;
+				}
+				
+				&:hover,
+				&:active
+				{
+					color: #ebc308;
+				}
+			}
+		}
+		
+		/* COMMENT DATE */
+		.comment-date
+		{
+			margin: 0;
+			padding: 0;
+			display: block;
+			
+			.font-ExpresswayRegular();
+			color: #333;
+			-webkit-font-smoothing: antialiased;
+			
+			@media only screen and (max-width: 767px)
+			{
+				font-size: 13px;
+			}
+			
+			@media only screen and (min-width: 767px)
+			{
+				font-size: 14px;
+			}
+			
+			/* LINE BREAK */
+			br
+			{
+				@media only screen and (max-width: 767px)
+				{
+					display: inline;
+				}
+				
+				@media only screen and (min-width: 767px)
+				{
+					display: none;
+				}
+			}	
+		}
+		
+		/* COMMENT DATE - POST AUTHOR */
+		&.bypostauthor .comment-date
+		{
+			color: #fff;
+		}
+		
+		/* COMMENT TEXT */
+		.comment-text
+		{
+			width: 100%;
+			margin: 0 0 15px 0;
+			padding: 2px 2% 0 2%;
+			display: block;
+			overflow: hidden;
+			
+			background-color: #f6f6f6;
+			
+			border-left: 1px solid #ccc;
+			border-right: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+			
+			-moz-box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box;
+			
+			/* PARAGRAPHS */
+			p
+			{
+				margin: 10px 0;
+				padding: 0;
+				overflow: hidden;
+				
+				.font-Georgia();
+				font-size: 14px;
+				color: #333;
+				-webkit-font-smoothing: antialiased;
+				
+				/* REPLY LINK */
+				&.reply a:link
+				{
+					text-decoration: none;
+				}
+			}
+			
+			p,
+			li
+			{
+				line-height: 22px;	
+			}
+		}
+		
+		/* COMMENT REPLIES */
+		&.depth-2,
+		&.depth-3
+		{
+			margin-left: 25px;	
+		}
+		
+		> ul.children
+		{
+			margin: 0;
+			padding: 0;
+			overflow: hidden;	
+			
+			background-image: url('../images/arrow-comments.png');
+			background-repeat: no-repeat;
+			background-position: top left;
+			
+			list-style-type: none;
+			list-style-position: inside;	
+		}	
+	}
+	
+	/* COMMENT TRACKBACKS */
+	ol.pings
+	{
+		margin: 0 0 11px 0;
+		padding: 0;
+		
+		.font-Georgia();
+		font-size: 14px;
+		color: #333;
+		
+		li
+		{
+			margin: 0;
+			padding: 0;	
+		}
+	}
+}

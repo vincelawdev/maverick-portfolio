@@ -100,7 +100,7 @@ if(comments_open())
 			<?php
 			}
 			?>
-			<p><label for="comment">Comments: (Required)</label><br /><textarea rows="8" cols="20" name="comment" id="comment"></textarea></p>
+			<p><label for="comment">Comments: (Required)</label><br /><textarea rows="10" cols="20" name="comment" id="comment"></textarea></p>
 			<?php do_action('comment_form', $post->ID); ?>
 			<p><input name="submit" type="submit" value="Submit" /></p>
 		</form>

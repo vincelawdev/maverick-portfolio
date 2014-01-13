@@ -1114,12 +1114,12 @@ HEADER
     float: left;
   }
 }
-.header-logo img.logo_image {
+.header-logo img.logo-image {
   margin: 0;
   padding: 0;
 }
 @media only screen and (min-width: 768px) {
-  .header-logo img.logo_image {
+  .header-logo img.logo-image {
     float: left;
   }
 }
@@ -1273,7 +1273,7 @@ FOOTER
 }
 #footer-row1 #footer-column1 img {
   margin-right: 2%;
-  border: 3px solid #aaa;
+  border: 3px solid #ccc;
   -webkit-transition: border-color 300ms ease-in-out 0ms;
   -moz-transition: border-color 300ms ease-in-out 0ms;
   -o-transition: border-color 300ms ease-in-out 0ms;
@@ -1613,6 +1613,8 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
   /* WORDPRESS CAPTIONS */
   /* VIDEOS */
   /* LINKS */
+  /* ALIGN LEFT */
+  /* ALIGN RIGHT */
 }
 @media only screen and (max-width: 767px) {
   #content {
@@ -1747,7 +1749,7 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
   padding: 0;
 }
 #content p {
-  margin: 10px 0;
+  margin: 15px 0;
   padding: 0;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-weight: normal;
@@ -1758,7 +1760,7 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
 }
 #content ol,
 #content ul {
-  margin: 10px 0 0 0;
+  margin: 15px 0 0 0;
   padding: 0;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-weight: normal;
@@ -1769,14 +1771,14 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
   list-style-position: inside;
   /* SIMILAR POSTS */
 }
-#content ol.similar_posts,
-#content ul.similar_posts {
+#content ol.similar-posts,
+#content ul.similar-posts {
   margin: 0 0 11px 0;
 }
-#content ol.similar_posts li,
-#content ul.similar_posts li {
+#content ol.similar-posts li,
+#content ul.similar-posts li {
   margin: 0 0 0 2px;
-  padding: 0;
+  padding: 0 0 5px 0;
 }
 #content ol li,
 #content ul li {
@@ -1814,7 +1816,7 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
   list-style-type: decimal;
 }
 #content blockquote {
-  margin: 10px 0;
+  margin: 15px 0;
   padding: 0 15px 0 30px;
   background-color: #f6f6f6;
   border-top: 1px solid #ccc;
@@ -1831,7 +1833,7 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
   overflow: hidden;
 }
 #content .wp-post-image {
-  margin: 10px 10px 10px 0;
+  margin: 15px 10px 15px 0;
   padding: 0;
   float: left;
   border: 2px solid #d2d2d2;
@@ -1903,13 +1905,13 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
 #content a:hover {
   color: #ebc308;
 }
-.right {
-  padding: 0;
-  float: right;
-}
-.left {
+#content .left {
   padding: 0;
   float: left;
+}
+#content .right {
+  padding: 0;
+  float: right;
 }
 /**************************************************************************
 SEARCH
@@ -1999,6 +2001,119 @@ img.aligncenter {
 }
 a img {
   border: none;
+}
+/**************************************************************************
+FORMS
+**************************************************************************/
+form {
+  margin: 0;
+  padding: 0;
+}
+#content {
+  /* INPUT FIELDS */
+  /* SELECT LISTS */
+  /* SUBMIT BUTTON */
+}
+#content input[type="text"],
+#content input[type="email"],
+#content input[type="tel"],
+#content input[type="url"] {
+  width: 50%;
+  margin: 0;
+  padding: 8px 10px;
+  overflow: hidden;
+  background-image: -ms-linear-gradient(top, #f3f3f3 0%, #fdfdfd 100%);
+  background-image: -moz-linear-gradient(top, #f3f3f3 0%, #fdfdfd 100%);
+  background-image: -o-linear-gradient(top, #f3f3f3 0%, #fdfdfd 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f3f3f3), color-stop(1, #fdfdfd));
+  background-image: -webkit-linear-gradient(top, #f3f3f3 0%, #fdfdfd 100%);
+  background-image: linear-gradient(top, #f3f3f3 0%, #fdfdfd 100%);
+  border: 1px solid #c4c4c4;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+}
+#content textarea {
+  width: 100%;
+  margin: 0;
+  padding: 8px 10px;
+  overflow: hidden;
+  background-image: -ms-linear-gradient(top, #fdfdfd 0%, #f3f3f3 100%);
+  background-image: -moz-linear-gradient(top, #fdfdfd 0%, #f3f3f3 100%);
+  background-image: -o-linear-gradient(top, #fdfdfd 0%, #f3f3f3 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fdfdfd), color-stop(1, #f3f3f3));
+  background-image: -webkit-linear-gradient(top, #fdfdfd 0%, #f3f3f3 100%);
+  background-image: linear-gradient(top, #fdfdfd 0%, #f3f3f3 100%);
+  border: 1px solid #c4c4c4;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 14px;
+  color: #333;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none;
+}
+#content input[type="text"]:focus,
+#content input[type="email"]:focus,
+#content input[type="tel"]:focus,
+#content input[type="url"]:focus,
+#content textarea:focus {
+  border: 1px solid #ebc308;
+  -webkit-box-shadow: 3px 3px 5px rgba(50, 50, 50, 0.2);
+  -moz-box-shadow: 3px 3px 5px rgba(50, 50, 50, 0.2);
+  box-shadow: 3px 3px 5px rgba(50, 50, 50, 0.2);
+}
+#content select {
+  margin: 1px;
+  padding: 4px;
+  background-image: -ms-linear-gradient(top, #f3f3f3 0%, #fdfdfd 100%);
+  background-image: -moz-linear-gradient(top, #f3f3f3 0%, #fdfdfd 100%);
+  background-image: -o-linear-gradient(top, #f3f3f3 0%, #fdfdfd 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f3f3f3), color-stop(1, #fdfdfd));
+  background-image: -webkit-linear-gradient(top, #f3f3f3 0%, #fdfdfd 100%);
+  background-image: linear-gradient(top, #f3f3f3 0%, #fdfdfd 100%);
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+}
+#content input[type="submit"] {
+  margin: 0;
+  padding: 7px 27px 7px 27px;
+  background-image: -ms-linear-gradient(top, #d8d8d8 0%, #b5b5b5 100%);
+  background-image: -moz-linear-gradient(top, #d8d8d8 0%, #b5b5b5 100%);
+  background-image: -o-linear-gradient(top, #d8d8d8 0%, #b5b5b5 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #d8d8d8), color-stop(1, #b5b5b5));
+  background-image: -webkit-linear-gradient(top, #d8d8d8 0%, #b5b5b5 100%);
+  background-image: linear-gradient(top, #d8d8d8 0%, #b5b5b5 100%);
+  border: 1px solid #ccc;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  font-family: 'CodeProDemoRegular', Georgia;
+  font-weight: normal;
+  font-style: normal;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+  outline: none;
+}
+#content input[type="submit"]:hover,
+#content input[type="submit"]:active {
+  background-image: -ms-linear-gradient(top, #e4e4e4 0%, #898989 100%);
+  background-image: -moz-linear-gradient(top, #e4e4e4 0%, #898989 100%);
+  background-image: -o-linear-gradient(top, #e4e4e4 0%, #898989 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #e4e4e4), color-stop(1, #898989));
+  background-image: -webkit-linear-gradient(top, #e4e4e4 0%, #898989 100%);
+  background-image: linear-gradient(top, #e4e4e4 0%, #898989 100%);
 }
 /**************************************************************************
 12. SIDEBAR
@@ -2292,7 +2407,7 @@ a img {
   margin: 0 10px 10px 0;
   padding: 0;
   float: left;
-  background-color: yellow;
+  background-color: #2A2A2A;
 }
 #sidebar .sidebar-square-button img {
   width: 125px;
@@ -2368,4 +2483,211 @@ BREAD CRUMBS
 #bread_crumbs a:active,
 #bread_crumbs a:hover {
   color: #ebc308;
+}
+/**************************************************************************
+COMMENTS, TRACKBACKS & PINGBACKS
+**************************************************************************/
+#content ul.comments {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  list-style-position: inside;
+  /* COMMENT TRACKBACKS */
+}
+#content ul.comments li {
+  margin: 0;
+  padding: 0;
+  /* COMMENT HEADER */
+  /* COMMENT HEADER - POST AUTHOR */
+  /* COMMENT AVATAR */
+  /* COMMENT AUTHOR & DATE WRAPPER */
+  /* COMMENT AUTHOR */
+  /* COMMENT AUTHOR - POST AUTHOR */
+  /* COMMENT DATE */
+  /* COMMENT DATE - POST AUTHOR */
+  /* COMMENT TEXT */
+  /* COMMENT REPLIES */
+}
+#content ul.comments li .comment-header {
+  width: 100%;
+  height: 68px;
+  margin: 0;
+  padding: 0;
+  background-image: url('../images/bg-comments-user.png');
+  background-repeat: repeat;
+}
+#content ul.comments li.bypostauthor .comment-header {
+  background-image: url('../images/bg-comments-author.png');
+}
+#content ul.comments li .comment-avatar {
+  width: 48px;
+  height: 48px;
+  margin: 10px;
+  padding: 0;
+  float: left;
+  background-color: #fff;
+}
+#content ul.comments li .comment-avatar img {
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 3px;
+  border: 1px solid #c4c4c4;
+  -o-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -webkit-transition: -webkit-transform 0.5s;
+}
+#content ul.comments li .comment-avatar img:hover,
+#content ul.comments li .comment-avatar img:active {
+  border: 1px solid #ebc308;
+  -o-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -webkit-transition: -webkit-transform 0.5s;
+}
+#content ul.comments li .comment-author-date {
+  margin: 10px 0 0 0;
+  padding: 0;
+  float: left;
+}
+#content ul.comments li .comment-author {
+  margin: 2px 0 3px 0;
+  padding: 0;
+  display: block;
+  font-family: 'ExpresswayRegular', Georgia;
+  font-weight: normal;
+  font-style: normal;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  /* LINKS */
+}
+@media only screen and (max-width: 767px) {
+  #content ul.comments li .comment-author {
+    font-size: 15px;
+    line-height: 14px;
+  }
+}
+@media only screen and (min-width: 767px) {
+  #content ul.comments li .comment-author {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+#content ul.comments li .comment-author a {
+  text-decoration: none;
+}
+#content ul.comments li .comment-author a:link,
+#content ul.comments li .comment-author a:visited {
+  color: #333;
+}
+#content ul.comments li .comment-author a:hover,
+#content ul.comments li .comment-author a:active {
+  color: #ebc308;
+}
+#content ul.comments li.bypostauthor .comment-author {
+  color: #fff;
+  /* LINKS */
+}
+#content ul.comments li.bypostauthor .comment-author a:link,
+#content ul.comments li.bypostauthor .comment-author a:visited {
+  color: #fff;
+}
+#content ul.comments li.bypostauthor .comment-author a:hover,
+#content ul.comments li.bypostauthor .comment-author a:active {
+  color: #ebc308;
+}
+#content ul.comments li .comment-date {
+  margin: 0;
+  padding: 0;
+  display: block;
+  font-family: 'ExpresswayRegular', Georgia;
+  font-weight: normal;
+  font-style: normal;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  /* LINE BREAK */
+}
+@media only screen and (max-width: 767px) {
+  #content ul.comments li .comment-date {
+    font-size: 13px;
+  }
+}
+@media only screen and (min-width: 767px) {
+  #content ul.comments li .comment-date {
+    font-size: 14px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  #content ul.comments li .comment-date br {
+    display: inline;
+  }
+}
+@media only screen and (min-width: 767px) {
+  #content ul.comments li .comment-date br {
+    display: none;
+  }
+}
+#content ul.comments li.bypostauthor .comment-date {
+  color: #fff;
+}
+#content ul.comments li .comment-text {
+  width: 100%;
+  margin: 0 0 15px 0;
+  padding: 2px 2% 0 2%;
+  display: block;
+  overflow: hidden;
+  background-color: #f6f6f6;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  /* PARAGRAPHS */
+}
+#content ul.comments li .comment-text p {
+  margin: 10px 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 14px;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  /* REPLY LINK */
+}
+#content ul.comments li .comment-text p.reply a:link {
+  text-decoration: none;
+}
+#content ul.comments li .comment-text p,
+#content ul.comments li .comment-text li {
+  line-height: 22px;
+}
+#content ul.comments li.depth-2,
+#content ul.comments li.depth-3 {
+  margin-left: 25px;
+}
+#content ul.comments li > ul.children {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-image: url('../images/arrow-comments.png');
+  background-repeat: no-repeat;
+  background-position: top left;
+  list-style-type: none;
+  list-style-position: inside;
+}
+#content ul.comments ol.pings {
+  margin: 0 0 11px 0;
+  padding: 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 14px;
+  color: #333;
+}
+#content ul.comments ol.pings li {
+  margin: 0;
+  padding: 0;
 }

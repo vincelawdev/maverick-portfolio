@@ -30,11 +30,10 @@ if(is_front_page())
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/main.css" />
 <!--<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/min/main.min.css" />-->
 <?php
-#LOAD ANYTHING SLIDER
+#LOAD ANIMATE.CSS FOR ANYTHING SLIDER
 if(is_front_page())
 {
 ?>
-<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/vendor/anythingslider.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/vendor/min/animate.min.css" />
 <?php
 }

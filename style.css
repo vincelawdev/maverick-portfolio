@@ -11,290 +11,13 @@ Author URI: http://www.VinceLaw.com.au
 
 TABLE OF CONTENTS
 
-9. HOME PAGE
 10. PORTFOLIO
-11. TESTIMONIALS
 24. MEDIA QUERIES: MOBILE - PORTRAIT - 320 TO 480
 25. MEDIA QUERIES: MOBILE - LANDSCAPE - 480 TO 768
 26. MEDIA QUERIES: TABLET - PORTRAIT - 768 TO 1024
 27. MEDIA QUERIES: TABLET - LANDSCAPE & DESKTOPS - 1024 & GREATER
 
 **************************************************************************/
-
-/**************************************************************************
-9. HOME PAGE
-**************************************************************************/
-
-#content #anythingslider_wrapper
-{
-	margin: 0px 0px 12px 0px;
-	padding: 0px;
-	overflow: hidden;
-}
-
-#content ul#anythingslider
-{
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
-	overflow: hidden;
-}
-
-#content ul#anythingslider li
-{
-	-webkit-backface-visibility: hidden;
-	-moz-backface-visibility: hidden;
-	-ms-backface-visibility: hidden;
-	backface-visibility: hidden;
-	-webkit-animation-duration: 1s;
-	-webkit-animation-delay: .2s;
-	-webkit-animation-timing-function: ease;
-	-webkit-animation-fill-mode: both;
-	-moz-animation-duration: 1s;
-	-moz-animation-delay: .2s;
-	-moz-animation-timing-function: ease;
-	-moz-animation-fill-mode: both;
-	-ms-animation-duration: 1s;
-	-ms-animation-delay: .2s;
-	-ms-animation-timing-function: ease;
-	-ms-animation-fill-mode: both;
-	animation-duration: 1s;
-	animation-delay: .2s;
-	animation-timing-function: ease;
-	animation-fill-mode: both;
-	text-align: center;
-}
-
-#content ul#anythingslider li span.vvqbox,
-#content ul#anythingslider li object,
-#content ul#anythingslider li iframe
-{
-	margin: 0px;
-	padding: 0px;
-}
-
-#content ul#anythingslider li h2
-{
-	margin: 0px 0px 15px 0px;
-	padding: 0px;
-	font-family: 'MatizRegular';
-	font-weight: normal;
-	color: #F00;
-	-webkit-font-smoothing: antialiased;
-	text-align: center;
-}
-
-#content ul#anythingslider li img
-{
-	margin: 0px;
-	padding: 0px;
-}
-
-#content ul#anythingslider li p
-{
-	margin: 0px 0px 10px 0px;
-	padding: 0px;
-	font-family: 'MatizRegular';
-	font-weight: normal;
-	color: #545454;
-	-webkit-font-smoothing: antialiased;
-	text-align: center;
-}
-
-#content ul#anythingslider li p a:link
-{
-	color: #1a58ad;
-	text-decoration: underline;
-}
-
-#content ul#anythingslider li p a:visited
-{
-	color: #320682;
-	text-decoration: underline;
-}
-
-#content ul#anythingslider li p a:active,
-#content ul#anythingslider li p a:hover
-{
-	color: #ebc308;
-	text-decoration: underline;
-}
-
-#content #featured_work_wrapper
-{
-	margin: 0px 0px 12px 0px;
-	padding: 0px 0px 4px 0px;
-	float: left;
-}
-
-#content ul#featured_work
-{	
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
-}
-
-#content ul#featured_work li
-{
-	margin: 0px 20px 0px 0px;
-	padding: 10px 10px 10px 10px;
-	background-color: #f6f6f6;
-	border: 1px solid #cccccc;
-	-webkit-transition: all 300ms ease-in-out;
-	-moz-transition: all 300ms ease-in-out;
-	-o-transition: all 300ms ease-in-out;
-	transition: all 300ms ease-in-out;
-	float: left;
-}
-
-#content ul#featured_work li:hover
-{
-	-webkit-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.2);
-	-moz-box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.2);
-	box-shadow: 4px 4px 5px rgba(50, 50, 50, 0.2);
-}
-
-#content ul#featured_work li img.project_thumbnail
-{
-	margin: 0px;
-	padding: 0px;
-}
-
-#content ul#featured_work li h2
-{
-	margin: 2px 0px 0px 0px;
-	padding: 0px;
-	font-family: 'ExpresswayRegular', Georgia;
-	font-size: 16px;
-	font-weight: normal;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-}
-
-#content ul#featured_work li h2 a:link,
-#content ul#featured_work li h2 a:visited
-{
-	color: #333333;
-	text-decoration: none;
-}
-
-#content ul#featured_work li h2 a:active,
-#content ul#featured_work li h2 a:hover
-{
-	color: #ebc308;
-	text-decoration: none;
-}
-
-#content ul#featured_work li p.categories
-{
-	margin: 3px 0px 0px 0px;
-	padding: 0px;
-	font-family: Georgia, 'Times New Roman', Times, serif;
-	font-size: 12px;
-	font-weight: normal;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-}
-
-#content ul#featured_work li p.categories a:link
-{
-	font-style: italic;
-	text-decoration: none;
-}
-
-#content ul#featured_work li p
-{
-	margin: 8px 0px 0px 0px;
-	padding: 0px;
-	font-family: Georgia, 'Times New Roman', Times, serif;
-	font-size: 14px;
-	font-weight: normal;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-}
-
-#content div.home_previous
-{
-	width: 20px;
-	height: 25px;
-	padding: 0px;
-	background-image: url('images/arrow-slider-left-off.png');
-	background-repeat: no-repeat;
-	background-position: top left;
-	cursor: pointer;
-	float: left;
-}
-
-#content div.home_previous:hover,
-#content div.home_previous:active
-{
-	background-image: url('images/arrow-slider-left-on.png');
-}
-
-#content div.home_next
-{
-	width: 20px;
-	height: 25px;
-	padding: 0px;
-	background-image: url('images/arrow-slider-right-off.png');
-	background-repeat: no-repeat;
-	background-position: top right;
-	cursor: pointer;
-	float: right;
-}
-
-#content div.home_next:hover,
-#content div.home_next:active
-{
-	background-image: url('images/arrow-slider-right-on.png');
-}
-
-#content #home_column1
-{
-	margin: 3px 20px 0px 0px;
-	padding: 0px;
-	float: left;
-}
-
-#content #home_column2
-{
-	margin: 3px 0px 0px 0px;
-	padding: 0px;
-	float: left;
-}
-
-#content #home_column1 ul,
-#content #home_column2 ul
-{
-	margin: 0px;
-	padding: 0px;
-	font-family: Georgia, 'Times New Roman', Times, serif;
-	font-size: 14px;
-	font-weight: normal;
-	color: #333333;
-	list-style-type: none;
-}
-
-#content #home_column1 ul li,
-#content #home_column2 ul li
-{
-	margin: 0px 0px 4px 0px;
-	padding: 0px 0px 0px 19px;
-	background-image: url('images/arrow-home-right.png');
-	background-repeat: no-repeat;
-	background-position: 3px 4px;
-}
-
-#content #home_column1 span.info,
-#content #home_column2 span.info
-{
-	margin: 0px;
-	padding: 0px;
-	font-family: Georgia, 'Times New Roman', Times, serif;
-	font-size: 12px;
-	font-weight: normal;
-	color: #adadad;
-}
 
 /**************************************************************************
 10. PORTFOLIO
@@ -585,116 +308,11 @@ TABLE OF CONTENTS
 }
 
 /**************************************************************************
-11. TESTIMONIALS
-**************************************************************************/
-
-#content div.testimonial_box
-{
-	margin: 10px 0px 10px 0px;
-	padding: 0px 10px 10px 40px;
-	border: 1px solid #cccccc;
-	background-color: #f6f6f6;
-	background-image: url('images/bg-testimonial-left.png');
-	background-repeat: no-repeat;
-	background-position: 10px 10px;
-	overflow: hidden;
-}
-
-#content div.testimonial_box div.testimonial
-{
-	background-image: url('images/bg-testimonial-right.png');
-	background-repeat: no-repeat;
-	background-position: bottom right;
-	overflow: hidden;
-}
-
-#content div.testimonial_box div.testimonial img.testimonial_photo
-{
-	margin: 0px;
-	padding: 0px;
-	float: left;	
-}
-
-#content div.testimonial_box div.testimonial p
-{
-	margin: 10px 0px 10px 0px;
-	padding: 0px;
-	font-family: Georgia, 'Times New Roman', Times, serif;
-	font-size: 14px;
-	font-weight: normal;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-}
-
-#content div.testimonial_box div.testimonial img.testimonial_pdf
-{
-	margin: 0px;
-	padding: 0px;
-	vertical-align: text-bottom;
-}
-
-/**************************************************************************
 24. MEDIA QUERIES: MOBILE - PORTRAIT - 320 TO 480
 **************************************************************************/
 
 @media only screen and (min-width: 320px) and (min-width: 1px)
 {	
-	#content ul#anythingslider
-	{
-		width: 260px;
-		height: 158px;
-	}
-	
-	#content ul#anythingslider li img
-	{
-		max-width: 260px;
-		min-height: 158px;
-		height: auto;
-	}
-	
-	#content ul#anythingslider li h2
-	{
-		font-size: 14px;
-	}
-	
-	#content ul#anythingslider li p
-	{
-		font-size: 14px;
-	}
-	
-	#content #featured_work_wrapper
-	{
-		width: 200px;
-	}
-	
-	#content ul#featured_work li
-	{
-		width: 158px;
-		height: 248px;
-	}
-	
-	#content ul#featured_work li img.project_thumbnail
-	{
-		width: 158px;
-		height: 95px;
-	}
-	
-	#content div.home_previous
-	{
-		margin: 122px 20px 0px 0px;
-	}
-		
-	#content div.home_next
-	{
-		margin: 122px 0px 0px 0px;
-	}
-	
-	#content #home_column1,
-	#content #home_column2
-	{
-		width: 260px;
-	}
-	
 	#content ul#projects li
 	{
 		width: 238px;
@@ -769,11 +387,6 @@ TABLE OF CONTENTS
 	{
 		width: 226px;
 	}
-	
-	#content div.testimonial_box
-	{
-		width: 208px;
-	}
 }
 
 /**************************************************************************
@@ -782,62 +395,6 @@ TABLE OF CONTENTS
 
 @media only screen and (min-width: 480px)
 {	
-	#content ul#anythingslider
-	{
-		width: 408px;
-		height: 253px;
-	}
-	
-	#content ul#anythingslider li img
-	{
-		max-width: 408px;
-		min-height: 253px;
-		height: auto;
-	}
-	
-	#content ul#anythingslider li h2
-	{
-		font-size: 28px;
-	}
-	
-	#content ul#anythingslider li p
-	{
-		font-size: 22px;
-	}
-	
-	#content #featured_work_wrapper
-	{
-		width: 348px;
-	}
-	
-	#content ul#featured_work li
-	{
-		width: 306px;
-		height: 282px;
-	}
-	
-	#content ul#featured_work li img.project_thumbnail
-	{
-		width: 304px;
-		height: 182px;
-	}
-	
-	#content div.home_previous
-	{
-		margin: 140px 20px 0px 0px;
-	}
-		
-	#content div.home_next
-	{
-		margin: 140px 0px 0px 0px;
-	}
-	
-	#content #home_column1,
-	#content #home_column2
-	{
-		width: 408px;
-	}
-	
 	#content ul#projects li
 	{
 		width: 386px;
@@ -911,11 +468,6 @@ TABLE OF CONTENTS
 	#content #project_details2
 	{
 		width: 374px;
-	}
-	
-	#content div.testimonial_box
-	{
-		width: 356px;
 	}
 }
 
@@ -925,62 +477,6 @@ TABLE OF CONTENTS
 
 @media only screen and (min-width: 768px)
 {	
-	#content ul#anythingslider
-	{
-		width: 408px;
-		height: 253px;
-	}
-	
-	#content ul#anythingslider li img
-	{
-		max-width: 408px;
-		min-height: 253px;
-		height: auto;
-	}
-	
-	#content ul#anythingslider li h2
-	{
-		font-size: 28px;
-	}
-	
-	#content ul#anythingslider li p
-	{
-		font-size: 22px;
-	}
-	
-	#content #featured_work_wrapper
-	{
-		width: 348px;
-	}
-	
-	#content ul#featured_work li
-	{
-		width: 306px;
-		height: 282px;
-	}
-	
-	#content ul#featured_work li img.project_thumbnail
-	{
-		width: 304px;
-		height: 182px;
-	}
-	
-	#content div.home_previous
-	{
-		margin: 140px 20px 0px 0px;
-	}
-		
-	#content div.home_next
-	{
-		margin: 140px 0px 0px 0px;
-	}
-	
-	#content #home_column1,
-	#content #home_column2
-	{
-		width: 408px;
-	}
-	
 	#content ul#projects li
 	{
 		width: 386px;
@@ -1055,11 +551,6 @@ TABLE OF CONTENTS
 	{
 		width: 374px;
 	}
-	
-	#content div.testimonial_box
-	{
-		width: 356px;
-	}
 }
 
 /**************************************************************************
@@ -1068,29 +559,6 @@ TABLE OF CONTENTS
 
 @media only screen and (min-width: 1024px)
 {	
-	#content ul#anythingslider
-	{
-		width: 660px;
-		height: 410px;
-	}
-	
-	#content ul#anythingslider li img
-	{
-		max-width: 660px;
-		min-height: 410px;
-		height: auto;
-	}
-	
-	#content ul#anythingslider li h2
-	{
-		font-size: 48px;
-	}
-	
-	#content ul#anythingslider li p
-	{
-		font-size: 36px;
-	}
-	
 	#content #featured_work_wrapper
 	{
 		width: 600px;
@@ -1197,10 +665,5 @@ TABLE OF CONTENTS
 	#content #project_details2
 	{
 		width: 256px;
-	}
-	
-	#content div.testimonial_box
-	{
-		width: 608px;
 	}
 }

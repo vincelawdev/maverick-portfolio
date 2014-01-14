@@ -86,10 +86,10 @@ if(is_singular('project'))
 if(is_front_page())
 {
 ?>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-anythingslider-min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-anythingslider-fx-min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-anythingslider-video-min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-jcarousel-lite-min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-anythingslider.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-anythingslider-fx.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-anythingslider-video.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-jcarousel-lite.min.js"></script>
 <?php
 }
 ?>

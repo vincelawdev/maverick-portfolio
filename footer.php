@@ -82,19 +82,16 @@ if(is_singular('project'))
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-opacityrollover.js"></script>
 <?php
 }
-#LOAD FLEXSLIDER
-if(is_front_page())
-{
-?>
-
-<?php
-}
 ?>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-hover-intent.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-superfish.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-supersubs.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-meanmenu.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-colorbox.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-flexslider.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-easing.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-fitvid.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-mousewheel.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/modules/mp-module.js"></script>
 
 </body>

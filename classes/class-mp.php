@@ -1011,11 +1011,9 @@ class mp_options
 	public function mp_admin_head()
 	{
 		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . '/css/admin.php" type="text/css" />' . "\n";
-		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . '/css/vendor/colorbox.php" type="text/css" />' . "\n";
-		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/jquery-colorbox-min.js"></script>' . "\n";
 		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/min/jquery-validate.min.js"></script>' . "\n";
 		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/min/jquery-validate-additional-methods.min.js"></script>' . "\n";
-		echo '<script src="' . get_bloginfo('template_url') . '/js/modules/mp-module-admin.php"></script>' . "\n";
+		echo '<script src="' . get_bloginfo('template_url') . '/js/modules/mp-module-admin.js"></script>' . "\n";
 		
 		#LOAD JAVASCRIPT FOR TINYMCE EDITOR FOR USER BIOGRAPHY IN WORDPRESS 3.3 +
 		if(function_exists('wp_editor'))
@@ -1593,7 +1591,7 @@ class mp_options
 				#DISPLAY SLIDE IMAGE ICON
 				if(!empty($slide_image))
 				{
-					echo '<a href="' . $slide_image . '" title="" class="colorbox"><img src="' . get_bloginfo('template_url') . '/images/icon-picture.png" alt="" /></a>';
+					echo '<a href="' . $slide_image . '" title=""><img src="' . get_bloginfo('template_url') . '/images/icon-picture.png" alt="" /></a>';
 				}
 				
 				break;
@@ -1632,6 +1630,7 @@ class mp_options
 	
 		#INITIALISE SLIDE OPTIONS
 		$slide_image = get_post_meta($post->ID, 'slide_image', true);
+		$slide_video_url = get_post_meta($post->ID, 'slide_video_url', true);
 		$slide_url = get_post_meta($post->ID, 'slide_url', true);
 		$slide_animation_in = get_post_meta($post->ID, 'slide_animation_in', true);
 		$slide_animation_out = get_post_meta($post->ID, 'slide_animation_out', true);
@@ -1645,6 +1644,9 @@ class mp_options
 				
 		#DISPLAY SLIDE IMAGE FIELD
 		echo '<p><strong>Slide Image:</strong><br />'; mp_options::mp_display_media_upload('slide_image', urldecode($slide_image)); echo '</p><p>Enter the slide image URL.</p>';
+		
+		#DISPLAY SLIDE VIDEO URL FIELD
+		echo '<p><strong>Slide Video URL:</strong><br /><input name="slide_video_url" id="slide_video_url" type="text" size="80" value="' . urldecode($slide_video_url) . '" /></p><p>Enter the slide video URL from Youtube. E.g. http://www.youtube.com/watch?v=fuXWcrh1Fsw</p>';
 		
 		#DISPLAY SLIDE URL FIELD
 		echo '<p><strong>Slide URL:</strong><br /><input name="slide_url" id="slide_url" type="text" size="80" value="' . urldecode($slide_url) . '" /></p><p>Enter the slide URL.</p>';
@@ -1754,7 +1756,7 @@ class mp_options
 		#INITIALISE SLIDE TYPES
 		$slide_types = array
 		(
-			'Text + Images' => 'text_image',
+			'Image + Caption' => 'text_image',
 			'Image Only' => 'image',
 			'Video' => 'video'
 		);
@@ -1780,7 +1782,8 @@ class mp_options
 	{
 		#SAVE SLIDE BOX FORM CONTENTS
 		mp_options::mp_meta_boxes_save($post_id, 'slide_nonce', 'slide_image', 'post');
-		mp_options::mp_meta_boxes_save($post_id, 'slide_nonce', 'slide_url', 'post');
+		mp_options::mp_meta_boxes_save($post_id, 'slide_nonce', 'slide_video_url', 'post');
+		mp_options::mp_meta_boxes_save($post_id, 'slide_nonce', 'slide_url', 'post');		
 		mp_options::mp_meta_boxes_save($post_id, 'slide_nonce', 'slide_animation_in', 'post');
 		mp_options::mp_meta_boxes_save($post_id, 'slide_nonce', 'slide_animation_out', 'post');
 		mp_options::mp_meta_boxes_save($post_id, 'slide_nonce', 'slide_type', 'post');
@@ -1812,7 +1815,7 @@ class mp_options
 		if($slides->have_posts())
 		{
 			#OPEN SLIDE LIST
-			echo '<ul id="">';
+			echo '<ul class="slides">';
 			
 			#DISPLAY SLIDES
 			while($slides->have_posts())
@@ -1823,6 +1826,7 @@ class mp_options
 				#INITIALISE THE SLIDE DETAILS
 				$slide_title = get_the_title($post->ID);
 				$slide_image = get_post_meta($post->ID, 'slide_image', true);
+				$slide_video_url = get_post_meta($post->ID, 'slide_video_url', true);
 				$slide_url = get_post_meta($post->ID, 'slide_url', true);
 				$slide_animation_in = get_post_meta($post->ID, 'slide_animation_in', true);
 				$slide_animation_out = get_post_meta($post->ID, 'slide_animation_out', true);
@@ -1840,8 +1844,9 @@ class mp_options
 				}
 				
 				#OPEN SLIDE LIST ITEM
-				echo '<li data-animate="' . $slide_animation_in . ', ' . $slide_animation_out . '">';
-				
+				//echo '<li data-animate="' . $slide_animation_in . ', ' . $slide_animation_out . '">';
+				echo '<li class="' . $slide_type . '">';
+								
 				#DISPLAY SLIDE ACCORDING TO SLIDE TYPE
 				switch($slide_type)
 				{
@@ -1851,11 +1856,22 @@ class mp_options
 						echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '" /></a>';
 						break;
 						
-					#DISPLAY SLIDE TEXT & SLIDE VIDEO
+					#DISPLAY SLIDE TEXT + IMAGE
 					case 'text_image':
+					
+						echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '" /></a>';
+						echo '<h6 class="flex-caption">' . get_the_content() . '</h6>';
+						break;
+					
+					#DISPLAY SLIDE VIDEO
 					case 'video':
 					
-						the_content();
+						#INITIALISE YOUTUBE VIDEO ID
+						$slide_video_url_parts = parse_url($slide_video_url);
+						parse_str($slide_video_url_parts['query'], $slide_video_url_query);
+
+						#DISPLAY YOUTUBE VIDEO EMBED CODE
+						echo '<iframe width="640" height="360" src="//www.youtube.com/embed/' . $slide_video_url_query['v'] . '" frameborder="0" allowfullscreen></iframe>';
 						break;
 				}				
 								
@@ -1867,42 +1883,7 @@ class mp_options
 			echo '</ul>';
 		}
 	}
-	
-	#THIS FUNCTION DISPLAYS THE SLIDE TITLES
-	public function mp_display_slide_titles()
-	{
-		#RETRIEVE THE DATABASE
-		global $wpdb;
 		
-		#RETREIVE SLIDES
-		$slides = $wpdb->get_results("SELECT post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'slide' ORDER BY post_date DESC LIMIT 5");
-		
-		#SLIDES EXIST
-		if(!empty($slides))
-		{
-			#INITIALISE NUMBER OF SLIDES
-			$number_of_slides = count($slides);
-			
-			#INITIALISE LAST SLIDE
-			$last_slide = $number_of_slides - 1;
-			
-			#DISPLAY SLIDES TITLES
-			for($slide_counter = 0; $slide_counter < $number_of_slides; $slide_counter ++)
-			{
-				#CURRENT SLIDE TITLES IS NOT LAST SLIDE
-				if($slide_counter != $last_slide)
-				{
-					echo "'" . addslashes($slides[$slide_counter]->post_title) . "', ";
-				}
-				#CURRENT SLIDE TITLES IS LAST SLIDE
-				else
-				{
-					echo "'" . addslashes($slides[$slide_counter]->post_title) . "'";
-				}				
-			}
-		}
-	}
-	
 	/**************************************************************************
 	6. PROJECT FUNCTIONS
 	**************************************************************************/
@@ -2837,7 +2818,7 @@ class mp_options
 				#DISPLAY TESTIMONIAL PHOTO ICON
 				if(!empty($testimonial_photo))
 				{
-					echo '<a href="' . $testimonial_photo . '" title="' . $testimonial_name . '" class="colorbox"><img src="' . get_bloginfo('template_url') . '/images/icon-picture.png" alt="" /></a>';
+					echo '<a href="' . $testimonial_photo . '" title="' . $testimonial_name . '"><img src="' . get_bloginfo('template_url') . '/images/icon-picture.png" alt="" /></a>';
 				}
 				
 				break;

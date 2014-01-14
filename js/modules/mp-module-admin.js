@@ -1,34 +1,3 @@
-<?php
-#TURN ON OUTPUT BUFFERING
-if(!ob_start('ob_gzhandler'))
-{
-	ob_start();
-}
-
-#INITIALISE WP-LOAD.PHP FILE PATH
-$wp_include_path = '../wp-load.php';
-
-#SEARCH FOR WP-LOAD.PHP FILE PATH
-for($counter = 0; $counter < 10; $counter ++)
-{
-	#WP-LOAD.PHP FILE DOES NOT EXIST AT THIS PATH
-	if(!file_exists($wp_include_path))
-	{
-		$wp_include_path = '../' . $wp_include_path;
-	}
-	#WP-LOAD.PHP FILE PATH FOUND
-	else
-	{	
-		break;
-	}
-}
-
-#LOAD WORDPRESS
-require($wp_include_path);
-
-#SET FILE TYPE AS JAVASCRIPT
-header('content-type: application/x-javascript');
-?>
 //MAVERICK PORTFOLIO ADMIN MODULE
 var mp_module_admin = function()
 {
@@ -212,6 +181,13 @@ var mp_module_admin = function()
 				//VALIDATION RULES
 				rules:
 				{
+					content:
+					{
+						required: function(element)
+						{
+        					return jQuery('input[name=slide_type]:checked').val() == 'text_image';
+      					}
+					},
 					slide_image:
 					{
 						required: function(element)
@@ -220,11 +196,22 @@ var mp_module_admin = function()
       					},
 						url2: true
 					},
+					slide_video_url:
+					{
+						required: function(element)
+						{
+        					return jQuery('input[name=slide_type]:checked').val() == 'video';
+      					},
+						url2: true
+					},
 					slide_url:
 					{
 						required: function(element)
 						{
-        					return jQuery('input[name=slide_type]:checked').val() == 'image';
+        					if(jQuery('input[name=slide_type]:checked').val() == 'image' || 'text_image')
+							{
+								return;	
+							}
       					},
 						url2: true
 					}
@@ -232,10 +219,19 @@ var mp_module_admin = function()
 				//VALIDATION MESSAGES
 				messages:
 				{
+					content:
+					{
+						required: 'Please enter a Caption.',
+					},
 					slide_image:
 					{
 						required: 'Please enter a Slide Image.',
 						url2: 'Please enter a valid Slide Image.'
+					},
+					slide_video_url:
+					{
+						required: 'Please enter a Slide Video URL.',
+						url2: 'Please enter a valid Slide Video URL.'
 					},
 					slide_url:
 					{
@@ -545,7 +541,3 @@ jQuery(document).ready(function()
 {
 	mp_module_admin.run_at_load();
 });
-<?php
-#SEND THE OUTPUT BUFFER AND TURN OFF OUTPUT BUFFERING 
-ob_end_flush();
-?>

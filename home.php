@@ -5,7 +5,7 @@ get_header();
 ?>
 		
             <!-- FLEXSLIDER - START -->
-            <div id=""><?php mp_options::mp_display_slides(); ?></div>
+            <div class="home-slides flexslider"><?php mp_options::mp_display_slides(); ?></div>
             <!-- FLEXSLIDER - END -->
             
             <!-- FEATURED WORK SLIDER - START -->

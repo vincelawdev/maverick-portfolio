@@ -220,12 +220,43 @@ var mp_module = function()
 		
 		//THIS OBJECT CONTAINS THE FLEXSLIDER METHODS & PROPERTIES
 		flexslider :
-		{			
+		{
 			//THIS METHOD INITIALISES THE FLEXSLIDER
 			init : function()
-			{
+			{						
+				/* HOME SLIDES */	
+				$('.home-slides')
+				.fitVids()
+				.flexslider(
+				{
+					animation: 'slide',
+					easing: 'swing',					
+					animationLoop: true,
+					smoothHeight: true,
+					slideshow: true,
+					slideshowSpeed: 5000,
+					animationSpeed: 300,
+					initDelay: 0,
+					
+					// Usability features
+					useCSS: true,
+					
+					// Primary Controls
+					controlNav: true,
+					directionNav: true,
+										
+					// Secondary Navigation
+					keyboard: true,
+					multipleKeyboard: false,
+					mousewheel: true
+  				});
 				
-			}
+				/* PAUSE HOME SLIDES WHEN VIDEO SLIDE HAS MOUSE OVER EVENT */
+				$('.home-slides .slides .video').mouseover(function()
+				{
+					$('.flexslider').flexslider("pause");
+				});
+			},
 		}
 	},
 	

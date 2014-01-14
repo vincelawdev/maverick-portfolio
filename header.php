@@ -29,15 +29,6 @@ if(is_front_page())
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('stylesheet_url'); ?>" />
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/main.css" />
 <!--<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/min/main.min.css" />-->
-<?php
-#LOAD ANIMATE.CSS FOR FLEXSLIDER
-if(is_front_page())
-{
-?>
-<!--<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/vendor/min/animate.min.css" />-->
-<?php
-}
-?>
 <?php mp_options::mp_display_rss_feeds_header(); ?>
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 <?php wp_head(); ?>

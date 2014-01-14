@@ -1,34 +1,3 @@
-<?php
-#TURN ON OUTPUT BUFFERING
-if(!ob_start('ob_gzhandler'))
-{
-	ob_start();
-}
-
-#INITIALISE WP-LOAD.PHP FILE PATH
-$wp_include_path = '../wp-load.php';
-
-#SEARCH FOR WP-LOAD.PHP FILE PATH
-for($counter = 0; $counter < 10; $counter ++)
-{
-	#WP-LOAD.PHP FILE DOES NOT EXIST AT THIS PATH
-	if(!file_exists($wp_include_path))
-	{
-		$wp_include_path = '../' . $wp_include_path;
-	}
-	#WP-LOAD.PHP FILE PATH FOUND
-	else
-	{	
-		break;
-	}
-}
-
-#LOAD WORDPRESS
-require($wp_include_path);
-
-#SET FILE TYPE AS JAVASCRIPT
-header('content-type: application/x-javascript');
-?>
 //MAVERICK PORTFOLIO MODULE
 var mp_module = function()
 {
@@ -502,7 +471,3 @@ $(window).load(function()
 {  
 	mp_module.run_after_load();
 });
-<?php
-#SEND THE OUTPUT BUFFER AND TURN OFF OUTPUT BUFFERING 
-ob_end_flush();
-?>

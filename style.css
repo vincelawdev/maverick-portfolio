@@ -9,18 +9,8 @@ Author URI: http://www.VinceLaw.com.au
 
 **************************************************************************
 
-TABLE OF CONTENTS
-
-10. PORTFOLIO
-24. MEDIA QUERIES: MOBILE - PORTRAIT - 320 TO 480
-25. MEDIA QUERIES: MOBILE - LANDSCAPE - 480 TO 768
-26. MEDIA QUERIES: TABLET - PORTRAIT - 768 TO 1024
-27. MEDIA QUERIES: TABLET - LANDSCAPE & DESKTOPS - 1024 & GREATER
-
-**************************************************************************/
-
 /**************************************************************************
-10. PORTFOLIO
+PORTFOLIO
 **************************************************************************/
 
 #content ul#projects
@@ -306,364 +296,78 @@ TABLE OF CONTENTS
 {
 	font-size: 12px;
 }
-
-/**************************************************************************
-24. MEDIA QUERIES: MOBILE - PORTRAIT - 320 TO 480
-**************************************************************************/
-
-@media only screen and (min-width: 320px) and (min-width: 1px)
-{	
-	#content ul#projects li
-	{
-		width: 238px;
-		height: auto;
-	}
 	
-	#content ul#projects li img.project_thumbnail
-	{
-		width: 238px;
-		height: 144px;
-	}
-	
-	#content #project_gallery,
-	#content #project_gallery span.magnify
-	{
-		width: 258px;
-		height: 155px;
-	}
-	
-	#content #project_gallery img
-	{
-		width: 258px;
-	}
-	
-	#content #project_gallery_caption
-	{
-		width: 260px;
-	}
-	
-	#content #project_gallery_thumbnails
-	{
-		width: 260px;
-		height: 81px;
-	}
-	
-	#content #project_gallery_thumbnails ul
-	{
-		width: 210px;
-		height: 61px;
-	}
-	
-	#content #project_gallery_thumbnails ul li,
-	#content #project_gallery_thumbnails ul li:nth-child(3n),
-	#content #project_gallery_thumbnails ul li:nth-child(4n)
-	{
-		margin: 0px 10px 0px 0px;
-	}
-	
-	#content #project_gallery_thumbnails ul li:nth-child(2n)
-	{
-		margin: 0px;
-	}
-	
-	#content #project_gallery_thumbnails ul li img
-	{
-		width: 93px;
-		height: 59px;
-	}
-	
-	#content #project_gallery_thumbnails a.previous
-	{
-		margin: 28px 10px 0px 0px;
-	}
-	
-	#content #project_gallery_thumbnails a.next
-	{
-		margin: 28px 0px 0px 0px;
-	}
-	
-	#content #project_details1,
-	#content #project_details2
-	{
-		width: 226px;
-	}
+#content ul#projects li
+{
+	width: 298px;
+	height: 278px;
 }
 
-/**************************************************************************
-25. MEDIA QUERIES: MOBILE - LANDSCAPE - 480 TO 768
-**************************************************************************/
-
-@media only screen and (min-width: 480px)
-{	
-	#content ul#projects li
-	{
-		width: 386px;
-		height: auto;
-	}
-	
-	#content ul#projects li img.project_thumbnail
-	{
-		width: 386px;
-		height: 233px;
-	}
-	
-	#content #project_gallery,
-	#content #project_gallery span.magnify
-	{
-		width: 406px;
-		height: 245px;
-	}
-	
-	#content #project_gallery img
-	{
-		width: 406px;
-	}
-	
-	#content #project_gallery_caption
-	{
-		width: 408px;
-	}
-	
-	#content #project_gallery_thumbnails
-	{
-		width: 408px;
-		height: 84px;
-	}
-	
-	#content #project_gallery_thumbnails ul
-	{
-		width: 334px;
-		height: 64px;
-	}
-	
-	#content #project_gallery_thumbnails ul li,
-	#content #project_gallery_thumbnails ul li:nth-child(2n),
-	#content #project_gallery_thumbnails ul li:nth-child(4n)
-	{
-		margin: 0px 17px 0px 0px;
-	}
-	
-	#content #project_gallery_thumbnails ul li:nth-child(3n)
-	{
-		margin: 0px;
-	}
-	
-	#content #project_gallery_thumbnails ul li img
-	{
-		width: 98px;
-		height: 62px;
-	}
-	
-	#content #project_gallery_thumbnails a.previous
-	{
-		margin: 30px 17px 0px 0px;
-	}
-	
-	#content #project_gallery_thumbnails a.next
-	{
-		margin: 30px 0px 0px 0px;
-	}
-	
-	#content #project_details1,
-	#content #project_details2
-	{
-		width: 374px;
-	}
+#content ul#projects li img.project_thumbnail
+{
+	width: 298px;
+	height: 180px;
 }
 
-/**************************************************************************
-26. MEDIA QUERIES: TABLET - PORTRAIT - 768 TO 1024
-**************************************************************************/
-
-@media only screen and (min-width: 768px)
-{	
-	#content ul#projects li
-	{
-		width: 386px;
-		height: auto;
-	}
-	
-	#content ul#projects li img.project_thumbnail
-	{
-		width: 386px;
-		height: 233px;
-	}
-	
-	#content #project_gallery,
-	#content #project_gallery span.magnify
-	{
-		width: 406px;
-		height: 245px;
-	}
-	
-	#content #project_gallery img
-	{
-		width: 406px;
-	}
-	
-	#content #project_gallery_caption
-	{
-		width: 408px;
-	}
-	
-	#content #project_gallery_thumbnails
-	{
-		width: 408px;
-		height: 84px;
-	}
-	
-	#content #project_gallery_thumbnails ul
-	{
-		width: 334px;
-		height: 64px;
-	}
-	
-	#content #project_gallery_thumbnails ul li,
-	#content #project_gallery_thumbnails ul li:nth-child(2n),
-	#content #project_gallery_thumbnails ul li:nth-child(4n)
-	{
-		margin: 0px 17px 0px 0px;
-	}
-	
-	#content #project_gallery_thumbnails ul li:nth-child(3n)
-	{
-		margin: 0px;
-	}
-	
-	#content #project_gallery_thumbnails ul li img
-	{
-		width: 98px;
-		height: 62px;
-	}
-	
-	#content #project_gallery_thumbnails a.previous
-	{
-		margin: 30px 17px 0px 0px;
-	}
-	
-	#content #project_gallery_thumbnails a.next
-	{
-		margin: 30px 0px 0px 0px;
-	}
-	
-	#content #project_details1,
-	#content #project_details2
-	{
-		width: 374px;
-	}
+#content #project_gallery,
+#content #project_gallery span.magnify
+{
+	width: 658px;
+	height: 398px;
 }
 
-/**************************************************************************
-27. MEDIA QUERIES: TABLET - LANDSCAPE & DESKTOPS - 1024 & UP
-**************************************************************************/
+#content #project_gallery img
+{
+	width: 658px;
+}
 
-@media only screen and (min-width: 1024px)
-{	
-	#content #featured_work_wrapper
-	{
-		width: 600px;
-	}
-	
-	#content ul#featured_work li
-	{
-		width: 258px;
-		height: 255px;
-	}
-	
-	#content ul#featured_work li img.project_thumbnail
-	{
-		width: 258px;
-		height: 157px;
-	}
-	
-	#content div.home_previous
-	{
-		margin: 126px 20px 0px 0px;
-	}
-		
-	#content div.home_next
-	{
-		margin: 126px 0px 0px 0px;
-	}
-	
-	#content #home_column1,
-	#content #home_column2
-	{
-		width: 320px;
-	}
-	
-	#content ul#projects li
-	{
-		width: 298px;
-		height: 278px;
-	}
-	
-	#content ul#projects li img.project_thumbnail
-	{
-		width: 298px;
-		height: 180px;
-	}
-	
-	#content #project_gallery,
-	#content #project_gallery span.magnify
-	{
-		width: 658px;
-		height: 398px;
-	}
-	
-	#content #project_gallery img
-	{
-		width: 658px;
-	}
-	
-	#content #project_gallery_caption
-	{
-		width: 660px;
-	}
-	
-	#content #project_gallery_thumbnails
-	{
-		width: 660px;
-		height: 100px;
-	}
-	
-	#content #project_gallery_thumbnails ul
-	{
-		width: 560px;
-		height: 80px;
-	}
-	
-	#content #project_gallery_thumbnails ul li,
-	#content #project_gallery_thumbnails ul li:nth-child(2n),
-	#content #project_gallery_thumbnails ul li:nth-child(3n)
-	{
-		margin: 0px 20px 0px 0px;
-	}
-	
-	#content #project_gallery_thumbnails ul li:nth-child(4n)
-	{
-		margin: 0px;
-	}
-	
-	#content #project_gallery_thumbnails ul li img
-	{
-		width: 123px;
-		height: 78px;
-	}
-	
-	#content #project_gallery_thumbnails a.previous
-	{
-		margin: 35px 30px 0px 0px;
-	}
-	
-	#content #project_gallery_thumbnails a.next
-	{
-		margin: 35px 0px 0px 0px;
-	}
-	
-	#content #project_details1,
-	#content #project_details2
-	{
-		width: 256px;
-	}
+#content #project_gallery_caption
+{
+	width: 660px;
+}
+
+#content #project_gallery_thumbnails
+{
+	width: 660px;
+	height: 100px;
+}
+
+#content #project_gallery_thumbnails ul
+{
+	width: 560px;
+	height: 80px;
+}
+
+#content #project_gallery_thumbnails ul li,
+#content #project_gallery_thumbnails ul li:nth-child(2n),
+#content #project_gallery_thumbnails ul li:nth-child(3n)
+{
+	margin: 0px 20px 0px 0px;
+}
+
+#content #project_gallery_thumbnails ul li:nth-child(4n)
+{
+	margin: 0px;
+}
+
+#content #project_gallery_thumbnails ul li img
+{
+	width: 123px;
+	height: 78px;
+}
+
+#content #project_gallery_thumbnails a.previous
+{
+	margin: 35px 30px 0px 0px;
+}
+
+#content #project_gallery_thumbnails a.next
+{
+	margin: 35px 0px 0px 0px;
+}
+
+#content #project_details1,
+#content #project_details2
+{
+	width: 256px;
 }

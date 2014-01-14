@@ -1812,7 +1812,7 @@ class mp_options
 		if($slides->have_posts())
 		{
 			#OPEN SLIDE LIST
-			echo '<ul id="anythingslider">';
+			echo '<ul id="">';
 			
 			#DISPLAY SLIDES
 			while($slides->have_posts())

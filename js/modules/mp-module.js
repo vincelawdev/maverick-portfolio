@@ -30,8 +30,9 @@ var mp_module = function()
 		//THIS METHOD UPDATES THE PAGE MEASUREMENTS
 		page_measurements : function()
 		{
+			/*
 			//INITIALISE CONTENT HEIGHT
-			page.content_height = $('#content').outerHeight(true);		
+			page.content_height = $('#content').outerHeight(true);
 			
             //INITIALISE SIDEBAR HEIGHT IF VISIBLE
             if($('#sidebar').is(':visible'))
@@ -46,6 +47,9 @@ var mp_module = function()
             
             //INITIALISE MAXIMUM HEIGHT
             page.max_height = Math.max(page.content_height, page.sidebar_height);
+			
+			//SET THE CONTENT HEIGHT TO THE MAXIMUM HEIGHT
+			$('#content').height('auto');
 			
 			//CONTENT HEIGHT IS SHORTER THAN SIDEBAR HEIGHT
 			if(page.content_height < page.sidebar_height)
@@ -248,7 +252,13 @@ var mp_module = function()
 					//SECONDARY NAVIGATION
 					keyboard: true,
 					multipleKeyboard: false,
-					mousewheel: true
+					mousewheel: true,
+					
+					//CALLBACK API
+					after: function()
+					{
+						page.page_measurements();
+					}
 				},
 				//HOME PROJECTS SLIDES OPTIONS
 				home_slides_projects_options =
@@ -279,7 +289,13 @@ var mp_module = function()
 					//SECONDARY NAVIGATION
 					keyboard: true,
 					multipleKeyboard: false,
-					mousewheel: true	
+					mousewheel: true,
+					
+					//CALLBACK API
+					after: function()
+					{
+						page.page_measurements();
+					}	
 				},
 				//PORTFOLIO PROJECT SLIDES OPTIONS
 				portfolio_slides_projects_options =
@@ -304,7 +320,13 @@ var mp_module = function()
 					//SECONDARY NAVIGATION
 					keyboard: true,
 					multipleKeyboard: false,
-					mousewheel: true
+					mousewheel: true,
+					
+					//CALLBACK API
+					after: function()
+					{
+						page.page_measurements();
+					}
 				},
 				//PORTFOLIO PROJECT SLIDES CAROUSEL OPTIONS
 				portfolio_slides_projects_carousel_options =
@@ -336,7 +358,13 @@ var mp_module = function()
 					//SECONDARY NAVIGATION
 					keyboard: true,
 					multipleKeyboard: false,
-					mousewheel: true	
+					mousewheel: true,
+					
+					//CALLBACK API
+					after: function()
+					{
+						page.page_measurements();
+					}
 				}
 				
 				/* HOME SLIDES EXIST */

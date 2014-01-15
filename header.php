@@ -167,7 +167,7 @@ $mp_social_button_size = get_option('mp_social_button_size');
 <!-- HEADER - ROW 2 - END -->
 
 <!-- PAGE WRAPPER - START -->
-<div class="page_wrapper">
+<div class="page-wrapper">
 
 	<?php get_sidebar(); ?>
 

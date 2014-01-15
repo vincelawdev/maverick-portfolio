@@ -2561,7 +2561,7 @@ class mp_options
 		if(!empty($portfolio_project_url))
 		{
 			#DISPLAY PROJECT URL
-			echo '<tr><td class="column1">URL:</td><td class="column2"><a href="' . $portfolio_project_url . '" class="project_url" rel="nofollow">' . mp_options::mp_trim_project_url($portfolio_project_url, 25) . "</a></td></tr>";
+			echo '<tr><td class="column1">URL:</td><td class="column2"><a href="' . $portfolio_project_url . '" rel="nofollow">' . mp_options::mp_trim_project_url($portfolio_project_url, 25) . "</a></td></tr>";
 		}
 		
 		#CLIENT NAME & LOCATION EXISTS
@@ -3050,13 +3050,13 @@ class mp_options
 				#APPEND TESTIMONIAL PHOTO
 				if(!empty($testimonial_photo))
 				{					
-					$testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial_photo">' . $testimonial_content;
+					$testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial-photo">' . $testimonial_content;
 				}
 				
 				#APPEND TESTIMONIAL PDF
 				if(!empty($testimonial_pdf))
 				{
-					$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial_pdf">PDF</a>';
+					$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial-pdf">PDF</a>';
 				}
 				
 				#DISPLAY TESTIMONIAL BOX
@@ -3118,13 +3118,13 @@ class mp_options
 		#APPEND TESTIMONIAL PHOTO
 		if(!empty($testimonial_photo))
 		{					
-			$testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial_photo">' . $testimonial_content;
+			$testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial-photo">' . $testimonial_content;
 		}
 		
 		#APPEND TESTIMONIAL PDF
 		if(!empty($testimonial_pdf))
 		{
-			$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial_pdf">PDF</a>';
+			$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial-pdf">PDF</a>';
 		}
 		
 		#DISPLAY TESTIMONIAL PROJECT
@@ -3141,7 +3141,7 @@ class mp_options
 	public function mp_testimonial_shortcode($parameters, $content = null)
 	{
 		#ADD CONTENT TO TESTIMONIAL BOX
-		$content = '<div class="testimonial_box"><div class="testimonial">' . wpautop($content) . '</div></div>';
+		$content = '<div class="testimonial-box"><div class="testimonial">' . wpautop($content) . '</div></div>';
 		
 		#RETURN CONTENT
 		return do_shortcode($content);

@@ -1336,7 +1336,7 @@ WRAPPER
   }
 }
 /* PAGE WRAPPER HAS AN ADDITIONAL 10PX WIDTH FOR SHADOWS */
-.page_wrapper {
+.page-wrapper {
   margin: 0 auto;
   padding: 0;
   overflow: hidden;
@@ -1347,27 +1347,27 @@ WRAPPER
   /* DESKTOPS - 1400 & GREATER */
 }
 @media only screen and (min-width: 768px) {
-  .page_wrapper {
+  .page-wrapper {
     padding-left: 10px;
   }
 }
 @media only screen and (max-width: 767px) {
-  .page_wrapper {
+  .page-wrapper {
     width: 100%;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
-  .page_wrapper {
+  .page-wrapper {
     width: 758px;
   }
 }
 @media only screen and (min-width: 1024px) and (max-width: 1399px) {
-  .page_wrapper {
+  .page-wrapper {
     width: 1010px;
   }
 }
 @media only screen and (min-width: 1400px) {
-  .page_wrapper {
+  .page-wrapper {
     width: 1410px;
   }
 }
@@ -3123,13 +3123,10 @@ PORTFOLIO
   margin: 0;
   padding: 0;
 }
-.project-details table td.column2 a.project_url {
-  font-size: 12px;
-}
 /**************************************************************************
 TESTIMONIALS
 **************************************************************************/
-.testimonial_box {
+.testimonial-box {
   width: 100%;
   margin: 15px 0;
   padding: 0 10px 10px 40px;
@@ -3144,7 +3141,7 @@ TESTIMONIALS
   -ms-box-sizing: border-box;
   box-sizing: border-box;
 }
-.testimonial_box .testimonial {
+.testimonial-box .testimonial {
   overflow: hidden;
   background-image: url('../images/bg-testimonial-right.png');
   background-repeat: no-repeat;
@@ -3152,17 +3149,17 @@ TESTIMONIALS
   /* TESTIMONIAL PHOTO */
   /* TESTIMONIAL PDF ICON */
 }
-.testimonial_box .testimonial .testimonial_photo {
+.testimonial-box .testimonial .testimonial-photo {
   margin: 0;
   padding: 0;
   float: left;
 }
-.testimonial_box .testimonial .testimonial_pdf {
+.testimonial-box .testimonial .testimonial-pdf {
   margin: 0;
   padding: 0;
   vertical-align: text-bottom;
 }
-.testimonial_box .testimonial p {
+.testimonial-box .testimonial p {
   margin: 15px 0;
   padding: 0;
   font-family: Georgia, 'Times New Roman', Times, serif;

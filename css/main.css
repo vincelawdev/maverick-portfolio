@@ -290,7 +290,7 @@ COLORBOX - 1.4.33 by Jack Moore - (http://www.jacklmoore.com)
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 10000000;
   overflow: hidden;
 }
 #cboxWrapper {
@@ -2231,7 +2231,7 @@ SEARCH
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 5000;
+  z-index: 1000000;
   width: 24px;
   height: 24px;
   margin: 0;
@@ -2250,7 +2250,7 @@ SEARCH
   position: absolute;
   top: 40px;
   right: 0;
-  z-index: 10000;
+  z-index: 1000000;
   margin: 0;
   padding: 10px 13px;
   display: none;

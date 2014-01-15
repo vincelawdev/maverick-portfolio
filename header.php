@@ -2,37 +2,36 @@
 <html class="no-js">
 <head>
 <title><?php the_title(); ?></title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes" />
-<meta property="og:site_name" content="<?php bloginfo('name'); ?>" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes">
+<meta property="og:site_name" content="<?php bloginfo('name'); ?>">
 <?php
 #FACEBOOK SETTINGS FOR BLOG POSTS
 if(is_single())
 {
 ?>
-<meta property="og:title" content="<?php the_title(); ?>" />
-<meta property="og:url" content="<?php the_permalink(); ?>" />
-<meta property="og:type" content="article" />
+<meta property="og:title" content="<?php the_title(); ?>">
+<meta property="og:url" content="<?php the_permalink(); ?>">
+<meta property="og:type" content="article">
 <?php
 }
 #FACEBOOK SETTINGS FOR HOME PAGE
 if(is_front_page())
 {
 ?>
-<meta property="og:title" content="<?php bloginfo('name'); ?>" />
-<meta property="og:url" content="<?php bloginfo('siteurl'); ?>" />
-<meta property="og:type" content="website" />
+<meta property="og:title" content="<?php bloginfo('name'); ?>">
+<meta property="og:url" content="<?php bloginfo('siteurl'); ?>">
+<meta property="og:type" content="website">
 <?php
 }
 ?>
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('stylesheet_url'); ?>" />
-<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/main.css" />
-<!--<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/min/main.min.css" />-->
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('stylesheet_url'); ?>">
+<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/main.css">
 <?php mp_options::mp_display_rss_feeds_header(); ?>
-<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
+<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
 <?php wp_head(); ?>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/modernizr-custom2.6.2.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/modernizr.js"></script>
 </head>
 
 <?php flush(); ?>
@@ -154,7 +153,7 @@ $mp_social_button_size = get_option('mp_social_button_size');
         
             <form method="get" id="searchform" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             
-            	<input type="submit" class="search-box-button" value="" /><input type="search" value="" name="s" class="search-box-field" placeholder="Search" />
+            	<input type="submit" class="search-box-button" value=""><input type="search" value="" name="s" class="search-box-field" placeholder="Search">
             
             </form>
         

@@ -54,10 +54,12 @@ var mp_module = function()
 				$('#content').height(page.max_height);
 			}
 			
+			/*
 			console.log('Window: ' + page.window_width);
 			console.log('Content: ' + page.content_height);
 			console.log('Sidebar: ' + page.sidebar_height);
 			console.log('Max: ' + page.max_height);
+			*/
 		}
 	},
     
@@ -278,6 +280,63 @@ var mp_module = function()
 					keyboard: true,
 					multipleKeyboard: false,
 					mousewheel: true	
+				},
+				//PORTFOLIO PROJECT SLIDES OPTIONS
+				portfolio_slides_projects_options =
+				{
+					animation: 'slide',
+					easing: 'swing',					
+					animationLoop: true,
+					smoothHeight: true,
+					slideshow: false,
+					slideshowSpeed: 5000,
+					animationSpeed: 300,
+					initDelay: 0,
+					sync: ".project-slides-carousel",
+					
+					//USABILITY FEATURES
+					useCSS: true,
+					
+					//PRIMARY CONTROLS
+					controlNav: false,
+					directionNav: true,
+										
+					//SECONDARY NAVIGATION
+					keyboard: true,
+					multipleKeyboard: false,
+					mousewheel: true
+				},
+				//PORTFOLIO PROJECT SLIDES CAROUSEL OPTIONS
+				portfolio_slides_projects_carousel_options =
+				{
+					animation: 'slide',
+					easing: 'swing',					
+					animationLoop: true,
+					smoothHeight: false,
+					slideshow: false,
+					slideshowSpeed: 5000,
+					animationSpeed: 300,
+					initDelay: 0,
+					asNavFor: '.project-slides',
+					
+					//CAROUSEL OPTIONS
+					itemWidth: 320,
+					itemMargin: 0,
+					minItems: 4,
+					maxItems: 4,
+					move: 0,
+									
+					//USABILITY FEATURES
+					useCSS: true,
+					
+					//PRIMARY CONTROLS
+					controlNav: false,
+					directionNav: true,
+										
+					//SECONDARY NAVIGATION
+					keyboard: true,
+					multipleKeyboard: false,
+					mousewheel: true	
 				}
 				
 				/* HOME SLIDES EXIST */
@@ -299,6 +358,20 @@ var mp_module = function()
 					/* INITIALISE FLEXSLIDER FOR HOME PROJECTS SLIDES */	
 					$('.home-slides-projects').flexslider(home_slides_projects_options);
 				}
+				
+				/* PORTFOLIO PROJECT SLIDES CAROUSEL EXIST */
+				if($('.project-slides-carousel').length > 0)
+				{
+					/* INITIALISE PROJECT SLIDES CAROUSEL */	
+					$('.project-slides-carousel').flexslider(portfolio_slides_projects_carousel_options);
+				}
+				
+				/* PORTFOLIO PROJECT SLIDES EXIST */
+				if($('.project-slides').length > 0)
+				{
+					/* INITIALISE PROJECT SLIDES */	
+					$('.project-slides').flexslider(portfolio_slides_projects_options);
+				}
 			},
 			
 			//THIS METHOD INITIALISES THE HOME PROJECT SLIDER ITEMS
@@ -318,214 +391,77 @@ var mp_module = function()
 		}
 	},
 	
-	//IMAGES - GALLERIFIC & COLORBOX
-	images = 
+	//PORTFOLIO - TILES
+	portfolio =
 	{
-		//THIS METHOD LAUNCHES THE gallerific.init() & colorbox_init() METHODS
 		init : function()
 		{
-			this.gallerific.init();
-			this.colorbox_init();
+			//SET MAXIMUM HEIGHT TO TILES ON PAGE READY
+			portfolio.tiles_equal_height();
+			
+			//SET MAXIMUM HEIGHT TO TILES ON PAGE RESIZE
+			$(window).resize(function()
+			{
+				portfolio.tiles_equal_height();
+			});
 		},
 		
-		//THIS OBJECT CONTAINS THE GALLERIFIC METHODS & PROPERTIES
-		gallerific : 
+		//THIS METHOD SETS THE MAXIMUM HEIGHT OF THE TILES
+		tiles_equal_height : function()
 		{
-			//INITIALISE OPACITY LEVEL
-			opacity_level : 0.67,
+			//INITIALISE MAXIMUM HEIGHT OF TILES
+			var max_height = -1;
 			
-			//INITIALISE GALLERIFIC OPTIONS
-			gallerific_options :
-			{				
-				numThumbs				  : 2,
-				preloadAhead			  : 10,
-				maxPagesToShow			  : 100,							
-				delay					  : 500,
-				defaultTransitionDuration : 500,
-				syncTransitions			  : true,
-				autoStart				  : false,
-				enableTopPager			  : false,
-				enableBottomPager		  : false,
-				renderSSControls		  : false,
-				renderNavControls		  : false,
-				enableKeyboardNavigation  : true,
-				enableHistory			  : true,
-				imageContainerSel		  : '#project_gallery',
-				controlsContainerSel	  : '',
-				captionContainerSel		  : '#project_gallery_caption',
-				loadingContainerSel		  : '', 
-				onSlideChange			  : function(prevIndex, nextIndex)
+			//SCREEN WIDTH IS NOT MOBILE
+			if(page.window_width > 767)
+			{
+				$('#projects li').each(function()
 				{
-					this.find('ul.thumbs').children().eq(prevIndex).fadeTo('fast', images.gallerific.opacity_level).end().eq(nextIndex).fadeTo('fast', 1.0);
-				},
-				onPageTransitionOut: function(callback)
-				{
-					this.fadeTo('fast', 0.0, callback);
-				},
-				onPageTransitionIn: function()
-				{
-					//INITIALISE PREVIOUS, NEXT BUTTONS & LAST PAGE
-					var previous_button = this.find('a.previous').css('visibility', 'hidden'),
-					previous_blank_button = this.find('a.previous_blank').css('visibility', 'hidden'),
-					next_button = this.find('a.next').css('visibility', 'hidden'),
-					last_page = this.getNumPages() - 1;
+					var height = $(this).height();
 					
-					
-					//DISPLAY PREVIOUS BUTTON
-					if(this.displayedPage > 0)
+					if(height > max_height)
 					{
-						previous_button.css('visibility', 'visible');
+						max_height = height;
 					}
-					
-					//DISPLAY NEXT BUTTON
-					if(this.displayedPage < last_page)
-					{
-						next_button.css('visibility', 'visible');
-					}
-					
-					//FADE PAGE
-					this.fadeTo('fast', 1.0);
-				},
-				onTransitionIn: function()
-				{
-					$('#project_gallery').fadeTo('fast', 1.0);
-					$('#project_gallery span.image-wrapper').fadeTo('fast', 1.0);
-					$('#project_gallery_caption').fadeTo('fast', 1.0);
-					$('#project_gallery_caption span.image-caption').fadeTo('fast', 1.0);
-					$('#project_gallery_caption').fadeIn('fast', function()
-					{
-						$('#project_gallery a.project_gallery').colorbox();
-					});
-				}
-			},
-			
-			//THIS METHOD INITIALISES THE GALLERIFIC GALLERY
-			init : function()
-			{
-				//console.log('Gallerific Options:');
-				//console.dir(images.gallerific.gallerific_options);
-			
-				//PROJECT GALLERY EXISTS
-				if($('#content').find('#project_gallery').length > 0)
-				{
-					//INITIALISE NUMBER OF GALLERIFIC THUMBNAILS
-					images.gallerific.gallerific_number_of_thumbnails();
-					
-					//INITIALISE GALLERIFFIC
-					var gallery = $('#project_gallery_thumbnails').galleriffic(images.gallerific.gallerific_options);
-					
-					//UPDATE GALLERIFFIC OPTIONS ON PAGE RESIZE
-					$(window).resize(function()
-					{
-						//INITIALISE NUMBER OF GALLERIFIC THUMBNAILS
-						images.gallerific.gallerific_number_of_thumbnails();
-						
-						//INITIALISE GALLERIFFIC
-						gallery = $('#project_gallery_thumbnails').galleriffic(images.gallerific.gallerific_options);
-					});
-					
-					//INITIALISE OPACITY LEVELS OF THUMBNAILS, PREVIOUS BUTTON & NEXT BUTTON
-					$('#project_gallery_thumbnails ul.thumbs li, #project_gallery_thumbnails a.previous, #project_gallery_thumbnails a.next').opacityrollover(
-					{
-						mouseOutOpacity:			images.gallerific.opacity_level,
-						mouseOverOpacity:  			1.0,
-						fadeSpeed:         			'fast',
-						exemptionSelector: 			'.selected'
-					});
-					
-					//INITIALISE PREVIOUS BUTTON
-					gallery.find('a.previous').click(function(e)
-					{
-						gallery.previousPage();
-						e.preventDefault();
-					});
-				
-					//INITIALISE NEXT BUTTON
-					gallery.find('a.next').click(function(e)
-					{
-						gallery.nextPage();
-						e.preventDefault();
-					});
-					
-					//INITIALISE HISTORY PLUGIN
-					$.historyInit(images.gallerific.gallerific_page_load, 'advanced.html');
-				
-					//INITIALISE BACK BUTTON
-					$('a[rel="history"]').live('click', function(e)
-					{
-						//BUTTON NOT CLICKED
-						if(e.button != 0)
-						{
-							return true;
-						}
-						
-						//INITIALISE HASH
-						var hash = this.href;
-						hash = hash.replace(/^.*#/, '');
-				
-						//MOVE TO NEW PAGE
-						$.historyLoad(hash);
-				
-						return false;
-					});
-				}
-			},
-			
-			//THIS METHOD SELECTS THE IMAGE OF THE GALLERY
-			gallerific_page_load: function(hash)
-			{
-				//NAVIGATE TO SELECTED IMAGE
-				if(hash)
-				{
-					$.galleriffic.gotoImage(hash);
-				}
-				//NAVIGATE TO FIRST IMAGE
-				else
-				{
-					gallery.gotoIndex(0);
-				}
-			},
-			
-			//THIS METHOD SETS THE NUMBER OF GALLERIFIC THUMBNAILS ACCORDING TO THE WINDOW WIDTH
-			gallerific_number_of_thumbnails : function()
-			{
-				/* MOBILE - PORTRAIT */
-				if(page.window_width >= 320 && page.window_width < 480)
-				{
-					images.gallerific.gallerific_options.numThumbs = 2;
-				}
-				
-				/* MOBILE - LANDSCAPE */
-				else if(page.window_width >= 480 && page.window_width < 768)
-				{
-					images.gallerific.gallerific_options.numThumbs = 3;
-				}
-				
-				/* TABLETS - PORTRAIT */
-				else if(page.window_width >= 768 && page.window_width < 1024)
-				{
-					images.gallerific.gallerific_options.numThumbs = 3;
-				}
-				
-				/* TABLETS - LANDSCAPE & DESKTOPS FROM 1024 PIXEL WIDTH */
-				else if(page.window_width >= 1024)
-				{
-					images.gallerific.gallerific_options.numThumbs = 4;
-				}
+				});
 			}
+			//SCREEN WIDTH IS MOBILE
+			else
+			{
+				max_height = 'auto';
+			}
+			
+			//SET MAXIMUM HEIGHT TO TILES
+			$('#projects li').each(function()
+			{
+				$(this).height(max_height); 
+			});
+		}
+	},
+	
+	//IMAGES - COLORBOX
+	images = 
+	{
+		//THIS METHOD LAUNCHES THE colorbox_init() METHODS
+		init : function()
+		{
+			this.colorbox_init();
 		},
 		
 		//THIS METHOD INITIALISES THE COLORBOX
 		colorbox_init : function()
 		{
 			//CAPTION IMAGES
-			$('a.colorbox').colorbox({current: 'Image {current} of {total}', rel:'colorbox'});
+			$('a.colorbox').colorbox({ current: 'Image {current} of {total}', rel:'colorbox' });
+			
+			//PROJECT IMAGE
+			$('.project-image').colorbox({ width:'80%', height:'80%', current: 'Project Image {current} of {total}', rel:'project-image' });
 			
 			//INSTAGRAM IFRAMES
-			$('.instagram_iframe').colorbox({iframe:true, width:'80%', height:'80%', current: 'Instagram Image {current} of {total}', rel:'instagram_iframe'});
+			$('.instagram-iframe').colorbox({ iframe:true, width:'80%', height:'80%', current: 'Instagram Image {current} of {total}', rel:'instagram_iframe' });
 			
 			//DRIBBBLE IFRAMES
-			$('.dribbble_iframe').colorbox({iframe:true, width:'80%', height:'80%', current: 'Dribbble Thumbnail {current} of {total}', rel:'dribbble_iframe'});
+			$('.dribbble-iframe').colorbox({ iframe:true, width:'80%', height:'80%', current: 'Dribbble Thumbnail {current} of {total}', rel:'dribbble-iframe' });
 		}
 	}
 	
@@ -539,6 +475,7 @@ var mp_module = function()
 			navigation.init();
 			sliders.init();
 			images.init();
+			portfolio.init();
 		},
 		
 		//LAUNCH ALL THE FOLLOWING METHODS AFTER PAGE LOAD

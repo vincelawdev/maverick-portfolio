@@ -304,7 +304,7 @@ class mp_options
 		?>
 		<div id="mp-options" class="wrap">
 			
-			<div class="icon32" id="icon-tools"><br /></div>
+			<div class="icon32" id="icon-tools"><br></div>
 			
 			<h2>Maverick Portfolio Options</h2>
 			
@@ -376,7 +376,7 @@ class mp_options
 				#PREPEND LOGO DESCRIPTION WITH LOGO IMAGE
 				if(!empty($mp_logo_image))
 				{
-					$logo_description = '<p><img src="' . $mp_logo_image . '" alt="" /></p>' . $logo_description;
+					$logo_description = '<p><img src="' . $mp_logo_image . '" alt=""></p>' . $logo_description;
 				}
 				
 				#DISPLAY LOGO STATUS
@@ -386,7 +386,7 @@ class mp_options
 				mp_options::mp_option_field('', '', true, true, 'Logo Image', 'media_upload', 'mp_logo_image', 'mp_logo_image', 'Enter the logo image URL', '', true);				
 				
 				#INITIALISE SOCIAL BUTTON SIZE DESCRIPTION
-				$social_button_description = '<p><img src="' . get_bloginfo('template_directory') . '/images/theme-options-social-buttons.jpg" width="335" height="92" alt="" /></p>';
+				$social_button_description = '<p><img src="' . get_bloginfo('template_directory') . '/images/theme-options-social-buttons.jpg" width="335" height="92" alt=""></p>';
 				
 				#DISPLAY SOCIAL BUTTON SIZE
 				mp_options::mp_option_field('Social Buttons', $social_button_description, true, true, 'Size', 'small_large', 'mp_social_button_size', 'mp_social_button_size', 'Select the size of the social buttons', 'small', true);
@@ -668,7 +668,7 @@ class mp_options
 					<form name="header_reset_form" method="post">
 					<?php wp_nonce_field('header_reset_check'); ?>
 					
-					<input type="submit" name="header_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Header options to default settings?', 'header_reset'); ?>'); if(check == false) { return false; }" />
+					<input type="submit" name="header_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Header options to default settings?', 'header_reset'); ?>'); if(check == false) { return false; }">
 					
 					</form>
 					
@@ -677,7 +677,7 @@ class mp_options
 					<form name="footer_reset_form" method="post">
 					<?php wp_nonce_field('footer_reset_check'); ?>
 					
-					<input type="submit" name="footer_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Footer options to default settings?', 'footer_reset'); ?>'); if(check == false) { return false; }" />
+					<input type="submit" name="footer_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Footer options to default settings?', 'footer_reset'); ?>'); if(check == false) { return false; }">
 					
 					</form>
 					
@@ -686,7 +686,7 @@ class mp_options
 					<form name="sidebar_reset_form" method="post">
 					<?php wp_nonce_field('sidebar_reset_check'); ?>
 					
-					<input type="submit" name="sidebar_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Sidebar options to default settings?', 'sidebar_reset'); ?>'); if(check == false) { return false; }" />
+					<input type="submit" name="sidebar_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Sidebar options to default settings?', 'sidebar_reset'); ?>'); if(check == false) { return false; }">
 					
 					</form>
 					
@@ -695,7 +695,7 @@ class mp_options
 					<form name="author_reset_form" method="post">
 					<?php wp_nonce_field('author_reset_check'); ?>
 					
-					<input type="submit" name="author_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Author options to default settings?', 'author_reset'); ?>'); if(check == false) { return false; }" />
+					<input type="submit" name="author_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Author options to default settings?', 'author_reset'); ?>'); if(check == false) { return false; }">
 					
 					</form>
 					
@@ -704,7 +704,7 @@ class mp_options
 					<form name="rss_reset_form" method="post">
 					<?php wp_nonce_field('rss_reset_check'); ?>
 					
-					<input type="submit" name="rss_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all RSS options to default settings?', 'rss_reset'); ?>'); if(check == false) { return false; }" />
+					<input type="submit" name="rss_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all RSS options to default settings?', 'rss_reset'); ?>'); if(check == false) { return false; }">
 					
 					</form>
 					
@@ -713,7 +713,7 @@ class mp_options
 					<form name="tracking_reset_form" method="post">
 					<?php wp_nonce_field('tracking_reset_check'); ?>
 					
-					<input type="submit" name="tracking_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Tracking options to default settings?', 'tracking_reset'); ?>'); if(check == false) { return false; }" />
+					<input type="submit" name="tracking_reset" class="button-primary" value="<?php _e('Reset Options') ?>" onclick="javascript:check = confirm('<?php _e('Reset all Tracking options to default settings?', 'tracking_reset'); ?>'); if(check == false) { return false; }">
 					
 					</form>					
 					
@@ -804,7 +804,7 @@ class mp_options
 		#CLOSE 2ND COLUMN WITH INPUT DESCRIPTION & DEFAULT VALUES OF MINIMUM & MAXIMUM WIDTH
 		if($input_type == 'width' && !empty($min_width) && !empty($max_width))
 		{
-			echo '<br /><span class="description">' . $input_description . '. Default: ' . $input_default . ', Minimum: ' . $min_width . 'px, Maximum: ' . $max_width . 'px.</span></td>' . "\n";
+			echo '<br><span class="description">' . $input_description . '. Default: ' . $input_default . ', Minimum: ' . $min_width . 'px, Maximum: ' . $max_width . 'px.</span></td>' . "\n";
 		}
 		#CLOSE 2ND COLUMN WITH INPUT DESCRIPTION & DEFAULT VALUE
 		else
@@ -812,12 +812,12 @@ class mp_options
 			#DEFAULT VALUE EXISTS
 			if(!empty($input_default))
 			{
-				echo '<br /><span class="description">' . $input_description . '. Default: ' . $input_default . '.</span></td>' . "\n";
+				echo '<br><span class="description">' . $input_description . '. Default: ' . $input_default . '.</span></td>' . "\n";
 			}
 			#DEFAULT VALUE DOES NOT EXIST
 			else
 			{
-				echo '<br /><span class="description">' . $input_description . '.</span></td>' . "\n";
+				echo '<br><span class="description">' . $input_description . '.</span></td>' . "\n";
 			}
 		}
 		
@@ -833,7 +833,7 @@ class mp_options
 		#DISPLAY SAVE CHANGES BUTTON
 		if($save_button)
 		{
-			echo '<p class="submit"><input type="submit" class="button-primary" value="Save Changes" /></p>' . "\n";
+			echo '<p class="submit"><input type="submit" class="button-primary" value="Save Changes"></p>' . "\n";
 		}
 	}
 	
@@ -841,7 +841,7 @@ class mp_options
 	protected function mp_display_media_upload($media_upload_id, $media_upload_url)
 	{
 		#INITIALISE MEDIA UPLOAD FIELD HTML
-		$media_upload_box = '<input name="' . $media_upload_id . '" id="' . $media_upload_id . '" type="text" value="' . $media_upload_url . '" class="regular-text" /> <input id="' . $media_upload_id . '_button" class="button" type="button" value="Upload" />';
+		$media_upload_box = '<input name="' . $media_upload_id . '" id="' . $media_upload_id . '" type="text" value="' . $media_upload_url . '" class="regular-text"> <input id="' . $media_upload_id . '_button" class="button" type="button" value="Upload">';
 			
 		#DISPLAY MEDIA UPLOAD FIELD
 		echo $media_upload_box;
@@ -851,7 +851,7 @@ class mp_options
 	protected function mp_display_text($text_id, $entered_text)
 	{
 		#INITIALISE TEXT FIELD HTML
-		$text_box = '<input name="' . $text_id . '" id="' . $text_id . '" type="text" value="' . $entered_text . '" class="regular-text" />';
+		$text_box = '<input name="' . $text_id . '" id="' . $text_id . '" type="text" value="' . $entered_text . '" class="regular-text">';
 		
 		#DISPLAY TEXT FIELD
 		echo $text_box;
@@ -994,26 +994,20 @@ class mp_options
 			wp_deregister_script('jquery');	
 	
 			#LOAD THE GOOGLE API JQUERY INCLUDE
-			wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', false, '1.9.1', false);
+			wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js', false, '2.0.3', false);
 	
 			#REGISTER GOOGLE API JQUERY INCLUDE
 			wp_enqueue_script('jquery');
-			
-			#LOAD THE JQUERY MIGRATE INCLUDE
-			wp_register_script('jquery-migrate', 'http://code.jquery.com/jquery-migrate-1.2.0.js', false, '1.2.0', false);
-			
-			#REGISTER JQUERY MIGRATE INCLUDE
-			wp_enqueue_script('jquery-migrate');
 		}
 	}
 	
 	#THIS FUNCTION INCLUDES THE JAVASCRIPT & CSS FILES INTO ADMIN WORDPRESS PAGES
 	public function mp_admin_head()
 	{
-		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . '/css/admin.php" type="text/css" />' . "\n";
+		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . '/css/admin.php" type="text/css">' . "\n";
 		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/min/jquery-validate.min.js"></script>' . "\n";
 		echo '<script src="' . get_bloginfo('template_url') . '/js/vendor/min/jquery-validate-additional-methods.min.js"></script>' . "\n";
-		echo '<script src="' . get_bloginfo('template_url') . '/js/modules/mp-module-admin.js"></script>' . "\n";
+		echo '<script src="' . get_bloginfo('template_url') . '/js/modules/min/mp-module-admin.min.js"></script>' . "\n";
 		
 		#LOAD JAVASCRIPT FOR TINYMCE EDITOR FOR USER BIOGRAPHY IN WORDPRESS 3.3 +
 		if(function_exists('wp_editor'))
@@ -1120,7 +1114,7 @@ class mp_options
 			#DISPLAY LOGO
 			if(!empty($mp_logo_image))
 			{
-				echo '<a href="' . get_bloginfo('url') . '"><img src="' . $mp_logo_image . '" alt="' . get_bloginfo('name') . ' - ' . get_bloginfo('description') . '" title="' . get_bloginfo('name') . ' - ' . get_bloginfo('description') . '" class="logo-image" /></a>';
+				echo '<a href="' . get_bloginfo('url') . '"><img src="' . $mp_logo_image . '" alt="' . get_bloginfo('name') . ' - ' . get_bloginfo('description') . '" title="' . get_bloginfo('name') . ' - ' . get_bloginfo('description') . '" class="logo-image"></a>';
 				
 			}
 			#DISPLAY TEXT LOGO
@@ -1231,7 +1225,7 @@ class mp_options
 		$columns = 
 		array
 		(
-			'cb' => '<input type="checkbox" />',
+			'cb' => '<input type="checkbox">',
 			'title' => 'Title',
 			'article_url' => 'URL',
 			'article_directory' => 'Directory',
@@ -1282,7 +1276,7 @@ class mp_options
 				#DISPLAY ARTICLE URL ICON
 				if(!empty($article_url))
 				{
-					echo '<a href="' . $article_url . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-url.png" alt="" /></a>';
+					echo '<a href="' . $article_url . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-url.png" alt=""></a>';
 				}
 				
 				break;
@@ -1309,10 +1303,10 @@ class mp_options
 		$article_url = get_post_meta($post->ID, 'article_url', true);
 		
 		#DISPLAY ARTICLE NONCE FIELD
-		echo '<input name="article_nonce" id="article_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
+		echo '<input name="article_nonce" id="article_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '">';
 		
 		#DISPLAY ARTICLE URL FIELD
-		echo '<p><strong>Article URL:</strong><br /><input name="article_url" id="article_url" type="text" size="80" value="' . urldecode($article_url) . '" /></p><p>Enter the article URL.</p>';
+		echo '<p><strong>Article URL:</strong><br><input name="article_url" id="article_url" type="text" size="80" value="' . urldecode($article_url) . '"></p><p>Enter the article URL.</p>';
 		
 		#LAUNCH VALIDATOR
 		echo '<script>jQuery(document).ready(function() { mp_module_admin.run_validator_articles(); });</script>';
@@ -1449,7 +1443,7 @@ class mp_options
 				$article_directories = get_the_terms($article->ID, 'article-directories');
 				
 				#DISPLAY ARTICLE TITLE & LINK
-				echo '<li><a href="' . $article_url . '" title="' . $article->post_title . '" rel="nofollow">' . $article->post_title . '</a><br /><span class="info">' . get_the_time(get_option('date_format'), $article->ID);
+				echo '<li><a href="' . $article_url . '" title="' . $article->post_title . '" rel="nofollow">' . $article->post_title . '</a><br><span class="info">' . get_the_time(get_option('date_format'), $article->ID);
 				
 				#ARTICLE DIRECTORY EXISTS
 				if($article_directories && ! is_wp_error($article_directories))
@@ -1562,7 +1556,7 @@ class mp_options
 		$columns = 
 		array
 		(
-			'cb' => '<input type="checkbox" />',
+			'cb' => '<input type="checkbox">',
 			'title' => 'Title',
 			'image' => 'Image',
 			'url' => 'URL',
@@ -1591,7 +1585,7 @@ class mp_options
 				#DISPLAY SLIDE IMAGE ICON
 				if(!empty($slide_image))
 				{
-					echo '<a href="' . $slide_image . '" title=""><img src="' . get_bloginfo('template_url') . '/images/icon-picture.png" alt="" /></a>';
+					echo '<a href="' . $slide_image . '" title=""><img src="' . get_bloginfo('template_url') . '/images/icon-picture.png" alt=""></a>';
 				}
 				
 				break;
@@ -1605,7 +1599,7 @@ class mp_options
 				#DISPLAY SLIDE URL ICON
 				if(!empty($slide_url))
 				{
-					echo '<a href="' . $slide_url . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-url.png" alt="" /></a>';
+					echo '<a href="' . $slide_url . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-url.png" alt=""></a>';
 				}
 				
 				break;
@@ -1637,25 +1631,25 @@ class mp_options
 		$slide_type = get_post_meta($post->ID, 'slide_type', true);
 		
 		#DISPLAY SLIDE NONCE FIELD
-		echo '<input name="slide_nonce" id="slide_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
+		echo '<input name="slide_nonce" id="slide_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '">';
 		
 		#DISPLAY SLIDE TYPE FIELD
-		echo '<p><strong>Slide Type:</strong><br />'; mp_options::mp_display_slide_type_radio_button($slide_type); echo '</p><p>Select the type of slide you wish to create.</p>';
+		echo '<p><strong>Slide Type:</strong><br>'; mp_options::mp_display_slide_type_radio_button($slide_type); echo '</p><p>Select the type of slide you wish to create.</p>';
 				
 		#DISPLAY SLIDE IMAGE FIELD
-		echo '<p><strong>Slide Image:</strong><br />'; mp_options::mp_display_media_upload('slide_image', urldecode($slide_image)); echo '</p><p>Enter the slide image URL.</p>';
+		echo '<p><strong>Slide Image:</strong><br>'; mp_options::mp_display_media_upload('slide_image', urldecode($slide_image)); echo '</p><p>Enter the slide image URL.</p>';
 		
 		#DISPLAY SLIDE VIDEO URL FIELD
-		echo '<p><strong>Slide Video URL:</strong><br /><input name="slide_video_url" id="slide_video_url" type="text" size="80" value="' . urldecode($slide_video_url) . '" /></p><p>Enter the slide video URL from Youtube. E.g. http://www.youtube.com/watch?v=fuXWcrh1Fsw</p>';
+		echo '<p><strong>Slide Video URL:</strong><br><input name="slide_video_url" id="slide_video_url" type="text" size="80" value="' . urldecode($slide_video_url) . '"></p><p>Enter the slide video URL from Youtube. E.g. http://www.youtube.com/watch?v=fuXWcrh1Fsw</p>';
 		
 		#DISPLAY SLIDE URL FIELD
-		echo '<p><strong>Slide URL:</strong><br /><input name="slide_url" id="slide_url" type="text" size="80" value="' . urldecode($slide_url) . '" /></p><p>Enter the slide URL.</p>';
+		echo '<p><strong>Slide URL:</strong><br><input name="slide_url" id="slide_url" type="text" size="80" value="' . urldecode($slide_url) . '"></p><p>Enter the slide URL.</p>';
 		
 		#DISPLAY SLIDE IN ANIMATION FIELD
-		echo '<p><strong>Slide In Animation:</strong><br />'; mp_options::mp_display_slide_animation_in_list($slide_animation_in); echo '</p><p>Select the animation of the slide when it enters the slider. Please refer to the <a href="http://daneden.me/animate/" target="_blank">Animate.css</a> page to preview the animations.</p>';
+		echo '<p><strong>Slide In Animation:</strong><br>'; mp_options::mp_display_slide_animation_in_list($slide_animation_in); echo '</p><p>Select the animation of the slide when it enters the slider. Please refer to the <a href="http://daneden.me/animate/" target="_blank">Animate.css</a> page to preview the animations.</p>';
 		
 		#DISPLAY SLIDE OUT ANIMATION FIELD
-		echo '<p><strong>Slide Out Animation:</strong><br />'; mp_options::mp_display_slide_animation_out_list($slide_animation_out); echo '</p><p>Select the animation of the slide when it exits the slider. Please refer to the <a href="http://daneden.me/animate/" target="_blank">Animate.css</a> page to preview the animations.</p>';
+		echo '<p><strong>Slide Out Animation:</strong><br>'; mp_options::mp_display_slide_animation_out_list($slide_animation_out); echo '</p><p>Select the animation of the slide when it exits the slider. Please refer to the <a href="http://daneden.me/animate/" target="_blank">Animate.css</a> page to preview the animations.</p>';
 		
 		#LAUNCH VALIDATOR
 		echo '<script>jQuery(document).ready(function() { mp_module_admin.run_validator_slides(); });</script>';
@@ -1767,12 +1761,12 @@ class mp_options
 			#SELECTED SLIDE TYPE
 			if($selected_slide_type == $slide_type_value)
 			{
-				echo '<input type="radio" name="slide_type" id="' . $slide_type_value . '" value="' . $slide_type_value . '" checked="checked" /><label for="' . $slide_type_value . '">' . $slide_type_key . '</label>&nbsp;&nbsp;&nbsp;';
+				echo '<input type="radio" name="slide_type" id="' . $slide_type_value . '" value="' . $slide_type_value . '" checked="checked"><label for="' . $slide_type_value . '">' . $slide_type_key . '</label>&nbsp;&nbsp;&nbsp;';
 			}
 			#UNSELECTED SLIDE TYPE
 			else
 			{
-				echo '<input type="radio" name="slide_type" id="' . $slide_type_value . '" value="' . $slide_type_value . '" /><label for="' . $slide_type_value . '">' . $slide_type_key . '</label>&nbsp;&nbsp;&nbsp;';
+				echo '<input type="radio" name="slide_type" id="' . $slide_type_value . '" value="' . $slide_type_value . '"><label for="' . $slide_type_value . '">' . $slide_type_key . '</label>&nbsp;&nbsp;&nbsp;';
 			}
 		}
 	}
@@ -1853,13 +1847,13 @@ class mp_options
 					#DISPLAY SLIDE IMAGE WITH SLIDE URL
 					case 'image':
 					
-						echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '" /></a>';
+						echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '"></a>';
 						break;
 						
 					#DISPLAY SLIDE TEXT + IMAGE
 					case 'text_image':
 					
-						echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '" /></a>';
+						echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '"></a>';
 						echo '<h6 class="flex-caption">' . get_the_content() . '</h6>';
 						break;
 					
@@ -2053,7 +2047,7 @@ class mp_options
 		$columns = 
 		array
 		(
-			'cb' => '<input type="checkbox" />',
+			'cb' => '<input type="checkbox">',
 			'title' => 'Title',
 			'project_category' => 'Category',
 			'project_scope' => 'Scope',
@@ -2127,7 +2121,7 @@ class mp_options
 					$project_thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'thumbnail');
 					
 					#DISPLAY PROJECT THUMBNAIL
-					echo '<img src="' . $project_thumbnail[0] . '" width="123" height="78" alt="" />';
+					echo '<img src="' . $project_thumbnail[0] . '" width="123" height="78" alt="">';
 				}
 				
 				break;
@@ -2141,7 +2135,7 @@ class mp_options
 				#DISPLAY PROJECT GALLERY ICON
 				if(!empty($portfolio_project_gallery))
 				{
-					echo '<a href="admin.php?page=nggallery-manage-gallery&mode=edit&gid=' . $portfolio_project_gallery . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-gallery.png" alt="" /></a>';
+					echo '<a href="admin.php?page=nggallery-manage-gallery&mode=edit&gid=' . $portfolio_project_gallery . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-gallery.png" alt=""></a>';
 				}
 				
 				break;
@@ -2155,7 +2149,7 @@ class mp_options
 				#DISPLAY PROJECT URL ICON
 				if(!empty($portfolio_project_url))
 				{
-					echo '<a href="' . $portfolio_project_url . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-url.png" alt="" /></a>';
+					echo '<a href="' . $portfolio_project_url . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-url.png" alt=""></a>';
 				}
 				
 				break;
@@ -2221,16 +2215,16 @@ class mp_options
 		$portfolio_project_gallery = get_post_meta($post->ID, 'portfolio_project_gallery', true);
 		
 		#DISPLAY PROJECT NONCE FIELD
-		echo '<input name="portfolio_nonce" id="portfolio_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
+		echo '<input name="portfolio_nonce" id="portfolio_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '">';
 				
 		#DISPLAY PROJECT FIELDS
-		echo '<p><strong>Client Name:</strong><br /><input name="portfolio_client_name" id="portfolio_client_name" type="text" size="80" value="' . $portfolio_client_name . '" /></p><p>Enter the name of the client.</p>';
+		echo '<p><strong>Client Name:</strong><br><input name="portfolio_client_name" id="portfolio_client_name" type="text" size="80" value="' . $portfolio_client_name . '"></p><p>Enter the name of the client.</p>';
 		
-		echo '<p><strong>Client Location:</strong><br /><input name="portfolio_client_location" id="portfolio_client_location" type="text" size="80" value="' . $portfolio_client_location . '" /></p><p>Enter the location of the client.</p>';
+		echo '<p><strong>Client Location:</strong><br><input name="portfolio_client_location" id="portfolio_client_location" type="text" size="80" value="' . $portfolio_client_location . '"></p><p>Enter the location of the client.</p>';
 		
-		echo '<p><strong>Project URL:</strong><br /><input name="portfolio_project_url" id="portfolio_project_url" type="text" size="80" value="' . urldecode($portfolio_project_url) . '" /></p><p>Enter the project URL.</p>';
+		echo '<p><strong>Project URL:</strong><br><input name="portfolio_project_url" id="portfolio_project_url" type="text" size="80" value="' . urldecode($portfolio_project_url) . '"></p><p>Enter the project URL.</p>';
 		
-		echo '<p><strong>Project Gallery:</strong><br />'; mp_options::mp_display_gallery_list("portfolio_project_gallery", $portfolio_project_gallery); echo '</p><p>Select the gallery of the project.</p>';
+		echo '<p><strong>Project Gallery:</strong><br>'; mp_options::mp_display_gallery_list("portfolio_project_gallery", $portfolio_project_gallery); echo '</p><p>Select the gallery of the project.</p>';
 		
 		#LAUNCH VALIDATOR
 		echo '<script>jQuery(document).ready(function() { mp_module_admin.run_validator_projects(); });</script>';		
@@ -2416,13 +2410,13 @@ class mp_options
 					$project_thumbnail_file = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
 					
 					#DISPLAY PROJECT THUMBNAIL
-					echo '<img src="' . $project_thumbnail_file[0] . '" alt="' . $project_title . '" title="' . $project_title . '" class="project-thumbnail" />';
+					echo '<img src="' . $project_thumbnail_file[0] . '" alt="' . $project_title . '" title="' . $project_title . '" class="project-thumbnail">';
 				}
 				#PROJECT THUMBNAIL DOES NOT EXIST
 				else
 				{
 					#DISPLAY DEFAULT PROJECT THUMBNAIL
-					echo '<img src="' . get_bloginfo('template_url') . '/images/portfolio-thumbnail-default.png" alt="' . $project_title . '" title="' . $project_title . '" class="project-thumbnail" />';
+					echo '<img src="' . get_bloginfo('template_url') . '/images/portfolio-thumbnail-default.png" alt="' . $project_title . '" title="' . $project_title . '" class="project-thumbnail">';
 				}
 				
 				#CLOSE PROJECT LINK
@@ -2472,8 +2466,8 @@ class mp_options
 		}
 	}
 	
-	#THIS FUNCTION DISPLAYS THE PROJECT THUMBNAILS
-	public function mp_display_project_thumbnails()
+	#THIS FUNCTION DISPLAYS THE PROJECT IMAGES
+	public function mp_display_project_images($type = 'thumbnail', $link = false, $link_to = 'image', $li_class = '')
 	{
 		#NEXTGEN GALLERY PLUGIN IS ACTIVATED
 		if(function_exists('nggShowSlideshow'))
@@ -2487,37 +2481,56 @@ class mp_options
 				#INITIALISE PROJECT GALLERY THUMBNAILS
 				$project_thumbnails = nggdb::get_gallery($portfolio_project_gallery);
 				
-				echo '<!-- PROJECT GALLERY - START -->
-				<div id="project_gallery"></div>
-				<!-- PROJECT GALLERY - END -->' . "\n\n";
-				
-				echo '<!-- PROJECT GALLERY CAPTION - START -->
-				<div id="project_gallery_caption"></div>
-				<!-- PROJECT GALLERY CAPTION - END -->' . "\n\n";
-				
-				echo '<!-- PROJECT GALLERY THUMBNAILS - START -->
-				<div id="project_gallery_thumbnails">' . "\n";
-				
-				#DISPLAY PREVIOUS BUTTON
-				echo '<a class="previous" href="#" title="Previous"><img src="' . get_bloginfo('template_url') . '/images/arrow-slider-left-off.png" alt="Previous" /></a>';
-				
 				#OPEN UNORDERED LIST
-				echo '<ul class="thumbs noscript">';
+				echo '<ul class="slides">';
 			
 				#DISPLAY PROJECT GALLERY THUMBNAILS
 				foreach($project_thumbnails as $project_thumbnail)
 				{
-					echo '<li><a href="' . $project_thumbnail->imageURL . '" class="thumb" title="' . $project_thumbnail->alttext . ': ' . $project_thumbnail->description . '"><img src="' . $project_thumbnail->thumbURL . '" alt="' . $project_thumbnail->alttext . '" /></a><div class="caption"><p>' . stripslashes($project_thumbnail->alttext) . ': ' . stripslashes($project_thumbnail->description) . '</p></div></li>';
+					#OPEN PROJECT IMAGE LIST ITEM
+					echo '<li class="' . $li_class . '">';
+					
+					#OPEN PROJECT IMAGE LINK
+					if($link)
+					{
+						#INITIALISE THUMBNAIL LINK
+						if($link_to == 'thumbnail')
+						{
+							$project_image_link = $project_thumbnail->thumbURL;
+						}
+						#INITIALISE IMAGE LINK
+						elseif($link_to == 'image')
+						{
+							$project_image_link = $project_thumbnail->imageURL;
+						}
+						
+						#DISPLAY PROJECT IMAGE LINK
+						echo '<a href="' . $project_image_link . '" title="' . $project_thumbnail->alttext . ': ' . $project_thumbnail->description . '" class="project-image">';
+					}
+					
+					#DISPLAY PROJECT THUMBNAIL
+					if($type == 'thumbnail')
+					{
+						echo '<img src="' . $project_thumbnail->thumbURL . '" alt="' . $project_thumbnail->alttext . '">';
+					}
+					#DISPLAY PROJECT IMAGE
+					elseif($type == 'image')
+					{
+						echo '<img src="' . $project_thumbnail->imageURL . '" alt="' . $project_thumbnail->alttext . '">';
+					}
+					
+					#CLOSE PROJECT IMAGE LINK
+					if($link)
+					{
+						echo '</a>';
+					}
+					
+					#CLOSE PROJECT IMAGE LIST ITEM
+					echo '</li>';
 				}
 				
 				#CLOSE UNORDERED LIST
 				echo '</ul>';
-				
-				#DISPLAY NEXT BUTTON
-				echo '<a class="next" href="#" title="Next"><img src="' . get_bloginfo('template_url') . '/images/arrow-slider-right-off.png" alt="Next" /></a>';
-				
-				echo '</div>
-				<!-- PROJECT GALLERY THUMBNAILS - END -->'. "\n";
 			}
 		}
 		#NEXTGEN GALLERY PLUGIN IS NOT ACTIVATED
@@ -2538,17 +2551,9 @@ class mp_options
 		$portfolio_project_scope_terms = get_the_terms(get_the_ID(), 'portfolio-scope');
 		$portfolio_project_skill_terms = get_the_terms(get_the_ID(), 'portfolio-skill');
 		
-		#OPEN PROJECT DETAILS DIV WITH TOP MARGIN
-		if(!empty($portfolio_project_gallery))
-		{
-			echo '<div id="project_details1">';
-		}
-		#OPEN PROJECT DETAILS DIV WITHOUT TOP MARGIN
-		else
-		{
-			echo '<div id="project_details2">';
-		}
-		
+		#OPEN PROJECT DETAILS DIV
+		echo '<div class="project-details">';
+				
 		#OPEN TABLE
 		echo '<table>';
 		
@@ -2719,7 +2724,7 @@ class mp_options
 		$columns = 
 		array
 		(
-			'cb' => '<input type="checkbox" />',
+			'cb' => '<input type="checkbox">',
 			'title' => 'Title',
 			'project' => 'Project',
 			'name' => 'Name',
@@ -2818,7 +2823,7 @@ class mp_options
 				#DISPLAY TESTIMONIAL PHOTO ICON
 				if(!empty($testimonial_photo))
 				{
-					echo '<a href="' . $testimonial_photo . '" title="' . $testimonial_name . '"><img src="' . get_bloginfo('template_url') . '/images/icon-picture.png" alt="" /></a>';
+					echo '<a href="' . $testimonial_photo . '" title="' . $testimonial_name . '"><img src="' . get_bloginfo('template_url') . '/images/icon-picture.png" alt=""></a>';
 				}
 				
 				break;
@@ -2832,7 +2837,7 @@ class mp_options
 				#DISPLAY TESTIMONIAL URL ICON
 				if(!empty($testimonial_url))
 				{
-					echo '<a href="' . $testimonial_url . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-url.png" alt="" /></a>';
+					echo '<a href="' . $testimonial_url . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-url.png" alt=""></a>';
 				}
 				
 				break;
@@ -2846,7 +2851,7 @@ class mp_options
 				#DISPLAY TESTIMONIAL PDF ICON
 				if(!empty($testimonial_pdf))
 				{
-					echo '<a href="' . $testimonial_pdf . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt="" /></a>';
+					echo '<a href="' . $testimonial_pdf . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt=""></a>';
 				}
 				
 				break;
@@ -2860,7 +2865,7 @@ class mp_options
 				#DISPLAY TESTIMONIAL FEATURE ICON
 				if($testimonial_feature)
 				{
-					echo '<img src="' . get_bloginfo('template_url') . '/images/icon-pin.png" alt="" />';
+					echo '<img src="' . get_bloginfo('template_url') . '/images/icon-pin.png" alt="">';
 				}
 				
 				break;
@@ -2893,22 +2898,22 @@ class mp_options
 		$testimonial_feature = get_post_meta($post->ID, 'testimonial_feature', true);
 		
 		#DISPLAY TESTIMONIAL NONCE FIELD
-		echo '<input name="testimonial_nonce" id="testimonial_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '" />';
+		echo '<input name="testimonial_nonce" id="testimonial_nonce" type="hidden" value="' . wp_create_nonce(__FILE__) . '">';
 				
 		#DISPLAY TESTIMONIAL FIELDS
-		echo '<p><strong>Project:</strong><br />'; mp_options::mp_display_project_list("testimonial_project", $testimonial_project); echo '</p><p>Select the project of the testimonial.</p>';
+		echo '<p><strong>Project:</strong><br>'; mp_options::mp_display_project_list("testimonial_project", $testimonial_project); echo '</p><p>Select the project of the testimonial.</p>';
 		
-		echo '<p><strong>Name:</strong><br /><input name="testimonial_name" id="testimonial_name" type="text" size="80" value="' . $testimonial_name . '" /></p><p>Enter the name of the person who wrote the testimonial.</p>';
+		echo '<p><strong>Name:</strong><br><input name="testimonial_name" id="testimonial_name" type="text" size="80" value="' . $testimonial_name . '"></p><p>Enter the name of the person who wrote the testimonial.</p>';
 		
-		echo '<p><strong>Location:</strong><br /><input name="testimonial_location" id="testimonial_location" type="text" size="80" value="' . $testimonial_location . '" /></p><p>Enter the location of the person who wrote the testimonial.</p>';
+		echo '<p><strong>Location:</strong><br><input name="testimonial_location" id="testimonial_location" type="text" size="80" value="' . $testimonial_location . '"></p><p>Enter the location of the person who wrote the testimonial.</p>';
 		
-		echo '<p><strong>Photo:</strong><br />'; mp_options::mp_display_media_upload('testimonial_photo', urldecode($testimonial_photo)); echo '</p><p>Enter the photo URL of the person who wrote the testimonial.</p>';
+		echo '<p><strong>Photo:</strong><br>'; mp_options::mp_display_media_upload('testimonial_photo', urldecode($testimonial_photo)); echo '</p><p>Enter the photo URL of the person who wrote the testimonial.</p>';
 		
-		echo '<p><strong>URL:</strong><br /><input name="testimonial_url" id="testimonial_url" type="text" size="80" value="' . urldecode($testimonial_url) . '" /></p><p>Enter the URL of the person who wrote the testimonial.</p>';
+		echo '<p><strong>URL:</strong><br><input name="testimonial_url" id="testimonial_url" type="text" size="80" value="' . urldecode($testimonial_url) . '"></p><p>Enter the URL of the person who wrote the testimonial.</p>';
 		
-		echo '<p><strong>PDF:</strong><br /><input name="testimonial_pdf" id="testimonial_pdf" type="text" size="80" value="' . urldecode($testimonial_pdf) . '" /></p><p>Enter the PDF document URL of the testimonial.</p>';
+		echo '<p><strong>PDF:</strong><br><input name="testimonial_pdf" id="testimonial_pdf" type="text" size="80" value="' . urldecode($testimonial_pdf) . '"></p><p>Enter the PDF document URL of the testimonial.</p>';
 		
-		echo '<p><strong>Feature on Home Page:</strong><br />'; mp_options::mp_display_yes_no_list('testimonial_feature', $testimonial_feature); echo '</p><p>Select whether you wish to display this testimonial on the home page.</p>';
+		echo '<p><strong>Feature on Home Page:</strong><br>'; mp_options::mp_display_yes_no_list('testimonial_feature', $testimonial_feature); echo '</p><p>Select whether you wish to display this testimonial on the home page.</p>';
 		
 		#LAUNCH VALIDATOR
 		echo '<script>jQuery(document).ready(function() { mp_module_admin.run_validator_testimonials(); });</script>';
@@ -3034,7 +3039,7 @@ class mp_options
 				}		
 				
 				#APPEND TESTIMONIAL NAME & LOCATION
-				$testimonial_content .= '<br /><br />- ' . $testimonial_name . ', ' . $testimonial_location;
+				$testimonial_content .= '<br><br>- ' . $testimonial_name . ', ' . $testimonial_location;
 				
 				#APPEND TESTIMONIAL URL
 				if(!empty($testimonial_url))
@@ -3045,13 +3050,13 @@ class mp_options
 				#APPEND TESTIMONIAL PHOTO
 				if(!empty($testimonial_photo))
 				{					
-					$testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial_photo" />' . $testimonial_content;
+					$testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial_photo">' . $testimonial_content;
 				}
 				
 				#APPEND TESTIMONIAL PDF
 				if(!empty($testimonial_pdf))
 				{
-					$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial_pdf" />PDF</a>';
+					$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial_pdf">PDF</a>';
 				}
 				
 				#DISPLAY TESTIMONIAL BOX
@@ -3102,7 +3107,7 @@ class mp_options
 		$testimonial_content = get_the_content();
 		
 		#APPEND TESTIMONIAL NAME & LOCATION
-		$testimonial_content .= '<br /><br />- ' . $testimonial_name . ', ' . $testimonial_location;
+		$testimonial_content .= '<br><br>- ' . $testimonial_name . ', ' . $testimonial_location;
 		
 		#APPEND TESTIMONIAL URL
 		if(!empty($testimonial_url))
@@ -3113,13 +3118,13 @@ class mp_options
 		#APPEND TESTIMONIAL PHOTO
 		if(!empty($testimonial_photo))
 		{					
-			$testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial_photo" />' . $testimonial_content;
+			$testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial_photo">' . $testimonial_content;
 		}
 		
 		#APPEND TESTIMONIAL PDF
 		if(!empty($testimonial_pdf))
 		{
-			$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial_pdf" />PDF</a>';
+			$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial_pdf">PDF</a>';
 		}
 		
 		#DISPLAY TESTIMONIAL PROJECT
@@ -3275,10 +3280,10 @@ class mp_options
 			{
 				#FORMAT INSTAGRAM THUMBNAIL WITH THUMBNAIL IMAGE & IMAGE TITLE IN ALT/TITLE ATTRIBUTE
 				$instagram_thumbnail = str_replace('_7.jpg', '_5.jpg', $item->get_description());
-				//$instagram_thumbnail = str_replace('" />', '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '" />', $instagram_thumbnail);
+				//$instagram_thumbnail = str_replace('">', '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '">', $instagram_thumbnail);
 				
 				#DISPLAY INSTAGRAM THUMBNAIL
-				echo '<li><a href="' . $item->get_permalink() . '" rel="nofollow" class="instagram_iframe"><span class="magnify"></span>' . $instagram_thumbnail . '</a></li>' . "\n";
+				echo '<li><a href="' . $item->get_permalink() . '" rel="nofollow" class="instagram-iframe"><span class="magnify"></span>' . $instagram_thumbnail . '</a></li>' . "\n";
 			}
 			
 			#CLOSE UNORDERED LIST
@@ -3400,7 +3405,7 @@ class mp_options
 					$tweet = preg_replace("/#(\w+)/", "<a href=\"http://search.twitter.com/search?q=\\1\" target=\"_blank\" rel=\"nofollow\">#\\1</a>", $tweet);
 					
 					#DISPLAY TWITTER TWEET
-					echo '<li>' . $tweet . '<br />' . $tweet_date . ' &middot; <a href="' . $tweet_url . '" target="_blank" rel="nofollow" class="tweet">Twitter</a></li>' . "\n";
+					echo '<li>' . $tweet . '<br>' . $tweet_date . ' &middot; <a href="' . $tweet_url . '" target="_blank" rel="nofollow" class="tweet">Twitter</a></li>' . "\n";
 				}
 				
 				#CLOSE UNORDERED LIST
@@ -3450,14 +3455,14 @@ class mp_options
 				{
 					#FORMAT DRIBBBLE THUMBNAIL WITHOUT HYPERLINK & IMAGE TITLE IN ALT/TITLE ATTRIBUTE
 					//<img alt="" height="" src="" width="">
-					//<img alt="" height="" src="" width="" /> --> NOTE THAT THE LATEST DRIBBBLE RSS DOES NOT COME WITH A CLOSING SLASH
+					//<img alt="" height="" src="" width=""> --> NOTE THAT THE LATEST DRIBBBLE RSS DOES NOT COME WITH A CLOSING SLASH
 					if(preg_match('#<img alt="(.+?)" height="(.+?)" src="(.+?)" width="(.+?)">#i', $item->get_description(), $dribbble_thumbnail_url))
 					{
-						$dribbble_thumbnail = '<img src="' . $dribbble_thumbnail_url[3] . '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '" />';
+						$dribbble_thumbnail = '<img src="' . $dribbble_thumbnail_url[3] . '" alt="' . $item->get_title() . '" title="' . $item->get_title() . '">';
 					}
 					
 					#DISPLAY DRIBBBLE THUMBNAIL
-					echo '<li><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" rel="nofollow" class="dribbble_iframe"><span class="magnify"></span>' . $dribbble_thumbnail . '</a></li>' . "\n";
+					echo '<li><a href="' . $item->get_permalink() . '" title="' . $item->get_title() . '" rel="nofollow" class="dribbble-iframe"><span class="magnify"></span>' . $dribbble_thumbnail . '</a></li>' . "\n";
 				}
 				
 				#CLOSE UNORDERED LIST
@@ -3509,49 +3514,49 @@ class mp_options
 		#DISPLAY FACEBOOK BUTTON
 		if(!empty($facebook))
 		{
-			echo '<li><a href="' . $facebook . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-facebook.png" alt="Facebook" title="Facebook" /></a></li>';
+			echo '<li><a href="' . $facebook . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-facebook.png" alt="Facebook" title="Facebook"></a></li>';
 		}
 		
 		#DISPLAY TWITTER BUTTON
 		if(!empty($twitter))
 		{
-			echo '<li><a href="http://twitter.com/' . $twitter . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-twitter.png" alt="Twitter" title="Twitter" /></a></li>';
+			echo '<li><a href="http://twitter.com/' . $twitter . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-twitter.png" alt="Twitter" title="Twitter"></a></li>';
 		}
 		
 		#DISPLAY GOOGLE+ BUTTON
 		if(!empty($google_plus))
 		{
-			echo '<li><a href="' . $google_plus . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-google.png" alt="Google+" title="Google+" /></a></li>';
+			echo '<li><a href="' . $google_plus . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-google.png" alt="Google+" title="Google+"></a></li>';
 		}
 		
 		#DISPLAY PINTEREST BUTTON
 		if(!empty($pinterest))
 		{
-			echo '<li><a href="http://pinterest.com/' . $pinterest . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-pinterest.png" alt="Pinterest" title="Pinterest" /></a></li>';
+			echo '<li><a href="http://pinterest.com/' . $pinterest . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-pinterest.png" alt="Pinterest" title="Pinterest"></a></li>';
 		}
 		
 		#DISPLAY LINKEDIN BUTTON
 		if(!empty($linkedin))
 		{
-			echo '<li><a href="' . $linkedin . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-linkedin.png" alt="LinkedIn" title="LinkedIn" /></a></li>';
+			echo '<li><a href="' . $linkedin . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-linkedin.png" alt="LinkedIn" title="LinkedIn"></a></li>';
 		}
 		
 		#DISPLAY GITHUB BUTTON
 		if(!empty($github))
 		{
-			echo '<li><a href="http://github.com/' . $github . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-github.png" alt="GitHub" title="GitHub" /></a></li>';
+			echo '<li><a href="http://github.com/' . $github . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-github.png" alt="GitHub" title="GitHub"></a></li>';
 		}
 		
 		#DISPLAY DRIBBBLE BUTTON
 		if(!empty($dribbble))
 		{
-			echo '<li><a href="http://dribbble.com/' . $dribbble . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-dribbble.png" alt="Dribbble" title="Dribbble" /></a></li>';
+			echo '<li><a href="http://dribbble.com/' . $dribbble . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-dribbble.png" alt="Dribbble" title="Dribbble"></a></li>';
 		}
 		
 		#DISPLAY INSTAGRAM BUTTON
 		if(!empty($instagram))
 		{
-			echo '<li><a href="' . $instagram . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-instagram.png" alt="Instagram" title="Instagram" /></a></li>';
+			echo '<li><a href="' . $instagram . '" target="_blank" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-instagram.png" alt="Instagram" title="Instagram"></a></li>';
 		}
 		
 		#CLOSE SOCIAL BOX & UNORDERED LIST
@@ -3734,7 +3739,7 @@ class mp_options
 			#DISPLAY POSTS
 			foreach($posts as $post)
 			{
-				echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $post->post_title . '</a><br /><span class="info">' . get_the_time(get_option('date_format') . " " . get_option('time_format'), $post->ID) . '</span></li>';
+				echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '">' . $post->post_title . '</a><br><span class="info">' . get_the_time(get_option('date_format') . " " . get_option('time_format'), $post->ID) . '</span></li>';
 			}
 			
 			#CLOSE UNORDERED LIST
@@ -3776,13 +3781,13 @@ class mp_options
 					$thumbnail_image_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'thumbnail');
 				
 					#DISPLAY POST THUMBNAIL & POST TITLE
-					echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . $thumbnail_image_url[0] . '" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '" />' . $post->post_title . '</a></li>';
+					echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . $thumbnail_image_url[0] . '" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '">' . $post->post_title . '</a></li>';
 				}
 				#POST THUMBNAIL DOES NOT EXIST
 				else
 				{
 					#DISPLAY DEFAULT POST THUMBNAIL & POST TITLE
-					echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . get_bloginfo('template_directory') . '/images/post-thumbnail-default.png" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '" />' . $post->post_title . '</a></li>';
+					echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . get_bloginfo('template_directory') . '/images/post-thumbnail-default.png" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '">' . $post->post_title . '</a></li>';
 				}
 			}
 		}
@@ -3828,13 +3833,13 @@ class mp_options
 						$thumbnail_image_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'thumbnail');
 					
 						#DISPLAY POST THUMBNAIL & POST TITLE
-						echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . $thumbnail_image_url[0] . '" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '" />' . $post->post_title . '</a></li>';
+						echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . $thumbnail_image_url[0] . '" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '">' . $post->post_title . '</a></li>';
 					}
 					#POST THUMBNAIL DOES NOT EXIST
 					else
 					{
 						#DISPLAY DEFAULT POST THUMBNAIL & POST TITLE
-						echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . get_bloginfo('template_directory') . '/images/post-thumbnail-default.png" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '" />' . $post->post_title . '</a></li>';
+						echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . get_bloginfo('template_directory') . '/images/post-thumbnail-default.png" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '">' . $post->post_title . '</a></li>';
 					}
 				}
 			}
@@ -3883,13 +3888,13 @@ class mp_options
 					$thumbnail_image_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'thumbnail');
 				
 					#DISPLAY POST THUMBNAIL & POST TITLE
-					echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . $thumbnail_image_url[0] . '" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '" />' . $post->post_title . ' (' . mp_options::mp_get_comment_type_count($post->ID, "comment") . ')</a></li>';
+					echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . $thumbnail_image_url[0] . '" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '">' . $post->post_title . ' (' . mp_options::mp_get_comment_type_count($post->ID, "comment") . ')</a></li>';
 				}
 				#POST THUMBNAIL DOES NOT EXIST
 				else
 				{
 					#DISPLAY DEFAULT POST THUMBNAIL & POST TITLE
-					echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . get_bloginfo('template_directory') . '/images/post-thumbnail-default.png" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '" />' . $post->post_title . ' (' . mp_options::mp_get_comment_type_count($post->ID, "comment") . ')</a></li>';
+					echo '<li><a href="' . get_permalink($post->ID) . '" title="' . $post->post_title . '"><img src="' . get_bloginfo('template_directory') . '/images/post-thumbnail-default.png" width="30" height="30" title="' . $post->post_title . '" alt="' . $post->post_title . '">' . $post->post_title . ' (' . mp_options::mp_get_comment_type_count($post->ID, "comment") . ')</a></li>';
 				}
 			}
 		}
@@ -4124,7 +4129,7 @@ class mp_options
 				<!-- COMMENT AVATAR, AUTHOR & DATE - START -->
 				<a name="comment-<?php comment_ID(); ?>"></a>
 				<div class="comment-header">
-					<div class="comment-avatar"><a href="<?php comment_author_url(); ?>" rel="nofollow"><img src="http://www.gravatar.com/avatar/<?php echo $gravatar_hash; ?>?s=80&r=g&d=<?php echo $gravatar_default; ?>" alt="<?php comment_author(); ?>" title="<?php comment_author(); ?>" /></a></div>
+					<div class="comment-avatar"><a href="<?php comment_author_url(); ?>" rel="nofollow"><img src="http://www.gravatar.com/avatar/<?php echo $gravatar_hash; ?>?s=80&r=g&d=<?php echo $gravatar_default; ?>" alt="<?php comment_author(); ?>" title="<?php comment_author(); ?>"></a></div>
 					<div class="comment-author-date">
 						<p class="comment-author"><a href="<?php comment_author_url(); ?>" rel="nofollow"><?php comment_author(); ?></a></p>
 						<p class="comment-date"><?php comment_date(); ?><br> <?php comment_time() ?></p>
@@ -4288,42 +4293,42 @@ class mp_options
 		#DISPLAY FEEDBURNER RSS FEED
 		if(!empty($mp_feedburner_rss))
 		{
-			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' RSS Feed" href="' . $mp_feedburner_rss . '" />' . "\n";
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' RSS Feed" href="' . $mp_feedburner_rss . '">' . "\n";
 		}
 		#DISPLAY WORDPRESS RSS FEED
 		else
 		{
-			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' RSS Feed" href="' . $mp_wordpress_rss . '" />' . "\n";
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' RSS Feed" href="' . $mp_wordpress_rss . '">' . "\n";
 		}
 		
 		#DISPLAY ARTICLES RSS FEED
 		if(get_option('mp_rss_articles'))
 		{
-			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Articles RSS Feed" href="' . $mp_wordpress_rss . '?post_type=article" />' . "\n";
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Articles RSS Feed" href="' . $mp_wordpress_rss . '?post_type=article">' . "\n";
 		}
 		
 		#DISPLAY SLIDES RSS FEED
 		if(get_option('mp_rss_slides'))
 		{
-			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Slides RSS Feed" href="' . $mp_wordpress_rss . '?post_type=slide" />' . "\n";
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Slides RSS Feed" href="' . $mp_wordpress_rss . '?post_type=slide">' . "\n";
 		}
 		
 		#DISPLAY PROJECTS RSS FEED
 		if(get_option('mp_rss_projects'))
 		{
-			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Projects RSS Feed" href="' . $mp_wordpress_rss . '?post_type=project" />' . "\n";
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Projects RSS Feed" href="' . $mp_wordpress_rss . '?post_type=project">' . "\n";
 		}
 		
 		#DISPLAY TESTIMONIALS RSS FEED
 		if(get_option('mp_rss_testimonials'))
 		{
-			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Testimonials RSS Feed" href="' . $mp_wordpress_rss . '?post_type=testimonial" />' . "\n";
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Testimonials RSS Feed" href="' . $mp_wordpress_rss . '?post_type=testimonial">' . "\n";
 		}
 		
 		#DISPLAY COMMENTS RSS FEED
 		if(get_option('mp_rss_comments'))
 		{
-			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Comments RSS Feed" href="' . get_bloginfo('comments_rss2_url') . '" />' . "\n";
+			echo '<link rel="alternate" type="application/rss+xml" title="' . $mp_site_name . ' Comments RSS Feed" href="' . get_bloginfo('comments_rss2_url') . '">' . "\n";
 		}
 	}
 	
@@ -4362,7 +4367,7 @@ class mp_options
 		}
 		
 		#DISPLAY RSS FEED SUBSCRIPTION TEXT
-		echo '<p><a href="' . $mp_rss . '" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-rss-small.png" alt="RSS" class="rss" /></a>Subscribe to my blog via ' . $mp_email . ' or <a href="' . $mp_rss . '" rel="nofollow">RSS</a></p>';
+		echo '<p><a href="' . $mp_rss . '" rel="nofollow"><img src="' . get_bloginfo('template_directory') . '/images/icon-rss-small.png" alt="RSS" class="rss"></a>Subscribe to my blog via ' . $mp_email . ' or <a href="' . $mp_rss . '" rel="nofollow">RSS</a></p>';
 	}
 
 	#THIS FUNCTION DISPLAYS THE RSS FEEDS WITH A SHORTCODE [RSS]
@@ -4389,42 +4394,42 @@ class mp_options
 		#DISPLAY FEEDBURNER RSS FEED
 		if(!empty($mp_feedburner_rss))
 		{
-			echo '<li><a href="' . $mp_feedburner_rss . '" rel=nofollow" />' . $mp_site_name . ' RSS Feed</li></a>' . "\n";
+			echo '<li><a href="' . $mp_feedburner_rss . '" rel=nofollow">' . $mp_site_name . ' RSS Feed</li></a>' . "\n";
 		}
 		#DISPLAY WORDPRESS RSS FEED
 		else
 		{
-			echo '<li><a href="' . $mp_wordpress_rss . '" rel=nofollow" />' . $mp_site_name . ' RSS Feed</li></a>' . "\n";
+			echo '<li><a href="' . $mp_wordpress_rss . '" rel=nofollow">' . $mp_site_name . ' RSS Feed</li></a>' . "\n";
 		}
 		
 		#DISPLAY ARTICLES RSS FEED
 		if(get_option('mp_rss_articles'))
 		{
-			echo '<li><a href="' . $mp_wordpress_rss . '?post_type=article" rel=nofollow" />' . $mp_site_name . ' Articles RSS Feed</li></a>' . "\n";
+			echo '<li><a href="' . $mp_wordpress_rss . '?post_type=article" rel=nofollow">' . $mp_site_name . ' Articles RSS Feed</li></a>' . "\n";
 		}
 		
 		#DISPLAY SLIDES RSS FEED
 		if(get_option('mp_rss_slides'))
 		{
-			echo '<li><a href="' . $mp_wordpress_rss . '?post_type=slide" rel=nofollow" />' . $mp_site_name . ' Slides RSS Feed</li></a>' . "\n";
+			echo '<li><a href="' . $mp_wordpress_rss . '?post_type=slide" rel=nofollow">' . $mp_site_name . ' Slides RSS Feed</li></a>' . "\n";
 		}
 		
 		#DISPLAY PROJECTS RSS FEED
 		if(get_option('mp_rss_projects'))
 		{
-			echo '<li><a href="' . $mp_wordpress_rss . '?post_type=project" rel=nofollow" />' . $mp_site_name . ' Projects RSS Feed</li></a>' . "\n";
+			echo '<li><a href="' . $mp_wordpress_rss . '?post_type=project" rel=nofollow">' . $mp_site_name . ' Projects RSS Feed</li></a>' . "\n";
 		}
 		
 		#DISPLAY TESTIMONIALS RSS FEED
 		if(get_option('mp_rss_testimonials'))
 		{
-			echo '<li><a href="' . $mp_wordpress_rss . '?post_type=testimonial" rel=nofollow" />' . $mp_site_name . ' Testimonials RSS Feed</li></a>' . "\n";
+			echo '<li><a href="' . $mp_wordpress_rss . '?post_type=testimonial" rel=nofollow">' . $mp_site_name . ' Testimonials RSS Feed</li></a>' . "\n";
 		}
 		
 		#DISPLAY COMMENTS RSS FEED
 		if(get_option('mp_rss_comments'))
 		{
-			echo '<li><a href="' . get_bloginfo('comments_rss2_url') . '" rel=nofollow" />' . $mp_site_name . ' Comments RSS Feed</li></a>' . "\n";
+			echo '<li><a href="' . get_bloginfo('comments_rss2_url') . '" rel=nofollow">' . $mp_site_name . ' Comments RSS Feed</li></a>' . "\n";
 		}
 		
 		#CLOSE UNORDERED LIST
@@ -4449,7 +4454,7 @@ class mp_options
 				$mp_rss_external = split(",", $mp_rss_external_line);
 				
 				#DISPLAY EXTERNAL RSS FEED NAME & ADDRES
-				echo '<li><a href="' . trim($mp_rss_external[1]) . '" rel=nofollow" />' . trim($mp_rss_external[0]) . '</li></a>' . "\n";
+				echo '<li><a href="' . trim($mp_rss_external[1]) . '" rel=nofollow">' . trim($mp_rss_external[0]) . '</li></a>' . "\n";
 			}
 			
 			#CLOSE UNORDERED LIST

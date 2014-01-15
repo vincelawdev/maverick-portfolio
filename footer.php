@@ -73,15 +73,6 @@ if((!is_page() || is_page('blog')) && !is_tax() && !is_singular(array('project',
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-organic-tabs.min.js"></script>
 <?php
 }
-#LOAD GALLERIFIC
-if(is_singular('project'))
-{
-?>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-galleriffic.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-history.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/jquery-opacityrollover.js"></script>
-<?php
-}
 ?>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-hover-intent.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-superfish.min.js"></script>
@@ -92,7 +83,7 @@ if(is_singular('project'))
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-easing.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-fitvid.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-mousewheel.min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/modules/mp-module.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/js/modules/min/mp-module.min.js"></script>
 
 </body>
 

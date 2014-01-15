@@ -13,9 +13,13 @@ get_header();
                 ?>		
                 <h1 class="page-title"><?php the_title(); ?></h1>
                 
-                <!-- PROJECT THUMBNAILS - START -->
-                <?php mp_options::mp_display_project_thumbnails(); ?>
-                <!-- PROJECT THUMBNAILS - END -->
+                <!-- FLEXSLIDER - START -->
+                <div class="project-slides flexslider"><?php mp_options::mp_display_project_images('image', true, 'image', ''); ?></div>
+                <!-- FLEXSLIDER - END -->
+                
+                <!-- FLEXSLIDER CAROUSEL - START -->
+                <div class="project-slides-carousel flexslider"><?php mp_options::mp_display_project_images('thumbnail', false, '', 'project-slides-carousel-item'); ?></div>
+                <!-- FLEXSLIDER CAROUSEL - END -->
                 
                 <!-- PROJECT DETAILS - START -->
                 <div class="page-content"><?php mp_options::mp_display_project_details(); the_content(); ?></div>

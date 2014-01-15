@@ -25,7 +25,7 @@
 	
 	<!-- PINTEREST BUTTON - START -->
 	<div class="social-button left pinterest-small">
-		<a href="http://pinterest.com/pin/create/button/?url=<?php the_permalink(); ?>" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" alt="Pin It" title="Pin It" /></a><script src="//assets.pinterest.com/js/pinit.js"></script>
+		<a href="http://pinterest.com/pin/create/button/?url=<?php the_permalink(); ?>" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" alt="Pin It" title="Pin It"></a><script src="//assets.pinterest.com/js/pinit.js"></script>
 	</div>
 	<!-- PINTEREST BUTTON - END -->	
 			

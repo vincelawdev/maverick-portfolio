@@ -10,7 +10,7 @@ get_header();
             
             <!-- FEATURED WORK SLIDER - START -->
             <h3 class="sub-heading">Featured Work</h3>
-            <div class="home-slides-projects flexslider"><?php mp_options::mp_display_projects('', mp_options::mp_get_page(), false, '', 'slides', 'home-projects', true, 15); ?></div>
+            <div class="home-slides-projects flexslider"><?php mp_options::mp_display_projects('', mp_options::mp_get_page(), false, '', 'slides', 'home-slides-projects-item', true, 15); ?></div>
             <!-- FEATURED WORK SLIDER - END -->
             
             <!-- TESTIMONIALS - START -->

@@ -25,7 +25,7 @@ if(comments_open())
 	{
 	?>
 		<!-- COMMENTS - START -->
-		<h3 class="sub-heading"><?php mp_options::mp_display_comment_counter(get_the_ID(), 'comment', '0 Comments', '1 Comment', 'Comments'); ?> On &#8220;<?php the_title(); ?>&#8221; <span class="rss"><a href="<?php echo get_post_comments_feed_link(); ?>" rel="nofollow"><img src="<?php echo get_bloginfo('template_directory'); ?>/images/icon-rss-small.png" alt="Subscribe to Comments via RSS" title="Subscribe to Comments via RSS" /></a></span></h3>
+		<h3 class="sub-heading"><?php mp_options::mp_display_comment_counter(get_the_ID(), 'comment', '0 Comments', '1 Comment', 'Comments'); ?> On &#8220;<?php the_title(); ?>&#8221; <span class="rss"><a href="<?php echo get_post_comments_feed_link(); ?>" rel="nofollow"><img src="<?php echo get_bloginfo('template_directory'); ?>/images/icon-rss-small.png" alt="Subscribe to Comments via RSS" title="Subscribe to Comments via RSS"></a></span></h3>
 		<p>Trackback URL: <small><?php trackback_url(); ?></small></p>
 		<ul class="comments"><?php wp_list_comments('style=ul&type=comment&callback=mp_options::mp_display_comment_list'); ?></ul>
 		<!-- COMMENTS - END -->
@@ -88,21 +88,21 @@ if(comments_open())
 		
 		<form action="<?php echo get_settings('siteurl'); ?>/wp-comments-post.php" method="post" id="comment_form">
 			<?php comment_id_fields(); ?>
-			<input type="hidden" name="redirect_to" value="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" />
+			<input type="hidden" name="redirect_to" value="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>">
 			<?php
 			#USER NOT LOGGED IN
 			if(!$user_ID)
 			{
 			?>	
-			<p><label for="author">Name: (Required)</label><br /><input type="text" name="author" id="author" value="<?php echo $comment_author; ?>" size="40" /></p>
-			<p><label for="email">Email: (Required)</label><br /><input type="text" name="email" id="email" value="<?php echo $comment_author_email; ?>" size="40" /></p>
-			<p><label for="url">URL:</label><br /><input type="text" name="url" id="url" value="<?php echo $comment_author_url; ?>" size="40" /></p>
+			<p><label for="author">Name: (Required)</label><br><input type="text" name="author" id="author" value="<?php echo $comment_author; ?>" size="40"></p>
+			<p><label for="email">Email: (Required)</label><br><input type="text" name="email" id="email" value="<?php echo $comment_author_email; ?>" size="40"></p>
+			<p><label for="url">URL:</label><br><input type="text" name="url" id="url" value="<?php echo $comment_author_url; ?>" size="40"></p>
 			<?php
 			}
 			?>
-			<p><label for="comment">Comments: (Required)</label><br /><textarea rows="10" cols="20" name="comment" id="comment"></textarea></p>
+			<p><label for="comment">Comments: (Required)</label><br><textarea rows="10" cols="20" name="comment" id="comment"></textarea></p>
 			<?php do_action('comment_form', $post->ID); ?>
-			<p><input name="submit" type="submit" value="Submit" /></p>
+			<p><input name="submit" type="submit" value="Submit"></p>
 		</form>
 		
 	</div>

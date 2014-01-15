@@ -2,3 +2,154 @@
 HOME PAGE
 **************************************************************************/
 
+/* HOME PROJECT SLIDES */
+.home-slides-projects
+{
+	margin-bottom: 0 !important;
+	
+	li.home-projects
+	{
+		margin: 0 15px 5px 0 !important;
+		padding: 10px !important;
+		
+		background-color: #f6f6f6;
+		
+		border: 1px solid #ccc;
+		
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-ms-box-sizing: border-box;
+		box-sizing: border-box;
+		.transitions(all, 300ms, ease-in-out, 0);
+		
+		&:hover
+		{
+			@media only screen and (min-width: 768px)
+			{
+				box-shadow: 5px 5px 10px 0 #C2C2C2;
+				-webkit-box-shadow: 5px 5px 10px 0 #C2C2C2;
+				-moz-box-shadow: 5px 5px 10px 0 #C2C2C2;
+				-o-box-shadow: 5px 5px 10px 0 #C2C2C2;
+			}
+		}
+		
+		@media only screen and (max-width: 767px)
+		{
+			margin-right: 0 !important;
+		}
+		
+		/* PROJECT IMAGE */
+		.project-thumbnail
+		{
+			margin: 0;
+			padding: 0;
+		}
+		
+		/* PROJECT TITLE - H2 */
+		.project-title
+		{
+			margin: 2px 0 0 0;
+			padding: 0;
+			
+			.font-ExpresswayRegular();
+			font-size: 16px;
+			color: #333;
+			-webkit-font-smoothing: antialiased;
+			
+			.project-title-link
+			{
+				text-decoration: none !important;
+				
+				&:link,
+				&:visited
+				{
+					color: #333 !important;
+				}
+				
+				&:active,
+				&:hover
+				{
+					color: #ebc308 !important;
+				}
+			}
+		}
+		
+		/* PROJECT CATEGORIES - P */
+		.project-categories
+		{
+			margin: 3px 0 0 0 !important;
+			padding: 0;
+			
+			.font-Georgia();
+			font-size: 12px;
+			color: #333;
+			-webkit-font-smoothing: antialiased;
+			
+			a:link
+			{
+				font-style: italic;
+				text-decoration: none !important;
+			}
+		}
+	}
+}
+
+/* BLOG & ARTICLE COLUMNS */
+.home-column
+{
+	margin: 0;
+	padding: 0;
+	float: left;
+	
+	/* EXTEND FOOTER COLUMNS ON MOBILE SCREENS */
+	@media only screen and (max-width: 767px)
+	{
+		width: 100% !important;
+	}
+	
+	.home-column-left
+	{
+		padding-right: 2%;
+		
+		@media only screen and (max-width: 767px)
+		{
+			padding-right: 0;	
+		}
+	}
+	
+	.home-column-right
+	{
+		padding-left: 2%;
+		
+		@media only screen and (max-width: 767px)
+		{
+			padding-top: 10px;
+			padding-left: 0;	
+		}
+	}
+	
+	ul
+	{	
+		list-style-type: none;
+		
+		li
+		{
+			margin: 0 0 4px 0 !important;
+			padding: 0 0 0 19px !important;
+			
+			background-image: url('../images/arrow-home-right.png');
+			background-repeat: no-repeat;
+			background-position: 3px 4px;
+		}
+	}
+	
+	span.info
+	{
+		margin: 0;
+		padding: 0;
+		
+		.font-Georgia();
+		font-size: 12px;
+		color: #adadad;
+	}
+}

@@ -9,10 +9,8 @@ get_header();
             <!-- FLEXSLIDER - END -->
             
             <!-- FEATURED WORK SLIDER - START -->
-            <!--<h3 class="sub-heading featured_work_heading">Featured Work</h3>
-            <div class="home_previous" title="Previous"></div>
-            <div id="featured_work_wrapper"><?php mp_options::mp_display_projects('', mp_options::mp_get_page(), false, 'featured_work', true, 15); ?></div>
-            <div class="home_next" title="Next"></div>-->
+            <h3 class="sub-heading">Featured Work</h3>
+            <div class="home-slides-projects flexslider"><?php mp_options::mp_display_projects('', mp_options::mp_get_page(), false, '', 'slides', 'home-projects', true, 15); ?></div>
             <!-- FEATURED WORK SLIDER - END -->
             
             <!-- TESTIMONIALS - START -->
@@ -20,16 +18,28 @@ get_header();
             <!-- TESTIMONIALS - END -->
             
             <!-- LATEST BLOG POSTS - START -->
-            <div id="home_column1">
-                <h3 class="sub-heading">Latest Blog Posts</h3>
-                <?php mp_options::mp_display_recent_posts_home(); ?>
+            <div class="home-column col6">
+            
+            	<div class="home-column-left">
+                
+                    <h3 class="sub-heading">Latest Blog Posts</h3>
+                    <?php mp_options::mp_display_recent_posts_home(); ?>
+                    
+                </div>
+                
             </div>
             <!-- LATEST BLOG POSTS - END -->
             
             <!-- LATEST ARTICLES - START -->
-            <div id="home_column2">
-                <h3 class="sub-heading">Latest Articles</h3>
-                <?php mp_options::mp_display_recent_articles_home(); ?>
+            <div class="home-column col6">
+            	
+                <div class="home-column-right">
+                
+                    <h3 class="sub-heading">Latest Articles</h3>
+                    <?php mp_options::mp_display_recent_articles_home(); ?>
+                
+                </div>
+                
             </div>
             <!-- LATEST ARTICLES - END -->
 

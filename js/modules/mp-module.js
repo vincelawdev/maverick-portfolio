@@ -223,11 +223,9 @@ var mp_module = function()
 		{
 			//THIS METHOD INITIALISES THE FLEXSLIDER
 			init : function()
-			{						
-				/* HOME SLIDES */	
-				$('.home-slides')
-				.fitVids()
-				.flexslider(
+			{
+				//HOME SLIDES OPTIONS
+				var home_slides_options =
 				{
 					animation: 'slide',
 					easing: 'swing',					
@@ -238,25 +236,85 @@ var mp_module = function()
 					animationSpeed: 300,
 					initDelay: 0,
 					
-					// Usability features
+					//USABILITY FEATURES
 					useCSS: true,
 					
-					// Primary Controls
+					//PRIMARY CONTROLS
 					controlNav: true,
 					directionNav: true,
 										
-					// Secondary Navigation
+					//SECONDARY NAVIGATION
 					keyboard: true,
 					multipleKeyboard: false,
 					mousewheel: true
-  				});
-				
-				/* PAUSE HOME SLIDES WHEN VIDEO SLIDE HAS MOUSE OVER EVENT */
-				$('.home-slides .slides .video').mouseover(function()
+				},
+				//HOME PROJECTS SLIDES OPTIONS
+				home_slides_projects_options =
 				{
-					$('.flexslider').flexslider("pause");
-				});
+					animation: 'slide',
+					easing: 'swing',					
+					animationLoop: true,
+					smoothHeight: false,
+					slideshow: false,
+					slideshowSpeed: 5000,
+					animationSpeed: 300,
+					initDelay: 0,
+					
+					//CAROUSEL OPTIONS
+					itemWidth: 320,
+					itemMargin: 0,
+					minItems: sliders.flexslider.home_slider_projects_items(),
+					maxItems: sliders.flexslider.home_slider_projects_items(),
+					move: 0,
+									
+					//USABILITY FEATURES
+					useCSS: true,
+					
+					//PRIMARY CONTROLS
+					controlNav: false,
+					directionNav: true,
+										
+					//SECONDARY NAVIGATION
+					keyboard: true,
+					multipleKeyboard: false,
+					mousewheel: true	
+				}
+				
+				/* HOME SLIDES EXIST */
+				if($('.home-slides').length > 0)
+				{
+					/* INITIALISE FLEXSLIDER FOR HOME SLIDES */	
+					$('.home-slides').fitVids().flexslider(home_slides_options);
+					
+					/* PAUSE HOME SLIDES WHEN VIDEO SLIDE HAS MOUSE OVER EVENT */
+					$('.home-slides .slides .video').mouseover(function()
+					{
+						$('.home-slides').flexslider('pause');
+					});
+				}
+							
+				/* HOME PROJECTS SLIDES EXIST */
+				if($('.home-slides-projects').length > 0)
+				{
+					/* INITIALISE FLEXSLIDER FOR HOME PROJECTS SLIDES */	
+					$('.home-slides-projects').flexslider(home_slides_projects_options);
+				}
 			},
+			
+			//THIS METHOD INITIALISES THE HOME PROJECT SLIDER ITEMS
+			home_slider_projects_items : function()
+			{
+				//MOBILE SCREENS
+				if(page.window_width < 768)
+				{
+					return 1;
+				}
+				//NON-MOBILE SCREENS
+				else
+				{
+					return 4;
+				}
+			}
 		}
 	},
 	

@@ -2341,7 +2341,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE PROJECTS
-	public function mp_display_projects($category, $page, $pagination = true, $list_id = 'projects', $strip_line_breaks = true, $max_words = 20)
+	public function mp_display_projects($category, $page, $pagination = true, $ul_id = 'projects', $ul_class = '', $li_class = '', $strip_line_breaks = true, $max_words = 20)
 	{		
 		#RETRIEVE THE POST
 		global $post;
@@ -2392,7 +2392,7 @@ class mp_options
 		if($projects->have_posts())
 		{
 			#OPEN PROJECT LIST
-			echo '<ul id="' . $list_id . '">';
+			echo '<ul id="' . $ul_id . '" class="' . $ul_class . '">';
 			
 			#DISPLAY PROJECTS
 			while($projects->have_posts())
@@ -2404,7 +2404,7 @@ class mp_options
 				$project_title = $post->post_title;
 				
 				#OPEN PROJECT LIST ITEM
-				echo '<li>';
+				echo '<li class="' . $li_class . '">';
 				
 				#OPEN PROJECT LINK
 				echo '<a href="' . get_permalink() . '">';
@@ -2416,23 +2416,23 @@ class mp_options
 					$project_thumbnail_file = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
 					
 					#DISPLAY PROJECT THUMBNAIL
-					echo '<img src="' . $project_thumbnail_file[0] . '" alt="' . $project_title . '" title="' . $project_title . '" class="project_thumbnail" />';
+					echo '<img src="' . $project_thumbnail_file[0] . '" alt="' . $project_title . '" title="' . $project_title . '" class="project-thumbnail" />';
 				}
 				#PROJECT THUMBNAIL DOES NOT EXIST
 				else
 				{
 					#DISPLAY DEFAULT PROJECT THUMBNAIL
-					echo '<img src="' . get_bloginfo('template_url') . '/images/portfolio-thumbnail-default.png" alt="' . $project_title . '" title="' . $project_title . '" class="project_thumbnail" />';
+					echo '<img src="' . get_bloginfo('template_url') . '/images/portfolio-thumbnail-default.png" alt="' . $project_title . '" title="' . $project_title . '" class="project-thumbnail" />';
 				}
 				
 				#CLOSE PROJECT LINK
 				echo '</a>';
 				
 				#DISPLAY PROJECT TITLE
-				echo '<h2><a href="' . get_permalink() . '">' . $project_title . '</a></h2>';
+				echo '<h2 class="project-title"><a href="' . get_permalink() . '" class="project-title-link">' . $project_title . '</a></h2>';
 				
 				#DISPLAY PROJECT CATEGORIES
-				echo '<p class="categories">' . get_the_term_list($post->ID, 'portfolio-categories', '', ', ') . '</p>';
+				echo '<p class="project-categories">' . get_the_term_list($post->ID, 'portfolio-categories', '', ', ') . '</p>';
 				
 				#DISPLAY EXCERPT VIA THE ADVANCED EXCERPT PLUGIN
 				if(function_exists('the_advanced_excerpt'))

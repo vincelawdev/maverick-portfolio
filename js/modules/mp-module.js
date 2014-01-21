@@ -9,6 +9,7 @@ var mp_module = function()
 		content_height : 0,
 		sidebar_height : 0,
 		max_height 	   : 0,
+		header_row2_top: $('#header-row2').offset().top,
 
 		//THIS METHOD UPDATES THE CONTENT HEIGHT & WINDOW WIDTH
 		init : function()
@@ -25,6 +26,21 @@ var mp_module = function()
 				//UPDATE PAGE MEASUREMENTS
 				page.page_measurements();
 			});
+		},
+		
+		//THIS METHOD RETURNS WHETHER THE SCREEN IS MOBILE
+		is_mobile : function()
+		{
+			//MOBILE SCREENS
+			if(page.window_width < 768)
+			{
+				return true;	
+			}
+			//NON-MOBILE SCREENS
+			else if(page.window_width > 767)
+			{
+				return false;	
+			}
 		},
 		
 		//THIS METHOD UPDATES THE PAGE MEASUREMENTS
@@ -110,12 +126,13 @@ var mp_module = function()
 	//NAVIGATION - SUPERFISH, MEANMENU & ORGANIC TABS
 	navigation =
 	{
-		//THIS METHOD LAUNCHES THE superfish_init(), meanmenu_init() & organic_tabs_init() METHODS
+		//THIS METHOD LAUNCHES THE superfish_init(), meanmenu_init(), organic_tabs_init() & sticky_menu_init() METHODS
 		init : function()
 		{
 			this.superfish_init();
             this.meanmenu_init();
 			this.organic_tabs_init();
+			this.sticky_menu_init();
 		},
 		
 		//THIS METHOD INITIALISES THE SUPERFISH MENU
@@ -167,7 +184,7 @@ var mp_module = function()
         superfish_arrows : function()
         {
         	//APPEND SUPERFISH LEVEL 1 MENU DOWN ARROWS - THIS BREAKS MEANMENU
-        	if(page.window_width > 767)
+        	if(!page.is_mobile())
             {
             	//SUPERFISH LEVEL 1 MENU DOWN ARROWS DO NOT EXIST
             	if($('.arrow-down').length == 0)
@@ -211,6 +228,89 @@ var mp_module = function()
 			if($('#sidebar').find('#comment-tabs').length > 0)
 			{			
 				$('#comment-tabs').organicTabs({ 'speed' : 200 });
+			}
+		},
+		
+		//THIS METHOD INITIALISES THE STICKY MENU
+		sticky_menu_init : function()
+		{
+			//DISPLAY STICK MENU ON PAGE SCROLL
+			$(window).scroll(function()
+			{  
+				navigation.sticky_menu_scroll();
+			});
+			
+			//DISPLAY STICK MENU ON PAGE RESIZE
+			$(window).resize(function()
+			{
+				navigation.sticky_menu_resize(); 
+			});
+		},
+		
+		//THIS METHOD DISPLAYS THE STICKY MENU ON PAGE SCROLL
+		sticky_menu_scroll : function()
+		{
+			//INITIALISE SCROLL TOP POSITION
+			var scroll_top = $(window).scrollTop();
+
+			//USER HAS SCROLLED BELOW HEADER ROW 2 TOP POSITION
+			if(scroll_top > page.header_row2_top)
+			{
+				//MOBILE SCREENS
+				if(page.is_mobile())
+				{
+					//ADD STICKY CLASS TO HEADER ROW 1 & 2
+					$('#header-row1').addClass('sticky-mobile');
+					$('#header-row2').addClass('sticky-mobile');
+				}
+				//NON-MOBILE SCREENS
+				else
+				{
+					//ADD STICKY CLASS TO HEADER ROW 1 & 2
+					$('#header-row1').addClass('sticky-non-mobile');
+					$('#header-row2').addClass('sticky-non-mobile');
+				}
+			}
+			//USER HAS SCROLLED ABOVE HEADER ROW 2 TOP POSITION
+			else
+			{
+				//MOBILE SCREENS
+				if(page.is_mobile())
+				{
+					//REMOVE STICKY CLASS FROM HEADER ROW 1 & 2
+					$('#header-row1, #header-row2').removeClass('sticky-mobile');
+				}
+				//NON-MOBILE SCREENS
+				else
+				{
+					//REMOVE STICKY CLASS FROM HEADER ROW 1 & 2
+					$('#header-row1, #header-row2').removeClass('sticky-non-mobile');
+				}
+			}
+		},
+		
+		//THIS METHOD CHANGES THE STICKY MENU ON PAGE RESIZE
+		sticky_menu_resize : function()
+		{
+			//MOBILE SCREENS
+			if(page.is_mobile())
+			{
+				//STICKY MENU EXISTS
+				if($('.sticky-non-mobile').length)
+				{
+					//CHANGE STICKY MENU CLASS TO MOBILE
+					$('#header-row1, #header-row2').removeClass('sticky-non-mobile').addClass('sticky-mobile');
+				}
+			}
+			//NON-MOBILE SCREENS
+			else
+			{
+				//STICKY MENU EXISTS
+				if($('.sticky-mobile').length)
+				{
+					//CHANGE STICKY MENU CLASS TO NON-MOBILE
+					$('#header-row1, #header-row2').removeClass('sticky-mobile').addClass('sticky-non-mobile');
+				}
 			}
 		}
 	},
@@ -257,7 +357,7 @@ var mp_module = function()
 					//CALLBACK API
 					after: function()
 					{
-						page.page_measurements();
+						//page.page_measurements();
 					}
 				},
 				//HOME PROJECTS SLIDES OPTIONS
@@ -294,7 +394,7 @@ var mp_module = function()
 					//CALLBACK API
 					after: function()
 					{
-						page.page_measurements();
+						//page.page_measurements();
 					}	
 				},
 				//PORTFOLIO PROJECT SLIDES OPTIONS
@@ -325,7 +425,7 @@ var mp_module = function()
 					//CALLBACK API
 					after: function()
 					{
-						page.page_measurements();
+						//page.page_measurements();
 					}
 				},
 				//PORTFOLIO PROJECT SLIDES CAROUSEL OPTIONS
@@ -363,7 +463,7 @@ var mp_module = function()
 					//CALLBACK API
 					after: function()
 					{
-						page.page_measurements();
+						//page.page_measurements();
 					}
 				}
 				
@@ -406,7 +506,7 @@ var mp_module = function()
 			home_slider_projects_items : function()
 			{
 				//MOBILE SCREENS
-				if(page.window_width < 768)
+				if(page.is_mobile())
 				{
 					return 1;
 				}
@@ -441,7 +541,7 @@ var mp_module = function()
 			var max_height = -1;
 			
 			//SCREEN WIDTH IS NOT MOBILE
-			if(page.window_width > 767)
+			if(!page.is_mobile())
 			{
 				$('#projects li').each(function()
 				{

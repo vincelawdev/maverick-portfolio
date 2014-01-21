@@ -186,6 +186,7 @@ class mp_options
 		register_setting('mp_settings_author', 'mp_author');
 		register_setting('mp_settings_header', 'mp_logo');
 		register_setting('mp_settings_header', 'mp_logo_image');
+		register_setting('mp_settings_header', 'mp_logo_image_mobile');
 		register_setting('mp_settings_header', 'mp_social_button_size');
 		register_setting('mp_settings_header', 'mp_facebook_like_url');
 		register_setting('mp_settings_header', 'mp_addthis_profile_id');		
@@ -233,6 +234,7 @@ class mp_options
 			
 				update_option('mp_logo', 0);
 				update_option('mp_logo_image', '');
+				update_option('mp_logo_image_mobile', '');
 				update_option('mp_social_button_size', 'small');
 				update_option('mp_facebook_like_url', '');
 				update_option('mp_addthis_profile_id', '');
@@ -370,6 +372,15 @@ class mp_options
 				#INITIALISE LOGO DESCRIPTION
 				$logo_description = '<p>For best results, please use a logo image with a transparent background. If the logo is disabled, your <a href="' . get_bloginfo('siteurl') . '/wp-admin/options-general.php" target="_blank">Site Title and Tagline</a> will be displayed instead.</p>';
 
+				#INITIALISE MOBILE LOGO IMAGE
+				$mp_logo_image_mobile = get_option('mp_logo_image_mobile');
+				
+				#PREPEND LOGO DESCRIPTION WITH MOBILE LOGO IMAGE
+				if(!empty($mp_logo_image_mobile))
+				{
+					$logo_description = '<p><img src="' . $mp_logo_image_mobile . '" alt=""></p>' . $logo_description;
+				}
+
 				#INITIALISE LOGO IMAGE
 				$mp_logo_image = get_option('mp_logo_image');
 				
@@ -377,13 +388,16 @@ class mp_options
 				if(!empty($mp_logo_image))
 				{
 					$logo_description = '<p><img src="' . $mp_logo_image . '" alt=""></p>' . $logo_description;
-				}
+				}				
 				
 				#DISPLAY LOGO STATUS
 				mp_options::mp_option_field('Logo', $logo_description, true, false, 'Enable', 'yes_no', 'mp_logo', 'mp_logo', 'Select whether you wish to enable the logo', 'No', false);
 
 				#DISPLAY LOGO IMAGE
-				mp_options::mp_option_field('', '', true, true, 'Logo Image', 'media_upload', 'mp_logo_image', 'mp_logo_image', 'Enter the logo image URL', '', true);				
+				mp_options::mp_option_field('', '', true, true, 'Logo Image', 'media_upload', 'mp_logo_image', 'mp_logo_image', 'Enter the logo image URL', '', false);
+				
+				#DISPLAY MOBILE LOGO IMAGE
+				mp_options::mp_option_field('', '', true, true, 'Mobile Logo Image', 'media_upload', 'mp_logo_image_mobile', 'mp_logo_image_mobile', 'Enter the mobile logo image URL', '', true);			
 				
 				#INITIALISE SOCIAL BUTTON SIZE DESCRIPTION
 				$social_button_description = '<p><img src="' . get_bloginfo('template_directory') . '/images/theme-options-social-buttons.jpg" width="335" height="92" alt=""></p>';
@@ -1127,6 +1141,38 @@ class mp_options
 		elseif(empty($mp_logo) || !empty($mp_logo_text))
 		{
 			echo '<p class="title"><a href="' . get_bloginfo('url') . '">' . get_bloginfo('name') . '</a></p><p class="description">' . get_bloginfo('description') . '</p>';
+		}
+	}
+	
+	#THIS FUNCTION DISPLAYS THE MOBILE LOGO IN EITHER IMAGE OR TEXT FORM
+	public function mp_display_logo_mobile()
+	{		
+		#INITIALISE LOGO
+		$mp_logo = get_option('mp_logo');
+		$mp_logo_text = false;
+		
+		#LOGO ENABLED
+		if(!empty($mp_logo))
+		{
+			#INITIALISE MOBILE LOGO IMAGE
+			$mp_logo_image_mobile = get_option('mp_logo_image_mobile');
+		
+			#DISPLAY MOBILE LOGO
+			if(!empty($mp_logo_image_mobile))
+			{
+				echo '<a href="' . get_bloginfo('url') . '"><img src="' . $mp_logo_image_mobile . '" alt="' . get_bloginfo('name') . ' - ' . get_bloginfo('description') . '" title="' . get_bloginfo('name') . ' - ' . get_bloginfo('description') . '" class="logo-mobile-image"></a>';
+				
+			}
+			#DISPLAY TEXT LOGO
+			else
+			{
+				$mp_logo_text = true;
+			}
+		}
+		#DISPLAY TEXT LOGO
+		elseif(empty($mp_logo) || !empty($mp_logo_text))
+		{
+			echo '<p class="title-mobile"><a href="' . get_bloginfo('url') . '">' . get_bloginfo('name') . '</a></p>';
 		}
 	}
 	

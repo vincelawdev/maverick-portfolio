@@ -27,6 +27,10 @@ var mp_module_admin = function()
 					{
 						url2: true
 					},
+					mp_logo_image_mobile:
+					{
+						url2: true
+					},
 					mp_facebook_like_url:
 					{
 						url2: true
@@ -37,6 +41,10 @@ var mp_module_admin = function()
 					mp_logo_image:
 					{
 						url2: 'Please enter a valid Logo Image.'
+					},
+					mp_logo_image_mobile:
+					{
+						url2: 'Please enter a valid Mobile Logo Image.'
 					},
 					mp_facebook_like_url:
 					{
@@ -363,6 +371,21 @@ var mp_module_admin = function()
 				return false;
 			});
 			
+			//MOBILE LOGO IMAGE UPLOAD BUTTON CLICKED
+			jQuery('#mp_logo_image_mobile_button').click(function()
+			{
+				//ADD UPLOADED MOBILE LOGO TO MOBILE LOGO IMAGE FIELD
+				wp.media.editor.send.attachment = function(props, attachment)
+				{
+					jQuery('#mp_logo_image_mobile').val(attachment.url);
+				}
+			
+				//OPEN WORDPRESS MEDIA UPLOADER
+				wp.media.editor.open(this);
+			
+				return false;
+			});
+			
 			//SLIDE IMAGE UPLOAD BUTTON CLICKED
 			jQuery('#slide_image_button').click(function()
 			{
@@ -406,6 +429,15 @@ var mp_module_admin = function()
 				return false;
 			});
 			
+			//UPLOAD MOBILE LOGO IMAGE BUTTON CLICKED
+			jQuery('#mp_logo_image_mobile_button').click(function()
+			{
+				//LAUNCH LOGO IMAGE THICKBOX
+				tb_show('Mobile Logo Image', 'media-upload.php?type=image&amp;TB_iframe=true');
+				
+				return false;
+			});
+			
 			//UPLOAD SLIDE IMAGE BUTTON CLICKED
 			jQuery('#slide_image_button').click(function()
 			{
@@ -437,6 +469,16 @@ var mp_module_admin = function()
 					jQuery('#mp_logo_image').val(mp_image_url);
 					
 					//CLOSE LOGO IMAGE THICKBOX
+					tb_remove();
+				}
+				
+				//MOBILE LOGO IMAGE IMAGE EXISTS
+				if(jQuery('#mp_logo_image_mobile').length)
+				{
+					//ADD MOBILE LOGO IMAGE URL TO MOBILE LOGO IMAGE FIELD
+					jQuery('#mp_logo_image_mobile').val(mp_image_url);
+					
+					//CLOSE MOBILE LOGO IMAGE THICKBOX
 					tb_remove();
 				}
 				

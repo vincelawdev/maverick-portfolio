@@ -137,7 +137,7 @@ $mp_social_button_size = get_option('mp_social_button_size');
 <!-- HEADER - ROW 1 - END -->
 
 <!-- HEADER - ROW 2 - START -->
-<header id="header-row2">
+<header id="header-row2" class="<?php echo $mp_social_button_size; ?>">
 
 	<!-- HEADER - ROW 2 - WRAPPER - START -->
 	<div class="header-wrapper wrapper">
@@ -145,6 +145,10 @@ $mp_social_button_size = get_option('mp_social_button_size');
 		<!-- TOP MENU - START -->
 		<nav id="menu"><?php wp_nav_menu(array('theme_location' => 'menu_top', 'container' => 'none', 'menu_class' => 'sf-menu',  'fallback_cb' => '')); ?></nav>
 		<!-- TOP MENU - END -->
+        
+        <!-- LOGO - MOBILE - START -->
+        <div class="header-logo-mobile"><?php mp_options::mp_display_logo_mobile(); ?></div>
+        <!-- LOGO - MOBILE - END -->
 		
 		<!-- SEARCH - START -->
         <a href="#search" class="search-menu-button"></a>
@@ -167,7 +171,7 @@ $mp_social_button_size = get_option('mp_social_button_size');
 <!-- HEADER - ROW 2 - END -->
 
 <!-- PAGE WRAPPER - START -->
-<div class="page-wrapper">
+<div class="page-wrapper <?php echo $mp_social_button_size; ?>">
 
 	<?php get_sidebar(); ?>
 

@@ -1374,6 +1374,11 @@ WRAPPER
 /**************************************************************************
 HEADER
 **************************************************************************/
+.sticky-mobile,
+.sticky-non-mobile {
+  position: fixed;
+  left: 0;
+}
 .header-wrapper {
   position: relative;
   margin: 0 auto;
@@ -1444,11 +1449,18 @@ HEADER
   }
 }
 #header-row1 {
+  z-index: 999999;
   width: 100%;
   margin: 0;
   padding: 0;
   background-color: #5e5e5e;
   border-bottom: 1px solid #000;
+}
+#header-row1.sticky-mobile {
+  display: none;
+}
+#header-row1.sticky-non-mobile {
+  top: 0;
 }
 #header-row1.small {
   height: 50px;
@@ -1465,6 +1477,7 @@ HEADER
   font-size: 24px;
 }
 #header-row2 {
+  z-index: 999999;
   width: 100%;
   height: 40px;
   margin: 0;
@@ -1474,6 +1487,53 @@ HEADER
   -webkit-box-shadow: 0 4px 5px rgba(50, 50, 50, 0.4);
   -moz-box-shadow: 0 4px 5px rgba(50, 50, 50, 0.4);
   box-shadow: 0 4px 5px rgba(50, 50, 50, 0.4);
+}
+#header-row2 .header-logo-mobile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999999;
+  width: 65%;
+  margin: 0 auto;
+  padding: 0;
+  display: none;
+  text-align: center;
+}
+#header-row2 .header-logo-mobile img.logo-mobile-image {
+  margin: 0;
+  padding: 0;
+}
+#header-row2 .header-logo-mobile p.title-mobile {
+  margin: 10px 0 0 0;
+  padding: 0;
+  font-family: 'CodeProDemoRegular', Georgia;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+#header-row2 .header-logo-mobile p.title-mobile a {
+  color: #fff;
+  text-decoration: none;
+}
+#header-row2.sticky-mobile {
+  top: -1px;
+}
+#header-row2.sticky-mobile .header-logo-mobile {
+  display: inline-block;
+}
+@media only screen and (min-width: 768px) {
+  #header-row2.sticky-mobile .header-logo-mobile {
+    display: none;
+  }
+}
+#header-row2.sticky-non-mobile.small {
+  top: 51px;
+}
+#header-row2.sticky-non-mobile.large {
+  top: 81px;
 }
 /**************************************************************************
 FOOTER

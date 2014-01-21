@@ -31,6 +31,7 @@ if(is_front_page())
 <?php mp_options::mp_display_rss_feeds_header(); ?>
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
 <?php wp_head(); ?>
+<script>window.jQuery || document.write('<script src="<?php bloginfo('template_url'); ?>/js/vendor/min/jquery-2.0.3.min.js">\x3C/script>')</script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/modernizr.js"></script>
 </head>
 

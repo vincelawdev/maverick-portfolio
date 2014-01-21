@@ -578,18 +578,37 @@ var mp_module = function()
 		
 		//THIS METHOD INITIALISES THE COLORBOX
 		colorbox_init : function()
-		{
-			//CAPTION IMAGES
-			$('a.colorbox').colorbox({ current: 'Image {current} of {total}', rel:'colorbox' });
-			
-			//PROJECT IMAGE
-			$('.project-image').colorbox({ width:'80%', height:'80%', current: 'Project Image {current} of {total}', rel:'project-image' });
-			
-			//INSTAGRAM IFRAMES
-			$('.instagram-iframe').colorbox({ iframe:true, width:'80%', height:'80%', current: 'Instagram Image {current} of {total}', rel:'instagram_iframe' });
-			
-			//DRIBBBLE IFRAMES
-			$('.dribbble-iframe').colorbox({ iframe:true, width:'80%', height:'80%', current: 'Dribbble Thumbnail {current} of {total}', rel:'dribbble-iframe' });
+		{			
+			//MOBILE SCREENS
+			if(page.is_mobile())
+			{
+				//CAPTION IMAGES
+				$('a.colorbox').colorbox({ width:'80%', height:'80%', title: '&nbsp;', current: '', rel: 'colorbox' });
+					
+				//PROJECT IMAGE
+				$('.project-image').colorbox({ width:'80%', height:'80%', title: '&nbsp;', current: '', rel: 'project-image' });
+				
+				//INSTAGRAM IFRAMES
+				$('.instagram-iframe').colorbox({ iframe:true, width:'80%', height:'80%', title: '&nbsp;', current: '', rel: 'instagram_iframe' });
+				
+				//DRIBBBLE IFRAMES
+				$('.dribbble-iframe').colorbox({ iframe:true, width:'80%', height:'80%', title: '&nbsp;', current: '', rel:  'dribbble-iframe' });
+			}
+			//NON-MOBILE SCREENS
+			else
+			{				
+				//CAPTION IMAGES
+				$('a.colorbox').colorbox({ width:'80%', height:'80%', current: 'Image {current} of {total}', rel:'colorbox' });
+				
+				//PROJECT IMAGE
+				$('.project-image').colorbox({ width:'80%', height:'80%', current: 'Project Image {current} of {total}', rel: 'project-image' });
+				
+				//INSTAGRAM IFRAMES
+				$('.instagram-iframe').colorbox({ iframe:true, width:'80%', height:'80%', current: 'Instagram Image {current} of {total}', rel: 'instagram_iframe' });
+				
+				//DRIBBBLE IFRAMES
+				$('.dribbble-iframe').colorbox({ iframe:true, width:'80%', height:'80%', current: 'Dribbble Thumbnail {current} of {total}', rel:  'dribbble-iframe' });
+			}
 		}
 	}
 	

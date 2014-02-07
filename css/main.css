@@ -1379,6 +1379,12 @@ HEADER
   position: fixed;
   left: 0;
 }
+.sticky-mobile {
+  /* DISABLE STICK MOBILE MENU */
+}
+.sticky-mobile.off {
+  position: relative !important;
+}
 .header-wrapper {
   position: relative;
   margin: 0 auto;

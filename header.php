@@ -188,7 +188,7 @@ $mp_social_button_size = get_option('mp_social_button_size');
             {
             ?>
             <!-- BREAD CRUMBS - START -->
-            <div id="bread_crumbs"><p><?php if(function_exists('bcn_display')) { bcn_display(); } ?></p></div>
+            <div id="bread_crumbs"><p><?php if(function_exists('bcn_display') && !post_password_required()) { bcn_display(); } ?></p></div>
             <!-- BREAD CRUMBS - END -->
             <?php
             }

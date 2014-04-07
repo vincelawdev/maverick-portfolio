@@ -10,7 +10,16 @@ get_header();
             if(have_posts())
             {
                 the_post();
-                ?>		
+
+                #PORTFOLIO PROJECT IS PASSWORD PROTECTED
+                if(post_password_required())
+                {
+                    the_content();
+                }
+                #PORTFOLIO PROJECT IS NOT PASSWORD PROTECTED
+                else
+                {
+                ?>
                 <h1 class="page-title"><?php the_title(); ?></h1>
                 
                 <!-- FLEXSLIDER - START -->
@@ -28,7 +37,8 @@ get_header();
                 <!-- PROJECT TESTIMONIALS - START -->
                 <?php mp_options::mp_display_testimonials('project', mp_options::mp_get_page()); ?>
                 <!-- PROJECT TESTIMONIALS - END -->
-            <?php
+                <?php
+                }
             }
             ?>
             <!-- PORTFOLIO PROJECT - END -->

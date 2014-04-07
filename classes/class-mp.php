@@ -1382,6 +1382,7 @@ class mp_options
 			(
 				'post_type' => 'article',
 				'post_status' => 'publish',
+                'has_password' => false,
 				'posts_per_page' => get_option('posts_per_page'),
 				'paged' => $page,
 				'order' => 'DESC',
@@ -1396,6 +1397,7 @@ class mp_options
 			(
 				'post_type' => 'article',
 				'post_status' => 'publish',
+                'has_password' => false,
 				'posts_per_page' => get_option('posts_per_page'),
 				'paged' => $page,
 				'order' => 'DESC',
@@ -1424,24 +1426,28 @@ class mp_options
 			{
 				#RETRIEVE THE ARTICLE CONTENT
 				$articles->the_post();
-				
-				#INITIALISE ARTICLE URL
-				$article_url = get_post_meta($post->ID, 'article_url', true);
-				
-				echo '<h3 class="post-title"><a href="' . $article_url . '" title="' . get_the_title(). '" rel="nofollow">' . get_the_title(). '</a></h3>';
-				echo '<p class="post-info">Published on ' . get_the_time(get_option('date_format')) . ' in ' . get_the_term_list($post->ID, "article-directories", "", ", ") . ' by ' . get_the_author() . '</p>';
-				echo '<div class="post-line">';
 
-				#DISPLAY ARTICLE THUMBNAIL
-				if(has_post_thumbnail())
-				{
-					echo '<a href="' . $article_url . '" title="' . get_the_title() . '" rel="nofollow">' . get_the_post_thumbnail($post->ID, "thumbnail") . '</a>';
-				}
-				
-				#DISPLAY ARTICLE EXCERPT
-				the_content();
-				
-				echo '</div>';				
+                #ARTICLE IS NOT PASSWORD PROTECTED
+                if(!post_password_required($post->ID))
+                {
+                    #INITIALISE ARTICLE URL
+                    $article_url = get_post_meta($post->ID, 'article_url', true);
+
+                    echo '<h3 class="post-title"><a href="' . $article_url . '" title="' . get_the_title(). '" rel="nofollow">' . get_the_title(). '</a></h3>';
+                    echo '<p class="post-info">Published on ' . get_the_time(get_option('date_format')) . ' in ' . get_the_term_list($post->ID, "article-directories", "", ", ") . ' by ' . get_the_author() . '</p>';
+                    echo '<div class="post-line">';
+
+                    #DISPLAY ARTICLE THUMBNAIL
+                    if(has_post_thumbnail())
+                    {
+                        echo '<a href="' . $article_url . '" title="' . get_the_title() . '" rel="nofollow">' . get_the_post_thumbnail($post->ID, "thumbnail") . '</a>';
+                    }
+
+                    #DISPLAY ARTICLE EXCERPT
+                    the_content();
+
+                    echo '</div>';
+                }
 			}
 			
 			#PAGING NAVIGATION IS ENABLED
@@ -1471,7 +1477,12 @@ class mp_options
 		global $wpdb;
 		
 		#RETREIVE ARTICLES
-		$articles = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'article' ORDER BY post_date DESC LIMIT 5");
+		$articles = $wpdb->get_results("SELECT ID, post_title
+		FROM $wpdb->posts
+		WHERE post_status = 'publish'
+		AND post_type = 'article'
+		AND post_password = ''
+		ORDER BY post_date DESC LIMIT 5");
 		
 		#ARTICLES EXIST
 		if(!empty($articles))
@@ -1843,6 +1854,7 @@ class mp_options
 		(
 			'post_type' => 'slide',
 			'post_status' => 'publish',
+            'has_password' => false,
 			'posts_per_page' => 5,
 			'order' => 'DESC',
 			'orderby' => 'date'
@@ -1862,61 +1874,65 @@ class mp_options
 			{
 				#RETRIEVE THE SLIDE CONTENT
 				$slides->the_post();
-			
-				#INITIALISE THE SLIDE DETAILS
-				$slide_title = get_the_title($post->ID);
-				$slide_image = get_post_meta($post->ID, 'slide_image', true);
-				$slide_video_url = get_post_meta($post->ID, 'slide_video_url', true);
-				$slide_url = get_post_meta($post->ID, 'slide_url', true);
-				$slide_animation_in = get_post_meta($post->ID, 'slide_animation_in', true);
-				$slide_animation_out = get_post_meta($post->ID, 'slide_animation_out', true);
-				$slide_type = get_post_meta($post->ID, 'slide_type', true);
-				
-				#FORMAT SLIDE IN ANIMATION
-				if($slide_animation_in == 'No Animation')
-				{
-					$slide_animation_in = '';
-				}
-				#FORMAT SLIDE OUT ANIMATION
-				if($slide_animation_out == 'No Animation')
-				{
-					$slide_animation_out = '';
-				}
-				
-				#OPEN SLIDE LIST ITEM
-				//echo '<li data-animate="' . $slide_animation_in . ', ' . $slide_animation_out . '">';
-				echo '<li class="' . $slide_type . '">';
-								
-				#DISPLAY SLIDE ACCORDING TO SLIDE TYPE
-				switch($slide_type)
-				{
-					#DISPLAY SLIDE IMAGE WITH SLIDE URL
-					case 'image':
-					
-						echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '"></a>';
-						break;
-						
-					#DISPLAY SLIDE TEXT + IMAGE
-					case 'text_image':
-					
-						echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '"></a>';
-						echo '<h6 class="flex-caption">' . get_the_content() . '</h6>';
-						break;
-					
-					#DISPLAY SLIDE VIDEO
-					case 'video':
-					
-						#INITIALISE YOUTUBE VIDEO ID
-						$slide_video_url_parts = parse_url($slide_video_url);
-						parse_str($slide_video_url_parts['query'], $slide_video_url_query);
 
-						#DISPLAY YOUTUBE VIDEO EMBED CODE
-						echo '<iframe width="640" height="360" src="//www.youtube.com/embed/' . $slide_video_url_query['v'] . '" frameborder="0" allowfullscreen></iframe>';
-						break;
-				}				
-								
-				#CLOSE SLIDE LIST ITEM
-				echo '</li>';
+                #SLIDE IS NOT PASSWORD PROTECTED
+                if(!post_password_required($post->ID))
+                {
+                    #INITIALISE THE SLIDE DETAILS
+                    $slide_title = get_the_title($post->ID);
+                    $slide_image = get_post_meta($post->ID, 'slide_image', true);
+                    $slide_video_url = get_post_meta($post->ID, 'slide_video_url', true);
+                    $slide_url = get_post_meta($post->ID, 'slide_url', true);
+                    $slide_animation_in = get_post_meta($post->ID, 'slide_animation_in', true);
+                    $slide_animation_out = get_post_meta($post->ID, 'slide_animation_out', true);
+                    $slide_type = get_post_meta($post->ID, 'slide_type', true);
+
+                    #FORMAT SLIDE IN ANIMATION
+                    if($slide_animation_in == 'No Animation')
+                    {
+                        $slide_animation_in = '';
+                    }
+                    #FORMAT SLIDE OUT ANIMATION
+                    if($slide_animation_out == 'No Animation')
+                    {
+                        $slide_animation_out = '';
+                    }
+
+                    #OPEN SLIDE LIST ITEM
+                    //echo '<li data-animate="' . $slide_animation_in . ', ' . $slide_animation_out . '">';
+                    echo '<li class="' . $slide_type . '">';
+
+                    #DISPLAY SLIDE ACCORDING TO SLIDE TYPE
+                    switch($slide_type)
+                    {
+                        #DISPLAY SLIDE IMAGE WITH SLIDE URL
+                        case 'image':
+
+                            echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '"></a>';
+                            break;
+
+                        #DISPLAY SLIDE TEXT + IMAGE
+                        case 'text_image':
+
+                            echo '<a href="' . $slide_url . '"><img src="' . $slide_image . '" alt="' . $slide_title . '" title="' . $slide_title . '"></a>';
+                            echo '<h6 class="flex-caption">' . get_the_content() . '</h6>';
+                            break;
+
+                        #DISPLAY SLIDE VIDEO
+                        case 'video':
+
+                            #INITIALISE YOUTUBE VIDEO ID
+                            $slide_video_url_parts = parse_url($slide_video_url);
+                            parse_str($slide_video_url_parts['query'], $slide_video_url_query);
+
+                            #DISPLAY YOUTUBE VIDEO EMBED CODE
+                            echo '<iframe width="640" height="360" src="//www.youtube.com/embed/' . $slide_video_url_query['v'] . '" frameborder="0" allowfullscreen></iframe>';
+                            break;
+                    }
+
+                    #CLOSE SLIDE LIST ITEM
+                    echo '</li>';
+                }
 			}
 			
 			#CLOSE SLIDE LIST
@@ -2287,6 +2303,7 @@ class mp_options
 		(
 			'post_type' => 'project',
 			'post_status' => 'publish',
+            'has_password' => false,
 			'posts_per_page' => -1,
 			'orderby' => 'title',
 			'order' => 'ASC'
@@ -2394,6 +2411,7 @@ class mp_options
 			(
 				'post_type' => 'project',
 				'post_status' => 'publish',
+                'has_password' => false,
 				'posts_per_page' => get_option('posts_per_page'),
 				'paged' => $page,
 				'order' => 'DESC',
@@ -2408,6 +2426,7 @@ class mp_options
 			(
 				'post_type' => 'project',
 				'post_status' => 'publish',
+                'has_password' => false,
 				'posts_per_page' => get_option('posts_per_page'),
 				'paged' => $page,
 				'order' => 'DESC',
@@ -2439,54 +2458,58 @@ class mp_options
 			{
 				#RETRIEVE THE PROJECT CONTENT
 				$projects->the_post();
-				
-				#INITIALISE PROJECT TITLE
-				$project_title = $post->post_title;
-				
-				#OPEN PROJECT LIST ITEM
-				echo '<li class="' . $li_class . '">';
-				
-				#OPEN PROJECT LINK
-				echo '<a href="' . get_permalink() . '">';
-				
-				#PROJECT THUMBNAIL EXISTS
-				if(has_post_thumbnail())
-				{
-					#INITIALISE PROJECT THUMBNAIL FILE
-					$project_thumbnail_file = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
-					
-					#DISPLAY PROJECT THUMBNAIL
-					echo '<img src="' . $project_thumbnail_file[0] . '" alt="' . $project_title . '" title="' . $project_title . '" class="project-thumbnail">';
-				}
-				#PROJECT THUMBNAIL DOES NOT EXIST
-				else
-				{
-					#DISPLAY DEFAULT PROJECT THUMBNAIL
-					echo '<img src="' . get_bloginfo('template_url') . '/images/portfolio-thumbnail-default.png" alt="' . $project_title . '" title="' . $project_title . '" class="project-thumbnail">';
-				}
-				
-				#CLOSE PROJECT LINK
-				echo '</a>';
-				
-				#DISPLAY PROJECT TITLE
-				echo '<h2 class="project-title"><a href="' . get_permalink() . '" class="project-title-link">' . $project_title . '</a></h2>';
-				
-				#DISPLAY PROJECT CATEGORIES
-				echo '<p class="project-categories">' . get_the_term_list($post->ID, 'portfolio-categories', '', ', ') . '</p>';
-				
-				#DISPLAY EXCERPT VIA THE ADVANCED EXCERPT PLUGIN
-				if(function_exists('the_advanced_excerpt'))
-				{
-					the_advanced_excerpt("length=$max_words");
-				}
-				#DISPLAY EXCERPT VIA THE CLASS FUNCTION
-				else
-				{
-					echo mp_options::mp_get_excerpt($max_words, true, $strip_line_breaks);
-				}
-				
-				#CLOSE PROJECT LIST ITEM
-				echo '</li>';				
+
+                #PROJECT IS NOT PASSWORD PROTECTED
+                if(!post_password_required($post->ID))
+                {
+                    #INITIALISE PROJECT TITLE
+                    $project_title = $post->post_title;
+
+                    #OPEN PROJECT LIST ITEM
+                    echo '<li class="' . $li_class . '">';
+
+                    #OPEN PROJECT LINK
+                    echo '<a href="' . get_permalink() . '">';
+
+                    #PROJECT THUMBNAIL EXISTS
+                    if(has_post_thumbnail())
+                    {
+                        #INITIALISE PROJECT THUMBNAIL FILE
+                        $project_thumbnail_file = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
+
+                        #DISPLAY PROJECT THUMBNAIL
+                        echo '<img src="' . $project_thumbnail_file[0] . '" alt="' . $project_title . '" title="' . $project_title . '" class="project-thumbnail">';
+                    }
+                    #PROJECT THUMBNAIL DOES NOT EXIST
+                    else
+                    {
+                        #DISPLAY DEFAULT PROJECT THUMBNAIL
+                        echo '<img src="' . get_bloginfo('template_url') . '/images/portfolio-thumbnail-default.png" alt="' . $project_title . '" title="' . $project_title . '" class="project-thumbnail">';
+                    }
+
+                    #CLOSE PROJECT LINK
+                    echo '</a>';
+
+                    #DISPLAY PROJECT TITLE
+                    echo '<h2 class="project-title"><a href="' . get_permalink() . '" class="project-title-link">' . $project_title . '</a></h2>';
+
+                    #DISPLAY PROJECT CATEGORIES
+                    echo '<p class="project-categories">' . get_the_term_list($post->ID, 'portfolio-categories', '', ', ') . '</p>';
+
+                    #DISPLAY EXCERPT VIA THE ADVANCED EXCERPT PLUGIN
+                    if(function_exists('the_advanced_excerpt'))
+                    {
+                        the_advanced_excerpt("length=$max_words");
+                    }
+                    #DISPLAY EXCERPT VIA THE CLASS FUNCTION
+                    else
+                    {
+                        echo mp_options::mp_get_excerpt($max_words, true, $strip_line_breaks);
+                    }
+
+                    #CLOSE PROJECT LIST ITEM
+                    echo '</li>';
+                }
 			}
 			
 			#CLOSE PROJECT LIST
@@ -2995,6 +3018,7 @@ class mp_options
 			(
 				'post_type' => 'testimonial',
 				'post_status' => 'publish',
+                'has_password' => false,
 				'posts_per_page' => get_option('posts_per_page'),
 				'paged' => $page,
 				'order' => 'DESC',
@@ -3018,6 +3042,7 @@ class mp_options
 			(
 				'post_type' => 'testimonial',
 				'post_status' => 'publish',
+                'has_password' => false,
 				'posts_per_page' => get_option('posts_per_page'),
 				'paged' => $page,
 				'order' => 'DESC',
@@ -3032,6 +3057,7 @@ class mp_options
 			(
 				'post_type' => 'testimonial',
 				'post_status' => 'publish',
+                'has_password' => false,
 				'posts_per_page' => 1,
 				'paged' => $page,
 				'order' => 'DESC',
@@ -3065,48 +3091,52 @@ class mp_options
 			{
 				#RETRIEVE THE TESTIMONIAL CONTENT
 				$testimonials->the_post();
-				
-				#INITIALISE TESTIMONIAL DETAILS
-				$testimonial_name = get_post_meta($post->ID, 'testimonial_name', true);
-				$testimonial_location = get_post_meta($post->ID, 'testimonial_location', true);
-				$testimonial_photo = get_post_meta($post->ID, 'testimonial_photo', true);
-				$testimonial_url = get_post_meta($post->ID, 'testimonial_url', true);
-				$testimonial_pdf = get_post_meta($post->ID, 'testimonial_pdf', true);
-				
-				#INITIALISE TESTIMONIAL CONTENT FOR NON-PROJECT PAGES
-				if($scope == 'home' || $scope == 'testimonials')
-				{
-					$testimonial_content = mp_options::mp_get_excerpt($max_words);
-				}
-				#INITIALISE TESTIMONIAL CONTENT FOR PROJECT PAGE
-				else
-				{
-					$testimonial_content = get_the_content();
-				}		
-				
-				#APPEND TESTIMONIAL NAME & LOCATION
-				$testimonial_content .= '<br><br>- ' . $testimonial_name . ', ' . $testimonial_location;
-				
-				#APPEND TESTIMONIAL URL
-				if(!empty($testimonial_url))
-				{
-					$testimonial_content .= ', <a href="' . $testimonial_url . '" rel="nofollow">' . $testimonial_url . '</a>';
-				}
-				
-				#APPEND TESTIMONIAL PHOTO
-				if(!empty($testimonial_photo))
-				{					
-					$testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial-photo">' . $testimonial_content;
-				}
-				
-				#APPEND TESTIMONIAL PDF
-				if(!empty($testimonial_pdf))
-				{
-					$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial-pdf">PDF</a>';
-				}
-				
-				#DISPLAY TESTIMONIAL BOX
-				echo mp_options::mp_testimonial_shortcode("", $testimonial_content);
+
+                #TESTIMONIAL IS NOT PASSWORD PROTECTED
+                if(!post_password_required($post->ID))
+                {
+                    #INITIALISE TESTIMONIAL DETAILS
+                    $testimonial_name = get_post_meta($post->ID, 'testimonial_name', true);
+                    $testimonial_location = get_post_meta($post->ID, 'testimonial_location', true);
+                    $testimonial_photo = get_post_meta($post->ID, 'testimonial_photo', true);
+                    $testimonial_url = get_post_meta($post->ID, 'testimonial_url', true);
+                    $testimonial_pdf = get_post_meta($post->ID, 'testimonial_pdf', true);
+
+                    #INITIALISE TESTIMONIAL CONTENT FOR NON-PROJECT PAGES
+                    if($scope == 'home' || $scope == 'testimonials')
+                    {
+                        $testimonial_content = mp_options::mp_get_excerpt($max_words);
+                    }
+                    #INITIALISE TESTIMONIAL CONTENT FOR PROJECT PAGE
+                    else
+                    {
+                        $testimonial_content = get_the_content();
+                    }
+
+                    #APPEND TESTIMONIAL NAME & LOCATION
+                    $testimonial_content .= '<br><br>- ' . $testimonial_name . ', ' . $testimonial_location;
+
+                    #APPEND TESTIMONIAL URL
+                    if(!empty($testimonial_url))
+                    {
+                        $testimonial_content .= ', <a href="' . $testimonial_url . '" rel="nofollow">' . $testimonial_url . '</a>';
+                    }
+
+                    #APPEND TESTIMONIAL PHOTO
+                    if(!empty($testimonial_photo))
+                    {
+                        $testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial-photo">' . $testimonial_content;
+                    }
+
+                    #APPEND TESTIMONIAL PDF
+                    if(!empty($testimonial_pdf))
+                    {
+                        $testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial-pdf">PDF</a>';
+                    }
+
+                    #DISPLAY TESTIMONIAL BOX
+                    echo mp_options::mp_testimonial_shortcode("", $testimonial_content);
+                }
 			}
 			
 			#PAGING NAVIGATION IS ENABLED
@@ -3140,47 +3170,51 @@ class mp_options
 	{
 		#RETRIEVE THE POST
 		global $post;
-		
-		#INITIALISE TESTIMONIAL DETAILS
-		$testimonial_name = get_post_meta($post->ID, 'testimonial_name', true);
-		$testimonial_location = get_post_meta($post->ID, 'testimonial_location', true);
-		$testimonial_photo = get_post_meta($post->ID, 'testimonial_photo', true);
-		$testimonial_url = get_post_meta($post->ID, 'testimonial_url', true);
-		$testimonial_pdf = get_post_meta($post->ID, 'testimonial_pdf', true);
-		$testimonial_project = get_post_meta($post->ID, 'testimonial_project', true);
-		
-		#INITIALISE TESTIMONIAL CONTENT
-		$testimonial_content = get_the_content();
-		
-		#APPEND TESTIMONIAL NAME & LOCATION
-		$testimonial_content .= '<br><br>- ' . $testimonial_name . ', ' . $testimonial_location;
-		
-		#APPEND TESTIMONIAL URL
-		if(!empty($testimonial_url))
-		{
-			$testimonial_content .= ', <a href="' . $testimonial_url . '" rel="nofollow">' . $testimonial_url . '</a>';
-		}
-		
-		#APPEND TESTIMONIAL PHOTO
-		if(!empty($testimonial_photo))
-		{					
-			$testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial-photo">' . $testimonial_content;
-		}
-		
-		#APPEND TESTIMONIAL PDF
-		if(!empty($testimonial_pdf))
-		{
-			$testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial-pdf">PDF</a>';
-		}
-		
-		#DISPLAY TESTIMONIAL PROJECT
-		if(!empty($testimonial_project))
-		{
-			echo '<h3 class="sub-heading">Project: <a href="' . get_permalink($testimonial_project) . '">' . get_the_title($testimonial_project) . '</a></h3>';
-		}
-		
-		#DISPLAY TESTIMONIAL BOX
-		echo mp_options::mp_testimonial_shortcode('', $testimonial_content);	
+
+        #TESTIMONIAL IS NOT PASSWORD PROTECTED
+        if(!post_password_required($post->ID))
+        {
+            #INITIALISE TESTIMONIAL DETAILS
+            $testimonial_name = get_post_meta($post->ID, 'testimonial_name', true);
+            $testimonial_location = get_post_meta($post->ID, 'testimonial_location', true);
+            $testimonial_photo = get_post_meta($post->ID, 'testimonial_photo', true);
+            $testimonial_url = get_post_meta($post->ID, 'testimonial_url', true);
+            $testimonial_pdf = get_post_meta($post->ID, 'testimonial_pdf', true);
+            $testimonial_project = get_post_meta($post->ID, 'testimonial_project', true);
+
+            #INITIALISE TESTIMONIAL CONTENT
+            $testimonial_content = get_the_content();
+
+            #APPEND TESTIMONIAL NAME & LOCATION
+            $testimonial_content .= '<br><br>- ' . $testimonial_name . ', ' . $testimonial_location;
+
+            #APPEND TESTIMONIAL URL
+            if(!empty($testimonial_url))
+            {
+                $testimonial_content .= ', <a href="' . $testimonial_url . '" rel="nofollow">' . $testimonial_url . '</a>';
+            }
+
+            #APPEND TESTIMONIAL PHOTO
+            if(!empty($testimonial_photo))
+            {
+                $testimonial_content = '<img src="' . $testimonial_photo . '" alt="'. $testimonial_name . '" title="'. $testimonial_name . '" class="testimonial-photo">' . $testimonial_content;
+            }
+
+            #APPEND TESTIMONIAL PDF
+            if(!empty($testimonial_pdf))
+            {
+                $testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo('template_url') . '/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial-pdf">PDF</a>';
+            }
+
+            #DISPLAY TESTIMONIAL PROJECT
+            if(!empty($testimonial_project))
+            {
+                echo '<h3 class="sub-heading">Project: <a href="' . get_permalink($testimonial_project) . '">' . get_the_title($testimonial_project) . '</a></h3>';
+            }
+
+            #DISPLAY TESTIMONIAL BOX
+            echo mp_options::mp_testimonial_shortcode('', $testimonial_content);
+        }
 	}
 	
 	#THIS FUNCTION ADDS CONTENT TO A TESTIMONIAL BOX
@@ -3668,6 +3702,7 @@ class mp_options
 		(
 			'posts_per_page' => get_option('posts_per_page'),
 			'post_status' => 'publish',
+            'has_password' => false,
 			'paged' => $page,
 			'order' => 'DESC',
 			'orderby' => 'date'
@@ -3725,9 +3760,13 @@ class mp_options
 			while($blog_posts->have_posts())
 			{
 				$blog_posts->the_post();
-				
-				#INCLUDE BLOG POST TEMPLATE
-				include(TEMPLATEPATH . '/includes/inc-blog-post.php');
+
+                #BLOG POST IS NOT PASSWORD PROTECTED
+                if(!post_password_required($post->ID))
+                {
+                    #INCLUDE BLOG POST TEMPLATE
+                    include(TEMPLATEPATH . '/includes/inc-blog-post.php');
+                }
 			}
 
 			#DISPLAY WP-PAGENAVI PAGING NAVIGATION LINKS
@@ -3774,7 +3813,12 @@ class mp_options
 		global $wpdb;
 		
 		#RETREIVE POSTS
-		$posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC LIMIT 5");
+		$posts = $wpdb->get_results("SELECT ID, post_title
+		FROM $wpdb->posts
+		WHERE post_status = 'publish'
+		AND post_password = ''
+		AND post_type = 'post'
+		ORDER BY post_date DESC LIMIT 5");
 		
 		#POSTS EXIST
 		if(!empty($posts))
@@ -3809,7 +3853,12 @@ class mp_options
 		}
 
 		#RETREIVE POSTS
-		$posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC LIMIT $number_of_posts");
+		$posts = $wpdb->get_results("SELECT ID, post_title
+		FROM $wpdb->posts
+		WHERE post_status = 'publish'
+		AND post_password = ''
+		AND post_type = 'post'
+		ORDER BY post_date DESC LIMIT $number_of_posts");
 		
 		#OPEN UNORDERED LIST
 		echo '<ul id="recent-posts" class="sidebar-list posts">';
@@ -3861,7 +3910,14 @@ class mp_options
 			}
 			
 			#RETREIVE POSTS
-			$posts = $wpdb->get_results("SELECT ID, post_title, meta_value + 0 AS viewcount FROM $wpdb->posts LEFT JOIN $wpdb->postmeta ON post_id = ID WHERE meta_key = 'pvc_views' AND post_status = 'publish' AND post_type ='post' AND post_password = '' ORDER BY viewcount DESC LIMIT $number_of_posts");
+			$posts = $wpdb->get_results("SELECT ID, post_title, meta_value + 0 AS viewcount
+			FROM $wpdb->posts
+			LEFT JOIN $wpdb->postmeta ON post_id = ID
+			WHERE meta_key = 'pvc_views'
+			AND post_status = 'publish'
+			AND post_type ='post'
+			AND post_password = ''
+			ORDER BY viewcount DESC LIMIT $number_of_posts");
 			
 			#OPEN UNORDERED LIST
 			echo '<ul id="popular-posts" class="sidebar-list posts hide">';
@@ -3916,7 +3972,13 @@ class mp_options
 		}
 
 		#RETREIVE POSTS
-		$posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE comment_count > 0 AND post_status = 'publish' AND post_type = 'post' ORDER BY comment_count DESC LIMIT $number_of_posts");
+		$posts = $wpdb->get_results("SELECT ID, post_title
+		FROM $wpdb->posts
+		WHERE comment_count > 0
+		AND post_status = 'publish'
+		AND post_password = ''
+		AND post_type = 'post'
+		ORDER BY comment_count DESC LIMIT $number_of_posts");
 		
 		#OPEN UNORDERED LIST
 		echo '<ul id="most-comments" class="sidebar-list posts hide">';

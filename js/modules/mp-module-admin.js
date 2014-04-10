@@ -5,7 +5,7 @@ var mp_module_admin = function()
 	var validators =
 	{
 		//THIS METHOD LAUNCHES THE VALIDATION METHODS OF THE THEME OPTIONS PAGE
-		options : function()
+		options: function()
 		{
 			this.header();
 			this.footer();
@@ -13,7 +13,7 @@ var mp_module_admin = function()
 		},
 		
 		//THIS METHOD VALIDATES THE HEADER OPTIONS FORM
-		header : function()
+		header: function()
 		{
 			//VALIDATE HEADER OPTIONS FORM
 			jQuery('#mp_header').validate(
@@ -55,7 +55,7 @@ var mp_module_admin = function()
 		},
 		
 		//THIS METHOD VALIDATES THE FOOTER OPTIONS FORM
-		footer : function()
+		footer: function()
 		{
 			//TWITTER OPTION SELECTED
 			jQuery('#mp_footer_twitter').change(function()
@@ -81,7 +81,7 @@ var mp_module_admin = function()
 		},
 		
 		//THIS METHOD VALIDATES THE RSS OPTIONS FORM
-		rss : function()
+		rss: function()
 		{
 			//VALIDATE RSS OPTIONS FORM
 			jQuery('#mp_rss').validate(
@@ -115,7 +115,7 @@ var mp_module_admin = function()
 		},
 		
 		//THIS METHOD VALIDATES THE PUBLISH BUTTON FOR ARTICLES, SLIDES, PROJECTS & TESTIMONIALS
-		publish_button : function()
+		publish_button: function()
 		{
 			//PUBLISH BUTTON CLICKED
 			jQuery('#publish').click(function(event)
@@ -173,7 +173,7 @@ var mp_module_admin = function()
 		},
 		
 		//THIS METHOD VALIDATES THE SLIDE POST TYPE FORM
-		slides : function()
+		slides: function()
 		{		
 			//APPEND SLIDE ERROR BOX TO SLIDE POST TYPE FORM
 			jQuery('div.wrap').after('<div id="slide_error_box" class="mp_errors error"></div>');
@@ -254,7 +254,7 @@ var mp_module_admin = function()
 		},
 		
 		//THIS METHOD VALIDATES THE PROJECT POST TYPE FORM
-		projects : function()
+		projects: function()
 		{
 			//APPEND PROJECT ERROR BOX TO PROJECT POST TYPE FORM
 			jQuery('div.wrap').after('<div id="project_error_box" class="mp_errors error"></div>');
@@ -290,7 +290,7 @@ var mp_module_admin = function()
 		},
 		
 		//THIS METHOD VALIDATES THE TESTIMONIAL POST TYPE FORM
-		testimonials : function()
+		testimonials: function()
 		{
 			//APPEND TESTIMONIAL ERROR BOX TO PROJECT POST TYPE FORM
 			jQuery('div.wrap').after('<div id="testimonial_error_box" class="mp_errors error"></div>');
@@ -354,7 +354,7 @@ var mp_module_admin = function()
 	uploaders =
 	{
 		//THIS METHOD LAUNCHES THE WORDPRESS 3.5 + UPLOADER
-		uploader_new : function()
+		uploader_new: function()
 		{
 			//LOGO IMAGE UPLOAD BUTTON CLICKED
 			jQuery('#mp_logo_image_button').click(function()
@@ -418,7 +418,7 @@ var mp_module_admin = function()
 		},
 		
 		//THIS METHOD LAUNCHES < WORDPRESS 3.5 + UPLOADER
-		uploader_old : function()
+		uploader_old: function()
 		{
 			//UPLOAD LOGO IMAGE BUTTON CLICKED
 			jQuery('#mp_logo_image_button').click(function()
@@ -509,7 +509,7 @@ var mp_module_admin = function()
 	biography =
 	{
 		//THIS METHOD REMOVES THE DEFAULT BIOGRAPHY FIELD
-		init : function()
+		init: function()
 		{
 			//DEFAULT BIOGRAPHY FIELD EXISTS
 			if(jQuery('#profile-page').find('#description').length > 0)
@@ -523,55 +523,55 @@ var mp_module_admin = function()
 	return{
 		
 		//LAUNCH ALL THE FOLLOWING METHODS AT PAGE LOAD
-		run_at_load : function()
+		run_at_load: function()
 		{
 			
 		},
 		
 		//LAUNCH VALIDATION METHODS OF THE THEME OPTIONS PAGE
-		run_validator_options : function()
+		run_validator_options: function()
 		{
 			validators.options();
 		},
 		
 		//LAUNCH VALIDATOR OF ARTICLE POST TYPE FORM
-		run_validator_articles : function()
+		run_validator_articles: function()
 		{
 			validators.articles();
 		},
 		
 		//LAUNCH VALIDATOR OF SLIDE POST TYPE FORM
-		run_validator_slides : function()
+		run_validator_slides: function()
 		{
 			validators.slides();
 		},
 		
 		//LAUNCH VALIDATOR OF PROJECT POST TYPE FORM
-		run_validator_projects : function()
+		run_validator_projects: function()
 		{
 			validators.projects();
 		},
 		
 		//LAUNCH VALIDATOR OF TESTIMONIAL POST TYPE FORM
-		run_validator_testimonials : function()
+		run_validator_testimonials: function()
 		{
 			validators.testimonials();
 		},
 		
 		//LAUNCH WORDPRESS 3.5 + UPLOADER METHOD
-		run_uploader_new : function()
+		run_uploader_new: function()
 		{
 			uploaders.uploader_new();
 		},
 		
 		//LAUNCH WORDPRESS < 3.5 UPLOADER METHOD
-		run_uploader_old : function()
+		run_uploader_old: function()
 		{
 			uploaders.uploader_old();
 		},
 		
 		//LAUNCH BIOGRAPHY METHOD
-		run_biography : function()
+		run_biography: function()
 		{
 			biography.init();
 		}

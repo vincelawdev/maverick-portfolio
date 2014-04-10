@@ -13,7 +13,7 @@ var mp_module = function()
 		header_row2_top: $('#header-row2').offset().top,
 
 		//THIS METHOD UPDATES THE CONTENT HEIGHT & WINDOW WIDTH
-		init : function()
+		init: function()
 		{
 			//INITIALISE PAGE MEASUREMENTS
 			page.page_measurements();
@@ -33,7 +33,7 @@ var mp_module = function()
 		},
 		
 		//THIS METHOD RETURNS WHETHER THE SCREEN IS MOBILE
-		is_mobile : function()
+		is_mobile: function()
 		{
 			//MOBILE SCREENS
 			if(page.window_width < 768)
@@ -48,7 +48,7 @@ var mp_module = function()
 		},
 		
 		//THIS METHOD UPDATES THE PAGE MEASUREMENTS
-		page_measurements : function()
+		page_measurements: function()
 		{
 			/*
 			//INITIALISE CONTENT HEIGHT
@@ -91,7 +91,7 @@ var mp_module = function()
     search =
     {
     	//THIS METHOD INITIALISES THE SEARCH BOX
-    	init : function()
+    	init: function()
         {        
         	//SEARCH BUTTON CLICKED
         	$('.search-menu-button').click(function(event)
@@ -131,7 +131,7 @@ var mp_module = function()
 	navigation =
 	{
 		//THIS METHOD LAUNCHES THE superfish_init(), meanmenu_init(), organic_tabs_init() & sticky_menu_init() METHODS
-		init : function()
+		init: function()
 		{
 			this.superfish_init();
             this.meanmenu_init();
@@ -185,7 +185,7 @@ var mp_module = function()
 		},
         
         //THIS METHOD APPENDS & REMOVES THE SUPERFISH DOWN ARROWS
-        superfish_arrows : function()
+        superfish_arrows: function()
         {
         	//APPEND SUPERFISH LEVEL 1 MENU DOWN ARROWS - THIS BREAKS MEANMENU
         	if(!page.is_mobile())
@@ -208,7 +208,7 @@ var mp_module = function()
         },
         
         //THIS METHOD INITIALISES THE MEANMENU
-        meanmenu_init : function()
+        meanmenu_init: function()
         {
         	//INITIALISE MEAN MENU
         	$('#header-row2 #menu').meanmenu(
@@ -220,7 +220,7 @@ var mp_module = function()
         },
 		
 		//THIS METHOD INITIALISES THE ORGANIC TABS
-		organic_tabs_init : function()
+		organic_tabs_init: function()
 		{
 			//POST TABS EXISTS
 			if($('#sidebar').find('#post-tabs').length > 0)
@@ -236,7 +236,7 @@ var mp_module = function()
 		},
 		
 		//THIS METHOD INITIALISES THE STICKY MENU
-		sticky_menu_init : function()
+		sticky_menu_init: function()
 		{
 			//DISPLAY STICK MENU ON PAGE SCROLL
 			$(window).scroll(function()
@@ -252,7 +252,7 @@ var mp_module = function()
 		},
 		
 		//THIS METHOD DISPLAYS THE STICKY MENU ON PAGE SCROLL
-		sticky_menu_scroll : function()
+		sticky_menu_scroll: function()
 		{
 			//INITIALISE SCROLL TOP POSITION
 			var scroll_top = $(window).scrollTop();
@@ -267,9 +267,12 @@ var mp_module = function()
 					var mean_bar_height = $('.mean-bar').height();
 					
 					//ADD STICKY CLASS TO HEADER ROW 1 & 2
-					$('#header-row1').addClass('sticky-mobile');					
-					$('#header-row2').addClass('sticky-mobile').fadeIn("slow");					
-					
+					$('#header-row1').addClass('sticky-mobile');
+					$('#header-row2').addClass('sticky-mobile');
+
+                    //ADD STICKY MOBILE MARGIN CLASS TO PAGE WRAPPER
+                    $('.page-wrapper').addClass('sticky-mobile-margin');
+
 					//MEANMENU HEIGHT IS TALLER THAN WINDOW HEIGHT
 					if(mean_bar_height > page.window_height)
 					{
@@ -300,6 +303,12 @@ var mp_module = function()
 			//USER HAS SCROLLED ABOVE HEADER ROW 2 TOP POSITION
 			else
 			{
+                //DISABLE STICKY MOBILE MARGIN
+                if($('.page-wrapper').hasClass('sticky-mobile-margin'))
+                {
+                    $('.page-wrapper').removeClass('sticky-mobile-margin');
+                }
+
 				//MOBILE SCREENS
 				if(page.is_mobile())
 				{
@@ -316,7 +325,7 @@ var mp_module = function()
 		},
 		
 		//THIS METHOD CHANGES THE STICKY MENU ON PAGE RESIZE
-		sticky_menu_resize : function()
+		sticky_menu_resize: function()
 		{
 			//MOBILE SCREENS
 			if(page.is_mobile())
@@ -345,7 +354,7 @@ var mp_module = function()
 	sliders =
 	{
 		//THIS METHOD LAUNCHES THE flexslider.init() METHOD
-		init : function()
+		init: function()
 		{
 			this.flexslider.init();
 		},
@@ -354,7 +363,7 @@ var mp_module = function()
 		flexslider :
 		{
 			//THIS METHOD INITIALISES THE FLEXSLIDER
-			init : function()
+			init: function()
 			{
 				//HOME SLIDES OPTIONS
 				var home_slides_options =
@@ -493,43 +502,46 @@ var mp_module = function()
 					}
 				}
 				
-				/* HOME SLIDES EXIST */
+				//HOME SLIDES EXIST
 				if($('.home-slides').length > 0)
 				{
-					/* INITIALISE FLEXSLIDER FOR HOME SLIDES */	
+					//INITIALISE FLEXSLIDER FOR HOME SLIDES
 					$('.home-slides').fitVids().flexslider(home_slides_options);
 					
-					/* PAUSE HOME SLIDES WHEN VIDEO SLIDE HAS MOUSE OVER EVENT */
+					//PAUSE HOME SLIDES WHEN VIDEO SLIDE HAS MOUSE OVER EVENT
 					$('.home-slides .slides .video').mouseover(function()
 					{
 						$('.home-slides').flexslider('pause');
 					});
 				}
 							
-				/* HOME PROJECTS SLIDES EXIST */
+				//HOME PROJECTS SLIDES EXIST
 				if($('.home-slides-projects').length > 0)
 				{
-					/* INITIALISE FLEXSLIDER FOR HOME PROJECTS SLIDES */	
+					//INITIALISE FLEXSLIDER FOR HOME PROJECTS SLIDES
 					$('.home-slides-projects').flexslider(home_slides_projects_options);
 				}
 				
-				/* PORTFOLIO PROJECT SLIDES CAROUSEL EXIST */
+				//PORTFOLIO PROJECT SLIDES CAROUSEL EXIST
 				if($('.project-slides-carousel').length > 0)
 				{
-					/* INITIALISE PROJECT SLIDES CAROUSEL */	
+					//INITIALISE PROJECT SLIDES CAROUSEL
 					$('.project-slides-carousel').flexslider(portfolio_slides_projects_carousel_options);
 				}
-				
-				/* PORTFOLIO PROJECT SLIDES EXIST */
+
+				//PORTFOLIO PROJECT SLIDES EXIST
 				if($('.project-slides').length > 0)
 				{
-					/* INITIALISE PROJECT SLIDES */	
+					//INITIALISE PROJECT SLIDES
 					$('.project-slides').flexslider(portfolio_slides_projects_options);
 				}
+
+                //DETERMINE NUMBER OF HOME PROJECT SLIDES ON PAGE RESIZE
+                this.home_slider_projects_items_resize();
 			},
 			
 			//THIS METHOD INITIALISES THE HOME PROJECT SLIDER ITEMS
-			home_slider_projects_items : function()
+			home_slider_projects_items: function()
 			{
 				//MOBILE SCREENS
 				if(page.is_mobile())
@@ -539,29 +551,92 @@ var mp_module = function()
 				//NON-MOBILE SCREENS
 				else
 				{
-					return 4;
+                    //TABLET - PORTRAIT - 768 TO 1023
+                    if(page.window_width >= 767 && page.window_width <= 1023)
+                    {
+                        return 2;
+                    }
+                    //TABLET - LANDSCAPE & DESKTOPS - 1024 TO 1399
+                    else if(page.window_width >= 1024 && page.window_width <= 1399)
+                    {
+                        return 3;
+                    }
+                    //DESKTOPS - 1400 & GREATER
+                    else if(page.window_width >= 1400)
+                    {
+                        return 4;
+                    }
 				}
-			}
+			},
+
+            //THIS METHOD INITIALISES THE HOME PROJECT SLIDER ITEMS ON PAGE RESIZE
+            home_slider_projects_items_resize: function()
+            {
+                //HOME PROJECTS SLIDES EXIST
+                if($('.home-slides-projects').length > 0)
+                {
+                    $(window).resize(function()
+                    {
+                        //SET MINIMUM & MAXIMUM NUMBER OF ITEMS TO HOME PROJECTS SLIDES
+                        $('.home-slides-projects').data('flexslider').vars.minItems = sliders.flexslider.home_slider_projects_items();
+                        $('.home-slides-projects').data('flexslider').vars.maxItems = sliders.flexslider.home_slider_projects_items();
+
+                        //SET MAXIMUM HEIGHT TO HOME PROJECTS SLIDES ON PAGE RESIZE
+                        sliders.flexslider.home_slider_projects_items_equal_height();
+                    });
+                }
+            },
+
+            //THIS METHOD SETS THE MAXIMUM HEIGHT OF THE HOME PROJECT SLIDES
+            home_slider_projects_items_equal_height: function()
+            {
+                //HOME PROJECTS SLIDES EXIST
+                if($('.home-slides-projects').length > 0)
+                {
+                    //INITIALISE MAXIMUM HEIGHT OF SLIDES
+                    var max_height = -1;
+
+                    $('.home-slides-projects .slides li').each(function()
+                    {
+                        var height = $(this).height();
+
+                        if(height > max_height)
+                        {
+                            max_height = height;
+                        }
+                    });
+
+                    //SET MAXIMUM HEIGHT TO SLIDES
+                    $('.home-slides-projects .slides li').each(function()
+                    {
+                        $(this).height(max_height);
+                    });
+                }
+            }
 		}
 	},
 	
 	//PORTFOLIO - TILES
 	portfolio =
 	{
-		init : function()
+		init: function()
 		{
-			//SET MAXIMUM HEIGHT TO TILES ON PAGE READY
-			portfolio.tiles_equal_height();
-			
-			//SET MAXIMUM HEIGHT TO TILES ON PAGE RESIZE
-			$(window).resize(function()
-			{
-				portfolio.tiles_equal_height();
-			});
+            //PORTFOLIO TILES EXIST
+            if($('#projects').length > 0)
+            {
+                //SET MAXIMUM HEIGHT TO PORTFOLIO TILES ON PAGE READY
+                portfolio.tiles_equal_height();
+
+                //SET MAXIMUM HEIGHT TO PORTFOLIO TILES ON PAGE RESIZE
+                $(window).resize(function()
+                {
+                    portfolio.tiles_equal_height();
+                });
+            }
 		},
 		
 		//THIS METHOD SETS THE MAXIMUM HEIGHT OF THE TILES
-		tiles_equal_height : function()
+		tiles_equal_height: function()
 		{
 			//INITIALISE MAXIMUM HEIGHT OF TILES
 			var max_height = -1;
@@ -597,13 +672,13 @@ var mp_module = function()
 	images = 
 	{
 		//THIS METHOD LAUNCHES THE colorbox_init() METHODS
-		init : function()
+		init: function()
 		{
 			this.colorbox_init();
 		},
 		
 		//THIS METHOD INITIALISES THE COLORBOX
-		colorbox_init : function()
+		colorbox_init: function()
 		{			
 			//MOBILE SCREENS
 			if(page.is_mobile())
@@ -642,7 +717,7 @@ var mp_module = function()
 	return{
 		
 		//LAUNCH ALL THE FOLLOWING METHODS AT PAGE LOAD
-		run_at_load : function()
+		run_at_load: function()
 		{
         	search.init();
 			navigation.init();
@@ -652,9 +727,10 @@ var mp_module = function()
 		},
 		
 		//LAUNCH ALL THE FOLLOWING METHODS AFTER PAGE LOAD
-		run_after_load : function()
+		run_after_load: function()
 		{
 			page.init();
+            sliders.flexslider.home_slider_projects_items_equal_height();
 		}
 	};
 }();

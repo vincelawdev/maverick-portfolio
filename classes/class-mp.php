@@ -1008,7 +1008,7 @@ class mp_options
 			wp_deregister_script('jquery');	
 	
 			#LOAD THE GOOGLE API JQUERY INCLUDE
-			wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js', false, '2.0.3', false);
+			wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js', false, '2.1.0', false);
 	
 			#REGISTER GOOGLE API JQUERY INCLUDE
 			wp_enqueue_script('jquery');

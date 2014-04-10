@@ -50,7 +50,6 @@ var mp_module = function()
 		//THIS METHOD UPDATES THE PAGE MEASUREMENTS
 		page_measurements: function()
 		{
-			/*
 			//INITIALISE CONTENT HEIGHT
 			page.content_height = $('#content').outerHeight(true);
 			
@@ -59,7 +58,7 @@ var mp_module = function()
             {
             	page.sidebar_height = $('#sidebar').height();
            	}
-            //INITIALISE SIDEBAR HEIGHT IF INVISIBLE
+            //INITIALISE SIDEBAR HEIGHT TO ZERO IF INVISIBLE
             else
             {
             	page.sidebar_height = 0;
@@ -74,16 +73,18 @@ var mp_module = function()
 			//CONTENT HEIGHT IS SHORTER THAN SIDEBAR HEIGHT
 			if(page.content_height < page.sidebar_height)
 			{
+                console.log('Extend Content Height');
+
 				//SET THE CONTENT HEIGHT TO THE MAXIMUM HEIGHT
 				$('#content').height(page.max_height);
 			}
-			
-			/*
+
+            /*
 			console.log('Window: ' + page.window_width);
 			console.log('Content: ' + page.content_height);
 			console.log('Sidebar: ' + page.sidebar_height);
 			console.log('Max: ' + page.max_height);
-			*/
+		    */
 		}
 	},
     
@@ -392,7 +393,7 @@ var mp_module = function()
 					//CALLBACK API
 					after: function()
 					{
-						//page.page_measurements();
+						page.page_measurements();
 					}
 				},
 				//HOME PROJECTS SLIDES OPTIONS
@@ -429,7 +430,7 @@ var mp_module = function()
 					//CALLBACK API
 					after: function()
 					{
-						//page.page_measurements();
+						page.page_measurements();
 					}	
 				},
 				//PORTFOLIO PROJECT SLIDES OPTIONS
@@ -460,7 +461,7 @@ var mp_module = function()
 					//CALLBACK API
 					after: function()
 					{
-						//page.page_measurements();
+						page.page_measurements();
 					}
 				},
 				//PORTFOLIO PROJECT SLIDES CAROUSEL OPTIONS
@@ -498,7 +499,7 @@ var mp_module = function()
 					//CALLBACK API
 					after: function()
 					{
-						//page.page_measurements();
+						page.page_measurements();
 					}
 				}
 				

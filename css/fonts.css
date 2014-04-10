@@ -1,0 +1,38 @@
+/**************************************************************************
+FONT FACE DECLARATIONS
+**************************************************************************/
+@font-face
+{
+    font-family: 'CodeProDemoRegular';
+    src: url('../fonts/Code_Pro_Demo-webfont.eot');
+    src: url('../fonts/Code_Pro_Demo-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Code_Pro_Demo-webfont.woff') format('woff'),
+    url('../fonts/Code_Pro_Demo-webfont.ttf') format('truetype'),
+    url('../fonts/Code_Pro_Demo-webfont.svg#CodeProDemoRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face
+{
+    font-family: 'ExpresswayRegular';
+    src: url('../fonts/expressway_rg-webfont.eot');
+    src: url('../fonts/expressway_rg-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/expressway_rg-webfont.woff') format('woff'),
+    url('../fonts/expressway_rg-webfont.ttf') format('truetype'),
+    url('../fonts/expressway_rg-webfont.svg#ExpresswayRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face
+{
+    font-family: 'flexslider-icon';
+    src:url('../fonts/flexslider-icon.eot');
+    src:url('../fonts/flexslider-icon.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/flexslider-icon.woff') format('woff'),
+    url('../fonts/flexslider-icon.ttf') format('truetype'),
+    url('../fonts/flexslider-icon.svg#flexslider-icon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

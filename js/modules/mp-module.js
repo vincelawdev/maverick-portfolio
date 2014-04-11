@@ -607,8 +607,12 @@ var mp_module = function()
                         }
                     });
 
+                    console.log(max_height);
+
+                    max_height = max_height - 20;
+
                     //SET MAXIMUM HEIGHT TO SLIDES
-                    $('.home-slides-projects .slides li').each(function()
+                    $('.home-slides-projects .slides li .home-slides-projects-item-wrapper').each(function()
                     {
                         $(this).height(max_height);
                     });

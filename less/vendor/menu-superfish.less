@@ -19,8 +19,9 @@ MENU - SUPERFISH 1.7.4 - ESSENTIAL STYLES ONLY
 		-webkit-font-smoothing: antialiased;
 		
 		list-style-type: none;
-		
-		@media only screen and (max-width: 767px)
+
+        /* MOBILE */
+		@media only screen and (max-width: @screen-mobile-max)
 		{
 			display: none;
 		}
@@ -36,7 +37,7 @@ MENU - SUPERFISH 1.7.4 - ESSENTIAL STYLES ONLY
 			position: absolute;
 			top: 100%;
 			left: 0;
-			z-index: 99;
+			z-index: @z-index-superfish;
 			display: none;
 			
 			background-color: #d8d8d8;

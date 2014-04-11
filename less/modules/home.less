@@ -9,34 +9,43 @@ HOME PAGE
 	
 	li.home-slides-projects-item
 	{
-		margin: 0 15px 5px 0 !important;
-		padding: 10px !important;
-		
-		background-color: #f6f6f6;
-		
-		border: 1px solid #ccc;
-		
-		-moz-box-sizing: border-box;
-		-webkit-box-sizing: border-box;
-		-ms-box-sizing: border-box;
-		box-sizing: border-box;
+        margin: 0 0 5px 0 !important;
+		padding: 0 !important;
+
 		.transitions(all, 300ms, ease-in-out, 0);
-		
-		&:hover
-		{
-			@media only screen and (min-width: 768px)
-			{
-				box-shadow: 5px 5px 10px 0 #C2C2C2;
-				-webkit-box-shadow: 5px 5px 10px 0 #C2C2C2;
-				-moz-box-shadow: 5px 5px 10px 0 #C2C2C2;
-				-o-box-shadow: 5px 5px 10px 0 #C2C2C2;
-			}
-		}
-		
-		@media only screen and (max-width: 767px)
-		{
-			margin-right: 0 !important;
-		}
+
+        .home-slides-projects-item-wrapper
+        {
+            margin: 0 10px 0 0;
+            padding: 10px;
+
+            background-color: #f6f6f6;
+
+            border: 1px solid #ccc;
+
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            box-sizing: border-box;
+
+            /* TABLET & WIDER */
+            @media only screen and (min-width: @screen-tablet-min)
+            {
+                &:hover
+                {
+                    box-shadow: 5px 5px 10px 0 #C2C2C2;
+                    -webkit-box-shadow: 5px 5px 10px 0 #C2C2C2;
+                    -moz-box-shadow: 5px 5px 10px 0 #C2C2C2;
+                    -o-box-shadow: 5px 5px 10px 0 #C2C2C2;
+                }
+            }
+
+            p:nth-child(2n)
+            {
+                margin-top: 8px !important;
+                margin-bottom: 0 !important;
+            }
+        }
 	}
 }
 
@@ -47,8 +56,8 @@ HOME PAGE
 	padding: 0;
 	float: left;
 	
-	/* EXTEND FOOTER COLUMNS ON MOBILE SCREENS */
-	@media only screen and (max-width: 767px)
+	/* MOBILE */
+	@media only screen and (max-width: @screen-mobile-max)
 	{
 		width: 100% !important;
 	}
@@ -56,8 +65,9 @@ HOME PAGE
 	.home-column-left
 	{
 		padding-right: 2%;
-		
-		@media only screen and (max-width: 767px)
+
+        /* MOBILE */
+		@media only screen and (max-width: @screen-mobile-max)
 		{
 			padding-right: 0;	
 		}
@@ -66,8 +76,9 @@ HOME PAGE
 	.home-column-right
 	{
 		padding-left: 2%;
-		
-		@media only screen and (max-width: 767px)
+
+        /* MOBILE */
+		@media only screen and (max-width: @screen-mobile-max)
 		{
 			padding-top: 10px;
 			padding-left: 0;	

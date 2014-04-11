@@ -87,14 +87,16 @@ COMMENTS, TRACKBACKS & PINGBACKS
 			.font-ExpresswayRegular();
 			color: #333;
 			-webkit-font-smoothing: antialiased;
-			
-			@media only screen and (max-width: 767px)
+
+            /* MOBILE */
+			@media only screen and (max-width: @screen-mobile-max)
 			{
 				font-size: 15px;
 				line-height: 14px;
 			}
-			
-			@media only screen and (min-width: 767px)
+
+            /* TABLET & WIDER */
+			@media only screen and (min-width: @screen-tablet-min)
 			{
 				font-size: 18px;
 				line-height: 22px;
@@ -151,13 +153,15 @@ COMMENTS, TRACKBACKS & PINGBACKS
 			.font-ExpresswayRegular();
 			color: #333;
 			-webkit-font-smoothing: antialiased;
-			
-			@media only screen and (max-width: 767px)
+
+            /* MOBILE */
+			@media only screen and (max-width: @screen-mobile-max)
 			{
 				font-size: 13px;
 			}
-			
-			@media only screen and (min-width: 767px)
+
+            /* TABLET & WIDER */
+            @media only screen and (min-width: @screen-tablet-min)
 			{
 				font-size: 14px;
 			}
@@ -165,12 +169,14 @@ COMMENTS, TRACKBACKS & PINGBACKS
 			/* LINE BREAK */
 			br
 			{
-				@media only screen and (max-width: 767px)
+                /* MOBILE */
+				@media only screen and (max-width: @screen-mobile-max)
 				{
 					display: inline;
 				}
-				
-				@media only screen and (min-width: 767px)
+
+                /* TABLET & WIDER */
+                @media only screen and (min-width: @screen-tablet-min)
 				{
 					display: none;
 				}

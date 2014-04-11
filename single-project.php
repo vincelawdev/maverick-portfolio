@@ -21,14 +21,22 @@ get_header();
                 {
                 ?>
                 <h1 class="page-title"><?php the_title(); ?></h1>
-                
+
+                <?php
+                #PORTFOLIO PROJECT HAS PROJECT IMAGES
+                if(mp_options::mp_has_project_images())
+                {
+                ?>
                 <!-- FLEXSLIDER - START -->
-                <div class="project-slides flexslider"><?php mp_options::mp_display_project_images('image', true, 'image', ''); ?></div>
+                <div class="project-slides flexslider"><?php mp_options::mp_display_project_images('image', true, 'image', '', ''); ?></div>
                 <!-- FLEXSLIDER - END -->
                 
                 <!-- FLEXSLIDER CAROUSEL - START -->
-                <div class="project-slides-carousel flexslider"><?php mp_options::mp_display_project_images('thumbnail', false, '', 'project-slides-carousel-item'); ?></div>
+                <div class="project-slides-carousel flexslider"><?php mp_options::mp_display_project_images('thumbnail', false, '', 'project-slides-carousel-item', 'project-slides-carousel-item-wrapper'); ?></div>
                 <!-- FLEXSLIDER CAROUSEL - END -->
+                <?php
+                }
+                ?>
                 
                 <!-- PROJECT DETAILS - START -->
                 <div class="page-content"><?php mp_options::mp_display_project_details(); the_content(); ?></div>

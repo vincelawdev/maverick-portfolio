@@ -2398,7 +2398,7 @@ class mp_options
 	}
 	
 	#THIS FUNCTION DISPLAYS THE PROJECTS
-	public function mp_display_projects($category, $page, $pagination = true, $ul_id = 'projects', $ul_class = '', $li_class = '', $strip_line_breaks = true, $max_words = 20)
+	public function mp_display_projects($category, $page, $pagination = true, $ul_id = 'projects', $ul_class = '', $li_class = '', $li_wrapper_class = '', $strip_line_breaks = true, $max_words = 20)
 	{		
 		#RETRIEVE THE POST
 		global $post;
@@ -2468,6 +2468,12 @@ class mp_options
                     #OPEN PROJECT LIST ITEM
                     echo '<li class="' . $li_class . '">';
 
+                    #OPEN PROJECT LIST ITEM WRAPPER
+                    if(!empty($li_wrapper_class))
+                    {
+                        echo '<div class="' . $li_wrapper_class . '">';
+                    }
+
                     #OPEN PROJECT LINK
                     echo '<a href="' . get_permalink() . '">';
 
@@ -2507,6 +2513,12 @@ class mp_options
                         echo mp_options::mp_get_excerpt($max_words, true, $strip_line_breaks);
                     }
 
+                    #CLOSE PROJECT LIST ITEM WRAPPER
+                    if(!empty($li_wrapper_class))
+                    {
+                        echo '</div>';
+                    }
+
                     #CLOSE PROJECT LIST ITEM
                     echo '</li>';
                 }
@@ -2534,9 +2546,27 @@ class mp_options
 			}
 		}
 	}
+
+    #THIS FUNCTION CHECKS IF A PROJECT HAS A PROJECT GALLERY
+    public function mp_has_project_images()
+    {
+        #INITIALISE PROJECT GALLERY
+        $portfolio_project_gallery = get_post_meta(get_the_ID(), 'portfolio_project_gallery', true);
+
+        #PROJECT HAS NO PROJECT GALLERY
+        if(empty($portfolio_project_gallery))
+        {
+            return false;
+        }
+        #PROJECT HAS PROJECT GALLERY
+        else
+        {
+            return true;
+        }
+    }
 	
 	#THIS FUNCTION DISPLAYS THE PROJECT IMAGES
-	public function mp_display_project_images($type = 'thumbnail', $link = false, $link_to = 'image', $li_class = '')
+	public function mp_display_project_images($type = 'thumbnail', $link = false, $link_to = 'image', $li_class = '', $li_wrapper_class = '')
 	{
 		#NEXTGEN GALLERY PLUGIN IS ACTIVATED
 		if(function_exists('nggShowSlideshow'))
@@ -2558,6 +2588,12 @@ class mp_options
 				{
 					#OPEN PROJECT IMAGE LIST ITEM
 					echo '<li class="' . $li_class . '">';
+
+                    #OPEN PROJECT IMAGE LIST ITEM WRAPPER
+                    if(!empty($li_wrapper_class))
+                    {
+                        echo '<div class="' . $li_wrapper_class . '">';
+                    }
 					
 					#OPEN PROJECT IMAGE LINK
 					if($link)
@@ -2593,6 +2629,12 @@ class mp_options
 					{
 						echo '</a>';
 					}
+
+                    #CLOSE PROJECT IMAGE LIST ITEM WRAPPER
+                    if(!empty($li_wrapper_class))
+                    {
+                        echo '</div>';
+                    }
 					
 					#CLOSE PROJECT IMAGE LIST ITEM
 					echo '</li>';
@@ -4341,10 +4383,11 @@ class mp_options
 				preg_match("/(\S+\s*){0,$max_words}/", $content, $excerpt);
 				
 				#INITIALISE TRUNCATED CONTENT
-				$content_excerpt = trim($excerpt[0]) . '... <a href="' . get_permalink() . '" title="' . get_the_title() . '">Read the rest</a>';
+				$content_excerpt = '<p class="project-description">' . trim($excerpt[0]) . '... <a href="' . get_permalink() . '" title="' . get_the_title() . '">Read the rest</a></p>';
 				
 				#RETURN TRUNCATED CONTENT
-				return wpautop($content_excerpt);
+                return $content_excerpt;
+				//return wpautop($content_excerpt);
 			}
 		}
 	}

@@ -16,14 +16,14 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
 	
 	background-color: #fff;
 	
-	/* EXTEND ON MOBILE SCREENS */
-	@media only screen and (max-width: 767px)
+	/* MOBILE */
+	@media only screen and (max-width: @screen-mobile-max)
 	{
 		width: 100% !important;
 	}
 	
-	/* ADD MARGIN & SHADOWS ON NON-MOBILE SCREENS */
-	@media only screen and (min-width: 768px)
+	/* TABLET & WIDER */
+	@media only screen and (min-width: @screen-tablet-min)
 	{
 		margin: 15px 0;
 		
@@ -32,8 +32,8 @@ PAGE STYLES FOR PAGES, BLOG POSTS & CUSTOM POST TYPES
 		box-shadow: 0 5px 10px rgba(50, 50, 50, 0.55);
 	}
 	
-	/* EXTEND (.col9) ON DESKTOPS - 1400 & GREATER */
-	@media only screen and (min-width: 1400px)
+	/* LARGE DESKTOP */
+	@media only screen and (min-width: @screen-desktop-large-min)
 	{
 		width: 75% !important;
 	}

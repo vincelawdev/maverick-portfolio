@@ -30,13 +30,15 @@ HEADER
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	
-	@media only screen and (max-width: 767px)
+
+    /* MOBILE */
+	@media only screen and (max-width: @screen-mobile-max)
 	{
 		text-align: center;
 	}
-	
-	@media only screen and (min-width: 768px)
+
+    /* TABLET & WIDER */
+	@media only screen and (min-width: @screen-tablet-min)
 	{
 		float: left;
 	}
@@ -44,9 +46,10 @@ HEADER
 	img.logo-image
 	{
 		margin: 0;
-		padding: 0;		
-		
-		@media only screen and (min-width: 768px)
+		padding: 0;
+
+        /* TABLET & WIDER */
+		@media only screen and (min-width: @screen-tablet-min)
 		{
 			float: left;
 		}
@@ -73,8 +76,9 @@ HEADER
 		font-size: 16px;
 		color: #fff;
 		-webkit-font-smoothing: antialiased;
-		
-		@media only screen and (max-width: 767px)
+
+        /* MOBILE */
+		@media only screen and (max-width: @screen-mobile-max)
 		{
 			display: none;	
 		}
@@ -92,8 +96,9 @@ HEADER
 	margin: 10px 0 0 0;
 	padding: 0;
 	float: right;
-	
-	@media only screen and (max-width: 767px)
+
+    /* MOBILE */
+	@media only screen and (max-width: @screen-mobile-max)
 	{
 		display: none;
 	}
@@ -101,7 +106,7 @@ HEADER
 
 #header-row1
 {
-	z-index: 999999;
+	z-index: @z-index-header;
 	width: 100%;	
 	margin: 0;
 	padding: 0;
@@ -147,7 +152,7 @@ HEADER
 
 #header-row2
 {
-	z-index: 999999;
+	z-index: @z-index-header;
 	width: 100%;
 	height: 40px;
 	margin: 0;
@@ -167,7 +172,7 @@ HEADER
 		top: 0;
 		left: 0;
 		right: 0;
-		z-index: 999999;
+		z-index: @z-index-header;
 		width: 65%;
 		margin: 0 auto;
 		padding: 0;
@@ -206,8 +211,9 @@ HEADER
 		.header-logo-mobile
 		{
 			display: inline-block;
-			
-			@media only screen and (min-width: 768px)
+
+            /* TABLET & WIDER */
+			@media only screen and (min-width: @screen-tablet-min)
 			{
 				display: none;
 			}

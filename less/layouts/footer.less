@@ -19,21 +19,23 @@ FOOTER
 {
 	margin: 0;
 	padding: 0;
-	
-	@media only screen and (max-width: 767px)
+
+    /* MOBILE */
+	@media only screen and (max-width: @screen-mobile-max)
 	{
 		width: 100%;		
 	}
-	
-	@media only screen and (min-width: 768px)
+
+    /* TABLET & WIDER */
+	@media only screen and (min-width: @screen-tablet-min)
 	{
 		width: 95%;
 		padding-right: 5%;
 	}
 }
 
-/* EXTEND FOOTER COLUMNS ON MOBILE SCREENS */
-@media only screen and (max-width: 767px)
+/* EXTEND FOOTER COLUMNS ON MOBILE */
+@media only screen and (max-width: @screen-mobile-max)
 {
 	#footer-row1 #footer-column1,
 	#footer-row1 #footer-column2,
@@ -67,8 +69,9 @@ FOOTER
 		-webkit-font-smoothing: antialiased;
 		
 		border-bottom: 2px solid #ccc;
-		
-		@media only screen and (max-width: 767px)
+
+        /* MOBILE */
+		@media only screen and (max-width: @screen-mobile-max)
 		{
 			text-align: center;
 		}	
@@ -82,8 +85,9 @@ FOOTER
 		.font-Georgia();
 		font-size: 15px;
 		color: #ccc;
-		
-		@media only screen and (max-width: 767px)
+
+        /* MOBILE */
+		@media only screen and (max-width: @screen-mobile-max)
 		{
 			padding-left: 2%;
 			padding-right: 2%;
@@ -137,8 +141,9 @@ FOOTER
 		padding: 0;
 		
 		list-style-type: none;
-		
-		@media only screen and (max-width: 767px)
+
+        /* MOBILE */
+		@media only screen and (max-width: @screen-mobile-max)
 		{			
 			text-align: center;			
 		}
@@ -153,30 +158,35 @@ FOOTER
 			border: 3px solid #ccc;
 			
 			.transitions(border-color, 300ms, ease-in-out, 0ms);
-			
-			@media only screen and (max-width: 767px)
+
+            /* MOBILE */
+			@media only screen and (max-width: @screen-mobile-max)
 			{
 				margin-right: 2%;
 				display: inline-block;
 			}
-			
-			@media only screen and (min-width: 768px)
+
+            /* TABLET & WIDER */
+			@media only screen and (min-width: @screen-tablet-min)
 			{
 				display: inline;
 				float: left;
 			}
-			
-			@media only screen and (min-width: 768px) and (max-width: 1023px)
+
+            /* TABLET */
+			@media only screen and (min-width: @screen-tablet-min) and (max-width: @screen-tablet-max)
 			{
 				margin-right: 4.7%;
 			}
-			
-			@media only screen and (min-width: 1024px) and (max-width: 1399px)
+
+            /* DESKTOP */
+			@media only screen and (min-width: @screen-desktop-min) and (max-width: @screen-desktop-max)
 			{
 				margin-right: 6%;
 			}
-			
-			@media only screen and (min-width: 1400px)
+
+            /* LARGE DESKTOP */
+			@media only screen and (min-width: @screen-desktop-large-min)
 			{
 				margin-right: 7.1%;
 			}
@@ -203,23 +213,27 @@ FOOTER
 					background-position: center;					
 					
 					opacity: 0.8;
-					
-					@media only screen and (max-width: 767px)
+
+                    /* MOBILE */
+					@media only screen and (max-width: @screen-mobile-max)
 					{
 						display: none;
 					}
-					
-					@media only screen and (min-width: 768px) and (max-width: 1023px)
+
+                    /* TABLET */
+					@media only screen and (min-width: @screen-tablet-min) and (max-width: @screen-tablet-max)
 					{
 						margin: 28px 0 0 41px;
 					}
-					
-					@media only screen and (min-width: 1024px) and (max-width: 1399px)
+
+                    /* DESKTOP */
+					@media only screen and (min-width: @screen-desktop-min) and (max-width: @screen-desktop-max)
 					{
 						margin: 42px 0 0 60px;
 					}
-					
-					@media only screen and (min-width: 1400px)
+
+                    /* LARGE DESKTOP */
+					@media only screen and (min-width: @screen-desktop-large-min)
 					{
 						margin: 64px 0 0 86px;
 					}
@@ -253,8 +267,9 @@ FOOTER
 			display: block;
 			
 			border-bottom: 1px dotted #ccc;
-			
-			@media only screen and (max-width: 767px)
+
+            /* MOBILE */
+			@media only screen and (max-width: @screen-mobile-max)
 			{
 				padding-left: 2%;
 				padding-right: 2%;
@@ -304,8 +319,9 @@ FOOTER
 		padding: 0;	
 				
 		list-style-type: none;
-		
-		@media only screen and (max-width: 767px)
+
+        /* MOBILE */
+		@media only screen and (max-width: @screen-mobile-max)
 		{			
 			text-align: center;			
 		}
@@ -321,30 +337,35 @@ FOOTER
 			border: 2px solid #ccc;
 			
 			.transitions(border-color, 300ms, ease-in-out, 0ms);
-			
-			@media only screen and (max-width: 767px)
+
+            /* MOBILE */
+			@media only screen and (max-width: @screen-mobile-max)
 			{
 				margin-right: 2%;
 				display: inline-block;
 			}
-			
-			@media only screen and (min-width: 768px)
+
+            /* TABLET & WIDER */
+			@media only screen and (min-width: @screen-tablet-min)
 			{
 				display: inline;
 				float: left;
 			}
-			
-			@media only screen and (min-width: 768px) and (max-width: 1023px)
+
+            /* TABLET */
+			@media only screen and (min-width: @screen-tablet-min) and (max-width: @screen-tablet-max)
 			{
 				margin-right: 4.4%;
 			}
-			
-			@media only screen and (min-width: 1024px) and (max-width: 1399px)
+
+            /* DESKTOP */
+			@media only screen and (min-width: @screen-desktop-min) and (max-width: @screen-desktop-max)
 			{
 				margin-right: 4.96%;
 			}
-			
-			@media only screen and (min-width: 1400px)
+
+            /* LARGE DESKTOP */
+			@media only screen and (min-width: @screen-desktop-large-min)
 			{
 				margin-right: 5.45%;
 			}
@@ -371,23 +392,27 @@ FOOTER
 					background-position: center;					
 					
 					opacity: 0.8;
-					
-					@media only screen and (max-width: 767px)
+
+                    /* MOBILE */
+					@media only screen and (max-width: @screen-mobile-max)
 					{
 						display: none;
 					}
-					
-					@media only screen and (min-width: 768px) and (max-width: 1023px)
+
+                    /* TABLET */
+					@media only screen and (min-width: @screen-tablet-min) and (max-width: @screen-tablet-max)
 					{
 						margin: 12px 0 0 13px;
 					}
-					
-					@media only screen and (min-width: 1024px) and (max-width: 1399px)
+
+                    /* DESKTOP */
+					@media only screen and (min-width: @screen-desktop-min) and (max-width: @screen-desktop-max)
 					{
 						margin: 18px 0 0 21px;
 					}
-					
-					@media only screen and (min-width: 1400px)
+
+                    /* LARGE DESKTOP */
+					@media only screen and (min-width: @screen-desktop-large-min)
 					{
 						margin: 32px 0 0 32px;
 					}
@@ -428,8 +453,9 @@ FOOTER
 		-webkit-font-smoothing: antialiased;
 		
 		list-style-type: none;
-		
-		@media only screen and (max-width: 767px)
+
+        /* MOBILE */
+		@media only screen and (max-width: @screen-mobile-max)
 		{			
 			text-align: center;			
 		}
@@ -440,13 +466,15 @@ FOOTER
 			padding: 0 10px 0 0;			
 			
 			border-right: 1px solid #aaa;
-			
-			@media only screen and (max-width: 767px)
+
+            /* MOBILE */
+			@media only screen and (max-width: @screen-mobile-max)
 			{			
 				display: inline-block;
 			}
-			
-			@media only screen and (min-width: 768px)
+
+            /* TABLET & WIDER */
+			@media only screen and (min-width: @screen-tablet-min)
 			{
 				display: inline;
 				float: left;

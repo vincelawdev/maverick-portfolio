@@ -14,7 +14,8 @@ form
 	input[type="text"],
 	input[type="email"],
 	input[type="tel"],
-	input[type="url"]
+	input[type="url"],
+    input[type="password"]
 	{
 		width: 50%;
 		margin: 0;
@@ -116,6 +117,7 @@ form
 		border-radius: 5px;
 		
 		.font-CodeProDemoRegular();
+        font-size: 18px;
 		color: #333;
 		-webkit-font-smoothing: antialiased;
 		
@@ -133,4 +135,25 @@ form
 			background-image: linear-gradient(top, #e4e4e4 0%, #898989 100%);
 		}
 	}
+
+    //PASSWORD PROTECTED CONTENT FORM
+    .post-password-form
+    {
+        label
+        {
+            display: block;
+
+            line-height: 20px;
+        }
+
+        input[type="password"]
+        {
+            display: block;
+        }
+
+        input[type="submit"]
+        {
+            margin-top: 15px;
+        }
+    }
 }

@@ -388,7 +388,7 @@ var mp_module = function()
 					//SECONDARY NAVIGATION
 					keyboard: true,
 					multipleKeyboard: false,
-					mousewheel: true,
+					mousewheel: false,
 					
 					//CALLBACK API
 					after: function()
@@ -425,7 +425,7 @@ var mp_module = function()
 					//SECONDARY NAVIGATION
 					keyboard: true,
 					multipleKeyboard: false,
-					mousewheel: true,
+					mousewheel: false,
 					
 					//CALLBACK API
 					after: function()
@@ -456,7 +456,7 @@ var mp_module = function()
 					//SECONDARY NAVIGATION
 					keyboard: true,
 					multipleKeyboard: false,
-					mousewheel: true,
+					mousewheel: false,
 					
 					//CALLBACK API
 					after: function()
@@ -494,7 +494,7 @@ var mp_module = function()
 					//SECONDARY NAVIGATION
 					keyboard: true,
 					multipleKeyboard: false,
-					mousewheel: true,
+					mousewheel: false,
 					
 					//CALLBACK API
 					after: function()
@@ -728,13 +728,13 @@ var mp_module = function()
 			navigation.init();
 			sliders.init();
 			images.init();
-			portfolio.init();
 		},
 		
 		//LAUNCH ALL THE FOLLOWING METHODS AFTER PAGE LOAD
 		run_after_load: function()
 		{
 			page.init();
+            portfolio.init();
             sliders.flexslider.home_slider_projects_items_equal_height();
 		}
 	};

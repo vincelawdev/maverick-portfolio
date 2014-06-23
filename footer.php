@@ -82,7 +82,6 @@ if((!is_page() || is_page('blog')) && !is_tax() && !is_singular(array('project',
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-flexslider.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-easing.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-fitvid.min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-mousewheel.min.js"></script>
 <script src="<?php bloginfo('template_directory'); ?>/js/modules/min/mp-module.min.js"></script>
 
 </body>

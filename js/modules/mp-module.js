@@ -726,7 +726,6 @@ var mp_module = function()
 		{
         	search.init();
 			navigation.init();
-			sliders.init();
 			images.init();
 		},
 		
@@ -735,7 +734,7 @@ var mp_module = function()
 		{
 			page.init();
             portfolio.init();
-            sliders.flexslider.home_slider_projects_items_equal_height();
+            sliders.init();
 		}
 	};
 }();

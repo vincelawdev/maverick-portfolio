@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html class="no-js" lang="en">
 <head>
 <title><?php the_title(); ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -25,6 +25,8 @@ if(is_front_page())
 <?php
 }
 ?>
+<script>window.jQuery || document.write('<script src="<?php bloginfo('template_url'); ?>/js/vendor/min/jquery-2.0.3.min.js">\x3C/script>')</script>
+<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/modernizr.js"></script>
 <link rel="shortcut icon" href="/favicon.ico">
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('stylesheet_url'); ?>">
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/css/main.css">
@@ -32,8 +34,6 @@ if(is_front_page())
 <?php mp_options::mp_display_rss_feeds_header(); ?>
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
 <?php wp_head(); ?>
-<script>window.jQuery || document.write('<script src="<?php bloginfo('template_url'); ?>/js/vendor/min/jquery-2.0.3.min.js">\x3C/script>')</script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/modernizr.js"></script>
 </head>
 
 <?php flush(); ?>

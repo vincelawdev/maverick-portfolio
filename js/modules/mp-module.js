@@ -444,7 +444,7 @@ var mp_module = function()
 					slideshowSpeed: 5000,
 					animationSpeed: 300,
 					initDelay: 0,
-					sync: ".project-slides-carousel",
+					sync: '.project-slides-carousel',
 					
 					//USABILITY FEATURES
 					useCSS: true,

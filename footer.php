@@ -70,19 +70,19 @@ if(is_single())
 if((!is_page() || is_page('blog')) && !is_tax() && !is_singular(array('project', 'testimonial', 'article')))
 {
 ?>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-organic-tabs.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/src/js/vendor/jquery-organic-tabs.min.js"></script>
 <?php
 }
 ?>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-hover-intent.min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-superfish.min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-supersubs.min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-meanmenu.min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-colorbox.min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-flexslider.min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-easing.min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/vendor/min/jquery-fitvid.min.js"></script>
-<script src="<?php bloginfo('template_directory'); ?>/js/modules/min/mp-module.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/src/js/vendor/jquery-hover-intent.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/src/js/vendor/jquery-superfish.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/src/js/vendor/jquery-supersubs.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/src/js/vendor/jquery-meanmenu.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/src/js/vendor/jquery-colorbox.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/src/js/vendor/jquery-flexslider.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/src/js/vendor/jquery-easing.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/src/js/vendor/jquery-fitvid.min.js"></script>
+<script src="<?php bloginfo('template_directory'); ?>/src/js/modules/mp-module.min.js"></script>
 
 </body>
 

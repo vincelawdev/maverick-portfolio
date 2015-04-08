@@ -25,7 +25,7 @@ if(comments_open())
 	{
 	?>
 		<!-- COMMENTS - START -->
-		<h3 class="sub-heading"><?php mp_options::mp_display_comment_counter(get_the_ID(), 'comment', '0 Comments', '1 Comment', 'Comments'); ?> On &#8220;<?php the_title(); ?>&#8221; <span class="rss"><a href="<?php echo get_post_comments_feed_link(); ?>" rel="nofollow"><img src="<?php echo get_bloginfo('template_directory'); ?>/images/icon-rss-small.png" alt="Subscribe to Comments via RSS" title="Subscribe to Comments via RSS"></a></span></h3>
+		<h3 class="sub-heading"><?php mp_options::mp_display_comment_counter(get_the_ID(), 'comment', '0 Comments', '1 Comment', 'Comments'); ?> On &#8220;<?php the_title(); ?>&#8221; <span class="rss"><a href="<?php echo get_post_comments_feed_link(); ?>" rel="nofollow"><img src="<?php echo get_bloginfo('template_directory'); ?>/build/images/icon-rss-small.png" alt="Subscribe to Comments via RSS" title="Subscribe to Comments via RSS"></a></span></h3>
 		<p>Trackback URL: <small><?php trackback_url(); ?></small></p>
 		<ul class="comments"><?php wp_list_comments('style=ul&type=comment&callback=mp_options::mp_display_comment_list'); ?></ul>
 		<!-- COMMENTS - END -->

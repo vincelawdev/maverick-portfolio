@@ -2,6 +2,7 @@
   "name": "Maverick-Portfolio",
   "description": "Gulp plugins",
   "devDependencies": {
+    "del": "^1.1.1",
     "gulp": "^3.8.11",
     "gulp-changed": "^1.2.1",
     "gulp-concat": "^2.5.2",

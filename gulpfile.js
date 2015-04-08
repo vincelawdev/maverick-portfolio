@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     rename = require('gulp-rename'),
     changed = require('gulp-changed'),
+    del = require('del'),
     less = require('gulp-less'),
     minifyCSS = require('gulp-minify-css'),
     uglify = require('gulp-uglify'),
@@ -54,8 +55,17 @@ gulp.task('images', function()
         .pipe(gulp.dest(images_build));
 });
 
+//CLEAN TASK DELETE FILES BUILD DIRECTORIES
+gulp.task('clean', function(cb)
+{
+    del(['build/css', 'build/js', 'build/images'], cb);
+});
+
 //BUILD TASK TO RUN TASKS ABOVE
-gulp.task('build', ['less-minify', 'js-uglify', 'images']);
+gulp.task('build', ['clean'], function()
+{
+    gulp.start('less-minify', 'js-uglify', 'images');
+});
 
 //WATCH TASK TO RUN TASK WHEN FILES ARE CHANGED
 gulp.task('watch', ['less-minify', 'js-uglify', 'images'], function()

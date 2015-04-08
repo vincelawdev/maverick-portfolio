@@ -61,20 +61,11 @@ gulp.task('build', ['less-minify', 'js-uglify', 'images']);
 gulp.task('watch', ['less-minify', 'js-uglify', 'images'], function()
 {
     //WATCH FOR LESS CHANGES
-    gulp.watch('src/less/*.less', function()
-    {
-        gulp.run('less-minify');
-    });
+    gulp.watch('src/less/*.less', ['less-minify']);
 
     //WATCH FOR JS CHANGES
-    gulp.watch('src/js/modules/*.js', function()
-    {
-        gulp.run('js-uglify');
-    });
+    gulp.watch('src/js/modules/*.js', ['js-uglify']);
 
     //WATCH FOR IMAGE CHANGES
-    gulp.watch('src/images/*', function()
-    {
-        gulp.run('images');
-    });
+    gulp.watch('src/images/*', ['images']);
 });

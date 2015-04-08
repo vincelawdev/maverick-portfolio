@@ -1,3 +1,5 @@
+'use strict';
+
 //MAVERICK PORTFOLIO MODULE
 var mp_module = function()
 {

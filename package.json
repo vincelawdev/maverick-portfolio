@@ -1,5 +1,5 @@
 {
-  "name": "Maverick-Portfolio",
+  "name": "maverick-portfolio",
   "description": "Gulp plugins",
   "devDependencies": {
     "del": "^1.1.1",

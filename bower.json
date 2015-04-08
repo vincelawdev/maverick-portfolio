@@ -22,6 +22,6 @@
     "fitvids": "~1.1.0",
     "jquery-hoverIntent": "~1.8.1",
     "superfish": "~1.7.5",
-    "jquery-validate": "~1.13.1"
+    "jqueryvalidate": "*"
   }
 }

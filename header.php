@@ -25,12 +25,9 @@ if(is_front_page())
 <?php
 }
 ?>
-<script>window.jQuery || document.write('<script src="<?php bloginfo('template_url'); ?>/src/js/vendor/jquery.min.js">\x3C/script>')</script>
-<script src="<?php bloginfo('template_directory'); ?>/src/js/vendor/modernizr.min.js"></script>
+<script>window.jQuery || document.write('<script src="<?php bloginfo('template_url'); ?>/bower_components/jquery/dist/jquery.min.js">\x3C/script>')</script>
 <link rel="shortcut icon" href="/favicon.ico">
 <link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('stylesheet_url'); ?>">
-<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/build/css/main.min.css">
-<link rel="stylesheet" type="text/css" media="screen" href="<?php bloginfo('template_directory'); ?>/src/css/fonts.css">
 <?php mp_options::mp_display_rss_feeds_header(); ?>
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
 <?php wp_head(); ?>

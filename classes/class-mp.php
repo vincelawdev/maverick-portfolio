@@ -48,12 +48,13 @@ class mp_options
 		#ENABLE SIDEBAR WIDGETS
 		register_sidebar(array('before_widget' => '<div class="sidebar-box">','after_widget' => '</div>', 'before_title' => '<h4>', 'after_title' => '</h4>',));
 		
-		#INITIALISE JQUERY LIBRARY
-		add_action('init', array('mp_options', 'mp_jquery'));
+		#INITIALISE THEME OPTIONS, JQUERY LIBRARY, BOWER DEPENDENCIES, JAVASCRIPT & CSS
+		add_action('init', array('mp_options', 'mp_style_js'));
 		
 		#INITIALISE THEME OPTIONS
 		add_action('admin_menu', array('mp_options', 'mp_admin_menu'));
 		add_action('admin_init', array('mp_options', 'mp_theme_settings'));
+        add_action('admin_init', array('mp_options', 'mp_admin_style_js'));
 		
 		#INITIALISE THEME ADMIN JAVASCRIPT & CSS
 		add_action('admin_head', array('mp_options', 'mp_admin_head'));
@@ -997,32 +998,57 @@ class mp_options
 			echo $mp_tracking . "\n\n";
 		}
 	}
+
+    #THIS FUNCTION INCLUDES THE JQUERY LIBRARY, BOWER DEPENDENCIES, JAVASCRIPT & CSS INTO NON-ADMIN WORDPRESS PAGES
+    public function mp_style_js()
+    {
+        #PAGE IS NON-ADMIN
+        if(!is_admin())
+        {
+            #DEREGISTER DEFAULT JQUERY
+            wp_deregister_script('jquery');
+
+            #INCLUDE JQUERY FROM GOOGLE CDN
+            wp_enqueue_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js', false, '2.1.3', false);
+
+            #INCLUDE BOWER DEPENDENCIES
+            wp_enqueue_script('colorbox', get_template_directory_uri() . '/bower_components/colorbox/jquery.colorbox-min.js', false, '', true);
+            wp_enqueue_script('easing', get_template_directory_uri() . '/bower_components/easing/easing-min.js', false, '', true);
+            wp_enqueue_script('fitvids', get_template_directory_uri() . '/bower_components/fitvids/jquery.fitvids.js', false, '', true);
+            wp_enqueue_script('jquery-hoverIntent', get_template_directory_uri() . '/bower_components/jquery-hoverIntent/jquery.hoverIntent.js', false, '', true);
+            wp_enqueue_script('superfish', get_template_directory_uri() . '/bower_components/superfish/dist/superfish.min.js', false, '', true);
+            wp_enqueue_script('superfish-supersubs', get_template_directory_uri() . '/bower_components/superfish/dist/supersubs.js', false, '', true);
+
+            #INCLUDE JAVASCRIPT
+            wp_enqueue_script('modernizr', get_template_directory_uri() . 'src/js/vendor/modernizr.min.js', false, '', false);
+            wp_enqueue_script('mp-module', get_template_directory_uri() . '/js/modules/mp-module.min.js', false, '', true);
+            wp_enqueue_script('meanmenu', get_template_directory_uri() . '/src/js/vendor/jquery-meanmenu.min.js', false, '', true);
+            wp_enqueue_script('flexslider', get_template_directory_uri() . '/src/js/vendor/jquery-flexslider.min.js', false, '', true);
+            wp_enqueue_script('organic-tabs', get_template_directory_uri() . '/src/js/vendor/jquery-organic-tabs.min.js', false, '', true);
+
+            #INCLUDE CSS
+            wp_enqueue_script('mp-css', get_template_directory_uri() . 'build/css/main.min.css');
+            wp_enqueue_script('mp-css', get_template_directory_uri() . 'src/css/fonts.css');
+        }
+    }
+
+    #THIS FUNCTION INCLUDES THE BOWER DEPENDENCIES, CSS & JAVASCRIPT FOR ADMIN WORDPRESS PAGES
+    public function mp_admin_style_js()
+    {
+        #INCLUDE BOWER DEPENDENCIES
+        wp_enqueue_script('jqueryvalidate', get_template_directory_uri() . '/bower_components/jqueryvalidate/jquery-validate.min.js', false, '', true);
+
+        #INCLUDE JAVASCRIPT
+        wp_enqueue_script('jqueryvalidate-additional', get_template_directory_uri() . '/src/js/vendor/jquery-validate-additional-methods.min.js', false, '', true);
+        wp_enqueue_script('mp-module-admin', get_template_directory_uri() . '/build/js/modules/mp-module-admin.min.js', false, '', true);
+
+        #INCLUDE CSS
+        wp_enqueue_script('mp-admin-css', get_template_directory_uri() . 'src/css/admin.php');
+    }
 	
-	#THIS FUNCTION INCLUDES THE JQUERY LIBRARY INTO NON-ADMIN WORDPRESS PAGES
-	public function mp_jquery()
-	{
-		#PAGE IS NON-ADMIN
-		if(!is_admin())
-		{
-			#DEREGISTER DEFAULT JQUERY INCLUDE
-			wp_deregister_script('jquery');	
-	
-			#LOAD THE GOOGLE API JQUERY INCLUDE
-			wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js', false, '2.1.3', false);
-	
-			#REGISTER GOOGLE API JQUERY INCLUDE
-			wp_enqueue_script('jquery');
-		}
-	}
-	
-	#THIS FUNCTION INCLUDES THE JAVASCRIPT & CSS FILES INTO ADMIN WORDPRESS PAGES
+	#THIS FUNCTION INCLUDES THE JAVASCRIPT INTO ADMIN WORDPRESS PAGES
 	public function mp_admin_head()
 	{
-		echo '<link rel="stylesheet" media="all" href="' . get_bloginfo('template_url') . 'src/css/admin.php" type="text/css">' . "\n";
-		echo '<script src="' . get_bloginfo('template_url') . 'src/js/vendor/jquery-validate.min.js"></script>' . "\n";
-		echo '<script src="' . get_bloginfo('template_url') . 'src/js/vendor/jquery-validate-additional-methods.min.js"></script>' . "\n";
-		echo '<script src="' . get_bloginfo('template_url') . 'src/js/modules/mp-module-admin.min.js"></script>' . "\n";
-		
 		#LOAD JAVASCRIPT FOR TINYMCE EDITOR FOR USER BIOGRAPHY IN WORDPRESS 3.3 +
 		if(function_exists('wp_editor'))
 		{
@@ -1322,7 +1348,7 @@ class mp_options
 				#DISPLAY ARTICLE URL ICON
 				if(!empty($article_url))
 				{
-					echo '<a href="' . $article_url . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/build/images/icon-url.png" alt=""></a>';
+					echo '<a href="' . $article_url . '" target="_blank"><img src="' . get_template_directory_uri() . '/build/images/icon-url.png" alt=""></a>';
 				}
 				
 				break;
@@ -1642,7 +1668,7 @@ class mp_options
 				#DISPLAY SLIDE IMAGE ICON
 				if(!empty($slide_image))
 				{
-					echo '<a href="' . $slide_image . '" title=""><img src="' . get_bloginfo('template_url') . '/build/images/icon-picture.png" alt=""></a>';
+					echo '<a href="' . $slide_image . '" title=""><img src="' . get_template_directory_uri() . '/build/images/icon-picture.png" alt=""></a>';
 				}
 				
 				break;
@@ -1656,7 +1682,7 @@ class mp_options
 				#DISPLAY SLIDE URL ICON
 				if(!empty($slide_url))
 				{
-					echo '<a href="' . $slide_url . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/build/images/icon-url.png" alt=""></a>';
+					echo '<a href="' . $slide_url . '" target="_blank"><img src="' . get_template_directory_uri() . '/build/images/icon-url.png" alt=""></a>';
 				}
 				
 				break;
@@ -2197,7 +2223,7 @@ class mp_options
 				#DISPLAY PROJECT GALLERY ICON
 				if(!empty($portfolio_project_gallery))
 				{
-					echo '<a href="admin.php?page=nggallery-manage-gallery&mode=edit&gid=' . $portfolio_project_gallery . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/build/images/icon-gallery.png" alt=""></a>';
+					echo '<a href="admin.php?page=nggallery-manage-gallery&mode=edit&gid=' . $portfolio_project_gallery . '" target="_blank"><img src="' . get_template_directory_uri() . '/build/images/icon-gallery.png" alt=""></a>';
 				}
 				
 				break;
@@ -2211,7 +2237,7 @@ class mp_options
 				#DISPLAY PROJECT URL ICON
 				if(!empty($portfolio_project_url))
 				{
-					echo '<a href="' . $portfolio_project_url . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/build/images/icon-url.png" alt=""></a>';
+					echo '<a href="' . $portfolio_project_url . '" target="_blank"><img src="' . get_template_directory_uri() . '/build/images/icon-url.png" alt=""></a>';
 				}
 				
 				break;
@@ -2490,7 +2516,7 @@ class mp_options
                     else
                     {
                         #DISPLAY DEFAULT PROJECT THUMBNAIL
-                        echo '<img src="' . get_bloginfo('template_url') . '/build/images/portfolio-thumbnail-default.png" alt="' . $project_title . '" title="' . $project_title . '" class="project-thumbnail">';
+                        echo '<img src="' . get_template_directory_uri() . '/build/images/portfolio-thumbnail-default.png" alt="' . $project_title . '" title="' . $project_title . '" class="project-thumbnail">';
                     }
 
                     #CLOSE PROJECT LINK
@@ -2934,7 +2960,7 @@ class mp_options
 				#DISPLAY TESTIMONIAL PHOTO ICON
 				if(!empty($testimonial_photo))
 				{
-					echo '<a href="' . $testimonial_photo . '" title="' . $testimonial_name . '"><img src="' . get_bloginfo('template_url') . '/build/images/icon-picture.png" alt=""></a>';
+					echo '<a href="' . $testimonial_photo . '" title="' . $testimonial_name . '"><img src="' . get_template_directory_uri() . '/build/images/icon-picture.png" alt=""></a>';
 				}
 				
 				break;
@@ -2948,7 +2974,7 @@ class mp_options
 				#DISPLAY TESTIMONIAL URL ICON
 				if(!empty($testimonial_url))
 				{
-					echo '<a href="' . $testimonial_url . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/build/images/icon-url.png" alt=""></a>';
+					echo '<a href="' . $testimonial_url . '" target="_blank"><img src="' . get_template_directory_uri() . '/build/images/icon-url.png" alt=""></a>';
 				}
 				
 				break;
@@ -2962,7 +2988,7 @@ class mp_options
 				#DISPLAY TESTIMONIAL PDF ICON
 				if(!empty($testimonial_pdf))
 				{
-					echo '<a href="' . $testimonial_pdf . '" target="_blank"><img src="' . get_bloginfo('template_url') . '/build/images/icon-pdf.png" alt=""></a>';
+					echo '<a href="' . $testimonial_pdf . '" target="_blank"><img src="' . get_template_directory_uri() . '/build/images/icon-pdf.png" alt=""></a>';
 				}
 				
 				break;
@@ -2976,7 +3002,7 @@ class mp_options
 				#DISPLAY TESTIMONIAL FEATURE ICON
 				if($testimonial_feature)
 				{
-					echo '<img src="' . get_bloginfo('template_url') . '/build/images/icon-pin.png" alt="">';
+					echo '<img src="' . get_template_directory_uri() . '/build/images/icon-pin.png" alt="">';
 				}
 				
 				break;
@@ -3173,7 +3199,7 @@ class mp_options
                     #APPEND TESTIMONIAL PDF
                     if(!empty($testimonial_pdf))
                     {
-                        $testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo('template_url') . '/build/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial-pdf">PDF</a>';
+                        $testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_template_directory_uri() . '/build/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial-pdf">PDF</a>';
                     }
 
                     #DISPLAY TESTIMONIAL BOX
@@ -3245,7 +3271,7 @@ class mp_options
             #APPEND TESTIMONIAL PDF
             if(!empty($testimonial_pdf))
             {
-                $testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_bloginfo('template_url') . '/build/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial-pdf">PDF</a>';
+                $testimonial_content .= ', <a href="' . $testimonial_pdf . '" title="Testimonial in PDF" rel="nofollow" target="_blank"><img src="' . get_template_directory_uri() . '/build/images/icon-pdf.png" alt="Testimonial in PDF" title="Testimonial in PDF" class="testimonial-pdf">PDF</a>';
             }
 
             #DISPLAY TESTIMONIAL PROJECT
@@ -3490,8 +3516,8 @@ class mp_options
 			$header = array(mp_options::oauth_authorization_header($oauth), 'Expect:');
 			$options = array
 			(
-				CURLOPT_HTTPHEADER => $header,
-				CURLOPT_HEADER => false,
+				CURLOPT_HTTPHEADER => $er,
+				CURLOPT_ER => false,
 				CURLOPT_URL => $twitter_api_url . '?screen_name=' . $twitter . '&count=5',
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_SSL_VERIFYPEER => false
